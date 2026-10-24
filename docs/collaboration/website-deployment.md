@@ -24,6 +24,8 @@ The [Pages Free build allowance](https://developers.cloudflare.com/pages/platfor
 
 ## Local preview and checks
 
+After changing Lab sources or templates, first run `python3 scripts/lab.py build` and commit the generated pages with their source. The shared build checks include `python3 scripts/lab.py check`, which rejects stale output. Follow the [Lab publishing guide](../../lab/README.md) for bylines, drafts, and the common piece format.
+
 From the repository root:
 
 ```sh

@@ -53,11 +53,12 @@ def validate(root: Path) -> list[str]:
             continue
         if not path.is_file():
             continue
-        if path.name.startswith(".") or (path.suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2"} and path.name != "_headers"):
+        suffix = path.suffix.lower()
+        if path.name.startswith(".") or (suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2", ".png", ".jpg", ".jpeg", ".webp", ".gif"} and path.name != "_headers"):
             errors.append(f"Unexpected public file type: {path.relative_to(site)}")
-        if path.suffix == ".html":
+        if suffix == ".html":
             documents[path] = Document(path.read_text(encoding="utf-8"))
-        if path.suffix == ".css":
+        if suffix == ".css":
             css = path.read_text()
             if re.search(r"@import", css):
                 errors.append(f"External CSS dependencies are not permitted: {path.name}")

@@ -4,6 +4,8 @@
 
 Website: [fidret.com](https://fidret.com/).
 
+Our shared technical showcase is [Fidret Lab](https://fidret.com/lab/). Hadi and Elie can publish individual or joint simulations, prototypes, architecture notes, and technical explanations using the [same contribution format](lab/README.md).
+
 Fidret is being built around expertise that earns trust: clients can rely on our judgment, our work, and our commitment to deliver. The name is inspired by the Latin *fīdere*, “to trust” or “to rely upon.”
 
 Physical AI is our first practice. The company purpose guides how we choose work, develop expertise, and serve clients as the company grows.
@@ -21,6 +23,7 @@ Physical AI is our first practice. The company purpose guides how we choose work
 | [Foundation roadmap](docs/foundation/roadmap.md) | Evidence needed for the next stages |
 | [Website deployment](docs/collaboration/website-deployment.md) | Static website, free hosting, and updates from main |
 | [Design brief](docs/design/fidret-design-brief.md) | The supplied visual specification and implementation requirements |
+| [Lab publishing](lab/README.md) | Create a piece, choose bylines, preview, and publish |
 
 ## Working with an agent
 
@@ -45,6 +48,7 @@ The foundation and website checks use Git and Python 3.12 or newer. The public w
 git clone https://github.com/HadiAbouDaya/fidret.git
 cd fidret
 python3 scripts/check_foundation.py
+python3 scripts/lab.py check
 python3 scripts/check_website.py
 python3 -m unittest discover -s tests -v
 ```
