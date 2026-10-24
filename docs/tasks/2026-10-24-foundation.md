@@ -1,6 +1,6 @@
 # Shared company and agent foundation
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: foundation/shared-agent-workflow
@@ -43,12 +43,13 @@ Use a documentation-first repository with Python standard-library validation. Ke
 - `python3 -m unittest discover -s tests -v`: 12 tests passed, including broken links, escaped repository paths, incomplete tasks, invalid task states, and changed adapter pointers.
 - Workflow YAML was parsed locally and its triggers, read-only permissions, and action commit pins checked.
 - `git fsck --full --no-dangling`: passed; original GitHub object hashes match.
-- GitHub Actions and actual harness loading on both contributors' machines have not yet been verified.
+- GitHub Actions: [first branch run](https://github.com/HadiAbouDaya/fidret/actions/runs/40120706143) succeeded for commit `c55cf59c798f385262aa667f6e751cae9b5abdfa`. The published Git tree exactly matched the locally staged tree.
+- Actual harness loading on both contributors' machines remains an onboarding check; entry-point files and their references were validated locally and in CI.
 
 The shell cannot resolve GitHub. Original objects were read through the connected GitHub tool and restored with matching hashes; publication will use that connection as well.
 
 ## Handoff
 
-Implementation is ready for publication and CI verification on `foundation/shared-agent-workflow`. Shared instructions include thin entry points for Codex, Claude Code, Cursor, and GitHub Copilot. Hadi authorized checkpoint publication and merging finished work to main on 2026-10-24.
+Implementation is complete under Hadi's standing publication and merge authorization from 2026-10-24. [PR 1](https://github.com/HadiAbouDaya/fidret/pull/1) carries the foundation on `foundation/shared-agent-workflow`; the first published checkpoint passed GitHub CI. This completion record is a final documentation checkpoint. Merge it after its head checks pass; the PR records the eventual merge state and commit.
 
-Next: publish a PR, check its GitHub workflow, and merge under that authorization. Review the foundation and actual harness loading with Elie when his access is available. Invitation, branch protection, DNS, hosting, and email setup remain separate follow-up work.
+Next collaboration task: review the foundation and actual harness loading with Elie when his access is available, then select the first physical AI discovery problem. Invitation, branch protection, DNS, hosting, and email setup remain separate follow-up work.
