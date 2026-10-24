@@ -2,6 +2,8 @@
 
 **Trust earned.**
 
+Website: [fidret.com](https://fidret.com/).
+
 Fidret is being built around expertise that earns trust: clients can rely on our judgment, our work, and our commitment to deliver. The name is inspired by the Latin *fīdere*, “to trust” or “to rely upon.”
 
 Physical AI is our first practice. The company purpose guides how we choose work, develop expertise, and serve clients as the company grows.
@@ -55,4 +57,4 @@ Preview the public site with `python3 -m http.server 8765 --bind 127.0.0.1 --dir
 
 This is the initial company and collaboration foundation. The working conventions are ready for review with Elie when he joins. Market selection, offers, pricing, technical stack, and evidence of physical AI delivery remain open. The [initial foundation task](docs/tasks/2026-10-24-foundation.md) records implementation and verification status.
 
-The first public website and its static-only configuration live in this repository. The [website task](docs/tasks/2026-10-24-static-website.md) records whether the Cloudflare connection and live domain have been verified.
+The public website uses Cloudflare Pages Free. Successful automatic builds from main publish `website/` to fidret.com. The [website task](docs/tasks/2026-10-24-static-website.md) records the live verification and deployment evidence.
