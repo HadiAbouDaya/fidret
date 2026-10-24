@@ -27,5 +27,7 @@ jobs:
           python-version: '3.12'
       - name: Validate shared foundation
         run: python3 scripts/check_foundation.py
+      - name: Validate public website and deployment boundary
+        run: python3 scripts/check_website.py
       - name: Test foundation validator
         run: python3 -m unittest discover -s tests -v

@@ -50,4 +50,4 @@ Market, offers, pricing, legal structure, brand assets, technical stack, and spe
 
 ## Domain
 
-Hadi confirmed acquiring **fidret.com** on 2026-10-24 and supplied a Cloudflare registration screenshot showing it as active. DNS, hosting, email, and website setup are deferred to a later task. Registration does not establish that a website or email service is running.
+Hadi confirmed acquiring **fidret.com** on 2026-10-24 and supplied a Cloudflare registration screenshot showing it as active. Website and hosting setup are tracked in the [website task](../tasks/2026-10-24-static-website.md); email setup remains a future task. Registration does not establish that a website or email service is running.

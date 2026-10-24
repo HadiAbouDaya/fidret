@@ -6,6 +6,7 @@ Record durable choices here so both contributors and their agents can understand
 | --- | --- | --- |
 | [0001](0001-company-purpose.md) | accepted | Founding purpose and first practice |
 | [0002](0002-shared-agent-context.md) | active | Shared agent context and collaboration structure |
+| [0003](0003-free-static-hosting.md) | accepted | Free static website hosting and automatic deployment |
 
 ## Creating a decision
 

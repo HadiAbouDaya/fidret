@@ -33,7 +33,7 @@ These instructions apply to every agent and contributor in this repository. Foll
 
 ## Before handing off
 
-1. Run `python3 scripts/check_foundation.py` and `python3 -m unittest discover -s tests -v`, plus checks appropriate to any new code.
+1. Run `python3 scripts/check_foundation.py`, `python3 scripts/check_website.py`, and `python3 -m unittest discover -s tests -v`, plus checks appropriate to any new code.
 2. Review the diff for scope, unsupported claims, and accidental sensitive content.
 3. Update the task's verification and handoff: changes, exact check results, remaining questions, and next action. State checks you could not run.
 4. Report local files, commits, remote pushes, PRs, merges, and deployments separately. Under Hadi's standing authorization, publish useful checkpoints on task branches and merge completed work to `main` after checks pass. A narrower task instruction takes precedence. This authorization does not extend to deployments, account changes, or contacting others.
@@ -41,3 +41,5 @@ These instructions apply to every agent and contributor in this repository. Foll
 ## Harness adapters
 
 Keep harness-specific entry points small and point them here. Shared policy belongs in this file; task history belongs in task records. Do not build separate instruction systems for different tools.
+
+For website work, publish only `website/` and follow the [deployment guide](docs/collaboration/website-deployment.md). Keep the initial site static and on the Free plan. Report merged code and verified live deployment separately.

@@ -28,3 +28,4 @@ private/
 data/
 models/
 *.log
+.wrangler/
