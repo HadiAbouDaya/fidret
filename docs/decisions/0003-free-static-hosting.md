@@ -1,12 +1,14 @@
 # Free static website hosting
 
-- Status: accepted
+- Status: superseded
 - Date: 2026-10-24
 - Human decision owner: Hadi Abou Daya
 - Related task: [Free static website](../tasks/2026-10-24-static-website.md)
 - Basis: Hadi requested and authorized the cheapest automatic deployment setup after the Free plan recommendation
 
 ## Context
+
+Superseded by [decision 0004](0004-pages-git-deployment.md) after the setup exposed unnecessary account-wide build-token permissions. The original rationale below is retained as history.
 
 Fidret needs a first website on its registered domain with updates following merges to main. The initial content can be served as static files and needs no backend.
 

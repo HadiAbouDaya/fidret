@@ -33,13 +33,12 @@ def validate(root: Path) -> list[str]:
         config = json.loads((root / "wrangler.json").read_text())
     except (OSError, ValueError) as error:
         return [f"Cannot read wrangler.json: {error}"]
-    assets = config.get("assets", {})
-    if assets.get("directory") != "./website":
+    if config.get("pages_build_output_dir") != "./website":
         errors.append("Only ./website may be published; repository documents must stay outside the asset directory")
-    if "main" in config or assets.get("run_worker_first"):
+    if "main" in config or "assets" in config or (root / "functions").exists():
         errors.append("Static hosting must not configure a Worker script or run_worker_first")
-    if config.get("routes") != [{"pattern": "fidret.com", "custom_domain": True}]:
-        errors.append("Production route must be the fidret.com Custom Domain")
+    if config.get("name") != "fidret":
+        errors.append("The Cloudflare Pages project must be named fidret")
     site = root / "website"
     for name in ("index.html", "404.html", "favicon.svg", "robots.txt", "sitemap.xml", "_headers"):
         if not (site / name).is_file():
@@ -54,12 +53,22 @@ def validate(root: Path) -> list[str]:
             continue
         if not path.is_file():
             continue
-        if path.name.startswith(".") or (path.suffix not in {".html", ".css", ".svg", ".txt", ".xml"} and path.name != "_headers"):
+        if path.name.startswith(".") or (path.suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2"} and path.name != "_headers"):
             errors.append(f"Unexpected public file type: {path.relative_to(site)}")
         if path.suffix == ".html":
             documents[path] = Document(path.read_text(encoding="utf-8"))
-        if path.suffix == ".css" and re.search(r"@import|url\(\s*['\"]?https?://", path.read_text()):
-            errors.append(f"External CSS dependencies are not permitted: {path.name}")
+        if path.suffix == ".css":
+            css = path.read_text()
+            if re.search(r"@import", css):
+                errors.append(f"External CSS dependencies are not permitted: {path.name}")
+            for value in re.findall(r"url\(\s*['\"]?([^)'\"]+)", css):
+                url = urlsplit(value.strip())
+                if url.scheme or url.netloc:
+                    errors.append(f"External CSS dependencies are not permitted: {path.name}")
+                    continue
+                target = (site / url.path.lstrip("/")) if url.path.startswith("/") else path.parent / url.path
+                if not target.resolve().is_relative_to(site.resolve()) or not target.is_file():
+                    errors.append(f"{path.name}: missing CSS asset: {value}")
     for path, doc in documents.items():
         if not any(tag == "html" and attrs.get("lang") == "en" for tag, attrs in doc.tags):
             errors.append(f"{path.name}: missing English document language")

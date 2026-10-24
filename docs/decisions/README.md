@@ -6,7 +6,8 @@ Record durable choices here so both contributors and their agents can understand
 | --- | --- | --- |
 | [0001](0001-company-purpose.md) | accepted | Founding purpose and first practice |
 | [0002](0002-shared-agent-context.md) | active | Shared agent context and collaboration structure |
-| [0003](0003-free-static-hosting.md) | accepted | Free static website hosting and automatic deployment |
+| [0003](0003-free-static-hosting.md) | superseded | Initial Workers static hosting implementation |
+| [0004](0004-pages-git-deployment.md) | active | Native Pages Free deployment from main |
 
 ## Creating a decision
 

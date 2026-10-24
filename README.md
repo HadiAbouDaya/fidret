@@ -18,6 +18,7 @@ Physical AI is our first practice. The company purpose guides how we choose work
 | [Task register](docs/tasks/README.md) | Current work, ownership, and handoffs |
 | [Foundation roadmap](docs/foundation/roadmap.md) | Evidence needed for the next stages |
 | [Website deployment](docs/collaboration/website-deployment.md) | Static website, free hosting, and updates from main |
+| [Design brief](docs/design/fidret-design-brief.md) | The supplied visual specification and implementation requirements |
 
 ## Working with an agent
 
@@ -48,7 +49,7 @@ python3 -m unittest discover -s tests -v
 
 The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
 
-Preview the public site with `python3 -m http.server 8765 --bind 127.0.0.1 --directory website`, then open `http://127.0.0.1:8765/`. Cloudflare deployment uses the separately pinned CLI described in the deployment guide.
+Preview the public site with `python3 -m http.server 8765 --bind 127.0.0.1 --directory website`, then open `http://127.0.0.1:8765/`. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
 
 ## Current state
 

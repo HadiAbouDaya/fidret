@@ -42,4 +42,4 @@ These instructions apply to every agent and contributor in this repository. Foll
 
 Keep harness-specific entry points small and point them here. Shared policy belongs in this file; task history belongs in task records. Do not build separate instruction systems for different tools.
 
-For website work, publish only `website/` and follow the [deployment guide](docs/collaboration/website-deployment.md). Keep the initial site static and on the Free plan. Report merged code and verified live deployment separately.
+For website work, read the [design brief](docs/design/fidret-design-brief.md), publish only `website/`, and follow the [deployment guide](docs/collaboration/website-deployment.md). Keep the initial site static and on the Free plan. Report merged code and verified live deployment separately.

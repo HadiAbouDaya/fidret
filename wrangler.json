@@ -2,17 +2,5 @@
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
   "name": "fidret",
   "compatibility_date": "2026-10-24",
-  "assets": {
-    "directory": "./website",
-    "not_found_handling": "404-page"
-  },
-  "routes": [
-    {
-      "pattern": "fidret.com",
-      "custom_domain": true
-    }
-  ],
-  "observability": {
-    "enabled": false
-  }
+  "pages_build_output_dir": "./website"
 }
