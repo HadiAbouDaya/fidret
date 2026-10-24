@@ -1,9 +1,9 @@
 # Free static website and automatic deployment
 
-- Status: active
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
-- Branch: feat/brand-design
+- Branch: chore/deployment-verification
 - Updated: 2026-10-24
 
 ## Purpose
@@ -37,16 +37,21 @@ Use a static website on Cloudflare Pages Free, following Hadi's request for the 
 
 ## Verification
 
-- `python3 scripts/check_foundation.py`: passed, 23 documents and 3 task records including the template.
+- `python3 scripts/check_foundation.py`: passed for the foundation, design sources, decision register, and task records.
 - `python3 scripts/check_website.py`: passed, including public links, anchors, metadata, and the static-only publication boundary.
 - `python3 -m unittest discover -s tests -v`: 19 tests passed, including rejection of repository-root publishing, scripts, external resources, internal documents in public assets, and missing local fonts.
 - `git diff --check`: passed.
-- Browser review: desktop at 1440 pixels and mobile at 390 pixels; no horizontal overflow at 390 or 320 pixels; the Physical AI navigation anchor works.
-- Cloudflare's authenticated account is accessible and shows the Free-plan request allowance. No Worker has been created yet.
+- Live browser review: no horizontal overflow at 320, 360, 768, or 1440 pixels. Manrope and Newsreader are served locally. The Physical AI navigation anchor works, and the first keyboard tab exposes the skip link with the brief's visible copper focus outline. OS text-scale emulation at 2x produced no horizontal overflow at 360 pixels; browser-specific zoom behavior should also be included in future manual reviews.
 - The first website/configuration stage was merged through [PR 3](https://github.com/HadiAbouDaya/fidret/pull/3) with both branch and PR CI successful. The updated brand and Pages configuration require a fresh CI run.
 - The supplied design brief's original and repository copy have matching SHA256 hashes. Font binaries match their source Git blob hashes, and license notices are bundled.
-- Actual Cloudflare deployment remains to be verified. Local Python preview does not apply Cloudflare headers or 404 routing.
+- The final design and Pages configuration merged through [PR 4](https://github.com/HadiAbouDaya/fidret/pull/4), with branch and PR CI successful. The first Pages deployment [51b290bc](https://51b290bc.fidret.pages.dev/) succeeded for main commit `4431192e341e9559d3a1f4d9e802aff588af78f9`.
+- `curl -sSI --max-time 15 https://fidret.com/`: HTTP 200 over verified HTTPS, including the expected Content-Security-Policy, Permissions-Policy, Referrer-Policy, and nosniff headers.
+- Both public WOFF2 font URLs returned HTTP 200 with font/woff2 content type. `/AGENTS.md` returned the custom HTML 404; repository documents are outside the asset directory.
+- Pages settings confirm main as production and automatic production deployments enabled. Automatic preview branch builds were disabled to conserve the Free plan allowance.
+- This final documentation checkpoint will verify the next main-triggered build. Its PR and Cloudflare deployment history provide the resulting commit and build state without embedding a self-referential commit hash here.
 
 ## Handoff
 
-The brand implementation and Pages setup are being finalized on feat/brand-design. Next: merge after checks, deploy Pages from main with `sh scripts/check_deployment.sh` and output website, attach fidret.com, and verify the live domain and automatic updates. The GitHub app's access has been narrowed to fidret. No broad user API build token has been created and no paid upgrade is authorized.
+Implementation and initial live deployment are complete under Hadi's explicit deployment request and standing merge authorization. The site is at [fidret.com](https://fidret.com/) on Cloudflare Pages Free, with the source brief preserved and local font licenses included. The GitHub app is restricted to fidret. No broad user API build token or paid upgrade was created.
+
+After this checkpoint merges, verify that Cloudflare deploys its new main commit automatically. Ongoing website work follows the design brief and deployment guide. Email, additional contact destinations, and further commercial content remain separate tasks.
