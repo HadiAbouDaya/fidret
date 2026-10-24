@@ -1,6 +1,6 @@
 # Shared Fidret Lab publishing system
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: feat/fidret-lab
@@ -43,8 +43,15 @@ Use a shared Fidret Lab with bylines, confirmed by Hadi. Store each piece once i
 - Tests cover solo and joint bylines, incomplete drafts, publication without client evidence or metrics, escaping, unsafe links, dates, withdrawal, stale outputs, existing-file preservation, and symlink boundaries.
 - A focused independent review identified symlink and local-time date issues; both were corrected. Creation and date validation now use UTC.
 - Browser review completed for the actual empty collection and a temporary local article fixture. The fixture includes joint bylines and a code excerpt, is explicitly labelled as a fixture, and is not part of the repository's piece collection.
-- GitHub CI and live post-merge verification remain pending.
+- [PR #6](https://github.com/HadiAbouDaya/fidret/pull/6) merged as `be503375793060810340ee98882cb13f4bd6aff5`. Both [branch CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40127434263) and [PR CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40127459087) passed before merge.
+- Cloudflare Pages confirmed that commit as the current production deployment at `https://e55e897a.fidret.pages.dev`, automatically deployed from `main`.
+- [The live Lab](https://fidret.com/lab/) and its stylesheet returned HTTPS 200. The homepage navigation and closing link both lead to the Lab. `/lab/authors.json` returned 404; repository sources are outside the website output.
+- Live browser review at 360px and 1440px confirmed readable layouts without horizontal overflow. The shared contributor section names Hadi and Elie; the collection accurately says its first pieces are still to come.
 
 ## Handoff
 
-Implementation is ready for CI and publication. UI templates and styling were developed in a separate worktree, then integrated with the publisher and workflow. No technical pieces, author contributions, or experimental results were invented to fill the collection. After merge, verify `/lab/`, the homepage link, responsive layout, and the existing static publication boundary.
+Completed under Hadi's standing authorization to publish checkpoints and merge finished work, plus his website deployment request. The Lab is merged and verified live. This does not record Elie's review or agreement.
+
+UI templates and styling were developed in a separate worktree, then integrated with the publisher and workflow. No technical pieces, author contributions, or experimental results were invented to fill the collection.
+
+Next action: either contributor can choose a question from [the unassigned ideas](../../lab/ideas.md) or bring their own, then use the [shared Lab guide](../../lab/README.md) to create the first piece with its actual authors. Client work and real-world evidence are not prerequisites.
