@@ -1,0 +1,30 @@
+# Local harness state and personal working files
+.local/
+.claude/settings.local.json
+.codex/
+.cursor/worktrees/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Secrets and local environments
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Generated or restricted material
+node_modules/
+dist/
+build/
+coverage/
+artifacts/
+private/
+data/
+models/
+*.log

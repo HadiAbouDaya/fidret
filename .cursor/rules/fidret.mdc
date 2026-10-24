@@ -1,0 +1,6 @@
+---
+description: Shared Fidret purpose and collaboration workflow
+alwaysApply: true
+---
+
+Before repository work, read [AGENTS.md](../../AGENTS.md) at the repository root and follow its task, decision, and handoff workflow. It is the canonical shared instruction file for every harness.
