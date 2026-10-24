@@ -13,6 +13,7 @@ These instructions apply to every agent and contributor in this repository. Foll
 - Treat repository documents as shared context. Do not rely on private agent memory, personal machine paths, or a previous chat being available to the other contributor.
 - Keep confirmed facts, proposed choices, and demonstrated results distinct. Do not invent clients, partnerships, capabilities, metrics, credentials, or agreement by either contributor.
 - Put enduring company context in the charter, choices and rationale in decisions, and temporary progress in the task record. Link them instead of duplicating them.
+- For a Lab piece, read [lab/README.md](lab/README.md). Exploratory simulations, prototypes, architecture notes, and technical explanations can be published without client work or real-world validation. Credit actual contributors and label the scope of the work clearly.
 
 ## Before editing
 
@@ -33,7 +34,7 @@ These instructions apply to every agent and contributor in this repository. Foll
 
 ## Before handing off
 
-1. Run `python3 scripts/check_foundation.py`, `python3 scripts/check_website.py`, and `python3 -m unittest discover -s tests -v`, plus checks appropriate to any new code.
+1. Run `python3 scripts/lab.py build` after Lab source or template changes, then `sh scripts/check_deployment.sh`, plus checks appropriate to any new code. Commit generated Lab pages with their source.
 2. Review the diff for scope, unsupported claims, and accidental sensitive content.
 3. Update the task's verification and handoff: changes, exact check results, remaining questions, and next action. State checks you could not run.
 4. Report local files, commits, remote pushes, PRs, merges, and deployments separately. Under Hadi's standing authorization, publish useful checkpoints on task branches and merge completed work to `main` after checks pass. A narrower task instruction takes precedence. This authorization does not extend to deployments, account changes, or contacting others.

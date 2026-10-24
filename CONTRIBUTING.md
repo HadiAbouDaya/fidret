@@ -48,6 +48,8 @@ For a proposed change to purpose or practice direction, name a human decision ow
 
 ## Shared context and private material
 
+For shared technical publishing, use [Fidret Lab](lab/README.md). Choose the actual authors explicitly; a piece may be individual or joint. Simulations, prototypes, conceptual architectures, and explanations are suitable before there is client work. Use the common format and the existing task, PR, and deployment workflow.
+
 Keep reusable context in the repository and reference it from issues and PRs. Keep private notes and local machine configuration in `.local/`, which is ignored. Essential project context must be understandable without those notes. The `.gitignore` reduces accidental additions; it is not a secrets scanner.
 
 Do not commit client or personal data to this foundation. If future work needs restricted material, record a non-sensitive summary and an access-controlled reference so both contributors understand what the evidence supports.

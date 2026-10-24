@@ -8,6 +8,7 @@ Record durable choices here so both contributors and their agents can understand
 | [0002](0002-shared-agent-context.md) | active | Shared agent context and collaboration structure |
 | [0003](0003-free-static-hosting.md) | superseded | Initial Workers static hosting implementation |
 | [0004](0004-pages-git-deployment.md) | active | Native Pages Free deployment from main |
+| [0005](0005-shared-fidret-lab.md) | active | Shared Lab publishing with individual and joint bylines |
 
 ## Creating a decision
 
