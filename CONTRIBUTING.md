@@ -6,7 +6,9 @@ Hadi Abou Daya and Elie Azoury should be able to understand, review, and continu
 
 Every substantive task has one named human owner. An agent implements or assists; its output does not establish either person's approval. The owner keeps scope and acceptance criteria clear and requests review when the work is ready.
 
-Hadi is the repository owner. Elie's contributor access is planned; his GitHub handle, access level, and invitation status will be recorded once confirmed. Avoid assigning him tasks or recording his agreement before he accepts them.
+Hadi ([HadiAbouDaya](https://github.com/HadiAbouDaya)) is the repository owner. Elie Azoury's GitHub handle is [Eliejaz](https://github.com/Eliejaz).
+
+As of 2026-10-24, GitHub confirms the repository is public. Hadi reported sending Elie's contributor invitation on that date. The permission check currently reports read access for `Eliejaz`; invitation acceptance and write access have not been confirmed. Avoid assigning him tasks or recording his agreement before he accepts them.
 
 ## Task and branch workflow
 
@@ -52,12 +54,12 @@ Do not commit client or personal data to this foundation. If future work needs r
 
 ## Contributor onboarding
 
-- Hadi sends Elie's invitation through GitHub and confirms the intended access level.
+- Elie accepts the invitation already sent by Hadi. Confirm the intended access level and verify write access after acceptance.
 - Elie clones the repository, reads the charter and this workflow, and runs both local check commands from the README.
 - Each person confirms that their harness reads `AGENTS.md` and can find a task, its owner, and its handoff.
 - Review the initial foundation together and record changes through a task and PR.
 - Once access is confirmed, add the actual GitHub handles to a CODEOWNERS file if useful. Configure a rule for `main` requiring PR review and the `foundation` check if supported by the repository's GitHub plan. A workflow file alone does not enforce branch protection.
 
-No contributor invitation, CODEOWNERS assignment, or GitHub ruleset is established by these documents.
+GitHub manages contributor access. This guide records its known state; no CODEOWNERS assignment or GitHub ruleset is configured by these documents.
 
 For the harness check, ask it to read `AGENTS.md`, explain Fidret's purpose, identify the current task and human owner, and run the local foundation checks. Compare its response with the repository. The entry-point files are provided for Codex, Claude Code, Cursor, and GitHub Copilot; actual loading in each contributor's installed harness must be confirmed during onboarding.
