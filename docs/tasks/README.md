@@ -5,6 +5,7 @@ Task records make work transferable between people and harnesses. Create a recor
 | Task | Human owner | State |
 | --- | --- | --- |
 | [Shared foundation](2026-10-24-foundation.md) | Hadi Abou Daya | See task record |
+| [Free static website](2026-10-24-static-website.md) | Hadi Abou Daya | See task record |
 
 The task file is authoritative for status and progress. This register provides discovery and ownership; it avoids copying detailed progress into several places.
 
