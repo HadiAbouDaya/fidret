@@ -1,0 +1,2 @@
+# fidret
+Fidret; Trust earned.
