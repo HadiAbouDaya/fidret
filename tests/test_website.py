@@ -15,8 +15,7 @@ class WebsiteTests(unittest.TestCase):
         self.root = Path(self.directory.name)
         self.site = self.root / "website"
         self.site.mkdir()
-        self.config = {"assets": {"directory": "./website"}, "routes": [
-            {"pattern": "fidret.com", "custom_domain": True}]}
+        self.config = {"name": "fidret", "pages_build_output_dir": "./website"}
         self.save_config()
         html = ('<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width">'
                 '<link rel="canonical" href="https://fidret.com/"></head>'
@@ -39,7 +38,7 @@ class WebsiteTests(unittest.TestCase):
         self.assertEqual(validate(self.root), [])
 
     def test_repository_root_cannot_be_published(self):
-        self.config["assets"]["directory"] = "."
+        self.config["pages_build_output_dir"] = "."
         self.save_config()
         self.assertTrue(any("Only ./website" in error for error in validate(self.root)))
 
@@ -63,6 +62,10 @@ class WebsiteTests(unittest.TestCase):
         self.config["main"] = "worker.js"
         self.save_config()
         self.assertTrue(any("Worker script" in error for error in validate(self.root)))
+
+    def test_missing_self_hosted_font_is_rejected(self):
+        (self.site / "style.css").write_text('@font-face { src: url("/fonts/missing.woff2"); }')
+        self.assertTrue(any("missing CSS asset" in error for error in validate(self.root)))
 
 
 if __name__ == "__main__":
