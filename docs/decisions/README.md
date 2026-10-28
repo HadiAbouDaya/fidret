@@ -13,6 +13,7 @@ Record durable choices here so both contributors and their agents can understand
 | [0007](0007-static-website-growth.md) | accepted | Static Astro and TypeScript website stack |
 | [0008](0008-astro-publishing.md) | active | Markdown Lab publishing and disposable Astro output |
 | [0009](0009-reviewed-maintenance.md) | active | Reviewed updates and synchronized runtime maintenance |
+| [0010](0010-evidence-design-language.md) | active | Evidence-led website design language and project skill |
 
 ## Creating a decision
 

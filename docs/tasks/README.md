@@ -4,6 +4,7 @@ Task records make work transferable between people and harnesses. Create a recor
 
 | Task | Human owner | State |
 | --- | --- | --- |
+| [Website design revamp](2026-10-28-design-revamp.md) | Hadi Abou Daya | See task record |
 | [Shared foundation](2026-10-24-foundation.md) | Hadi Abou Daya | See task record |
 | [Free static website](2026-10-24-static-website.md) | Hadi Abou Daya | See task record |
 | [Shared Fidret Lab](2026-10-24-fidret-lab.md) | Hadi Abou Daya | See task record |

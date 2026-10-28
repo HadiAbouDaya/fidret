@@ -16,35 +16,89 @@ const pieces = await getPublishedPieces();
 >
   <main id="main" class="lab-main">
     <section class="lab-intro shell" aria-labelledby="lab-title">
-      <h1 id="lab-title">Fidret Lab</h1>
-      <p class="lab-lead">Simulations, prototypes, and technical notes as we develop our physical AI practice.</p>
-      <p>We share the question, the approach, what we learn, and what remains open. A useful piece can begin with an idea, a model, or a small experiment.</p>
+      <div class="lab-intro-title">
+        <p class="lab-collection-name">Fidret Lab</p>
+        <h1 id="lab-title">Questions worth testing.</h1>
+      </div>
+      <div class="lab-intro-copy">
+        <p class="lab-lead">A place to examine how physical AI systems behave, before asking them to do more.</p>
+        <p>Simulations, prototypes, and technical notes from a practice taking shape. The question, the method, and the limits stay with the work.</p>
+      </div>
     </section>
+
+    <section class="lab-workbench shell" aria-labelledby="workbench-title">
+      <div class="lab-workbench-surface inverse">
+        <div class="lab-workbench-copy">
+          <p class="lab-workbench-label">On the workbench</p>
+          <h2 id="workbench-title">How old is the world your system sees?</h2>
+          <p>A reading can arrive late, arrive out of order, or stop arriving altogether. Explore how a small freshness guard responds.</p>
+          <a class="button" href="/explorations/signal-freshness/">Explore signal freshness</a>
+          <p class="lab-workbench-scope">An interactive explanation of a synthetic software prototype. No hardware or live data.</p>
+        </div>
+        <figure class="lab-timing-figure">
+          <svg class="lab-timing-diagram" viewBox="0 0 640 360" role="img" aria-labelledby="timing-title timing-desc">
+            <title id="timing-title">Observation time and arrival time</title>
+            <desc id="timing-desc">Four observations travel from the time they were recorded to the time they arrive. The third takes longer and arrives after the fourth. Arrival order alone does not establish which observation is newest.</desc>
+            <g class="lab-timing-axis">
+              <path d="M64 104H584M64 264H584" />
+              <path d="m576 98 8 6-8 6m0 148 8 6-8 6" />
+              <path class="lab-timing-guide" d="M102 116v136M232 116v136M362 116v136M492 116v136" />
+            </g>
+            <g class="lab-timing-label">
+              <text x="64" y="64">Observation time</text>
+              <text x="64" y="316">Arrival time</text>
+            </g>
+            <g class="lab-timing-path">
+              <path d="m102 104 30 160m100-160 30 160m230-160 30 160" />
+              <circle cx="102" cy="104" r="6" /><circle cx="132" cy="264" r="6" />
+              <circle cx="232" cy="104" r="6" /><circle cx="262" cy="264" r="6" />
+              <circle cx="492" cy="104" r="6" /><circle cx="522" cy="264" r="6" />
+            </g>
+            <g class="lab-timing-delay">
+              <path d="m362 104 204 160" />
+              <circle cx="362" cy="104" r="8" /><circle cx="566" cy="264" r="8" />
+            </g>
+          </svg>
+          <figcaption>A later arrival can carry an older observation. Conceptual timing diagram.</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="lab-collection shell" aria-labelledby="lab-collection-title">
-      <h2 id="lab-collection-title">The work</h2>
+      <div class="lab-section-heading">
+        <h2 id="lab-collection-title">Written pieces</h2>
+        <p>Thinking made inspectable.</p>
+      </div>
       {pieces.length > 0 ? (
         <div class="lab-list">
           {pieces.map((piece) => (
             <article class="lab-entry">
-              <p class="lab-entry-meta">{kindLabels[piece.data.kind]} — <PublicationDate value={piece.data.published} /></p>
-              <h2 class="lab-entry-title"><a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a></h2>
-              <p class="lab-entry-summary">{piece.data.summary}</p>
-              <p class="lab-entry-byline">By <Byline authors={piece.data.authors} /></p>
+              <div class="lab-entry-meta">
+                <p>{kindLabels[piece.data.kind]}</p>
+                <PublicationDate value={piece.data.published} />
+              </div>
+              <div class="lab-entry-copy">
+                <h3 class="lab-entry-title"><a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a></h3>
+                <p class="lab-entry-summary">{piece.data.summary}</p>
+                <p class="lab-entry-byline">By <Byline authors={piece.data.authors} /></p>
+              </div>
             </article>
           ))}
         </div>
       ) : (
         <div class="lab-empty">
-          <p>Our first pieces will appear here.</p>
-          <p>Each will share a question, an approach, takeaways, and the next things to explore.</p>
-          <a href="https://github.com/HadiAbouDaya/fidret">Follow the project on GitHub</a>
+          <h3>The notebook is open.</h3>
+          <div>
+            <p>Our first written pieces are still ahead. In the meantime, the signal-freshness walkthrough puts one concrete question on the bench.</p>
+            <a class="text-link" href="https://github.com/HadiAbouDaya/fidret">Follow the work on GitHub</a>
+          </div>
         </div>
       )}
     </section>
     <aside class="lab-contributors shell" aria-labelledby="lab-contributors-title">
       <div>
         <h2 id="lab-contributors-title">Contributors</h2>
-        <p>One shared Lab, with individual or joint bylines on each piece.</p>
+        <p>A shared space. Each piece credits its actual contributors.</p>
       </div>
       <div class="lab-contributor-links">
         <ul>

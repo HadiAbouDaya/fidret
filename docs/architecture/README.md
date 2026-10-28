@@ -27,6 +27,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `scripts/lab.mjs` | Safe draft creation | Preserve explicit authors, UTC dates and filesystem boundaries |
 | `experiments/` | Reproducible local software explorations, outside website output | Read the experiment assumptions/task; retain baseline, actual evidence, tests and limits |
 | `src/pages/sitemap.xml.ts` | Root sitemap with company/Lab URLs and published pieces | Keep drafts and withdrawn pieces out; preserve the root URL entries |
+| `src/lib/signal-walkthrough.ts`, `src/components/SignalWalkthrough.astro`, `src/styles/exploration.css` | Fixed synthetic walkthrough data, native state controls and diagram presentation | Keep snapshots aligned with the Python experiment through `tests/signal-walkthrough.test.ts`; no live feed or equipment integration |
 | `src/styles/` | Canonical site and Lab CSS | Astro imports produce external fingerprinted CSS; edit these sources, not generated aliases |
 | `src/integrations/` | Build-time compatibility assets | Keep `/styles.css` and `/lab.css` generated from the canonical CSS; no duplicate editable copies |
 | `public/` | Public media, licensed fonts, favicon, robots and response headers | Edit assets here; every asset is public regardless of an article's draft status |
@@ -44,7 +45,7 @@ Every substantive task starts with `AGENTS.md`, the charter, contribution workfl
 
 | Work | Additional context |
 | --- | --- |
-| Public pages or styling | [Design brief](../design/fidret-design-brief.md), [deployment guide](../collaboration/website-deployment.md), current [hosting decision](../decisions/0004-pages-git-deployment.md) |
+| Public pages or styling | [Design language](../design/fidret-design-brief.md), [Fidret design skill](../../skills/fidret-design/SKILL.md), [research/provenance](../design/research.md), [deployment guide](../collaboration/website-deployment.md), current [hosting decision](../decisions/0004-pages-git-deployment.md) |
 | Lab content or publishing | [Lab guide](../../lab/README.md), [current publishing decision](../decisions/0008-astro-publishing.md), sources and collections above |
 | Company or practice direction | [Roadmap](../foundation/roadmap.md), [physical AI brief](../foundation/physical-ai.md), relevant decision records |
 | Physical experiments | Physical AI brief, [engagement brief](../templates/engagement-brief.md), task-specific operating authorization and evaluation evidence |

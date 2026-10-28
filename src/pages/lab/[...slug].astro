@@ -17,7 +17,18 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { piece } = Astro.props;
-const { Content } = await render(piece);
+const { Content, headings } = await render(piece);
+const readingGuide = headings.filter((heading) => heading.depth === 2);
+// Authored heading slugs share this document's ID namespace.
+const usedIds = new Set(['main', ...headings.map((heading) => heading.slug)]);
+const unusedId = (base: string) => {
+  let id = base;
+  for (let suffix = 2; usedIds.has(id); suffix += 1) id = `${base}-${suffix}`;
+  usedIds.add(id);
+  return id;
+};
+const resourcesId = unusedId('piece-resources');
+const resourcesTitleId = unusedId('resources-title');
 const resources = [
   ...(piece.data.resources ?? []),
   {
@@ -35,7 +46,7 @@ const resources = [
 >
   <main id="main" class="lab-main">
     <article class="lab-piece shell">
-      <a class="lab-back" href="/lab/">All Lab pieces</a>
+      <a class="lab-back" href="/lab/">Fidret Lab</a>
       <header class="lab-piece-heading">
         <p class="lab-kind">{kindLabels[piece.data.kind]}</p>
         <h1>{piece.data.title}</h1>
@@ -50,30 +61,41 @@ const resources = [
           </div>
         </div>
       </header>
-      <div class="lab-piece-body">
-        <div class="lab-prose"><Content /></div>
-        {(piece.data.media ?? []).map((media) => (
-          <figure class="lab-figure">
-            <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" />
-            <figcaption>{media.caption}</figcaption>
-          </figure>
-        ))}
-        {(piece.data.snippets ?? []).map((snippet) => (
-          <figure class="lab-code">
-            <figcaption>{snippet.title} ({snippet.language})</figcaption>
-            <pre><code>{snippet.code}</code></pre>
-          </figure>
-        ))}
-        <section class="lab-section">
-          <h2>Resources</h2>
-          <ul class="lab-resources">
-            {resources.map((resource) => <li><a href={resource.url}>{resource.label}</a></li>)}
-          </ul>
-        </section>
+      <div class="lab-reading-grid">
+        <aside class="lab-reading-guide">
+          <nav aria-label="In this piece">
+            <p>In this piece</p>
+            <ol>
+              {readingGuide.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+              <li><a href={`#${resourcesId}`}>Resources</a></li>
+            </ol>
+          </nav>
+        </aside>
+        <div class="lab-piece-body">
+          <div class="lab-prose"><Content /></div>
+          {(piece.data.media ?? []).map((media) => (
+            <figure class="lab-figure">
+              <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" />
+              <figcaption>{media.caption}</figcaption>
+            </figure>
+          ))}
+          {(piece.data.snippets ?? []).map((snippet) => (
+            <figure class="lab-code">
+              <figcaption>{snippet.title} ({snippet.language})</figcaption>
+              <pre><code>{snippet.code}</code></pre>
+            </figure>
+          ))}
+          <section class="lab-section" id={resourcesId} aria-labelledby={resourcesTitleId}>
+            <h2 id={resourcesTitleId}>Resources</h2>
+            <ul class="lab-resources">
+              {resources.map((resource) => <li><a href={resource.url}>{resource.label}</a></li>)}
+            </ul>
+          </section>
+          <nav class="lab-piece-footer" aria-label="Lab navigation">
+            <a class="lab-back" href="/lab/">Back to Fidret Lab</a>
+          </nav>
+        </div>
       </div>
-      <nav class="lab-piece-footer" aria-label="Lab navigation">
-        <a class="lab-back" href="/lab/">Back to Fidret Lab</a>
-      </nav>
     </article>
   </main>
 </SiteLayout>

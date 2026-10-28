@@ -1,0 +1,94 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import SignalWalkthrough from '../../components/SignalWalkthrough.astro';
+import '../../styles/exploration.css';
+---
+
+<SiteLayout
+  title="When is a signal too old? — Fidret"
+  description="Explore a synthetic signal-freshness experiment: source age, exact expiry, delayed observations and two-observation recovery."
+  canonical="https://fidret.com/explorations/signal-freshness/"
+  variant="lab"
+>
+  <main id="main" class="exploration-page">
+    <header class="exploration-intro shell">
+      <a class="exploration-back" href="/lab/">Fidret Lab</a>
+      <div class="exploration-heading-grid">
+        <h1>A reading can arrive.<br />And still be too late.</h1>
+        <div class="exploration-lead">
+          <p>When does an observation stop being useful? Explore what happens when a signal falls silent, arrives late, and returns.</p>
+          <p class="exploration-scope">A synthetic software walkthrough. Fixed snapshots, invented data, no hardware.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="exploration-bench-section shell" aria-labelledby="bench-title">
+      <div class="exploration-bench-intro">
+        <h2 id="bench-title">The signal, under interruption.</h2>
+        <p>One clock. A three-second age limit. Two distinct fresh observations to recover.</p>
+      </div>
+      <SignalWalkthrough />
+    </section>
+
+    <section class="exploration-reading shell" aria-labelledby="reading-title">
+      <div class="exploration-reading-heading">
+        <h2 id="reading-title">A signal needs<br />an explicit deadline.</h2>
+        <p>This experiment asks a narrow question: should the latest accepted reading be exposed as current?</p>
+      </div>
+      <div class="exploration-rule-list">
+        <article>
+          <h3>Measure from observation.</h3>
+          <p>A packet’s arrival time does not make its contents new. The model compares the current time with the source timestamp.</p>
+        </article>
+        <article>
+          <h3>Make the boundary exact.</h3>
+          <p>Age must be less than three seconds. At exactly three seconds, the reading is stale and the current value is withheld.</p>
+        </article>
+        <article>
+          <h3>Give recovery its own conditions.</h3>
+          <p>The first fresh observation begins recovery. A second, strictly newer one completes it. A duplicate or older timestamp cannot count again.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="exploration-comparison" aria-labelledby="comparison-title">
+      <div class="shell exploration-comparison-grid">
+        <div>
+          <h2 id="comparison-title">What a last-arrival register misses.</h2>
+          <p>The experiment also contains a deliberately simple comparison: keep the latest packet and offer it indefinitely.</p>
+        </div>
+        <div class="exploration-comparison-detail">
+          <p>At 4 s, that register still offers <strong>21</strong>, even though its source observation has expired. At 5 s, it replaces that value with <strong>22</strong> from the already-stale packet.</p>
+          <p>The freshness model withholds both. That demonstrates this software rule under these inputs. It does not establish that withholding a value is the right physical response.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="exploration-notes shell" aria-labelledby="notes-title">
+      <div>
+        <h2 id="notes-title">Keep the limits with the result.</h2>
+        <p>A timely number can still be wrong. This walkthrough is an invitation to inspect a policy, not a validated design for operating equipment.</p>
+        <a class="text-link" href="https://github.com/HadiAbouDaya/fidret/tree/main/experiments/sensor_freshness">Inspect the experiment and replay</a>
+      </div>
+      <div class="exploration-disclosures">
+        <details open>
+          <summary>What this model assumes</summary>
+          <p>Source timestamps and receiver time share one synchronized, synthetic monotonic clock. Values are finite scalars. Three seconds and two observations are illustrative choices, not validated operating requirements.</p>
+        </details>
+        <details>
+          <summary>What the interface does</summary>
+          <p>Each choice displays a fixed, tested snapshot from one sequence. Nothing advances in real time. The model requires a new time check before using a value later; an earlier snapshot does not update itself.</p>
+        </details>
+        <details>
+          <summary>What remains outside the experiment</summary>
+          <p>No clock drift, real transport, sensor calibration, identity, authentication, equipment, actuation or safety assessment is modeled. Clock resets require a separately designed policy. Representative evaluation and a responsible operator would be separate work.</p>
+        </details>
+        <details>
+          <summary>How this relates to the Lab</summary>
+          <p>This walkthrough complements our written Lab pieces. The underlying model, its contract and the replay are available in the project repository.</p>
+          <a href="https://github.com/HadiAbouDaya/fidret/blob/main/experiments/sensor_freshness/README.md">Read the full contract and limitations</a>
+        </details>
+      </div>
+    </section>
+  </main>
+</SiteLayout>

@@ -11,4 +11,4 @@ Retrieved 2026-10-24 from the Fontsource font-files repository, which packages t
 
 The corresponding notices are [Manrope](../../public/fonts/OFL-Manrope.txt) and [Newsreader](../../public/fonts/OFL-Newsreader.txt). Keep them with the fonts. Astro copies these source assets into generated `website/fonts/`, preserving the public `/fonts/` URLs. Manrope is declared for the used 400–600 weights, and Newsreader is used at 400 italic. Both declarations use `font-display: swap` and the brief's fallback families.
 
-The supplied design brief is preserved byte-for-byte from `/home/oem/Desktop/fidret-design-brief.md`; its SHA256 is `a3f8535259a853da13c95799c32e413756354393f4e32c749c6471224a493e94`.
+The supplied 24 October 2026 design brief had SHA256 `a3f8535259a853da13c95799c32e413756354393f4e32c749c6471224a493e94` and remains in Git history before the design revamp. The current [v2 design language](fidret-design-brief.md) replaces its composition defaults while retaining these licensed font assets.
