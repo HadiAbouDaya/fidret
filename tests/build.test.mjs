@@ -33,12 +33,12 @@ No real experiment or client result is claimed.
 Discard the fixture after checking it.
 `;
 
-function writePiece(root, slug, { status = 'published', authors = ['elie', 'hadi'], body = narrative, media = [] } = {}) {
+function writePiece(root, slug, { status = 'published', authors = ['elie', 'hadi'], body = narrative, media = [], resources = [] } = {}) {
   const data = {
     schema_version: 1, slug, title: 'Pipeline fixture <b>literal</b>', kind: 'technical-note', status,
     authors, created: '2025-01-01', published: status === 'published' ? '2025-01-02' : null,
     updated: '2025-01-02', summary: 'A disposable pipeline test, not company evidence.',
-    resources: [], media, snippets: [],
+    resources, media, snippets: [],
   };
   const frontmatter = Object.entries(data).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n');
   writeFileSync(join(root, 'lab/pieces', `${slug}.md`), `---\n${frontmatter}\n---\n\n${body}`);
@@ -49,6 +49,7 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   mkdirSync(join(root, 'public/lab-assets'));
   writeFileSync(join(root, 'public/lab-assets/pipeline-fixture.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="8" height="8"/></svg>');
   writePiece(root, 'published-fixture', {
+    resources: [{ label: 'Independent reference', url: 'https://example.com/reference' }],
     body: `${narrative}\n## Piece resources\nAuthored heading tests shared ID space.\n\n## Resources title\nAnother authored heading.\n\n![Markdown fixture image](/lab-assets/pipeline-fixture.svg)\n`,
     media: [{ src: '/lab-assets/pipeline-fixture.svg', alt: 'Structured fixture image', caption: 'Disposable test image.', width: 8, height: 8 }],
   });

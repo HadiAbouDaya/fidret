@@ -29,13 +29,7 @@ const unusedId = (base: string) => {
 };
 const resourcesId = unusedId('piece-resources');
 const resourcesTitleId = unusedId('resources-title');
-const resources = [
-  ...(piece.data.resources ?? []),
-  {
-    label: 'Piece source and revision history',
-    url: `https://github.com/HadiAbouDaya/fidret/blob/main/lab/pieces/${piece.data.slug}.md`,
-  },
-];
+const resources = piece.data.resources ?? [];
 ---
 
 <SiteLayout
@@ -67,7 +61,7 @@ const resources = [
             <p>In this piece</p>
             <ol>
               {readingGuide.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
-              <li><a href={`#${resourcesId}`}>Resources</a></li>
+              {resources.length > 0 && <li><a href={`#${resourcesId}`}>Resources</a></li>}
             </ol>
           </nav>
         </aside>
@@ -85,12 +79,12 @@ const resources = [
               <pre><code>{snippet.code}</code></pre>
             </figure>
           ))}
-          <section class="lab-section" id={resourcesId} aria-labelledby={resourcesTitleId}>
+          {resources.length > 0 && <section class="lab-section" id={resourcesId} aria-labelledby={resourcesTitleId}>
             <h2 id={resourcesTitleId}>Resources</h2>
             <ul class="lab-resources">
               {resources.map((resource) => <li><a href={resource.url}>{resource.label}</a></li>)}
             </ul>
-          </section>
+          </section>}
           <nav class="lab-piece-footer" aria-label="Lab navigation">
             <a class="lab-back" href="/lab/">Back to Fidret Lab</a>
           </nav>
