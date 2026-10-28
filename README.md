@@ -62,7 +62,7 @@ If pnpm is already available, skip the Corepack setup commands. Installation use
 
 The Astro command wrapper runs filesystem preflight and disables build-tool telemetry before loading the CLI, so development/type/build/preview commands do not require writable home-directory preferences. It does not add visitor analytics or browser JavaScript.
 
-Use `pnpm dev` for development, or `pnpm build` followed by `pnpm preview` to inspect the static production output at `http://127.0.0.1:8765/`. Edit Astro sources, Markdown and `public/` assets. `website/` is generated and ignored; never edit or commit it. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
+Use `pnpm dev` for development, or `pnpm build` followed by `pnpm preview` to inspect the static production output at `http://127.0.0.1:8765/`. Edit Astro sources, CSS in `src/styles/`, Markdown and `public/` assets. `website/` is generated and ignored; never edit or commit it. Astro emits external fingerprinted CSS; the old `/styles.css` and `/lab.css` URLs are generated compatibility aliases. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
 
 ## Current state
 

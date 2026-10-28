@@ -1,22 +1,15 @@
 import assert from 'node:assert/strict';
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { spawnSync } from 'node:child_process';
 import { afterEach, test } from 'node:test';
-import { fileURLToPath } from 'node:url';
+import { createSiteFixture, buildSite as build } from './helpers/site-fixture.mjs';
 
-const project = fileURLToPath(new URL('../', import.meta.url));
 const fixtures = [];
 afterEach(() => { for (const path of fixtures.splice(0)) rmSync(path, { recursive: true, force: true }); });
 
 function fixture() {
-  const root = mkdtempSync(join(tmpdir(), 'fidret-astro-build-'));
+  const root = createSiteFixture();
   fixtures.push(root);
-  for (const path of ['src', 'public', 'lab', 'astro.config.mjs', 'tsconfig.json', 'package.json']) {
-    cpSync(join(project, path), join(root, path), { recursive: true });
-  }
-  symlinkSync(join(project, 'node_modules'), join(root, 'node_modules'), 'dir');
   return root;
 }
 
@@ -49,24 +42,6 @@ function writePiece(root, slug, { status = 'published', authors = ['elie', 'hadi
   };
   const frontmatter = Object.entries(data).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n');
   writeFileSync(join(root, 'lab/pieces', `${slug}.md`), `---\n${frontmatter}\n---\n\n${body}`);
-}
-
-function build(root) {
-  const env = { ...process.env, ASTRO_TELEMETRY_DISABLED: '1' };
-  // The CLI is an application subprocess, not a child of Node's test runner.
-  delete env.NODE_TEST_CONTEXT;
-  const program = `try {
-    const { build } = await import('astro');
-    await build({ root: process.cwd() });
-  } catch (error) {
-    console.error(error.stack ?? error);
-    process.exitCode = 1;
-  }`;
-  const result = spawnSync(process.execPath, ['--input-type=module', '--eval', program], {
-    cwd: root, encoding: 'utf8', timeout: 120_000, maxBuffer: 8 * 1024 * 1024,
-    env,
-  });
-  return { ...result, output: `${result.stdout ?? ''}\n${result.stderr ?? ''}` };
 }
 
 test('actual Astro builds publish only complete pieces with ordered credit and safe rendering; withdrawal removes output', () => {

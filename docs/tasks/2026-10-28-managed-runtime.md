@@ -1,6 +1,6 @@
 # Reproducible project-managed Node bootstrap
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/managed-runtime
@@ -51,13 +51,15 @@ This is a tooling implementation of accepted decision 0007 and [publishing conve
 - Root independently installed frozen dependencies in a fresh integration worktree in 31s without a PATH override or engine bypass. Managed exec reported 24.21 while ordinary `node` remained 22.22; runtime/pin assertions passed. An attempted exec before explicit install used an implicit installation path that encountered harness DNS restrictions; the documented explicit frozen installation succeeded.
 - Standalone Astro commands previously attempted writing home-directory telemetry preferences. The project CLI wrapper now disables telemetry before importing Astro and runs root/filesystem preflight; plain `pnpm typecheck` succeeded under the read-only home with zero diagnostics and no manual environment setup.
 - Final integration `pnpm check` passed after the wrapper change: 30 Node cases, 42 Python cases, zero Astro diagnostics, foundation validation and static public-output checks. Independent read-only review confirmed runtime/pin agreement, unchanged application dependencies, CLI argument handling, preflight ordering and the two CI environments; no concrete blocker was found.
+- [PR 10](https://github.com/HadiAbouDaya/fidret/pull/10) merged as `1cd374b4778b40162b2d81312e2bd52d582120a6`. Both `foundation` and `runtime-bootstrap` jobs passed in [push CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40722837065) and [PR CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40722846349).
+- Cloudflare production deployment `f89babac-10e3-414d-8671-d5a70f1bc120` successfully deployed that exact merge in 2m48s. Its visible log confirmed Node 24.21.0, Python 3.12.12, pnpm 11.1.2 and the unchanged shared build command. The implementation changes build tooling only; the live homepage retained its existing typography/layout and zero scripts/inline styles.
 
 ## Handoff
 
-- Checkpoint: managed runtime, local-cache policy, telemetry-safe CLI and CI bootstrap job implemented; independent review and the final combined gate passed.
-- Remaining work: PR/CI/merge and deployment verification.
-- Next action: publish the checked tree and verify both CI jobs before merging.
+- Checkpoint: managed runtime, local-cache policy, telemetry-safe CLI and CI bootstrap job delivered through passing CI, merged PR and verified production deployment.
+- Remaining work: none for this task; later runtime security patches are separate maintenance work.
+- Next action: use the documented frozen bootstrap; maintain version pins and archive integrity together on future upgrades.
 - Blockers: none requiring user input.
 - Acceptance basis: Hadi's explicit continuing-work authorization and observed need for a portable supported runtime; no global Node change or Elie review is claimed.
-- Publication: local task branch only; migration publication is recorded in its own task.
-- Last verified: full integration and independent review passed on 2026-10-28; remote CI and deployment remain pending.
+- Publication: PR 10 merged as `1cd374b`; production deployment `f89babac` verified successful. This closure is recorded in the following stylesheet task branch; migration publication is recorded in its own task.
+- Last verified: local checks, independent review, both CI jobs and actual production deployment observed on 2026-10-28.

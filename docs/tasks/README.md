@@ -11,6 +11,7 @@ Task records make work transferable between people and harnesses. Create a recor
 | [Static Astro migration](2026-10-28-astro-migration.md) | Hadi Abou Daya | See task record |
 | [Purpose-aligned improvement session](2026-10-28-project-hardening.md) | Hadi Abou Daya | See task record |
 | [Managed Node bootstrap](2026-10-28-managed-runtime.md) | Hadi Abou Daya | See task record |
+| [Reliable stylesheet delivery](2026-10-28-fingerprinted-styles.md) | Hadi Abou Daya | See task record |
 
 The task file is authoritative for status and progress. This register provides discovery and ownership; it avoids copying detailed progress into several places.
 
