@@ -7,6 +7,7 @@ Task records make work transferable between people and harnesses. Create a recor
 | [Shared foundation](2026-10-24-foundation.md) | Hadi Abou Daya | See task record |
 | [Free static website](2026-10-24-static-website.md) | Hadi Abou Daya | See task record |
 | [Shared Fidret Lab](2026-10-24-fidret-lab.md) | Hadi Abou Daya | See task record |
+| [Shared agent readiness](2026-10-28-agent-readiness.md) | Hadi Abou Daya | See task record |
 
 The task file is authoritative for status and progress. This register provides discovery and ownership; it avoids copying detailed progress into several places.
 
@@ -23,5 +24,7 @@ The task file is authoritative for status and progress. This register provides d
 ## Handoff requirements
 
 Keep the current state concise. Include what changed, verification commands and results, unresolved questions, and a concrete next action. Link a PR or commit when one exists; label local changes as local. A long agent transcript is unnecessary.
+
+Use the template's seven handoff fields: checkpoint, remaining work, next action, blockers, acceptance basis, publication and last verified. Set `Verification status` to `not-run`, `partial` or `passed`; a done task requires passed verification and actual completion under acceptance or applicable standing authorization. Preserve historical evidence as dated evidence and verify current Git/external state before acting on an old handoff.
 
 Use the PR description for a trivial correction. Substantive work needs a task record so it remains understandable outside a particular harness or GitHub thread.

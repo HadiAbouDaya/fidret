@@ -18,6 +18,8 @@ Physical AI is our first practice. The company purpose guides how we choose work
 | [Physical AI practice](docs/foundation/physical-ai.md) | Initial direction and questions to validate |
 | [Shared agent instructions](AGENTS.md) | Context every coding harness must follow |
 | [Contribution workflow](CONTRIBUTING.md) | How Hadi and Elie work together |
+| [Agent startup and recovery](docs/collaboration/agent-workflow.md) | Start, resume, record evidence and leave a usable checkpoint |
+| [System map and reading routes](docs/architecture/README.md) | Current stack, canonical sources, generated output and task-specific context |
 | [Decision register](docs/decisions/README.md) | Why durable choices were made |
 | [Task register](docs/tasks/README.md) | Current work, ownership, and handoffs |
 | [Foundation roadmap](docs/foundation/roadmap.md) | Evidence needed for the next stages |
@@ -32,10 +34,11 @@ Start your harness at the repository root. Codex uses `AGENTS.md`; bridges for o
 Use this opening prompt:
 
 ```text
-Read AGENTS.md and the task register. Continue task <path>, or create a task
-record for this request. Explain the connection to Fidret's purpose, identify
-the human owner and acceptance criteria, and inspect the working tree before
-editing. Keep the task record current and leave a verifiable handoff.
+Read AGENTS.md and follow the agent startup runbook. Continue task <path>,
+or create and register a task for this request. Identify the purpose, human
+owner, acceptance criteria, current checkpoint and next authorized action.
+Inspect Git and the relevant reading route before editing. Keep decisions,
+verification and a resumable handoff in the repository.
 ```
 
 Git-tracked documents carry shared context. Put decisions and useful handoffs there so another person or harness can continue without access to private chat history.
@@ -47,10 +50,7 @@ The foundation and website checks use Git and Python 3.12 or newer. The public w
 ```sh
 git clone https://github.com/HadiAbouDaya/fidret.git
 cd fidret
-python3 scripts/check_foundation.py
-python3 scripts/lab.py check
-python3 scripts/check_website.py
-python3 -m unittest discover -s tests -v
+sh scripts/check_deployment.sh
 ```
 
 The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
@@ -59,6 +59,6 @@ Preview the public site with `python3 -m http.server 8765 --bind 127.0.0.1 --dir
 
 ## Current state
 
-This is the initial company and collaboration foundation. The working conventions are ready for review with Elie when he joins. Market selection, offers, pricing, technical stack, and evidence of physical AI delivery remain open. The [initial foundation task](docs/tasks/2026-10-24-foundation.md) records implementation and verification status.
+This is the initial company and collaboration foundation. The working conventions are ready for review with Elie when he joins. Market selection, offers, pricing, product/practice stacks and evidence of physical AI delivery remain open. The [initial foundation task](docs/tasks/2026-10-24-foundation.md) records historical implementation evidence; the [task register](docs/tasks/README.md) locates subsequent work.
 
-The public website uses Cloudflare Pages Free. Successful automatic builds from main publish `website/` to fidret.com. The [website task](docs/tasks/2026-10-24-static-website.md) records the live verification and deployment evidence.
+The implemented website uses HTML/CSS, a Python standard-library Lab publisher and Cloudflare Pages Free. Successful automatic builds from main publish `website/` to fidret.com. The [system map](docs/architecture/README.md) describes the current architecture; [Astro with TypeScript](docs/decisions/0007-static-website-growth.md) is a proposed growth option, not an adopted migration. The [website task](docs/tasks/2026-10-24-static-website.md) records dated live verification and deployment evidence.

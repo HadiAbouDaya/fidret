@@ -11,7 +11,7 @@ Explain the problem, relevant constraints, and established direction.
 
 ## Decision
 
-State the proposed or accepted choice and its scope.
+State the proposed or accepted choice and its scope. A proposal does not authorize implementation. For an accepted or active choice, add top-level `Basis` metadata recording actual acceptance or the authorized implementation scope. For a superseded choice, add top-level `Superseded by` metadata linking the replacement record.
 
 ## Consequences
 

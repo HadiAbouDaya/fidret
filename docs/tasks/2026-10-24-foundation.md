@@ -4,7 +4,8 @@
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: foundation/shared-agent-workflow
-- Updated: 2026-10-24
+- Updated: 2026-10-28
+- Verification status: passed
 
 ## Purpose
 
@@ -50,6 +51,12 @@ The shell cannot resolve GitHub. Original objects were read through the connecte
 
 ## Handoff
 
-Implementation is complete under Hadi's standing publication and merge authorization from 2026-10-24. [PR 1](https://github.com/HadiAbouDaya/fidret/pull/1) carries the foundation on `foundation/shared-agent-workflow`; the first published checkpoint passed GitHub CI. This completion record is a final documentation checkpoint. Merge it after its head checks pass; the PR records the eventual merge state and commit.
+Historical checkpoint, 2026-10-24: implementation was complete under Hadi's standing publication and merge authorization. [PR 1](https://github.com/HadiAbouDaya/fidret/pull/1) carried the foundation on `foundation/shared-agent-workflow`; the first published checkpoint passed GitHub CI. Its final documentation checkpoint still awaited merge at the time that note was written. This is history, not an instruction to repeat a merge.
 
-Next collaboration task: review the foundation and actual harness loading with Elie when his access is available, then select the first physical AI discovery problem. Invitation, branch protection, DNS, hosting, and email setup remain separate follow-up work.
+- Checkpoint: foundation implemented in the current local main history; subsequent website and Lab work is recorded in their own tasks.
+- Remaining work: none for the initial repository implementation. Elie's onboarding and actual installed-harness loading remain separate follow-ups, not verified here.
+- Next action: use the task register for current work. When onboarding occurs, confirm access and installed-harness loading before recording them as complete.
+- Blockers: none for this completed implementation.
+- Acceptance basis: Hadi's original request and standing publication/merge authorization from 2026-10-24; no Elie review is claimed.
+- Publication: historical PR 1 and branch CI above; foundation is present at local main `e02e09f`. This 2026-10-28 clarification did not recheck remote PR state or perform an external action.
+- Last verified: `sh scripts/check_deployment.sh` passed on local baseline `e02e09f` on 2026-10-28 with 35 tests. Earlier remote evidence above remains dated evidence.

@@ -9,6 +9,8 @@ Record durable choices here so both contributors and their agents can understand
 | [0003](0003-free-static-hosting.md) | superseded | Initial Workers static hosting implementation |
 | [0004](0004-pages-git-deployment.md) | active | Native Pages Free deployment from main |
 | [0005](0005-shared-fidret-lab.md) | active | Shared Lab publishing with individual and joint bylines |
+| [0006](0006-agent-readiness.md) | active | Resumable, verifiable shared agent work |
+| [0007](0007-static-website-growth.md) | proposed | Static website growth stack; migration not authorized |
 
 ## Creating a decision
 
@@ -17,3 +19,5 @@ Copy [the template](TEMPLATE.md) to the next available `NNNN-short-name.md` and 
 Use **proposed** for a choice awaiting its named human decision owner, **accepted** after that owner accepts it, **active** for an implementation convention established within an authorized task, **rejected** for a declined proposal, and **superseded** when a later decision replaces it. An active convention does not imply both contributors have reviewed it.
 
 Keep the original rationale when changing a decision. Link a superseding record and update the affected instructions or company document in the same change. Git history preserves earlier wording; private chats must not be the only place the decision can be understood.
+
+Every record has a named human decision owner, date, context, decision, consequences and review. For `accepted` or `active`, record the actual acceptance or authorized implementation basis. For `superseded`, add a `Superseded by` metadata link to the replacement. The validator checks metadata, unique numbers, registration, matching register status, basis presence and supersession references; it cannot verify that approval really occurred.

@@ -18,6 +18,8 @@ Name the human owner who has accepted the task. Link the repository task record 
 
 Describe deliverables, dependencies, affected files or areas, and overlapping work.
 
+Record applicable authorization, parallel agents' owned files/worktrees and the integration owner in the task. Reuse existing authorization rather than requesting it again.
+
 ## Acceptance criteria
 
 What observable conditions establish success?
