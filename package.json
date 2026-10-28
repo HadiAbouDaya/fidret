@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.1.2",
+  "packageManager": "pnpm@11.28.9",
   "engines": {
     "node": ">=24.22.1 <25",
-    "pnpm": "11.1.2"
+    "pnpm": "11.28.9"
   },
   "devEngines": {
     "runtime": {

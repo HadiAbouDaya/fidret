@@ -17,7 +17,7 @@ Check supported LTS releases at least monthly and when a relevant vendor securit
 Keep these inputs synchronized in one task:
 
 1. `.node-version`, `.nvmrc`, `package.json`'s exact `devEngines.runtime.version` and its matching `engines.node` lower bound/major range.
-2. `packageManager` and `engines.pnpm` when changing pnpm; read that version's migration notes and preserve strict engines/project-local stores.
+2. `packageManager` and `engines.pnpm` when changing pnpm; read that version's migration notes and preserve strict engines/project-local stores. For a Corepack shim, use the README's project-local `COREPACK_HOME` and prepare the new manager before running pnpm. The runtime test also checks the actual launching manager through its user-agent metadata.
 3. Regenerate `pnpm-lock.yaml` with the intended pinned pnpm. Review runtime archive URLs/checksums against official release SHASUMS and distinguish runtime changes from application dependency updates.
 4. Install frozen dependencies starting from the supported ordinary Node launcher, check `pnpm exec node --version`, run `pnpm runtime:check` and `pnpm check`, and verify that ordinary `node` did not change unexpectedly.
 5. Update current setup/system documentation, review the PR, verify both CI jobs, then verify Pages' exact commit/tool versions and live output.

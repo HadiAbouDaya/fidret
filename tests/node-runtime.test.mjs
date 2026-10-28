@@ -24,3 +24,9 @@ test('project scripts actually execute with the exact managed Node runtime', () 
   assert.equal(process.versions.node, nodeVersion,
     'Run project scripts through pnpm so they use the lockfile-managed Node runtime');
 });
+
+test('project scripts are launched by the exact pinned pnpm version', () => {
+  const manager = process.env.npm_config_user_agent?.split(' ')[0];
+  assert.equal(manager, `pnpm/${manifest.engines.pnpm}`,
+    'Run pnpm test or pnpm runtime:check with the packageManager version pinned in package.json');
+});
