@@ -1,6 +1,6 @@
 # Static Astro and TypeScript migration
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/astro-migration
@@ -55,14 +55,17 @@ Hadi accepted the suggested stack and authorized migration in this task. Update 
 - Independent review found and fixed duplicate-reference ambiguity, CLI replacement-token corruption, late filesystem preflight and source-registry symlink coverage. Image-bearing builds exposed SSR module relocation under `website/.prerender/chunks`; source lookup now uses the documented root-invoked command context. Regression cases or actual-build fixtures cover these fixes.
 - Direct byte comparison to `91bd5ff` confirmed identical main CSS, headers, robots, favicon, fonts and licenses. Lab CSS adds Markdown prose selectors. `git diff --check` passed; generated `website/` is ignored and untracked.
 - Browser review: homepage/Lab readable at 320px without horizontal overflow; fonts loaded; homepage reviewed at 1440px with matching observed baseline hero geometry. Custom 404 content/navigation, visible first-Tab skip-link focus and a warning/error-free preview console passed. Visitor scripts and inline styles were absent. Raw DevTools approval for the comparison origin was declined; review continued with read-only inspection and temporary preview tabs were closed.
-- Remote CI, merge and live-deployment evidence are pending publication.
+- [PR 9](https://github.com/HadiAbouDaya/fidret/pull/9) merged as `b9fe0037a29bc60a4a275e9a20caf38b561dff2f`. [Branch CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40717464543) and [PR CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40717702498) passed for source commit `a99801605a106ad9092bc5791848021347159b02`. Its tree `372ab1bba28675aeb755187585161066f4d28089` exactly matched checked local commit `5cc1a441ef99f1298c546bf71fad12ed383928f5`.
+- Cloudflare production deployment `260d710c-6cd7-46ba-9f1b-080b96c2650e` succeeded for that merge commit; [deployment URL](https://260d710c.fidret.pages.dev/), custom domain `fidret.com`, duration 2m52s. The dashboard build log confirmed Node 24.21.0, Python 3.12.12, pnpm 11.1.2 and frozen dependency resolution before the shared check command. No account settings changed.
+- Live verification on 2026-10-28: homepage and font HTTPS 200, expected strict CSP/referrer/permissions/nosniff headers, `/AGENTS.md` HTTP 404 with the actual custom 404 body. Live homepage/Lab DOM and navigation, loaded fonts, correct canonical, zero scripts and a clean console were observed at the normal 1704px browser width.
+- Subsequent technical audit found no crawl blocker but identified four-hour CSS freshness on the custom domain versus revalidation on the exact Pages URL. This is a follow-up release-reliability task, not evidence that the deployed migration's styling is broken.
 
 ## Handoff
 
-- Checkpoint: migration implemented and locally verified, with isolated page/content/docs worktrees, independent review and browser QA.
-- Remaining work: publish the checked tree, verify remote CI, merge and verify Pages/live output. Project-managed runtime portability is being researched separately.
-- Next action: publish the task branch and open a PR after the final diff/record check.
+- Checkpoint: migration implemented, independently reviewed, checked, merged and verified live on Pages/custom domain.
+- Remaining work: none for the accepted migration. Managed Node bootstrap and CSS release caching are separate follow-ups.
+- Next action: use the current source map/Lab workflow for new work; continue the linked managed-runtime task and evidence-backed cache follow-up without replaying this delivery.
 - Blockers: none requiring user input; use the working GitHub connector if shell Git DNS fails.
 - Acceptance basis: Hadi's explicit 2026-10-28 migration request and existing publication/merge authorization; no Elie review is claimed.
-- Publication: local task branch only; no migration push, merge or verified deployment yet.
-- Last verified: integrated local checks and browser review passed on 2026-10-28; external delivery state is not yet claimed.
+- Publication: PR 9 merged at `b9fe003`; production deployment `260d710c` and live custom domain verified as recorded above. This later checkpoint records that evidence without implying another deployment occurred.
+- Last verified: 2026-10-28, local/branch/PR checks passed, merged tree parity verified, Pages reported success and live HTTPS/DOM/source-boundary checks passed.

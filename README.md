@@ -45,20 +45,22 @@ Git-tracked documents carry shared context. Put decisions and useful handoffs th
 
 ## Local setup
 
-Use Git, Python 3.12, and the Node version pinned in `.node-version` and `.nvmrc`. `package.json` pins pnpm and direct dependencies; `pnpm-lock.yaml` pins the resolved dependency tree. With nvm available, a fresh checkout can be prepared with:
+Use Git, Python 3.12 and Node 22.22 or newer to launch pnpm 11. `package.json` declares exact pnpm and project Node versions; `pnpm install` obtains Node 24.21 for project commands and locks its archive checksums with dependencies. Global Node/NVM defaults do not need to change. On a fresh machine with Corepack available:
 
 ```sh
 git clone https://github.com/HadiAbouDaya/fidret.git
 cd fidret
-nvm install
-nvm use
 corepack enable
 corepack install
 pnpm install --frozen-lockfile
-sh scripts/check_deployment.sh
+pnpm check
 ```
 
 The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
+
+If pnpm is already available, skip the Corepack setup commands. Installation uses ignored project-local stores/caches under `.local/`, including on a harness with a read-only home directory. After installation, `pnpm exec node --version` reports the project runtime; bare `node` may still report the machine's original version. Run scripts through pnpm. `.node-version` and `.nvmrc` retain the same pin for CI, Pages and optional `nvm install`/`nvm use` on unrestricted machines. First installation needs the registry and official Node archives; warm frozen/offline reuse is supported, while an absent offline runtime fails explicitly.
+
+The Astro command wrapper runs filesystem preflight and disables build-tool telemetry before loading the CLI, so development/type/build/preview commands do not require writable home-directory preferences. It does not add visitor analytics or browser JavaScript.
 
 Use `pnpm dev` for development, or `pnpm build` followed by `pnpm preview` to inspect the static production output at `http://127.0.0.1:8765/`. Edit Astro sources, Markdown and `public/` assets. `website/` is generated and ignored; never edit or commit it. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
 

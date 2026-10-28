@@ -27,7 +27,7 @@ The checker validates required foundation files, local Markdown file links, harn
 
 ## GitHub automation
 
-The `Foundation checks` workflow runs the shared check entry point on pushes and pull requests after installing the pinned Node/pnpm toolchain and frozen dependencies. It uses read-only repository permissions and pinned action commits. The job name is `foundation`, which can be selected as a required check after its first successful run.
+The `Foundation checks` workflow runs the shared check entry point after installing pinned tools and frozen dependencies. Its `runtime-bootstrap` job also starts on ordinary Node 22.22 and verifies managed Node 24 execution without changing the ordinary launcher. Both jobs use read-only repository permissions and pinned action commits. The main job name remains `foundation`; requiring it through branch protection remains a separate settings action.
 
 Action references were resolved against the official repositories: [checkout v7](https://github.com/actions/checkout/tree/3d3c42e5aac5ba805825da76410c181273ba90b1), [setup-python v7](https://github.com/actions/setup-python/tree/6d4fd22b20465ccc0f7354476588e8df7c9ca0e0) and, for the Astro migration, [setup-node v6](https://github.com/actions/setup-node/tree/249970729cb0ef3589644e2896645e5dc5ba9c38). The source workflow is authoritative for pins. Review upstream changes before updating them.
 

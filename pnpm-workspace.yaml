@@ -1,6 +1,9 @@
 engineStrict: true
 saveExact: true
-managePackageManagerVersions: true
+pmOnFail: download
+storeDir: .local/pnpm-store
+cacheDir: .local/pnpm-cache
+enableGlobalVirtualStore: false
 allowBuilds:
   esbuild: true
   sharp: false

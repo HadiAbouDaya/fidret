@@ -8,6 +8,7 @@ Thumbs.db
 *.swp
 
 # Secrets and local environments
+.npmrc
 .env
 .env.*
 !.env.example
