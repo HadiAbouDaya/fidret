@@ -49,7 +49,7 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   mkdirSync(join(root, 'public/lab-assets'));
   writeFileSync(join(root, 'public/lab-assets/pipeline-fixture.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="8" height="8"/></svg>');
   writePiece(root, 'published-fixture', {
-    body: `${narrative}\n![Markdown fixture image](/lab-assets/pipeline-fixture.svg)\n`,
+    body: `${narrative}\n## Piece resources\nAuthored heading tests shared ID space.\n\n## Resources title\nAnother authored heading.\n\n![Markdown fixture image](/lab-assets/pipeline-fixture.svg)\n`,
     media: [{ src: '/lab-assets/pipeline-fixture.svg', alt: 'Structured fixture image', caption: 'Disposable test image.', width: 8, height: 8 }],
   });
   writePiece(root, 'private-draft', { status: 'draft', body: '## Question\n' });
@@ -62,6 +62,11 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   assert.match(article, /(?:&lt;|&#x3c;)script(?:&gt;|>)/i);
   assert.match(article, /src="\/lab-assets\/pipeline-fixture.svg"/);
   assert.match(article, /width="8"/);
+  const articleIds = [...article.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+  assert.equal(new Set(articleIds).size, articleIds.length, 'Authored headings cannot collide with template anchors');
+  for (const [, target] of article.matchAll(/href="#([^"]+)"/g)) {
+    assert.ok(articleIds.includes(target), `Article navigation must resolve: ${target}`);
+  }
   assert.doesNotMatch(article, /<script(?:\s|>)/i);
   assert.ok(article.indexOf('Elie Azoury') < article.indexOf('Hadi Abou Daya'));
   assert.match(article, /https:\/\/fidret\.com\/lab\/published-fixture\//);

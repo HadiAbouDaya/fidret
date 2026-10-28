@@ -5,7 +5,7 @@
 - Agent or harness: Codex with coordinated implementation and review agents
 - Branch: hadi/design-revamp
 - Updated: 2026-10-28
-- Verification status: not-run
+- Verification status: partial
 
 ## Purpose
 
@@ -45,14 +45,22 @@ Research selected Impeccable's anti-template critique and design-surface distinc
 
 ## Verification
 
-Not yet run. Initial main clean at `11105131e9257edede2d814a8cbeee41264858d8`. Canonical main has no dependency installation; exact pinned local toolchain availability is being checked. Prior worktrees are preserved.
+Initial main clean at `11105131e9257edede2d814a8cbeee41264858d8`. The exact toolchain installed successfully in the task worktree using project-local Corepack: Node24.22.1, pnpm11.28.9, Astro7.4.2, frozen lockfile unchanged. Prior worktrees are preserved.
+
+First combined `sh scripts/check_deployment.sh` passed: foundation56documents/14tasks/3adapters, Astro33files with zero diagnostic issues,36Node tests,78Python tests,5staticpages and output validation. The walkthrough test compares all scheduled snapshots with the independent Python model.
+
+Independent source/fixture reviews found and root corrected a future article resource-anchor collision (covered in the existing actual-build fixture), two narrowly insufficient informative-line contrasts and an ineffective generic-div aria label. Root also increased mobile diagram labels and added print-friendly walkthrough states. Final combined checks follow refinements.
+
+Rendered production-output review: desktop1704 and phone390/320 layouts; all5currentpublicpages at320 had no document overflow and zero scripts. Native radio keyboard arrows/Space changed the selected moment and exposed only its corresponding panel in the accessibility tree. Tablet768 review confirmed the Lab and approach composition. A disposable article fixture with code/table and deliberate resource-heading collisions was reviewed at390; the Resources jump uses a unique target and allIDs are unique. A separate disposable200%root-text fixture produced34pxbody text without document overflow on home/approach/Lab/exploration/article at390. This is a text-enlargement fixture, not a claim of an assistive-technology audit or a browser's200%zoom setting.
+
+Final combined `sh scripts/check_deployment.sh` passed after refinements:36Node tests,78Python tests, Astro33files with zero diagnostic issues, foundation and output contracts. Computed informative-line contrast is now3.67:1(field annotation on sage) and3.58:1(timeline axis on forest). Header/navigation, article guide, code/table containment, five native state choices and real source links were reviewed. Initial compressedHTML measurements: home6,661bytes; exploration4,429bytes (gzip locally, not a field-performance claim). No external design detector, fieldCWV or formal accessibility certification claimed.
 
 ## Handoff
 
-- Checkpoint: mission and source audit complete; design research complete; isolated implementation worktree created.
-- Remaining work: design system, implementation, combined checks, rendered review and publication.
-- Next action: create reusable design guidance and implement the primary composition.
-- Blockers: none for source work; exact local package-manager download historically unavailable and will be verified independently.
+- Checkpoint: complete redesign and documented language integrated; first shared gate passed; independent review fixes applied; production-output visual review in progress.
+- Remaining work: remote CI/publication and production deployment verification.
+- Next action: publish the checked implementation for CI review, then merge and verify production.
+- Blockers: none; exact local toolchain installation now works.
 - Acceptance basis: Hadi's explicit full-revamp request and applicable standing publication authorization; no Elie review or agreement inferred.
-- Publication: local task record only; no new commit, push, PR, merge or deployment yet.
-- Last verified: 2026-10-28, initial clean main and worktree created from `1110513`.
+- Publication: local integration commits through `57f1cd0` plus review refinements; no remote push, PR, merge or deployment yet.
+- Last verified: 2026-10-28, combined local check output and source/production-render review; main base `1110513`, integration checkpoint `57f1cd0`.

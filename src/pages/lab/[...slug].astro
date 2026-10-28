@@ -19,6 +19,16 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { piece } = Astro.props;
 const { Content, headings } = await render(piece);
 const readingGuide = headings.filter((heading) => heading.depth === 2);
+// Authored heading slugs share this document's ID namespace.
+const usedIds = new Set(['main', ...headings.map((heading) => heading.slug)]);
+const unusedId = (base: string) => {
+  let id = base;
+  for (let suffix = 2; usedIds.has(id); suffix += 1) id = `${base}-${suffix}`;
+  usedIds.add(id);
+  return id;
+};
+const resourcesId = unusedId('piece-resources');
+const resourcesTitleId = unusedId('resources-title');
 const resources = [
   ...(piece.data.resources ?? []),
   {
@@ -57,7 +67,7 @@ const resources = [
             <p>In this piece</p>
             <ol>
               {readingGuide.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
-              <li><a href="#piece-resources">Resources</a></li>
+              <li><a href={`#${resourcesId}`}>Resources</a></li>
             </ol>
           </nav>
         </aside>
@@ -75,8 +85,8 @@ const resources = [
               <pre><code>{snippet.code}</code></pre>
             </figure>
           ))}
-          <section class="lab-section" id="piece-resources" aria-labelledby="resources-title">
-            <h2 id="resources-title">Resources</h2>
+          <section class="lab-section" id={resourcesId} aria-labelledby={resourcesTitleId}>
+            <h2 id={resourcesTitleId}>Resources</h2>
             <ul class="lab-resources">
               {resources.map((resource) => <li><a href={resource.url}>{resource.label}</a></li>)}
             </ul>

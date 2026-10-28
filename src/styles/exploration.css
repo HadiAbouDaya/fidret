@@ -36,8 +36,8 @@
 .signal-snapshot-copy > p { color: var(--fd-sage); font-size: 1rem; margin: 0; max-width: 48ch; }
 .signal-timeline { margin-block: 1.5rem 2rem; }
 .signal-timeline svg { width: 100%; height: auto; display: block; overflow: visible; }
-.signal-axis { stroke: #68867a; stroke-width: 1; }
-.signal-window { stroke: var(--fd-sage); stroke-width: 9; stroke-opacity: .28; stroke-linecap: round; }
+.signal-axis { stroke: #759487; stroke-width: 1; }
+.signal-window { stroke: var(--fd-sage); stroke-width: 9; stroke-opacity: .65; stroke-linecap: round; }
 .state-stale .signal-window { stroke: #efb597; }
 .signal-tick line { stroke: #9fb7aa; stroke-width: 1; }
 .signal-tick text, .signal-now-label, .signal-late-packet text, .signal-timeline-note { fill: var(--fd-sage); font-family: var(--fd-font-ui); font-size: 15px; }
@@ -100,7 +100,7 @@
   .signal-snapshot-copy > p { font-size: .9375rem; }
   .signal-timeline { margin-block: 1.5rem; }
   .signal-timeline-note, .signal-late-packet text { display: none; }
-  .signal-now-label, .signal-tick text { font-size: 25px; }
+  .signal-now-label, .signal-tick text { font-size: 40px; }
   .signal-readout { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; padding-block: 1.25rem; }
   .signal-readout > div:last-child { grid-column: 1 / -1; }
   .signal-readout dd { font-size: 2rem; }
@@ -113,4 +113,11 @@
 @media (forced-colors: active) {
   .signal-choice:checked + .signal-choice-label { outline: 3px solid Highlight; outline-offset: -3px; }
   .signal-state-dot { border: 2px solid CanvasText; }
+}
+
+@media print {
+  .signal-choice, .signal-choice-label { display: none; }
+  .signal-snapshot { display: block; break-inside: avoid; background: white; color: black; border: 1px solid #66766a; margin-bottom: 1.5rem; }
+  .signal-snapshot-copy h3, .signal-snapshot-copy > p, .signal-asof, .signal-readout dt, .signal-decision { color: black; }
+  .signal-timeline { display: none; }
 }
