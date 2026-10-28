@@ -1,6 +1,6 @@
 # Supported runtime and reviewed dependency maintenance
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/dependency-maintenance
@@ -50,13 +50,16 @@ This maintains accepted [stack decision 0007](../decisions/0007-static-website-g
 - Fresh isolated frozen bootstrap from ordinary Node 22.22 succeeded with strict engines; managed exec reported 24.22.1, both runtime tests passed and ordinary Node remained 22.22. One transient official-archive timeout recovered. Lockfile SHA256 remained `886407bf96710794be1eba52da812b22ea3178e23bd74f032090e0f09c8f8f12`.
 - Worker full gate passed 30 Node cases, 42 Python cases, clean Astro diagnostics and static output. Actual CSS main `1b9cd61` was then merged into root integration; the task-register-only conflict preserved both registrations. Final combined gate and independent review follow.
 - Root's separate ordinary frozen install succeeded in 28.7s; actual managed Node was 24.22.1 while ordinary Node stayed 22.22. Final combined `pnpm check` with the merged CSS work passed 33 Node cases, 42 Python cases, zero Astro diagnostics and static-output/foundation validation. Independent source review found no blocker and confirmed all non-runtime lock text remained byte-identical to actual CSS main.
+- [PR 12](https://github.com/HadiAbouDaya/fidret/pull/12) merged as `9dadc41c930ced0fac55a99c4f38a4ac7a27b4ff`; both jobs passed in [push](https://github.com/HadiAbouDaya/fidret/actions/runs/40726653224) and [PR](https://github.com/HadiAbouDaya/fidret/actions/runs/40726659689) CI. Cloudflare production `413a7d85-8fb1-49f9-bf41-08e76e18a7c0` succeeded for that exact merge in 5m6s, with Node 24.22.1 and pnpm 11.1.2 visibly reported.
+- Dependabot opened actual [Actions PR 13](https://github.com/HadiAbouDaya/fidret/pull/13), demonstrating an Actions proposal run. The exact npm/managed-runtime lockfile service run remains unverified; no claim of automatic Node-pin synchronization is made.
+- A later `pnpm audit --json` attempt exited 1 with `fetch failed`, so the transitive advisory audit remains unverified. Direct vendor review identified the old pnpm pin inside affected installer ranges; a separate package-manager security task is addressing it rather than changing this historical Node-patch evidence.
 
 ## Handoff
 
-- Checkpoint: coherent security update, weekly reviewed proposals and maintenance guide/decision implemented; independent review, fresh bootstrap and final combined checks passed.
-- Remaining work: PR/CI/merge and production verification; the first actual Dependabot service run remains future evidence.
-- Next action: publish the checked tree and verify both CI jobs before merging.
+- Checkpoint: coherent Node security update and reviewed maintenance workflow delivered through checks, independent review, both CI jobs, merged PR and verified production. An actual Actions bot proposal is observable.
+- Remaining work: none for this implementation; npm service compatibility and a complete advisory audit remain follow-up evidence.
+- Next action: maintain synchronized pins and review actual dependency proposals; complete the separately scoped pnpm security update.
 - Blockers: none requiring user input.
 - Acceptance basis: Hadi's explicit Node-update and continuing autonomous-work authorization; no other contributor approval is inferred.
-- Publication: local task branch only.
-- Last verified: official sources, isolated/root bootstrap, independent review and final combined gate checked on 2026-10-28; remote delivery pending.
+- Publication: PR 12 merged as `9dadc41`; production `413a7d85` verified successful. This closure is recorded in the following publication-contract branch.
+- Last verified: official sources, local/root bootstrap/checks, independent review, CI and actual production observed on 2026-10-28; full transitive audit and exact npm bot run remain unverified.
