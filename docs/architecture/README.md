@@ -26,7 +26,9 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `src/plugins/lab-policy.mjs` | Markdown AST policy for safe content and complete published narrative | Keep meaningful injection, link and completeness failure tests |
 | `scripts/lab.mjs` | Safe draft creation | Preserve explicit authors, UTC dates and filesystem boundaries |
 | `src/pages/sitemap.xml.ts` | Root sitemap with company/Lab URLs and published pieces | Keep drafts and withdrawn pieces out; preserve the root URL entries |
-| `public/` | Canonical CSS, public media, licensed fonts, favicon, robots and response headers | Edit assets here; every asset is public regardless of an article's draft status |
+| `src/styles/` | Canonical site and Lab CSS | Astro imports produce external fingerprinted CSS; edit these sources, not generated aliases |
+| `src/integrations/` | Build-time compatibility assets | Keep `/styles.css` and `/lab.css` generated from the canonical CSS; no duplicate editable copies |
+| `public/` | Public media, licensed fonts, favicon, robots and response headers | Edit assets here; every asset is public regardless of an article's draft status |
 | `website/` | Disposable generated site, including Lab pages and sitemap | Rebuild with `pnpm build`; never hand-edit or commit |
 | `astro.config.mjs`, `tsconfig.json`, `package.json`, `pnpm-lock.yaml`, runtime pin files | Static build, strict types and reproducible toolchain | Update coherently; install from the frozen lockfile and verify compatibility |
 | `scripts/check_foundation.py`, `scripts/check_website.py`, `tests/` | Executable repository contracts and regression checks | Update checks with the behavior they protect; retain meaningful failure cases |

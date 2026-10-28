@@ -20,7 +20,7 @@ test('new output directory is safe to build', () => {
 });
 
 test('symlinked output and source trees fail before a build can clean or copy them', () => {
-  for (const target of ['website', 'public/nested', 'lab/authors.json', '.astro']) {
+  for (const target of ['src', 'website', 'public/nested', 'lab/authors.json', '.astro']) {
     const root = fixture();
     const external = fixture();
     writeFileSync(join(external, 'keep.txt'), 'preserve');

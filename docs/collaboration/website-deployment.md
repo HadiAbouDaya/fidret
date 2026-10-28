@@ -40,7 +40,13 @@ Open `http://127.0.0.1:8765/`. For production-output review, use `pnpm build` fo
 sh scripts/check_deployment.sh
 ```
 
-Astro's local servers do not establish Cloudflare response-header or routing behavior. Verify `public/_headers` and the custom 404 on the deployed site. Review mobile/desktop layouts, text enlargement, navigation, keyboard focus and font loading before publishing visual changes. The preflight boundary check rejects symlinks in public/Lab source, cache and output paths before Astro reads, copies or cleans them.
+Astro's local servers do not establish Cloudflare response-header or routing behavior. Verify `public/_headers` and the custom 404 on the deployed site. Review mobile/desktop layouts, text enlargement, navigation, keyboard focus and font loading before publishing visual changes. The preflight boundary check rejects symlinks in Astro/public/Lab source, cache and output paths before Astro reads, copies or cleans them.
+
+## Stylesheet releases
+
+Edit the canonical CSS in `src/styles/`. Astro imports bundle it into external files with content fingerprints under `/_astro/`; `inlineStylesheets: never` retains the strict same-origin CSP without inline CSS. A build integration also emits `/styles.css` and `/lab.css` from the same source bytes for older links. Those aliases are generated output, not separate editable sources. New pages use the fingerprinted links so changing CSS changes the requested asset URL.
+
+After a stylesheet release, inspect the stylesheet URL in actual production HTML, confirm that it returns CSS over HTTPS and review the rendered pages. Check custom-domain headers separately from an exact deployment's `pages.dev` URL. A 2026-10-28 audit observed a four-hour custom-domain TTL on the old mutable CSS URLs despite revalidation headers on the exact deployment; the account-level cause was not established. Fingerprinted URLs address asset identity without changing zone settings. Cloudflare documents [custom-domain cache risks](https://developers.cloudflare.com/pages/configuration/serving-pages/#caching-and-performance) and [headers for fingerprinted assets](https://developers.cloudflare.com/pages/configuration/headers/#configure-custom-browser-cache-behavior).
 
 ## Initial Cloudflare connection
 

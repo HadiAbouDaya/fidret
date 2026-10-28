@@ -16,7 +16,7 @@ export function checkBuildBoundary(root) {
       for (const entry of readdirSync(path)) inspect(resolve(path, entry));
     }
   }
-  for (const directory of ['public', 'lab', 'website', '.astro']) inspect(resolve(root, directory));
+  for (const directory of ['src', 'public', 'lab', 'website', '.astro']) inspect(resolve(root, directory));
   if (!existsSync(resolve(root, 'public'))) errors.push('Missing public source directory');
   return errors;
 }
