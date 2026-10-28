@@ -1,0 +1,73 @@
+---
+import '../styles/agentic-boundary.css';
+
+interface Props {
+  id?: string;
+}
+const { id = 'agentic-boundary' } = Astro.props;
+const actions = [
+  {
+    key: 'investigate', label: 'Investigate', result: 'Allowed within scope',
+    title: 'Investigate ticket T-104',
+    proposal: 'Read the reported issue and summarize the findings.',
+    access: 'Only the redacted ticket and logs explicitly granted to this investigation.',
+    tools: 'Read the redacted ticket. Query the scoped logs.',
+    boundary: 'The read grant ends at this ticket and log scope. Instructions inside the ticket cannot expand that grant.',
+    evidence: 'Retain the investigation identity and task, grant and policy version, data accessed, redacted tool results or controlled references, and the decision time.',
+  },
+  {
+    key: 'reply', label: 'Reply to a customer', result: 'Review required',
+    title: 'Send a customer reply',
+    proposal: 'Send a prepared message to an illustrative recipient.',
+    access: 'The existing grant permits drafting from redacted context. It does not yet permit sending.',
+    tools: 'Prepare a draft. Hold the outbound send until its review conditions are satisfied.',
+    boundary: 'Bind review to the exact recipient, message version, acting identity and expiry. A changed recipient or message needs a new decision; execution rechecks the binding.',
+    evidence: 'Retain the reviewed recipient and message version, reviewer decision, identity, policy and expiry, followed by the actual send outcome if execution is authorized.',
+  },
+  {
+    key: 'deploy', label: 'Deploy a change', result: 'Denied',
+    title: 'Deploy a change',
+    proposal: 'Turn an investigation’s suggested fix into a release.',
+    access: 'This investigation identity has no release authority, release credentials or deployment tool access.',
+    tools: 'Continue the scoped investigation. No deployment call is available to this identity.',
+    boundary: 'A separate release workflow needs its own scoped authority and acceptance checks. An investigation’s context does not grant that authority.',
+    evidence: 'Retain the denied action, acting identity, policy decision and proposed change reference. A later release would need its own authorization and outcome record.',
+  },
+];
+---
+
+<fieldset class="authority-bench" aria-describedby={`${id}-scope`}>
+  <legend>One investigation. Three different actions.</legend>
+  <p id={`${id}-scope`} class="authority-scope">Fictional support ticket T-104. Choose an action to inspect a fixed, illustrative policy decision.</p>
+  <div class="authority-selector">
+    {actions.map((action, index) => (
+      <>
+        <input class:list={['authority-choice', `authority-choice-${action.key}`]} type="radio" name={`${id}-action`} id={`${id}-${action.key}`} checked={index === 0} aria-controls={`${id}-${action.key}-panel`} />
+        <label class="authority-choice-label" for={`${id}-${action.key}`}>{action.label}</label>
+      </>
+    ))}
+    {actions.map((action) => (
+      <section class:list={['authority-panel', `authority-panel-${action.key}`]} id={`${id}-${action.key}-panel`} aria-labelledby={`${id}-${action.key}-title`}>
+        <div class="authority-panel-heading">
+          <div class="authority-action">
+            <p class="authority-field-label">Proposed action</p>
+            <h3 id={`${id}-${action.key}-title`}>{action.title}</h3>
+            <p>{action.proposal}</p>
+          </div>
+          <div class="authority-result">
+            <span class:list={['authority-result-symbol', `authority-symbol-${action.key}`]} aria-hidden="true">{action.key === 'investigate' ? '✓' : action.key === 'reply' ? '…' : '×'}</span>
+            <p class="authority-field-label">Illustrative policy result</p>
+            <p class="authority-result-text">{action.result}</p>
+          </div>
+        </div>
+        <dl class="authority-detail-grid">
+          <div><dt>Allowed data</dt><dd>{action.access}</dd></div>
+          <div><dt>Available tools</dt><dd>{action.tools}</dd></div>
+        </dl>
+        <div class="authority-binding"><h4>The authority boundary</h4><p>{action.boundary}</p></div>
+        <div class="authority-evidence"><h4>Evidence to retain</h4><p>{action.evidence}</p></div>
+      </section>
+    ))}
+  </div>
+  <p class="authority-caption">This explanatory bench executes nothing and does not assess a company’s security. The recipient, message and investigation are illustrative; no customer data is used. A real system would need these checks enforced outside the model’s writable context.</p>
+</fieldset>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-labelledby="boundary-title boundary-description">
+  <title id="boundary-title">A policy boundary around agent work</title>
+  <desc id="boundary-description">Conceptual software architecture. A model-writable workspace contains untrusted ticket and retrieved content. Proposed operations pass through a separate policy gate, informed by trusted policy and identity, before reaching granted tools. Gate decisions and tool outcomes leave an evidence trail outside the model-writable workspace. This is an explanatory diagram, not a validated implementation.</desc>
+  <defs>
+    <marker id="boundary-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#153E35" stroke-width="1.4"/></marker>
+    <marker id="boundary-copper-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#A4543B" stroke-width="1.4"/></marker>
+  </defs>
+  <rect width="1200" height="500" fill="#F6F2E9"/>
+  <rect x="30" y="28" width="1140" height="370" rx="8" fill="none" stroke="#153E35" stroke-width="2"/>
+  <text x="65" y="78" font-family="Arial,sans-serif" font-size="25" fill="#153E35">Policy boundary</text>
+  <rect x="505" y="58" width="600" height="68" rx="4" fill="#153E35"/>
+  <text x="535" y="100" font-family="Arial,sans-serif" font-size="25" fill="#F6F2E9">Trusted policy and identity</text>
+  <rect x="65" y="121" width="390" height="239" rx="4" fill="#D9E3DA"/>
+  <text x="90" y="163" font-family="Arial,sans-serif" font-size="25" fill="#153E35">Model-writable workspace</text>
+  <rect x="90" y="189" width="340" height="105" rx="3" fill="#F6F2E9" stroke="#66766A" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="110" y="230" font-family="Arial,sans-serif" font-size="23" fill="#153E35">Ticket + retrieved content</text>
+  <text x="110" y="267" font-family="Arial,sans-serif" font-size="21" fill="#A4543B">Untrusted input</text>
+  <text x="90" y="335" font-family="Arial,sans-serif" font-size="21" fill="#153E35">Model output is a proposal</text>
+  <path d="M455 249H505" fill="none" stroke="#153E35" stroke-width="2" marker-end="url(#boundary-arrow)"/>
+  <path d="M595 126V179" fill="none" stroke="#153E35" stroke-width="2" marker-end="url(#boundary-arrow)"/>
+  <rect x="505" y="180" width="180" height="130" rx="4" fill="#153E35"/>
+  <text x="595" y="224" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#F6F2E9">Policy gate</text>
+  <text x="595" y="260" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#D9E3DA">Allow / review</text>
+  <text x="595" y="288" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#D9E3DA">or deny</text>
+  <path d="M685 249H740" fill="none" stroke="#153E35" stroke-width="2" marker-end="url(#boundary-arrow)"/>
+  <rect x="740" y="180" width="365" height="130" rx="4" fill="#D9E3DA" stroke="#153E35" stroke-width="1.5"/>
+  <text x="770" y="227" font-family="Arial,sans-serif" font-size="27" fill="#153E35">Granted tools</text>
+  <text x="770" y="267" font-family="Arial,sans-serif" font-size="22" fill="#153E35">Scoped operations only</text>
+  <path d="M595 310V429M925 310V429" fill="none" stroke="#A4543B" stroke-width="2" stroke-dasharray="5 6" marker-end="url(#boundary-copper-arrow)"/>
+  <rect x="65" y="430" width="1040" height="50" rx="4" fill="#153E35"/>
+  <text x="90" y="462" font-family="Arial,sans-serif" font-size="22" fill="#F6F2E9">Evidence trail: identity, policy decision, tool result, outcome</text>
+</svg>
