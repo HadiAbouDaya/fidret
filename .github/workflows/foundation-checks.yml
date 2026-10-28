@@ -24,7 +24,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Start with ordinary Node 22
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22.22.0'
       - name: Bootstrap frozen dependencies and project Node
@@ -55,7 +55,7 @@ jobs:
         with:
           python-version-file: '.python-version'
       - name: Set up pinned Node
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: '.node-version'
       - name: Install locked dependencies
