@@ -1,0 +1,37 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/knowledge.css';
+const commitments = [
+  { title: 'Exercise sound judgment.', text: 'Understand the need, constraints, alternatives and consequences before choosing an approach. Recommend stopping when the case does not justify continuing.' },
+  { title: 'Make commitments clear.', text: 'Agree scope, ownership, success criteria, dependencies and delivery expectations. Surface changes early.' },
+  { title: 'Ground claims in evidence.', text: 'Distinguish an idea, an experiment, a pilot and a deployed system. Preserve conditions and limitations with reported results.' },
+  { title: 'Deliver work others can use.', text: 'Include the implementation, validation, documentation and handover needed for the agreed use.' },
+  { title: 'Take responsibility.', text: 'Admit errors, investigate failures, communicate their effect and follow through on the correction.' },
+  { title: 'Respect the people affected.', text: 'Account for users, operators, client teams and the consequences of systems acting in the physical world.' },
+];
+const questions = [
+  'Whose problem are we solving, and what outcome matters to them?',
+  'What can we credibly deliver, and what still needs to be learned?',
+  'What evidence will establish success under the intended conditions?',
+  'What obligations will remain after delivery, and who will own them?',
+];
+---
+<SiteLayout title="Our charter — Fidret" description="Fidret's purpose and operating commitments: expertise that earns trust through sound judgment, useful work and reliable delivery." canonical="https://fidret.com/charter/">
+  <main id="main" class="knowledge-page charter-page">
+    <header class="knowledge-hero shell">
+      <p class="section-context">The company charter</p>
+      <h1>Trust earned.</h1>
+      <div class="knowledge-hero-copy"><p class="knowledge-lead">Build a company whose expertise earns clients’ trust through sound judgment, useful work and reliable delivery.</p><p>Expertise develops through practice. Trust is earned through what people experience when working with us. These commitments set the standard for the company we’re building.</p></div>
+    </header>
+
+    <section class="charter-purpose inverse" aria-labelledby="purpose-title"><div class="shell knowledge-split"><div><h2 id="purpose-title">The name carries<br />the intention.</h2></div><div class="knowledge-prose"><p class="knowledge-lead">Fidret means <em>Trust earned.</em></p><p>The name is inspired by the Latin <i lang="la">fīdere</i>: to trust, or to rely upon. It expresses expertise that earns trust, and work people can depend on.</p></div></div></section>
+
+    <section class="charter-commitments shell" aria-labelledby="commitments-title"><div class="knowledge-section-heading"><h2 id="commitments-title">What the purpose<br />asks of us.</h2><p>Commitments guide choices and behavior. They are standards to be held to, rather than a list of outcomes already achieved.</p></div><div class="charter-commitment-list">{commitments.map(item => <article><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
+
+    <section class="charter-questions" aria-labelledby="questions-title"><div class="shell knowledge-split"><div><h2 id="questions-title">Before making<br />a commitment.</h2><p>A decision to narrow the scope, seek a partner or stop can earn trust when the reasoning is clear.</p></div><ul>{questions.map(question => <li>{question}</li>)}</ul></div></section>
+
+    <section class="knowledge-split shell charter-direction" aria-labelledby="direction-title"><div><h2 id="direction-title">The first practice.<br />A broader purpose.</h2></div><div class="knowledge-prose"><p>Physical AI is the first practice to develop. Fidret is the company; practices organize areas of expertise beneath it. A new technology, product or market must serve the same purpose and be justified on its own evidence.</p><p>The starting model combines understanding a client’s situation with hands-on technical work. The first target market, commercial offer and technical approach will be selected through discovery and demonstrated capability.</p><a class="text-link" href="/project/">See how the work connects</a></div></section>
+
+    <aside class="charter-colophon shell"><p>Public presentation of Fidret’s founding direction, established on 24 October 2026. Company commitments and developing practice direction are kept distinct from demonstrated results.</p><a class="text-link" href="/approach/">Read our approach</a></aside>
+  </main>
+</SiteLayout>

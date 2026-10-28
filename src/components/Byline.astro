@@ -13,4 +13,4 @@ const people = authors.map((id) => {
 });
 ---
 
-{people.map((person, index) => <>{index > 0 ? ' and ' : ''}<span class="byline-name">{person.name}</span></>)}
+{people.map((person, index) => <>{index > 0 ? ' and ' : ''}<a class="byline-name" href={person.url}>{person.name}</a></>)}

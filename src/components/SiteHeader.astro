@@ -1,4 +1,5 @@
 ---
+import '../styles/knowledge.css';
 interface Props { variant?: 'home' | 'lab' | 'minimal'; }
 const { variant = 'home' } = Astro.props;
 const path = Astro.url.pathname;
@@ -6,9 +7,10 @@ const isHome = path === '/';
 ---
 <header class="site-header shell">
   <a class="wordmark" href="/" aria-label="Fidret home">Fidret<span class="brand-period" aria-hidden="true">.</span></a>
-  {variant !== 'minimal' && <nav aria-label="Main navigation">
+  {variant !== 'minimal' && <nav class="main-navigation" aria-label="Main navigation">
     <a href={isHome ? '#physical-ai' : '/#physical-ai'}>Physical AI</a>
     <a href="/approach/" aria-current={path.startsWith('/approach') ? 'page' : undefined}>Our approach</a>
     <a href="/lab/" aria-current={path.startsWith('/lab') ? 'page' : undefined}>Lab</a>
+    <a class="nav-project" href="/project/" aria-current={path === '/project/' ? 'page' : undefined}>Inside Fidret<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" /></svg></a>
   </nav>}
 </header>
