@@ -44,7 +44,7 @@ Every substantive task starts with `AGENTS.md`, the charter, contribution workfl
 
 | Work | Additional context |
 | --- | --- |
-| Public pages or styling | [Design brief](../design/fidret-design-brief.md), [deployment guide](../collaboration/website-deployment.md), current [hosting decision](../decisions/0004-pages-git-deployment.md) |
+| Public pages or styling | [Design language](../design/fidret-design-brief.md), [Fidret design skill](../../skills/fidret-design/SKILL.md), [research/provenance](../design/research.md), [deployment guide](../collaboration/website-deployment.md), current [hosting decision](../decisions/0004-pages-git-deployment.md) |
 | Lab content or publishing | [Lab guide](../../lab/README.md), [current publishing decision](../decisions/0008-astro-publishing.md), sources and collections above |
 | Company or practice direction | [Roadmap](../foundation/roadmap.md), [physical AI brief](../foundation/physical-ai.md), relevant decision records |
 | Physical experiments | Physical AI brief, [engagement brief](../templates/engagement-brief.md), task-specific operating authorization and evaluation evidence |
