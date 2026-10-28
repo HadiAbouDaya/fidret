@@ -1,0 +1,13 @@
+---
+interface Props {
+  value: string | null | undefined;
+}
+
+const { value } = Astro.props;
+if (!value) throw new Error('A published Lab piece must have a publication date');
+const label = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+}).format(new Date(`${value}T00:00:00Z`));
+---
+
+<time datetime={value}>{label}</time>

@@ -1,0 +1,6 @@
+engineStrict: true
+saveExact: true
+managePackageManagerVersions: true
+allowBuilds:
+  esbuild: true
+  sharp: false

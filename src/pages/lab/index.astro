@@ -1,0 +1,56 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Byline from '../../components/Byline.astro';
+import PublicationDate from '../../components/PublicationDate.astro';
+import { getPublishedPieces } from '../../lib/lab';
+import { authorRegistry, kindLabels } from '../../lib/lab-schema';
+
+const pieces = await getPublishedPieces();
+---
+
+<SiteLayout
+  title="Fidret Lab — Simulations, prototypes and technical notes"
+  description="A shared space for Hadi Abou Daya and Elie Azoury to explore physical AI through simulations, prototypes and technical notes."
+  canonical="https://fidret.com/lab/"
+  variant="lab"
+>
+  <main id="main" class="lab-main">
+    <section class="lab-intro shell" aria-labelledby="lab-title">
+      <h1 id="lab-title">Fidret Lab</h1>
+      <p class="lab-lead">Simulations, prototypes, and technical notes as we develop our physical AI practice.</p>
+      <p>We share the question, the approach, what we learn, and what remains open. A useful piece can begin with an idea, a model, or a small experiment.</p>
+    </section>
+    <section class="lab-collection shell" aria-labelledby="lab-collection-title">
+      <h2 id="lab-collection-title">The work</h2>
+      {pieces.length > 0 ? (
+        <div class="lab-list">
+          {pieces.map((piece) => (
+            <article class="lab-entry">
+              <p class="lab-entry-meta">{kindLabels[piece.data.kind]} — <PublicationDate value={piece.data.published} /></p>
+              <h2 class="lab-entry-title"><a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a></h2>
+              <p class="lab-entry-summary">{piece.data.summary}</p>
+              <p class="lab-entry-byline">By <Byline authors={piece.data.authors} /></p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="lab-empty">
+          <p>Our first pieces will appear here.</p>
+          <p>Each will share a question, an approach, takeaways, and the next things to explore.</p>
+          <a href="https://github.com/HadiAbouDaya/fidret">Follow the project on GitHub</a>
+        </div>
+      )}
+    </section>
+    <aside class="lab-contributors shell" aria-labelledby="lab-contributors-title">
+      <div>
+        <h2 id="lab-contributors-title">Contributors</h2>
+        <p>One shared Lab, with individual or joint bylines on each piece.</p>
+      </div>
+      <div class="lab-contributor-links">
+        <ul>
+          {Object.entries(authorRegistry).map(([id]) => <li><Byline authors={[id]} /></li>)}
+        </ul>
+      </div>
+    </aside>
+  </main>
+</SiteLayout>

@@ -45,20 +45,25 @@ Git-tracked documents carry shared context. Put decisions and useful handoffs th
 
 ## Local setup
 
-The foundation and website checks use Git and Python 3.12 or newer. The public website has no runtime dependencies:
+Use Git, Python 3.12, and the Node version pinned in `.node-version` and `.nvmrc`. `package.json` pins pnpm and direct dependencies; `pnpm-lock.yaml` pins the resolved dependency tree. With nvm available, a fresh checkout can be prepared with:
 
 ```sh
 git clone https://github.com/HadiAbouDaya/fidret.git
 cd fidret
+nvm install
+nvm use
+corepack enable
+corepack install
+pnpm install --frozen-lockfile
 sh scripts/check_deployment.sh
 ```
 
 The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
 
-Preview the public site with `python3 -m http.server 8765 --bind 127.0.0.1 --directory website`, then open `http://127.0.0.1:8765/`. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
+Use `pnpm dev` for development, or `pnpm build` followed by `pnpm preview` to inspect the static production output at `http://127.0.0.1:8765/`. Edit Astro sources, Markdown and `public/` assets. `website/` is generated and ignored; never edit or commit it. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
 
 ## Current state
 
 This is the initial company and collaboration foundation. The working conventions are ready for review with Elie when he joins. Market selection, offers, pricing, product/practice stacks and evidence of physical AI delivery remain open. The [initial foundation task](docs/tasks/2026-10-24-foundation.md) records historical implementation evidence; the [task register](docs/tasks/README.md) locates subsequent work.
 
-The implemented website uses HTML/CSS, a Python standard-library Lab publisher and Cloudflare Pages Free. Successful automatic builds from main publish `website/` to fidret.com. The [system map](docs/architecture/README.md) describes the current architecture; [Astro with TypeScript](docs/decisions/0007-static-website-growth.md) is a proposed growth option, not an adopted migration. The [website task](docs/tasks/2026-10-24-static-website.md) records dated live verification and deployment evidence.
+The website uses Astro in static mode, strict TypeScript, custom CSS/local fonts and validated Markdown Lab collections. [Hadi accepted the stack](docs/decisions/0007-static-website-growth.md) on 2026-10-28; the [migration task](docs/tasks/2026-10-28-astro-migration.md) records implementation and verification. The [system map](docs/architecture/README.md) identifies canonical sources and generated output. Cloudflare Pages Free retains its existing build command and `website/` output path; a successful merge and a verified live deployment are recorded separately.

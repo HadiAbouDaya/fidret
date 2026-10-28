@@ -8,9 +8,10 @@ Record durable choices here so both contributors and their agents can understand
 | [0002](0002-shared-agent-context.md) | active | Shared agent context and collaboration structure |
 | [0003](0003-free-static-hosting.md) | superseded | Initial Workers static hosting implementation |
 | [0004](0004-pages-git-deployment.md) | active | Native Pages Free deployment from main |
-| [0005](0005-shared-fidret-lab.md) | active | Shared Lab publishing with individual and joint bylines |
+| [0005](0005-shared-fidret-lab.md) | superseded | Founding Lab format/bylines and original Python publishing implementation |
 | [0006](0006-agent-readiness.md) | active | Resumable, verifiable shared agent work |
-| [0007](0007-static-website-growth.md) | proposed | Static website growth stack; migration not authorized |
+| [0007](0007-static-website-growth.md) | accepted | Static Astro and TypeScript website stack |
+| [0008](0008-astro-publishing.md) | active | Markdown Lab publishing and disposable Astro output |
 
 ## Creating a decision
 

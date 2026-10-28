@@ -45,6 +45,8 @@ def validate(root: Path) -> list[str]:
             errors.append(f"Missing public asset: {name}")
     if not site.is_dir():
         return errors
+    if site.is_symlink():
+        return errors + ["Public output directory must not be a symlink"]
     files = sorted(site.rglob("*"))
     documents = {}
     for path in files:
@@ -78,16 +80,20 @@ def validate(root: Path) -> list[str]:
         if sum(tag == "h1" for tag, _ in doc.tags) != 1:
             errors.append(f"{path.name}: expected one primary heading")
         for tag, attrs in doc.tags:
-            if tag in {"script", "iframe", "form", "object", "embed"}:
+            if tag in {"script", "style", "iframe", "form", "object", "embed", "base"}:
                 errors.append(f"{path.name}: {tag} is outside this static website's scope")
             if any(key.startswith("on") for key in attrs):
                 errors.append(f"{path.name}: inline event handlers are not permitted")
+            if "style" in attrs or "srcdoc" in attrs:
+                errors.append(f"{path.name}: inline styles and embedded documents are not permitted")
             for attribute in ("href", "src"):
                 value = attrs.get(attribute)
                 if not value:
                     continue
                 url = urlsplit(value)
                 if url.scheme or url.netloc:
+                    if tag == "a" and (url.scheme != "https" or not url.netloc or url.username or url.password):
+                        errors.append(f"{path.name}: unsafe external link: {value}")
                     if tag != "a" and not (tag == "link" and attrs.get("rel") == "canonical"):
                         errors.append(f"{path.name}: external resource dependency: {value}")
                     continue

@@ -67,6 +67,21 @@ class WebsiteTests(unittest.TestCase):
         (self.site / "style.css").write_text('@font-face { src: url("/fonts/missing.woff2"); }')
         self.assertTrue(any("missing CSS asset" in error for error in validate(self.root)))
 
+    def test_inline_css_cannot_bypass_the_response_policy(self):
+        self.change_html('<style>body{display:none}</style><p style="display:none">Hidden</p>')
+        errors = validate(self.root)
+        self.assertTrue(any("style is outside" in error for error in errors))
+        self.assertTrue(any("inline styles" in error for error in errors))
+
+    def test_active_and_credentialed_link_schemes_are_rejected(self):
+        for href in ("javascript:alert(1)", "//example.com/", "http://example.com/", "https://user:secret@example.com/"):
+            with self.subTest(href=href):
+                path = self.site / "404.html"
+                original = path.read_text()
+                path.write_text(original.replace("</body>", f'<a href="{href}">Unsafe</a></body>'))
+                self.assertTrue(any("unsafe external link" in error for error in validate(self.root)))
+                path.write_text(original)
+
 
 if __name__ == "__main__":
     unittest.main()

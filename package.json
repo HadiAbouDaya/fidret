@@ -1,0 +1,29 @@
+{
+  "name": "fidret",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.1.2",
+  "engines": {
+    "node": ">=24.21.0 <25",
+    "pnpm": "11.1.2"
+  },
+  "scripts": {
+    "dev": "node scripts/check_build_boundary.mjs && astro dev --host 127.0.0.1 --port 8765",
+    "typecheck": "node scripts/check_build_boundary.mjs && astro check",
+    "build": "node scripts/check_build_boundary.mjs && astro build",
+    "preview": "astro preview --host 127.0.0.1 --port 8765",
+    "test": "node --test --test-isolation=none tests/*.test.ts tests/*.test.mjs",
+    "check": "sh scripts/check_deployment.sh",
+    "lab:new": "node scripts/lab.mjs new"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "7.3.5",
+    "astro": "7.4.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@types/node": "24.19.2",
+    "typescript": "6.0.3"
+  }
+}

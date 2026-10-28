@@ -25,7 +25,7 @@ For a conceptual architecture, describe it as a proposal. For a simulation, iden
 From the repository root, for example:
 
 ```sh
-python3 scripts/lab.py new camera-placement-tradeoffs \
+pnpm lab:new camera-placement-tradeoffs \
   --title "Camera placement tradeoffs" \
   --kind architecture \
   --author hadi
@@ -33,7 +33,11 @@ python3 scripts/lab.py new camera-placement-tradeoffs \
 
 For a genuine joint contribution, pass both `--author hadi --author elie`. Use `--author elie` for Elie's piece. The registry in [authors.json](authors.json) supplies names and profile links consistently. Shared branding does not make every piece jointly authored.
 
-The command creates `lab/pieces/<slug>.json` using [TEMPLATE.json](TEMPLATE.json). Incomplete drafts are allowed. Edit the plain-text fields and lists directly or through your harness. The format is JSON, so Markdown syntax inside text is rendered literally. Put code in `snippets`, links in `resources`, and images in `media`.
+The command creates `lab/pieces/<slug>.md` using `lab/TEMPLATE.md`, without overwriting an existing source. Incomplete drafts are allowed. Astro's typed collection validates the metadata and Markdown policy during checks/builds; do not create a second source in `src/pages/` or generated `website/`.
+
+Keep the YAML frontmatter fields `schema_version`, `slug`, `title`, `kind`, `status`, `authors`, `created`, `published`, `updated` and `summary`. Schema version is `1`; kinds are `simulation`, `prototype`, `technical-note` and `architecture`; status is `draft` or `published`. The lowercase hyphenated slug must match the source filename. Choose unique author IDs from the registry in their intended byline order. Use quoted `YYYY-MM-DD` UTC dates, with `created <= published <= updated` for publication and no future dates. A draft can leave `published` null.
+
+Write the body in Markdown under these five level-two headings: `Question`, `Approach`, `Takeaways`, `Limits` and `Next steps`. Each needs substantive content before publication, along with a complete title and summary. Ordinary paragraphs, lists, links and fenced code work; authored level-one headings and raw HTML are rejected so the page retains its single title and static content boundary. Fenced code displays as text. Link targets must be safe HTTPS or root-local URLs; protocol-relative URLs, credentials and active schemes are rejected.
 
 This repository is public: draft sources are visible on GitHub even though they stay off the website. Keep confidential client material and private drafts in a private repository.
 
@@ -54,30 +58,28 @@ Start a task branch, then fill the shared format. Ask the other contributor for 
 ## Preview and publish
 
 ```sh
-python3 scripts/lab.py build
-python3 -m http.server 8765 --bind 127.0.0.1 --directory website
+pnpm dev
 ```
 
-Open `http://127.0.0.1:8765/lab/`. Draft pieces are deliberately absent. To preview a finished piece, set its source status to `published` and supply its publication date locally, rebuild, and review before committing. Publishing requires complete narrative fields, not client evidence or quantitative results.
+Open `http://127.0.0.1:8765/lab/`. Draft pieces are deliberately absent from routes, the collection and sitemap. To preview a finished piece, set its source status to `published` and supply its publication date locally. For production-output review, run `pnpm build` then `pnpm preview`. Publishing requires complete narrative sections, not client evidence or quantitative results.
 
 When ready, set `status` to `published`, set `published` to the actual publication date, and set `updated` to that date or the date of the latest revision. Keep `created` unchanged. Dates use `YYYY-MM-DD` on a UTC basis so local work and CI agree; future publication scheduling is not part of this system.
 
 Run:
 
 ```sh
-python3 scripts/lab.py build
 sh scripts/check_deployment.sh
 ```
 
-Commit the source and generated changes together. Open a PR with the piece's purpose, actual authors, and preview/check results. Merging to main follows the existing workflow and triggers the website deployment. Check the live piece before calling it published.
+Commit the Markdown source and public assets, with any deliberate toolchain/lockfile change. Open a PR with the piece's purpose, actual authors and preview/check results. Merging to main follows the existing workflow and triggers the configured website build. Check the live piece before calling it published.
 
-`website/lab/` contains generated HTML. Edit sources and [templates](../templates/lab/), not those generated files. `python3 scripts/lab.py check` catches stale output. The generator preserves unmanaged files rather than overwriting them.
+`website/` is ignored, disposable Astro output, including Lab HTML and the root sitemap. Never hand-edit or commit it; a build can clean and replace it. Change Markdown, the typed collections/helpers and the [Astro pages/components](../src/) instead. The [publishing decision](../docs/decisions/0008-astro-publishing.md) replaces the earlier Python renderer/template workflow. Withdrawing a piece by changing it to a draft removes its route and sitemap entry on the next successful build.
 
 ## Optional code and images
 
-A code excerpt is an object in `snippets` with `title`, `language`, and `code`. Code is displayed as text and never executed by the website. A resource has a `label` and an HTTPS or local `url`.
+Fenced Markdown is suitable for code in the narrative. Optional frontmatter `snippets` objects retain `title`, `language` and `code` for a separately captioned excerpt; code is displayed as text and never executed. A `resources` entry has a `label` and safe HTTPS or root-local `url`.
 
-Put public images under `website/lab-assets/<slug>/`. Assets in `website/` are deployed independently of a piece's status, so those images are public even while the article is a draft. Each `media` entry needs `src`, `alt`, `caption`, `width`, and `height`; use its `/lab-assets/...` URL. Say when an image is simulated, synthetic, illustrative, or adapted from another source. Include required attribution. Large videos or demos can be linked as resources rather than embedded.
+Put public images under `public/lab-assets/<slug>/` and use structured frontmatter `media` entries with `src`, `alt`, `caption`, positive integer `width` and `height`. The `src` is its `/lab-assets/...` URL; the local file must exist and use an allowed image format. Assets in `public/` are copied into every build independently of a piece's status, so an image is public even while its article is a draft. Say when an image is simulated, synthetic, illustrative or adapted from another source, and include required attribution. Large videos or demos can be linked as resources rather than embedded.
 
 ## Build credibility over time
 

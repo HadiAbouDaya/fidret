@@ -1,0 +1,16 @@
+---
+import { authorRegistry } from '../lib/lab-schema';
+
+interface Props {
+  authors: readonly string[];
+}
+
+const { authors } = Astro.props;
+const people = authors.map((id) => {
+  const person = authorRegistry[id];
+  if (!person) throw new Error(`Unknown Lab author: ${id}`);
+  return person;
+});
+---
+
+{people.map((person, index) => <>{index > 0 ? ' and ' : ''}<a href={person.url}>{person.name}</a></>)}

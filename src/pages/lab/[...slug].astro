@@ -1,0 +1,79 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Byline from '../../components/Byline.astro';
+import PublicationDate from '../../components/PublicationDate.astro';
+import { getPublishedPieces } from '../../lib/lab';
+import { kindLabels } from '../../lib/lab-schema';
+
+export const getStaticPaths = (async () => {
+  const pieces = await getPublishedPieces();
+  return pieces.map((piece) => ({
+    params: { slug: piece.data.slug },
+    props: { piece },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { piece } = Astro.props;
+const { Content } = await render(piece);
+const resources = [
+  ...(piece.data.resources ?? []),
+  {
+    label: 'Piece source and revision history',
+    url: `https://github.com/HadiAbouDaya/fidret/blob/main/lab/pieces/${piece.data.slug}.md`,
+  },
+];
+---
+
+<SiteLayout
+  title={`${piece.data.title} — Fidret Lab`}
+  description={piece.data.summary}
+  canonical={`https://fidret.com/lab/${piece.data.slug}/`}
+  variant="lab"
+>
+  <main id="main" class="lab-main">
+    <article class="lab-piece shell">
+      <a class="lab-back" href="/lab/">All Lab pieces</a>
+      <header class="lab-piece-heading">
+        <p class="lab-kind">{kindLabels[piece.data.kind]}</p>
+        <h1>{piece.data.title}</h1>
+        <p class="lab-lead">{piece.data.summary}</p>
+        <div class="lab-piece-meta">
+          <div class="lab-byline">By <Byline authors={piece.data.authors} /></div>
+          <div class="lab-dates">
+            <span>Published <PublicationDate value={piece.data.published} /></span>
+            {piece.data.updated !== piece.data.published && (
+              <span>Updated <PublicationDate value={piece.data.updated} /></span>
+            )}
+          </div>
+        </div>
+      </header>
+      <div class="lab-piece-body">
+        <div class="lab-prose"><Content /></div>
+        {(piece.data.media ?? []).map((media) => (
+          <figure class="lab-figure">
+            <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" />
+            <figcaption>{media.caption}</figcaption>
+          </figure>
+        ))}
+        {(piece.data.snippets ?? []).map((snippet) => (
+          <figure class="lab-code">
+            <figcaption>{snippet.title} ({snippet.language})</figcaption>
+            <pre><code>{snippet.code}</code></pre>
+          </figure>
+        ))}
+        <section class="lab-section">
+          <h2>Resources</h2>
+          <ul class="lab-resources">
+            {resources.map((resource) => <li><a href={resource.url}>{resource.label}</a></li>)}
+          </ul>
+        </section>
+      </div>
+      <nav class="lab-piece-footer" aria-label="Lab navigation">
+        <a class="lab-back" href="/lab/">Back to Fidret Lab</a>
+      </nav>
+    </article>
+  </main>
+</SiteLayout>

@@ -42,7 +42,7 @@ These instructions apply to every agent and contributor in this repository. Foll
 
 ## Before handing off
 
-1. Run `python3 scripts/lab.py build` after Lab source or template changes, then `sh scripts/check_deployment.sh`, plus checks appropriate to any new code. Commit generated Lab pages with their source.
+1. Use the pinned Node/pnpm toolchain and install with `pnpm install --frozen-lockfile` when needed. Run `sh scripts/check_deployment.sh`, plus checks appropriate to any new behavior. It type-checks, tests and rebuilds the Astro site. Commit sources and the lockfile; `website/` is ignored, disposable build output and must not be hand-edited or committed.
 2. Review the diff for scope, unsupported claims, and accidental sensitive content.
 3. Update the task's verification and handoff: checkpoint, remaining work, next action, blockers, acceptance basis, publication state and last verification. State checks you could not run. A done task requires passed verification and actual acceptance or applicable standing authorization.
 4. Report local files, commits, remote pushes, PRs, merges, and deployments separately. Under Hadi's standing authorization, publish useful checkpoints on task branches and merge completed work to `main` after checks pass. A narrower task instruction takes precedence. This authorization does not extend to deployments, account changes, or contacting others.

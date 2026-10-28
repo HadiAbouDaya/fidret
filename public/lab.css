@@ -42,6 +42,17 @@
 .lab-dates { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.25rem; }
 .lab-dates time { white-space: normal; }
 .lab-piece-body { max-width: var(--fd-reading-width); }
+.lab-prose { padding-top: var(--fd-space-8); border-top: 1px solid var(--fd-rule); }
+.lab-prose h2 { margin-block: var(--fd-space-12) var(--fd-space-6); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.25; }
+.lab-prose > h2:first-child { margin-top: 0; }
+.lab-prose :where(p, ul, ol, figure, pre) { margin-block: 0 var(--fd-space-6); }
+.lab-prose :where(ul, ol) { padding-left: 1.4em; }
+.lab-prose li + li { margin-top: .75rem; }
+.lab-prose :where(p, li, a, code) { overflow-wrap: anywhere; }
+.lab-prose > :last-child { margin-bottom: 0; }
+.lab-prose pre { overflow-x: auto; padding: var(--fd-space-6); border-radius: var(--fd-radius); background: var(--fd-sage); color: var(--fd-forest); font-size: .9375rem; line-height: 1.6; }
+.lab-prose pre code { overflow-wrap: normal; }
+.lab-prose + .lab-figure { margin-top: var(--fd-space-12); }
 .lab-section { padding-top: var(--fd-space-12); }
 .lab-section:first-child { padding-top: var(--fd-space-8); border-top: 1px solid var(--fd-rule); }
 .lab-section h2 { margin-bottom: var(--fd-space-6); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.25; }
@@ -79,6 +90,8 @@
   .lab-piece-meta { display: block; }
   .lab-dates { margin-top: .25rem; }
   .lab-section { padding-top: var(--fd-space-8); }
+  .lab-prose h2 { margin-top: var(--fd-space-8); }
+  .lab-prose pre { padding: var(--fd-space-4); }
   .lab-section pre { padding: var(--fd-space-4); }
   .lab-piece-footer { margin-top: var(--fd-space-12); }
 }
