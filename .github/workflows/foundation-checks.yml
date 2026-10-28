@@ -24,12 +24,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
         with:
-          python-version: '3.12'
-      - name: Validate shared foundation
-        run: python3 scripts/check_foundation.py
-      - name: Validate Lab sources and generated pages
-        run: python3 scripts/lab.py check
-      - name: Validate public website and deployment boundary
-        run: python3 scripts/check_website.py
-      - name: Test foundation validator
-        run: python3 -m unittest discover -s tests -v
+          python-version-file: '.python-version'
+      - name: Set up pinned Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: '.node-version'
+      - name: Install locked dependencies
+        run: |
+          corepack enable
+          corepack install
+          pnpm install --frozen-lockfile
+      - name: Validate, test and build static public output
+        run: sh scripts/check_deployment.sh

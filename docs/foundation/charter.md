@@ -46,7 +46,7 @@ Speak plainly and precisely. Explain the client's need and the useful result bef
 
 ## Open choices
 
-Market, offers, pricing, legal structure, brand assets, technical stack, and specific physical AI capabilities remain to be developed. Future work should record what changes, why it serves the purpose, and what evidence supports it.
+Market, offers, pricing, legal structure, brand assets, product/practice stacks, and specific physical AI capabilities remain to be developed. The public website stack is recorded separately in [decision 0007](../decisions/0007-static-website-growth.md). Future work should record what changes, why it serves the purpose, and what evidence supports it.
 
 ## Domain
 

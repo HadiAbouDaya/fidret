@@ -1,10 +1,13 @@
 # Shared Fidret Lab with individual and joint bylines
 
-- Status: active
+- Status: superseded
 - Date: 2026-10-24
 - Human decision owner: Hadi Abou Daya
 - Related task: [Shared Fidret Lab](../tasks/2026-10-24-fidret-lab.md)
 - Basis: Hadi requested a unified showcase, confirmed the shared Lab with bylines, and explicitly allowed pieces without real-world evidence
+- Superseded by: [0008](0008-astro-publishing.md)
+
+This record preserves the founding Lab rationale and original Python/JSON implementation. [Decision 0008](0008-astro-publishing.md) retains the shared format, explicit bylines and evidence boundaries while replacing the authoring/build implementation with Astro and Markdown.
 
 ## Context
 
@@ -24,4 +27,4 @@ The current hosting remains static and free. There are no user accounts, runtime
 
 ## Review
 
-Review the format after the first few real pieces. Add richer authoring tools or organization only when their benefit is clear. Keep the [Lab guide](../../lab/README.md) as the operational reference.
+The original publishing implementation was superseded during Hadi's authorized Astro migration on 2026-10-28. Its founding format/byline principles continue in decision 0008. Review the format after the first few real pieces. Keep the [Lab guide](../../lab/README.md) as the current operational reference.

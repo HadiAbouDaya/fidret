@@ -20,6 +20,8 @@ __pycache__/
 
 # Generated or restricted material
 node_modules/
+.astro/
+website/
 dist/
 build/
 coverage/

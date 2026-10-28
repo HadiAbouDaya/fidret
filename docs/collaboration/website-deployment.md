@@ -1,6 +1,6 @@
 # Website deployment
 
-Fidret's website uses Cloudflare Pages Free with native GitHub deployment. [Decision 0004](../decisions/0004-pages-git-deployment.md) records the hosting choice. Follow the [design brief](../design/fidret-design-brief.md) for visual changes. Actual connection, deployment, and domain verification belong in the [website task](../tasks/2026-10-24-static-website.md); configuration alone does not establish that the site is live.
+Fidret's Astro site uses Cloudflare Pages Free with native GitHub deployment. [Decision 0004](../decisions/0004-pages-git-deployment.md) records hosting; [decision 0008](../decisions/0008-astro-publishing.md) records the current build/publication convention. Follow the [design brief](../design/fidret-design-brief.md) for visual changes. Initial connection evidence belongs in the [website task](../tasks/2026-10-24-static-website.md); the [Astro migration task](../tasks/2026-10-28-astro-migration.md) and subsequent tasks own later deployment evidence. Configuration alone does not establish that the site is live.
 
 ## Deployment configuration
 
@@ -16,29 +16,29 @@ Fidret's website uses Cloudflare Pages Free with native GitHub deployment. [Deci
 | Build output directory | `website` |
 | Custom domain | `fidret.com` |
 
-Root `wrangler.json` declares `name: fidret`, `pages_build_output_dir: ./website`, and `compatibility_date: 2026-10-24`. There is no Worker script or Pages Functions directory. Publish only `website/`, which contains the public pages, assets, fonts, and their license notices. Keep internal repository documents outside that directory.
+Root `wrangler.json` declares `name: fidret`, `pages_build_output_dir: ./website`, and `compatibility_date: 2026-10-24`. Astro's static `outDir` is the same directory, so the existing Pages build command and output settings are retained. `website/` is ignored, disposable output generated from `src/`, Markdown content and `public/`; never edit or commit it. There is no server adapter, Worker script or Pages Functions directory. Publish only this generated public output, keeping internal records, source drafts and registries outside it.
 
-The build command runs both Python validators and the unit suite before Pages publishes the static files. No deployment CLI or user-created Cloudflare API token is needed for this Git-connected workflow. Restrict the Cloudflare GitHub App's repository access to `fidret`.
+The repository pins Node through `.node-version`/`.nvmrc`, pnpm through `package.json`, resolved dependencies through `pnpm-lock.yaml`, and Python through `.python-version`. Pages' automatic dependency installation must honor the pinned package manager and lockfile before the configured command runs; confirm the reported tool versions in the first migrated build. The command validates foundation records, type-checks Astro/TypeScript, runs Node tests including isolated fixture builds, builds the site, and runs Python output validation and unit tests before publication. No deployment CLI or user-created Cloudflare API token is needed. Keep the Cloudflare GitHub App's repository access restricted to `fidret`.
 
 The [Pages Free build allowance](https://developers.cloudflare.com/pages/platform/limits/) is 500 builds per month, with one concurrent build. [Static asset requests are free and unlimited](https://developers.cloudflare.com/pages/functions/pricing/) when they do not invoke Functions. Keep the site static and avoid paid upgrades; domain renewal remains a separate annual expense.
 
 ## Local preview and checks
 
-After changing Lab sources or templates, first run `python3 scripts/lab.py build` and commit the generated pages with their source. The shared build checks include `python3 scripts/lab.py check`, which rejects stale output. Follow the [Lab publishing guide](../../lab/README.md) for bylines, drafts, and the common piece format.
+Install the pinned toolchain and frozen dependencies using the README. Follow the [Lab publishing guide](../../lab/README.md) for bylines, drafts and the common piece format. Edit `src/`, Markdown sources and `public/`, then run the shared checks; commit those sources and any deliberate lockfile change, not `website/`.
 
 From the repository root:
 
 ```sh
-python3 -m http.server 8765 --bind 127.0.0.1 --directory website
+pnpm dev
 ```
 
-Open `http://127.0.0.1:8765/`. In another terminal:
+Open `http://127.0.0.1:8765/`. For production-output review, use `pnpm build` followed by `pnpm preview` instead. In another terminal:
 
 ```sh
 sh scripts/check_deployment.sh
 ```
 
-Python's preview server does not apply Cloudflare's `_headers` or custom 404 routing. Verify those on the deployed site. Review mobile and desktop layouts, text enlargement, navigation, keyboard focus, and font loading before publishing visual changes.
+Astro's local servers do not establish Cloudflare response-header or routing behavior. Verify `public/_headers` and the custom 404 on the deployed site. Review mobile/desktop layouts, text enlargement, navigation, keyboard focus and font loading before publishing visual changes. The preflight boundary check rejects symlinks in public/Lab source, cache and output paths before Astro reads, copies or cleans them.
 
 ## Initial Cloudflare connection
 

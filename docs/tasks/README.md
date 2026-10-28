@@ -8,6 +8,8 @@ Task records make work transferable between people and harnesses. Create a recor
 | [Free static website](2026-10-24-static-website.md) | Hadi Abou Daya | See task record |
 | [Shared Fidret Lab](2026-10-24-fidret-lab.md) | Hadi Abou Daya | See task record |
 | [Shared agent readiness](2026-10-28-agent-readiness.md) | Hadi Abou Daya | See task record |
+| [Static Astro migration](2026-10-28-astro-migration.md) | Hadi Abou Daya | See task record |
+| [Purpose-aligned improvement session](2026-10-28-project-hardening.md) | Hadi Abou Daya | See task record |
 
 The task file is authoritative for status and progress. This register provides discovery and ownership; it avoids copying detailed progress into several places.
 

@@ -59,7 +59,7 @@ Do not commit client or personal data to this foundation. If future work needs r
 ## Contributor onboarding
 
 - Elie accepts the invitation already sent by Hadi. Confirm the intended access level and verify write access after acceptance.
-- Elie clones the repository, reads the charter and this workflow, and runs both local check commands from the README.
+- Elie clones the repository, reads the charter and this workflow, installs the pinned toolchain/dependencies using the README, and runs `sh scripts/check_deployment.sh`.
 - Each person confirms that their harness reads `AGENTS.md` and can find a task, its owner, and its handoff.
 - Review the initial foundation together and record changes through a task and PR.
 - Once access is confirmed, add the actual GitHub handles to a CODEOWNERS file if useful. Configure a rule for `main` requiring PR review and the `foundation` check if supported by the repository's GitHub plan. A workflow file alone does not enforce branch protection.

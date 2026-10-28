@@ -16,11 +16,10 @@ The checkout retains `origin` as `https://github.com/HadiAbouDaya/fidret.git` an
 
 ## Checks
 
-From the repository root:
+The initial foundation used Python-only checks. For the current Astro implementation, first install the pinned Node/pnpm toolchain and locked dependencies as described in the [README](../../README.md), then run from the repository root:
 
 ```sh
-python3 scripts/check_foundation.py
-python3 -m unittest discover -s tests -v
+sh scripts/check_deployment.sh
 git diff --check
 ```
 
@@ -28,8 +27,8 @@ The checker validates required foundation files, local Markdown file links, harn
 
 ## GitHub automation
 
-The `Foundation checks` workflow is configured to run the same validation on pushes and pull requests. It uses read-only repository permissions and pinned action commits. The job name is `foundation`, which can be selected as a required check after its first successful run.
+The `Foundation checks` workflow runs the shared check entry point on pushes and pull requests after installing the pinned Node/pnpm toolchain and frozen dependencies. It uses read-only repository permissions and pinned action commits. The job name is `foundation`, which can be selected as a required check after its first successful run.
 
-Action references were resolved against the official repositories during setup: [checkout v7](https://github.com/actions/checkout/tree/3d3c42e5aac5ba805825da76410c181273ba90b1) and [setup-python v7](https://github.com/actions/setup-python/tree/6d4fd22b20465ccc0f7354476588e8df7c9ca0e0). [The official Python action documentation](https://github.com/actions/setup-python) describes explicit Python version selection. Review upstream changes before updating these pins.
+Action references were resolved against the official repositories: [checkout v7](https://github.com/actions/checkout/tree/3d3c42e5aac5ba805825da76410c181273ba90b1), [setup-python v7](https://github.com/actions/setup-python/tree/6d4fd22b20465ccc0f7354476588e8df7c9ca0e0) and, for the Astro migration, [setup-node v6](https://github.com/actions/setup-node/tree/249970729cb0ef3589644e2896645e5dc5ba9c38). The source workflow is authoritative for pins. Review upstream changes before updating them.
 
 Publishing the workflow does not create branch protection or contributor access. Those GitHub settings remain separate follow-up actions. Execution evidence is recorded in the [foundation task](../tasks/2026-10-24-foundation.md).

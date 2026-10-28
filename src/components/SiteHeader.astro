@@ -1,0 +1,19 @@
+---
+interface Props {
+  variant?: 'home' | 'lab' | 'minimal';
+}
+
+const { variant = 'home' } = Astro.props;
+const homepage = variant === 'home';
+---
+
+<header class:list={['site-header', 'shell', { 'lab-header': variant === 'lab' }]}>
+  <a class="wordmark" href="/" aria-label="Fidret home">Fidret</a>
+  {variant !== 'minimal' && (
+    <nav aria-label="Main navigation">
+      <a href={homepage ? '#purpose' : '/#purpose'}>Our purpose</a>
+      <a href={homepage ? '#physical-ai' : '/#physical-ai'}>Physical AI</a>
+      <a href="/lab/" aria-current={variant === 'lab' ? 'page' : undefined}>Lab</a>
+    </nav>
+  )}
+</header>
