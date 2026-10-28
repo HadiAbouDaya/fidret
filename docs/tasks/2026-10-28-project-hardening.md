@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
-- Branch: hadi/managed-runtime
+- Branch: hadi/dependency-maintenance
 - Updated: 2026-10-28
 - Verification status: partial
 
@@ -45,15 +45,18 @@ Existing charter and accepted decisions remain authoritative. Use a new decision
 
 - Start clock: 2026-10-28 15:17:25 UTC. Two-hour deadline: 17:17:25 UTC.
 - Migration [PR 9](https://github.com/HadiAbouDaya/fidret/pull/9) merged and Cloudflare `260d710c` successfully deployed `b9fe003`; live site/security/source-boundary checks passed. Exact evidence is in the migration task.
-- Selected next priority: [managed Node bootstrap](2026-10-28-managed-runtime.md), addressing the observed read-only NVM/global preference problem rather than relying on private temporary runtime paths. Minimal and full-project cold/frozen/offline experiments passed; code integration/documentation is underway.
+- [Managed Node bootstrap](2026-10-28-managed-runtime.md) delivered through PR 10 and successful production deployment `f89babac`; minimal/full-project cold, frozen and offline experiments plus both CI jobs passed.
 - Bounded technical site audit on 2026-10-28 found correct HTTPS/slash redirects, intentional 404/noindex behavior, robots/sitemap and static metadata. Field Core Web Vitals and actual search indexing are unmeasured. No content or numerical SEO score was invented.
 - Audit selected another bounded follow-up: custom-domain CSS is fresh for four hours (`max-age=14400`) while the identical ETag on the exact Pages URL revalidates (`max-age=0`). Prefer fingerprinted CSS links with generated compatibility aliases from one canonical source; do not change account cache rules without a separate scope.
+- [Reliable stylesheet delivery](2026-10-28-fingerprinted-styles.md) merged through PR 11 as `1b9cd61` after full checks, independent review/corrections and an actual browser geometry comparison. Production `8cd9b3c7` succeeded; live HTML links the fingerprinted CSS with the intended one-year immutable policy and existing aliases remain available.
+- Current maintenance review found official Node 24.22.1 is a newer LTS security release than the initial migration pin. The [dependency maintenance task](2026-10-28-dependency-maintenance.md) synchronizes the runtime and adds reviewed update proposals with explicit automation limits.
+- Other selected work is being tracked in isolated task branches: regression checks for the demonstrated missing/weakened-header and noindex gate gaps, and a synthetic sensor-freshness prototype from the existing Lab idea. These are implementation work, not delivered production or human-authored publication claims.
 
 ## Handoff
 
-- Checkpoint: migration complete and verified live; managed-runtime implementation passed initial experiments/full checks; release-cache fix chosen from observed evidence.
-- Remaining work: deliver the managed-runtime and CSS follow-ups, evaluate further useful work and meet the minimum duration.
-- Next action: finish runtime integration/review/publication and start the bounded CSS task in isolated worktrees.
+- Checkpoint: migration and managed bootstrap delivered and verified live; CSS PR merged after checks; security-patch/maintenance integration and bounded follow-ups underway.
+- Remaining work: verify CSS live, deliver maintenance/policy checks and the synthetic prototype where verified, and meet the minimum duration.
+- Next action: finish maintenance integration/review/publication while independent workers test the policy and prototype tasks.
 - Blockers: none requiring user input.
 - Acceptance basis: Hadi's explicit timed autonomous-work request on 2026-10-28; no additional contributor approval is inferred.
 - Publication: session record first published with merged PR 9; subsequent task delivery evidence stays in the linked task/PR records.

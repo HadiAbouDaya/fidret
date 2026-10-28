@@ -24,6 +24,7 @@ Physical AI is our first practice. The company purpose guides how we choose work
 | [Task register](docs/tasks/README.md) | Current work, ownership, and handoffs |
 | [Foundation roadmap](docs/foundation/roadmap.md) | Evidence needed for the next stages |
 | [Website deployment](docs/collaboration/website-deployment.md) | Static website, free hosting, and updates from main |
+| [Dependency maintenance](docs/collaboration/dependency-maintenance.md) | Reviewed updates, synchronized runtime pins and dated advisory checks |
 | [Design brief](docs/design/fidret-design-brief.md) | The supplied visual specification and implementation requirements |
 | [Lab publishing](lab/README.md) | Create a piece, choose bylines, preview, and publish |
 
@@ -45,7 +46,7 @@ Git-tracked documents carry shared context. Put decisions and useful handoffs th
 
 ## Local setup
 
-Use Git, Python 3.12 and Node 22.22 or newer to launch pnpm 11. `package.json` declares exact pnpm and project Node versions; `pnpm install` obtains Node 24.21 for project commands and locks its archive checksums with dependencies. Global Node/NVM defaults do not need to change. On a fresh machine with Corepack available:
+Use Git, Python 3.12 and Node 22.22 or newer to launch pnpm 11. `package.json` declares exact pnpm and project Node versions; `pnpm install` obtains Node 24.22.1 for project commands and locks its archive checksums with dependencies. Global Node/NVM defaults do not need to change. On a fresh machine with Corepack available:
 
 ```sh
 git clone https://github.com/HadiAbouDaya/fidret.git

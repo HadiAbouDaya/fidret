@@ -1,6 +1,6 @@
 # Reliable stylesheet delivery across releases
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/fingerprinted-styles
@@ -51,13 +51,15 @@ This is a release-reliability implementation within accepted [decision 0007](../
 - Independent review found moved styles could follow a symlinked `src` ancestor and that trailing-slash `lstat` followed a linked styles directory. Root added `src` to recursive preflight, checked source ancestors without trailing slashes and added direct integration regression cases. Focused boundary/config tests passed four cases; final combined gate follows these corrections.
 - Final root `pnpm check` after those corrections passed 33 Node cases, 42 Python cases, zero Astro errors/warnings/hints and static-output validation. Follow-up independent review found no remaining blocker.
 - Actual browser review at 1704px compared live baseline with the production build: homepage hero bounds, font size, line height and color were identical; Manrope loaded, document width remained 1689px, and script/inline-style counts remained zero. Homepage, Lab navigation/current state and generated custom 404 were reviewed. This CSS-only move preserves source bytes; no new post-change mobile-emulation claim is made.
+- [PR 11](https://github.com/HadiAbouDaya/fidret/pull/11) merged as `1b9cd614b8635d516a3b320235ac32e0f41f41e9`; both CI jobs passed in [push](https://github.com/HadiAbouDaya/fidret/actions/runs/40725297528) and [PR](https://github.com/HadiAbouDaya/fidret/actions/runs/40725301725) runs. Cloudflare production deployment `8cd9b3c7-239a-4d1b-9efb-82a04a73ac90` succeeded for that exact merge in 2m37s.
+- Live homepage reload linked `/_astro/SiteLayout.CMIcU1UE.css`, loaded Manrope and retained the expected layout/zero scripts/inline styles. HEAD returned 200 CSS with `public, max-age=31536000, immutable` and the unchanged strict security headers. Both legacy CSS URLs returned 200 CSS; their custom-domain TTL remains four hours, while new HTML uses the fingerprinted identity. No zone settings changed.
 
 ## Handoff
 
-- Checkpoint: implementation, final combined checks, independent review and browser comparison passed.
-- Remaining work: PR/CI/merge and production verification.
-- Next action: publish the checked tree and verify remote CI before merging.
+- Checkpoint: fingerprinted CSS and generated compatibility aliases delivered through passing checks/review/CI, merged PR and verified production.
+- Remaining work: none for this task.
+- Next action: edit canonical CSS and use the documented production asset-identity check on future releases.
 - Blockers: none requiring user input.
 - Acceptance basis: Hadi's explicit continuous-work authorization; no Elie review or agreement is claimed.
-- Publication: local task branch only.
-- Last verified: final local gate, independent review and browser comparison passed on 2026-10-28; production delivery remains pending.
+- Publication: PR 11 merged as `1b9cd61`; production `8cd9b3c7` and custom-domain HTML/CSS verified. Closure is recorded in the following dependency-maintenance branch.
+- Last verified: final local gate, independent review, browser comparison, both CI jobs and actual production delivery observed on 2026-10-28.
