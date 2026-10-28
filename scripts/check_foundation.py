@@ -50,10 +50,25 @@ def markdown_without_fences(text: str) -> str:
 def check_links(root: Path, path: Path) -> list[str]:
     errors = []
     text = markdown_without_fences(path.read_text(encoding="utf-8"))
+    lab_piece = (path.parent == root / "lab/pieces"
+                 and re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*\.md", path.name) is not None)
     for destination in re.findall(r"!?\[[^\]\n]*\]\(([^)\n]+)\)", text):
         destination = destination.strip().strip("<>")
         parsed = urlsplit(destination)
         if parsed.scheme or parsed.netloc or not parsed.path:
+            continue
+        if lab_piece and parsed.path.startswith("/"):
+            # These are website URLs, not filesystem paths. Publishing validates
+            # URL policy; the built-output gate checks actual page/asset targets.
+            try:
+                decoded = unquote(parsed.path, errors="strict")
+            except UnicodeDecodeError:
+                decoded = None
+            if (decoded is None or re.search(r"[\s\\\x00-\x1f\x7f]", destination)
+                    or re.search(r"%(?![0-9a-fA-F]{2})", parsed.path)
+                    or decoded.startswith("//") or "\\" in decoded
+                    or ".." in decoded.split("/")):
+                errors.append(f"{path.relative_to(root)}: invalid Lab website link: {destination}")
             continue
         target = (path.parent / unquote(parsed.path)).resolve()
         if not target.is_relative_to(root.resolve()):
