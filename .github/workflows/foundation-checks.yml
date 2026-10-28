@@ -16,6 +16,8 @@ jobs:
   runtime-bootstrap:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      COREPACK_HOME: ${{ github.workspace }}/.local/corepack
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -34,12 +36,15 @@ jobs:
         run: |
           test "$(node --version)" = 'v22.22.0'
           test "$(pnpm config get engine-strict)" = 'true'
+          test "$(pnpm config get minimum-release-age)" = '1440'
           test "$(pnpm exec node --version)" = "v$(cat .node-version)"
           pnpm runtime:check
           test "$(node --version)" = 'v22.22.0'
   foundation:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      COREPACK_HOME: ${{ github.workspace }}/.local/corepack
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7

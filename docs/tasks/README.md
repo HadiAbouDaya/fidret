@@ -14,6 +14,7 @@ Task records make work transferable between people and harnesses. Create a recor
 | [Synthetic sensor freshness prototype](2026-10-28-sensor-freshness.md) | Hadi Abou Daya | See task record |
 | [Public release policy checks](2026-10-28-publication-contracts.md) | Hadi Abou Daya | See task record |
 | [Dependency maintenance](2026-10-28-dependency-maintenance.md) | Hadi Abou Daya | See task record |
+| [Package-manager security update](2026-10-28-pnpm-security.md) | Hadi Abou Daya | See task record |
 | [Reliable stylesheet delivery](2026-10-28-fingerprinted-styles.md) | Hadi Abou Daya | See task record |
 
 The task file is authoritative for status and progress. This register provides discovery and ownership; it avoids copying detailed progress into several places.

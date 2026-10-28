@@ -10,6 +10,8 @@ GitHub's [supported-ecosystem table](https://docs.github.com/en/code-security/re
 
 Review release notes, compatibility and the exact diff. Preserve exact package pins and a deliberate lockfile. For Actions, verify the replacement SHA belongs to the official action/release and retain read-only workflow permissions. Follow the usual task/PR workflow, run the full gate and inspect the actual deployment after merge. A green update is evidence for those checks, not permission to infer wider capability or another contributor's approval.
 
+The workspace explicitly retains a 24-hour minimum release age with no blanket exclusions. If frozen installation rejects freshly published lock entries, inspect dates and release/security changes, then use a compatible mature baseline or wait for the settling window. Do not suppress the policy merely to turn CI green.
+
 ## Node and pnpm upgrades
 
 Check supported LTS releases at least monthly and when a relevant vendor security release appears. This is an operating instruction, not a scheduled automation. Use [Node's release policy](https://nodejs.org/en/about/previous-releases) and the exact release notes; prefer a supported LTS line unless an actual requirement justifies changing it.
@@ -17,7 +19,7 @@ Check supported LTS releases at least monthly and when a relevant vendor securit
 Keep these inputs synchronized in one task:
 
 1. `.node-version`, `.nvmrc`, `package.json`'s exact `devEngines.runtime.version` and its matching `engines.node` lower bound/major range.
-2. `packageManager` and `engines.pnpm` when changing pnpm; read that version's migration notes and preserve strict engines/project-local stores.
+2. `packageManager` and `engines.pnpm` when changing pnpm; read that version's migration notes and preserve strict engines/project-local stores. For a Corepack shim, use the README's project-local `COREPACK_HOME` and prepare the new manager before running pnpm. The runtime test also checks the actual launching manager through its user-agent metadata.
 3. Regenerate `pnpm-lock.yaml` with the intended pinned pnpm. Review runtime archive URLs/checksums against official release SHASUMS and distinguish runtime changes from application dependency updates.
 4. Install frozen dependencies starting from the supported ordinary Node launcher, check `pnpm exec node --version`, run `pnpm runtime:check` and `pnpm check`, and verify that ordinary `node` did not change unexpectedly.
 5. Update current setup/system documentation, review the PR, verify both CI jobs, then verify Pages' exact commit/tool versions and live output.

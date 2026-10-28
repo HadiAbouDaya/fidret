@@ -51,6 +51,7 @@ Use Git, Python 3.12 and Node 22.22 or newer to launch pnpm 11. `package.json` d
 ```sh
 git clone https://github.com/HadiAbouDaya/fidret.git
 cd fidret
+export COREPACK_HOME="$PWD/.local/corepack"
 corepack enable
 corepack install
 pnpm install --frozen-lockfile
@@ -59,7 +60,9 @@ pnpm check
 
 The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
 
-If pnpm is already available, skip the Corepack setup commands. Installation uses ignored project-local stores/caches under `.local/`, including on a harness with a read-only home directory. After installation, `pnpm exec node --version` reports the project runtime; bare `node` may still report the machine's original version. Run scripts through pnpm. `.node-version` and `.nvmrc` retain the same pin for CI, Pages and optional `nvm install`/`nvm use` on unrestricted machines. First installation needs the registry and official Node archives; warm frozen/offline reuse is supported, while an absent offline runtime fails explicitly.
+If the `pnpm` launcher already exists, skip `corepack enable`. For a Corepack shim, keep the `COREPACK_HOME` export in each new shell and run `corepack install` after changing the package-manager pin. This places Corepack's separate manager cache under ignored `.local/`, alongside pnpm's project-local stores/caches, and avoids requiring writable home-directory caches. A standalone pnpm installation can use the normal frozen install directly. First setup needs the registry and official Node archives; unavailable network access is a failed setup, not permission to relax checks.
+
+After installation, `pnpm exec node --version` reports the project runtime; bare `node` may still report the machine's original version. Run scripts through pnpm. `.node-version` and `.nvmrc` retain the same pin for CI, Pages and optional `nvm install`/`nvm use` on unrestricted machines. Warm frozen/offline reuse is supported, while an absent offline runtime fails explicitly.
 
 The Astro command wrapper runs filesystem preflight and disables build-tool telemetry before loading the CLI, so development/type/build/preview commands do not require writable home-directory preferences. It does not add visitor analytics or browser JavaScript.
 

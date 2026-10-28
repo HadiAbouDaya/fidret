@@ -16,6 +16,8 @@ Use weekly Dependabot npm/pnpm and GitHub Actions version-update PRs with small 
 
 Maintain Node and pnpm pins coherently through explicit tasks, including engine declarations, version files, runtime archive integrity entries and current instructions. Use supported LTS Node and review relevant security releases. Do not assume a dependency bot updates every runtime declaration or that general pnpm support proves the first exact lockfile service run.
 
+Retain a 24-hour dependency settling window (`minimumReleaseAge: 1440`) without blanket exclusions. When stricter installer verification exposes fresh locked packages, inspect release dates and compatibility, then choose a mature patched baseline or wait for the window. Record the actual tradeoff and preserve security checks.
+
 Keep advisory checks as dated maintenance evidence with actual exposure and limitations. Do not add live advisory-service availability to every deployment or apply automatic audit fixes. The [maintenance guide](../collaboration/dependency-maintenance.md) owns the procedure.
 
 ## Consequences

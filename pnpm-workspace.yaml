@@ -1,5 +1,6 @@
 engineStrict: true
 saveExact: true
+minimumReleaseAge: 1440
 pmOnFail: download
 storeDir: .local/pnpm-store
 cacheDir: .local/pnpm-cache
