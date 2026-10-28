@@ -1,11 +1,11 @@
 # Patch the package-manager installer
 
-- Status: active
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/pnpm-security
 - Updated: 2026-10-28
-- Verification status: partial
+- Verification status: passed
 
 ## Purpose
 
@@ -53,13 +53,15 @@ Maintain the accepted stack and active reviewed-maintenance convention. Prefer t
 - Compatibility scope was narrowed to the mature 2026-10-21 set: Astro 7.4.2, markdown-remark 7.3.4, markdown-satteri 0.4.5, Prism 4.1.1 and telemetry 3.4.1. Official [Astro release](https://github.com/withastro/astro/releases/tag/astro%407.4.2), [remark release](https://github.com/withastro/astro/releases/tag/%40astrojs%2Fmarkdown-remark%407.3.4), published registry metadata and pinned API source were reviewed. Current unified processor/hooks remain supported; configured syntax highlighting is disabled, so the newer Prism-rendering patch path is unused. Reviewed core advisory patch floors are below the selected Astro version; this is a bounded review, not a full transitive audit.
 - Lock resolution used the available cached 11.1.2 only in an isolated lock-only fixture with the canonical lockfile as input and unchanged age defaults. Exactly five related package/snapshot records changed; every shared record, including Node archive integrity, stayed byte-identical. Target project manager remains 11.28.9. The settling policy is now explicit at 1440 minutes with no exclusions; CI must verify the final lock and actual new-manager pipeline.
 - The independently checked synthetic prototype from actual main `d0bfa94` was integrated; final CI covers its 17 tests alongside the publication gate. Final cold/frozen/full checks remain pending the updated PR head.
+- Final head `9d44075` passed both jobs in [push CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40732147851) and [PR CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40732158924). Logs confirm cold Corepack preparation of 11.28.9, successful frozen installation, ordinary Node-22 bootstrap with managed 24.22.1, exact manager assertions, intact age policy, zero Astro diagnostics, 34 Node cases, 78 Python cases and valid static output. This supersedes the pending-CI checkpoint above; local uncached download remains unverified in this harness.
+- [PR 15](https://github.com/HadiAbouDaya/fidret/pull/15) merged as `603c4dea98993d291ac9d0d8829027f4452f3be9`. Production `19b5429a-4766-407f-ab00-16aa9ac03842` succeeded for that exact commit in 4m15s. Visible logs confirm Node 24.22.1, pnpm 11.28.9 and Astro 7.4.2. Live homepage/fonts/external CSS loaded with zero scripts or inline styles and unchanged geometry.
 
 ## Handoff
 
-- Checkpoint: patched pins, actual-manager assertion and local Corepack-cache setup implemented; source review passed. Local download is blocked by harness networking, so CI verification is required before merge.
-- Remaining work: cold/frozen/new-manager full checks in CI, merge and actual production verification.
-- Next action: publish this reviewable checkpoint and inspect both CI jobs; correct any compatibility failure rather than relaxing checks.
-- Blockers: local uncached manager download is unavailable in this harness; the existing authorized CI environment is the verification path and needs no user input.
+- Checkpoint: patched manager and mature compatible Astro baseline delivered through independent review, verified cold/frozen CI, merged PR and actual production deployment; release-age policy retained.
+- Remaining work: none for this release; a full transitive advisory audit remains unverified after its network failure.
+- Next action: follow the maintenance guide for future updates; use the project-local Corepack cache and retain exact pins/settling checks.
+- Blockers: none for delivery. This harness's uncached local manager download remains unavailable; CI and production established actual execution without an escalation or policy bypass.
 - Acceptance basis: Hadi's explicit continuing-work authorization and established maintenance procedure; no other contributor review is inferred.
-- Publication: local task branch only.
-- Last verified: official release/advisory ranges, coherent source pins, syntax/diff checks and independent review checked on 2026-10-28; actual new-manager execution remains pending CI.
+- Publication: PR 15 merged as `603c4de`; production `19b5429a` verified successful. Historical failed CI and final passing evidence are retained above.
+- Last verified: official source review, exact final CI execution and actual production deployment checked on 2026-10-28; no local-download or full-audit success is inferred.

@@ -64,7 +64,7 @@ Hadi accepted the suggested stack and authorized migration in this task. Update 
 
 - Checkpoint: migration implemented, independently reviewed, checked, merged and verified live on Pages/custom domain.
 - Remaining work: none for the accepted migration. Managed Node bootstrap and CSS release caching are separate follow-ups.
-- Next action: use the current source map/Lab workflow for new work; continue the linked managed-runtime task and evidence-backed cache follow-up without replaying this delivery.
+- Next action: use the current source map/Lab workflow for new work. Managed runtime, cache delivery and later security maintenance are complete in their linked tasks; do not replay this migration.
 - Blockers: none requiring user input; use the working GitHub connector if shell Git DNS fails.
 - Acceptance basis: Hadi's explicit 2026-10-28 migration request and existing publication/merge authorization; no Elie review is claimed.
 - Publication: PR 9 merged at `b9fe003`; production deployment `260d710c` and live custom domain verified as recorded above. This later checkpoint records that evidence without implying another deployment occurred.

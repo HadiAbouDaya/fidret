@@ -1,6 +1,6 @@
 # Synthetic sensor freshness and recovery prototype
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/sensor-freshness-prototype
@@ -44,20 +44,21 @@ This explores an existing idea within the practice brief. It does not choose a p
 
 ## Verification
 
-- Topic selected from the existing idea list on 2026-10-28 after the website release-reliability work. Implementation and results pending.
+- Topic selected from the existing idea list on 2026-10-28 after the website release-reliability work; actual implementation/results follow.
 - Implemented Python standard-library model and five deterministic replays. Exact semantics, source/receiver shared-clock assumption, strict timeout boundary, ordering watermark, two-observation recovery and immutable as-of snapshots are documented with the code.
 - Root independently reproduced 33 observation points: latest-arrival baseline exposed age-invalid values on eight rows and rolled back timestamps twice; guarded current-value exposure had zero age-invalid rows in these fixtures. These are fixture/schedule counts, not real-world error rates or a general proof.
 - Seventeen focused tests include all 6^5 = 7,776 short schedules from six input categories. Independent read-only review reran them and reproduced the counts, finding no concrete bug within the stated contract. Invalid receiver time is atomic; rejected readings cannot renew freshness/recovery; timeout/recovery boundary behavior is explicit.
 - Root final `pnpm check` after actual public-policy main `a7ba607` passed 33 Node cases, 78 Python cases, zero Astro diagnostics and foundation/static-output validation. Task-register merge conflicts preserved all registrations. A later package-manager upgrade is independent; final CI will verify the combined current tree before merge.
 - Added experiment index/system-map route and a bounded primary-source research note comparing timing questions with ROS 2 QoS, MQTT 5 expiry and monotonic-clock semantics. Those sources inform future questions; no protocol integration was tested or selected.
 - Worker full pnpm gate initially attempted an implicit dependency bootstrap and encountered registry DNS; it was stopped without a claimed pass. Root used explicit frozen installation and then completed the full gate above.
+- [PR 16](https://github.com/HadiAbouDaya/fidret/pull/16) merged as `d0bfa94`; both jobs passed in [push](https://github.com/HadiAbouDaya/fidret/actions/runs/40731141166) and [PR](https://github.com/HadiAbouDaya/fidret/actions/runs/40731150102) CI. The subsequent package-manager CI passed the final combined tree with 34 Node and 78 Python cases. Combined production `19b5429a` successfully deployed `603c4de`, retaining the prototype outside website assets and Lab publication.
 
 ## Handoff
 
-- Checkpoint: reproducible prototype, meaningful tests, actual results/limits, primary context and shared reading route implemented; independent review and final local gate passed.
-- Remaining work: integrate any newer main, verify final CI, publish/merge and confirm website output remains separate.
-- Next action: publish the checked prototype on current main; the independent package-manager security task will integrate it before its own final CI.
+- Checkpoint: bounded prototype delivered with reproducible evidence, independent review, full checks, merged PR and confirmed static-output separation.
+- Remaining work: none for this software exercise; representative workflow evaluation and any Lab article/byline are separate future tasks.
+- Next action: use the documented replay; select a real workflow, timing requirements and evaluation conditions before broader claims or equipment work.
 - Blockers: no external input needed for this software exercise; real workflow/client discovery remains separate.
 - Acceptance basis: Hadi's explicit continuing purpose-aligned work request; no claim of another contributor's review or real-world validation.
-- Publication: local task branch only; no Lab article is being published.
-- Last verified: actual replay, bounded tests, independent review and full root gate passed on 2026-10-28; remote delivery pending.
+- Publication: PR 16 merged as `d0bfa94`; combined CI/production verified. No Lab article or human byline was published.
+- Last verified: replay, bounded tests, independent review, final combined CI and output/deployment boundary checked on 2026-10-28.

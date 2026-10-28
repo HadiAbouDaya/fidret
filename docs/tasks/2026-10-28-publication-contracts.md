@@ -1,6 +1,6 @@
 # Protect the existing public release policy
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/publication-contracts
@@ -51,13 +51,14 @@ This enforces the current static build/publication convention in [decision 0008]
 - Worker and root Python discovery passed 61 tests, including 28 website tests. Independent follow-up review ran the website suite and fresh bypass probes and found no remaining blocker within this contract. Current actual header source and immutable cache blocks pass. Final combined gate follows dependency installation.
 - Root final `pnpm check` passed 33 Node cases, 61 Python cases, zero Astro diagnostics, foundation validation and actual static-output checks on the merged Node/CSS main. The frozen install recovered official-archive timeouts and completed without relaxing policy.
 - Parsing references checked by review: [CSP serialized-policy grammar](https://www.w3.org/TR/CSP3/#parse-serialized-policy), [structured-field dictionary grammar](https://www.rfc-editor.org/rfc/rfc8941.html#section-3.2) and [Google robots directives](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag).
+- [PR 14](https://github.com/HadiAbouDaya/fidret/pull/14) merged as `a7ba607`; both jobs passed in [push](https://github.com/HadiAbouDaya/fidret/actions/runs/40729406086) and [PR](https://github.com/HadiAbouDaya/fidret/actions/runs/40729413492) CI. The later combined release `603c4de` containing these guards successfully deployed as `19b5429a-4766-407f-ab00-16aa9ac03842`; the current website retains strict headers and unchanged public content.
 
 ## Handoff
 
-- Checkpoint: demonstrated guard gaps and review findings corrected; final combined gate and independent review passed. Actual Node security-update main `9dadc41` integrated; task-register conflicts preserved all registrations.
-- Remaining work: PR/CI/merge and production verification.
-- Next action: publish the checked tree and verify both CI jobs before merging.
+- Checkpoint: existing response/indexing invariants delivered through independent review, passing checks/CI, merged PR and verified combined production release.
+- Remaining work: none for this task.
+- Next action: keep these regression checks with future output/policy changes and verify actual deployed responses.
 - Blockers: none requiring user input.
 - Acceptance basis: Hadi's continuing autonomous-work authorization and existing documented release policy; no new policy approval is inferred.
-- Publication: local task branch only.
-- Last verified: final combined gate, 61 Python cases and independent follow-up review passed on 2026-10-28; remote delivery pending.
+- Publication: PR 14 merged as `a7ba607`; verified combined production `19b5429a` contains this source. Closing evidence is reconciled in the session handoff.
+- Last verified: local checks/review, both CI jobs, merged source and combined production deployment observed on 2026-10-28.
