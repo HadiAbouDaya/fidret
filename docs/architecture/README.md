@@ -12,6 +12,8 @@ Cloudflare Pages Free is configured to build from GitHub `main`, run `sh scripts
 
 ## Sources and outputs
 
+The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` and the lockfile provision exact Node 24.21 for pnpm scripts. `.node-version`/`.nvmrc` agree with that pin. Stores/caches stay under ignored `.local/`; no machine-wide NVM update is required. CI exercises both the supported Node 22 bootstrap and the pinned build environment.
+
 | Location | Responsibility | How to change it |
 | --- | --- | --- |
 | `AGENTS.md` | Canonical shared agent policy | Update it once; keep harness adapters as pointers |

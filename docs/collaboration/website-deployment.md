@@ -20,6 +20,8 @@ Root `wrangler.json` declares `name: fidret`, `pages_build_output_dir: ./website
 
 The repository pins Node through `.node-version`/`.nvmrc`, pnpm through `package.json`, resolved dependencies through `pnpm-lock.yaml`, and Python through `.python-version`. Pages' automatic dependency installation must honor the pinned package manager and lockfile before the configured command runs; confirm the reported tool versions in the first migrated build. The command validates foundation records, type-checks Astro/TypeScript, runs Node tests including isolated fixture builds, builds the site, and runs Python output validation and unit tests before publication. No deployment CLI or user-created Cloudflare API token is needed. Keep the Cloudflare GitHub App's repository access restricted to `fidret`.
 
+The managed-runtime task adds exact `devEngines.runtime` and locked official Node archive checksums, so pnpm scripts also work when the available launcher is Node 22.22. The first Astro production build confirmed Node 24.21.0, Python 3.12.12 and pnpm 11.1.2 without changing account settings. Project stores/caches are ignored under `.local/`; they are not website assets.
+
 The [Pages Free build allowance](https://developers.cloudflare.com/pages/platform/limits/) is 500 builds per month, with one concurrent build. [Static asset requests are free and unlimited](https://developers.cloudflare.com/pages/functions/pricing/) when they do not invoke Functions. Keep the site static and avoid paid upgrades; domain renewal remains a separate annual expense.
 
 ## Local preview and checks
