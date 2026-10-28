@@ -16,4 +16,4 @@ Record commands or review steps and results, including relevant failure cases an
 
 ## Handoff and review
 
-State remaining work and request review from the other contributor when they have access. Distinguish local validation from checks actually run on GitHub.
+Link the updated task checkpoint: remaining work, next action, blockers, acceptance basis and last verification. Distinguish local changes/commits, push, PR, merge and actual deployment, and local validation from checks actually run on GitHub. Record pending human decisions without inferring acceptance; request review from the other contributor when they have access.

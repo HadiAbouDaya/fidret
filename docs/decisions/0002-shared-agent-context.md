@@ -2,7 +2,7 @@
 
 - Status: active
 - Date: 2026-10-24
-- Human task owner: Hadi Abou Daya
+- Human decision owner: Hadi Abou Daya
 - Basis: Authorized initial implementation; review together when Elie joins
 
 ## Context

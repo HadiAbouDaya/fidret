@@ -52,6 +52,8 @@ For shared technical publishing, use [Fidret Lab](lab/README.md). Choose the act
 
 Keep reusable context in the repository and reference it from issues and PRs. Keep private notes and local machine configuration in `.local/`, which is ignored. Essential project context must be understandable without those notes. The `.gitignore` reduces accidental additions; it is not a secrets scanner.
 
+Use the [agent startup and recovery runbook](docs/collaboration/agent-workflow.md) to resume work. Keep the task's verification status and structured checkpoint current after meaningful results and before stopping. Record useful outcomes, evidence, assumptions and recovery steps, rather than a transcript of every interaction. Update the [system map](docs/architecture/README.md) and affected operating instructions alongside architecture changes.
+
 Do not commit client or personal data to this foundation. If future work needs restricted material, record a non-sensitive summary and an access-controlled reference so both contributors understand what the evidence supports.
 
 ## Contributor onboarding
@@ -62,6 +64,6 @@ Do not commit client or personal data to this foundation. If future work needs r
 - Review the initial foundation together and record changes through a task and PR.
 - Once access is confirmed, add the actual GitHub handles to a CODEOWNERS file if useful. Configure a rule for `main` requiring PR review and the `foundation` check if supported by the repository's GitHub plan. A workflow file alone does not enforce branch protection.
 
-GitHub manages contributor access. This guide records its known state; no CODEOWNERS assignment or GitHub ruleset is configured by these documents.
+GitHub manages contributor access. This guide records its known state; no CODEOWNERS assignment or GitHub ruleset is configured by these documents. A read-only GitHub check on 2026-10-28 reported `main` unprotected, required status checks disabled and no rulesets. The agent-readiness task records that dated observation. A separate settings change should require PRs and the `foundation` check on main; file-based checks alone do not enforce it. Do not infer current access, review availability or permission to change settings from this historical observation.
 
 For the harness check, ask it to read `AGENTS.md`, explain Fidret's purpose, identify the current task and human owner, and run the local foundation checks. Compare its response with the repository. The entry-point files are provided for Codex, Claude Code, Cursor, and GitHub Copilot; actual loading in each contributor's installed harness must be confirmed during onboarding.

@@ -4,7 +4,8 @@
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: feat/fidret-lab
-- Updated: 2026-10-24
+- Updated: 2026-10-28
+- Verification status: passed
 
 ## Purpose
 
@@ -54,4 +55,10 @@ Completed under Hadi's standing authorization to publish checkpoints and merge f
 
 UI templates and styling were developed in a separate worktree, then integrated with the publisher and workflow. No technical pieces, author contributions, or experimental results were invented to fill the collection.
 
-Next action: either contributor can choose a question from [the unassigned ideas](../../lab/ideas.md) or bring their own, then use the [shared Lab guide](../../lab/README.md) to create the first piece with its actual authors. Client work and real-world evidence are not prerequisites.
+- Checkpoint: shared Lab publisher, templates, documentation and static output completed. No real technical pieces were added during setup.
+- Remaining work: none for the publishing system. Selecting and writing the first piece belongs to a new task.
+- Next action: either contributor can choose a question from [the unassigned ideas](../../lab/ideas.md) or bring their own, then follow the [Lab guide](../../lab/README.md) with actual bylines.
+- Blockers: none for this completed implementation.
+- Acceptance basis: Hadi's shared Lab request, standing publication/merge authorization and website deployment request; no Elie review or joint authorship is inferred.
+- Publication: PR 6 merged as `be503375793060810340ee98882cb13f4bd6aff5`, with production deployment and live checks recorded above for 2026-10-24. This 2026-10-28 clarification did not reverify current service state.
+- Last verified: local baseline `e02e09f` passed `sh scripts/check_deployment.sh` on 2026-10-28 with 35 tests and no published/draft pieces; the live evidence above remains historical.

@@ -24,7 +24,7 @@ python3 -m unittest discover -s tests -v
 git diff --check
 ```
 
-The checker validates required foundation files, local Markdown file links, harness pointers, task metadata and sections, and task registration. It does not verify external links, Markdown anchors, factual accuracy, approvals, or physical safety. Its unit tests exercise both valid and deliberately invalid inputs.
+The checker validates required foundation files, local Markdown file links, harness pointers, task metadata/verification/checkpoints, decision metadata/lifecycle/basis, and task/decision registration. It rejects duplicate metadata and decision numbers, mismatched decision status and invalid supersession chains. It does not verify external links, Markdown anchors or reference-style links, factual accuracy, actual approvals, or physical safety. Its unit tests exercise both valid and deliberately invalid inputs. The [agent runbook](agent-workflow.md) owns the current startup and recovery protocol.
 
 ## GitHub automation
 

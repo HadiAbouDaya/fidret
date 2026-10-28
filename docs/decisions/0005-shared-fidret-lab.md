@@ -2,7 +2,7 @@
 
 - Status: active
 - Date: 2026-10-24
-- Human task owner: Hadi Abou Daya
+- Human decision owner: Hadi Abou Daya
 - Related task: [Shared Fidret Lab](../tasks/2026-10-24-fidret-lab.md)
 - Basis: Hadi requested a unified showcase, confirmed the shared Lab with bylines, and explicitly allowed pieces without real-world evidence
 
