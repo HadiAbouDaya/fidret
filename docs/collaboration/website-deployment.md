@@ -42,6 +42,8 @@ sh scripts/check_deployment.sh
 
 Astro's local servers do not establish Cloudflare response-header or routing behavior. Verify `public/_headers` and the custom 404 on the deployed site. Review mobile/desktop layouts, text enlargement, navigation, keyboard focus and font loading before publishing visual changes. The preflight boundary check rejects symlinks in Astro/public/Lab source, cache and output paths before Astro reads, copies or cleans them.
 
+The output gate protects the existing global CSP, referrer, content-type and permissions policies against removal, changed scope and duplicate/overriding definitions. It also rejects explicit noindex/none suppression on public pages through recognized crawler metadata or X-Robots-Tag rules while allowing the custom 404 exception. Cache rules stay independent. This bounded checker does not emulate every Cloudflare URL matcher, platform limit or crawler; verify actual deployed responses separately.
+
 ## Stylesheet releases
 
 Edit the canonical CSS in `src/styles/`. Astro imports bundle it into external files with content fingerprints under `/_astro/`; `inlineStylesheets: never` retains the strict same-origin CSP without inline CSS. A build integration also emits `/styles.css` and `/lab.css` from the same source bytes for older links. Those aliases are generated output, not separate editable sources. New pages use the fingerprinted links so changing CSS changes the requested asset URL.
