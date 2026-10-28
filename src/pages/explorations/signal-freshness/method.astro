@@ -1,0 +1,210 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import { sensorEvidence, sensorEvidenceCaptureDate, sensorEvidenceTotals } from '../../../lib/sensor-evidence';
+import '../../../styles/experiment-method.css';
+
+const scenarios = [
+  {
+    key: 'normal', title: 'Normal arrivals',
+    question: 'Does a continuing sequence remain fresh after the initial recovery?',
+    finding: 'The first observation is withheld. The second completes recovery, and each later observation renews freshness.',
+  },
+  {
+    key: 'dropped', title: 'Dropped arrivals',
+    question: 'What changes when no new observation arrives?',
+    finding: 'The reading is still fresh at 3.999 s. At 4 s, its source age reaches three seconds and the model withholds it.',
+  },
+  {
+    key: 'delayed', title: 'Delayed packets',
+    question: 'Can a new arrival renew an already-old observation?',
+    finding: 'Both delayed packets are three seconds old when they arrive. Neither can renew the accepted reading.',
+  },
+  {
+    key: 'out_of_order', title: 'Out of order and duplicates',
+    question: 'Can an older timestamp or a duplicate replace the accepted observation?',
+    finding: 'The model ignores both. The simple baseline moves backward to the older timestamp and then accepts the duplicate’s different value.',
+  },
+  {
+    key: 'recovery', title: 'Interrupted recovery',
+    question: 'What counts toward recovery, and what happens if a candidate expires?',
+    finding: 'Duplicates and older arrivals do not advance recovery. At 11.5 s, the earlier candidate expires before the new arrival is processed, so the count restarts at one.',
+  },
+].map((scenario) => {
+  const data = sensorEvidence.scenarios[scenario.key];
+  if (!data) throw new Error(`Missing sensor evidence for ${scenario.key}`);
+  return { ...scenario, ...data };
+});
+const decisions: Record<string, string> = {
+  accepted: 'Accepted', no_reading: 'No arrival', delayed_stale: 'Already stale',
+  out_of_order: 'Older timestamp', duplicate: 'Duplicate timestamp',
+};
+const display = (value: number | null) => value === null ? '—' : Number(value.toFixed(3)).toString();
+const displayState = (state: string) => state.charAt(0).toUpperCase() + state.slice(1);
+---
+
+<SiteLayout
+  title="Signal freshness: method and replay — Fidret"
+  description="The full contract, fixed inputs, observed replay results and limitations behind Fidret’s synthetic signal-freshness walkthrough."
+  canonical="https://fidret.com/explorations/signal-freshness/method/"
+  variant="lab"
+>
+  <main id="main" class="method-page">
+    <header class="method-header shell">
+      <a class="method-back" href="/explorations/signal-freshness/">Signal freshness walkthrough</a>
+      <div class="method-title-grid">
+        <h1>From a rule<br />to a replay.</h1>
+        <div class="method-header-copy">
+          <p>A closer look at the software model: what it accepts, when it withholds a value, and what the fixed scenarios actually show.</p>
+          <p class="method-scope">Method and replay · Synthetic software experiment<br />Evidence captured <time datetime={sensorEvidenceCaptureDate}>29 October 2026</time></p>
+        </div>
+      </div>
+    </header>
+
+    <div class="method-body shell">
+      <nav class="method-contents" aria-label="On this page">
+        <p>On this page</p>
+        <a href="#question">The question</a>
+        <a href="#contract">Model contract</a>
+        <a href="#results">Observed results</a>
+        <a href="#replay">Replay the scenarios</a>
+        <a href="#limits">Limits and next work</a>
+      </nav>
+      <div class="method-content">
+        <section class="method-section" id="question" aria-labelledby="question-title">
+          <h2 id="question-title">When should the latest accepted reading be exposed as current?</h2>
+          <p>A system can receive a packet whose observation is already old. It can also keep a once-useful value after its source falls silent. This experiment makes those cases explicit.</p>
+          <p>It compares two software policies against the same invented scalar readings and scheduled time checks. The <strong>freshness model</strong> checks source age, timestamp order and recovery. The <strong>last-arrival baseline</strong> simply replaces its stored value on every arrival and offers it indefinitely.</p>
+          <p>The baseline is deliberately limited. It represents one specific policy, rather than every alternative to this model. Neither policy is connected to equipment.</p>
+        </section>
+
+        <figure class="method-state-figure" aria-labelledby="state-caption">
+          <div class="method-state-flow">
+            <div class="method-state-node">
+              <span class="method-state-indicator method-indicator-stale" aria-hidden="true"></span>
+              <h3>Stale</h3>
+              <p>No current value.</p>
+            </div>
+            <div class="method-state-connector"><span aria-hidden="true">→</span><p>First qualifying observation</p></div>
+            <div class="method-state-node">
+              <span class="method-state-indicator method-indicator-recovering" aria-hidden="true"></span>
+              <h3>Recovering</h3>
+              <p>Candidate withheld.</p>
+            </div>
+            <div class="method-state-connector"><span aria-hidden="true">→</span><p>Second, strictly newer observation</p></div>
+            <div class="method-state-node">
+              <span class="method-state-indicator" aria-hidden="true"></span>
+              <h3>Fresh</h3>
+              <p>Current value exposed.</p>
+            </div>
+          </div>
+          <p class="method-expiry-return"><span aria-hidden="true">↶</span> At the accepted observation’s deadline, either active state returns to stale before a new arrival is processed.</p>
+          <figcaption id="state-caption">The model’s three states. A rejected arrival cannot renew the accepted timestamp or advance recovery. The state is a software output rule, not a physical operating command.</figcaption>
+        </figure>
+
+        <section class="method-section" id="contract" aria-labelledby="contract-title">
+          <h2 id="contract-title">The full model contract.</h2>
+          <p>The conditions are part of the experiment. Changing the clock model, deadline or recovery rule changes what the results mean.</p>
+          <dl class="method-contract">
+            <div>
+              <dt>One synthetic clock</dt>
+              <dd>Source timestamps and receiver time are finite, nonnegative seconds on the same synchronized monotonic clock. Receiver time may stay equal between calls but cannot move backward. This does not establish synchronization between real devices.</dd>
+            </div>
+            <div>
+              <dt>A strict age limit</dt>
+              <dd>A reading qualifies only when <code>0 ≤ now − source_time &lt; 3</code>. At exactly three seconds old, it is stale. Source time establishes age; arrival time does not replace it.</dd>
+            </div>
+            <div>
+              <dt>Validate the observation</dt>
+              <dd>Values must be finite numeric scalars. Negative, invalid or future source timestamps, invalid values and already-stale arrivals are rejected. Booleans are not accepted as numbers.</dd>
+            </div>
+            <div>
+              <dt>Preserve timestamp order</dt>
+              <dd>A timestamp equal to the last accepted timestamp is a duplicate; an earlier one is out of order. Neither replaces the reading. The accepted timestamp watermark survives expiry, so expiry does not allow an older observation to become new again.</dd>
+            </div>
+            <div>
+              <dt>Expire before processing arrivals</dt>
+              <dd>Each time check first expires the previous accepted reading, then processes the optional arrival. Missing input still advances the age check. An invalid arrival can coincide with expiry. An invalid receiver time raises an error without changing model state.</dd>
+            </div>
+            <div>
+              <dt>Recover through two observations</dt>
+              <dd>The initial state is stale. A qualifying observation enters recovering; a second with a strictly greater source timestamp enters fresh. If the candidate expires first, the next accepted observation starts recovery again. A rejected observation neither advances nor resets an unexpired candidate.</dd>
+            </div>
+            <div>
+              <dt>Expose a value only while fresh</dt>
+              <dd>Stale and recovering snapshots expose no current value. Diagnostic timestamps and ages may remain. Once fresh, an accepted observation maintains freshness until its own deadline.</dd>
+            </div>
+            <div>
+              <dt>Read the snapshot’s time</dt>
+              <dd>Each immutable snapshot describes its supplied <code>as_of</code> time only. Callers must check again at their current logical time before using a value later. There is no background timer, and a saved snapshot does not update itself.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="method-section" id="results" aria-labelledby="results-title">
+          <h2 id="results-title">Five scenarios. Specific evidence.</h2>
+          <p>The replay contains {sensorEvidenceTotals.observations} scheduled observation points. Under these inputs, the baseline exposes an age-invalid value at {sensorEvidenceTotals.baseline_age_invalid} points and moves its stored timestamp backward {sensorEvidenceTotals.baseline_timestamp_rollbacks} times. The freshness model exposes an age-invalid current value at {sensorEvidenceTotals.guarded_age_invalid} points.</p>
+          <div class="method-table-scroll" tabindex="0" role="region" aria-label="Scenario result counts; scroll horizontally if needed">
+            <table class="method-summary-table">
+              <caption>Counts from the fixed replay. An age-invalid row falls outside the permitted source-age interval.</caption>
+              <thead><tr><th scope="col">Scenario</th><th scope="col">Observation<br />points</th><th scope="col">Baseline<br />age-invalid</th><th scope="col">Baseline<br />rollbacks</th><th scope="col">Model<br />age-invalid</th></tr></thead>
+              <tbody>
+                {scenarios.map((scenario) => (
+                  <tr><th scope="row">{scenario.title}</th><td>{scenario.summary.observations}</td><td>{scenario.summary.baseline_age_invalid}</td><td>{scenario.summary.baseline_timestamp_rollbacks}</td><td>{scenario.summary.guarded_age_invalid}</td></tr>
+                ))}
+              </tbody>
+              <tfoot><tr><th scope="row">Total</th><td>{sensorEvidenceTotals.observations}</td><td>{sensorEvidenceTotals.baseline_age_invalid}</td><td>{sensorEvidenceTotals.baseline_timestamp_rollbacks}</td><td>{sensorEvidenceTotals.guarded_age_invalid}</td></tr></tfoot>
+            </table>
+          </div>
+          <p class="method-result-boundary">These are fixture counts, not real-world error rates. Zero age-invalid outputs does not establish that a reading is correct, useful or safe for a physical decision.</p>
+        </section>
+
+        <section class="method-section" id="replay" aria-labelledby="replay-title">
+          <h2 id="replay-title">Follow every observation.</h2>
+          <p>Open a scenario to inspect its scheduled inputs and outputs. Times are synthetic seconds; values have no physical units. “Withheld” means the model exposes no current value. Displayed decimal ages are rounded to three places.</p>
+          <div class="method-scenarios">
+            {scenarios.map((scenario, index) => (
+              <details class="method-scenario" open={index === 0}>
+                <summary><span>{scenario.title}</span><span class="method-scenario-count">{scenario.summary.observations} observation points</span></summary>
+                <div class="method-scenario-copy"><h3>{scenario.question}</h3><p>{scenario.finding}</p></div>
+                <div class="method-table-scroll" tabindex="0" role="region" aria-label={`${scenario.title} replay data; scroll horizontally if needed`}>
+                  <table class="method-replay-table">
+                    <caption>{scenario.title}: every scheduled observation point.</caption>
+                    <thead><tr><th scope="col">Time</th><th scope="col">Arrival</th><th scope="col">Freshness model</th><th scope="col">Last-arrival baseline</th><th scope="col">Arrival decision</th></tr></thead>
+                    <tbody>
+                      {scenario.snapshots.map((row) => (
+                        <tr>
+                          <th scope="row">{display(row.guarded.as_of)} s</th>
+                          <td>{row.arrival ? <><span>{display(row.arrival.value)}</span><small>Source {display(row.arrival.source_time)} s</small></> : <span>No arrival</span>}</td>
+                          <td><strong>{row.guarded.current_value === null ? 'Withheld' : display(row.guarded.current_value)}</strong><small>{displayState(row.guarded.state)} · accepted age {display(row.guarded.accepted_age)} s</small><small>Recovery {row.guarded.recovery_count} / {sensorEvidence.recovery_observations}</small></td>
+                          <td><span>{display(row.baseline.current_value)}</span><small>Source age {display(row.baseline.source_age)} s</small>{row.baseline.timestamp_rollback && <small class="method-rollback">Timestamp moved backward</small>}</td>
+                          <td>{decisions[row.guarded.decision] ?? row.guarded.decision}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section class="method-section" id="limits" aria-labelledby="limits-title">
+          <h2 id="limits-title">Where this evidence stops.</h2>
+          <p>The experiment addresses source age and ordering only. A timely number can still be physically wrong, misleading, malicious or inappropriate for a decision.</p>
+          <p>It does not model clock drift, transport or protocol behavior, identity, authentication, calibration, physical units, multiple sensors, persisted state or scheduling delays. Clock and sensor restarts require a separately designed reset policy. Precision of floating-point timestamps at very large clock values has not been evaluated.</p>
+          <p>The three-second timeout and two-observation recovery threshold are illustrative. No hardware, real sensor or client data, actuation, safety assessment or representative industrial evaluation is involved. Withholding a current value does not define a safe fallback.</p>
+          <div class="method-next-work"><h3>What would justify a next step?</h3><p>A specific workflow, representative timing and failure conditions, an agreed reason for the age limit, and a responsible human operator. Those are separate decisions before any equipment trial.</p></div>
+        </section>
+
+        <section class="method-section method-reproduction" aria-labelledby="reproduction-title">
+          <h2 id="reproduction-title">A small, reproducible experiment.</h2>
+          <p>The underlying Python 3.12 experiment uses only the standard library. Its fixed replay produces the values shown here. The website stores a checked snapshot, and a parity test compares every row with a fresh run of the Python model.</p>
+          <div class="method-code"><p>From a checkout of the Fidret project:</p><pre><code>python3 -m experiments.sensor_freshness</code></pre></div>
+          <p>The experiment’s focused tests cover the exact deadline, source-based expiry, invalid and future inputs, atomic invalid-time rejection, retained ordering and immutable snapshots. They also examine every five-step schedule from six bounded input categories: <code>6⁵ = 7,776</code> schedules. This enumeration is not a proof over all inputs.</p>
+          <p class="method-authorship">This is an explanatory record of an agent-prepared software prototype. It does not establish either contributor’s authorship of a Lab article or joint review.</p>
+          <div class="method-actions"><a class="button" href="/explorations/signal-freshness/">Return to the walkthrough</a><a class="text-link" href="/project/">About the project</a></div>
+        </section>
+      </div>
+    </div>
+  </main>
+</SiteLayout>
