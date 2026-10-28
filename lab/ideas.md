@@ -10,3 +10,5 @@ These are unassigned ideas for discussion, not claims of completed work. Choose 
 | When should an automated system ask a human for help? | Technical note or prototype | Explore a small decision flow, including uncertain inputs and a useful fallback |
 
 Keep the first scope modest. Neither a physical robot nor a client deployment is required. Record what was actually explored and what remains proposed.
+
+An agent-prepared [synthetic sensor-freshness prototype](../experiments/sensor_freshness/README.md) now explores the interruption idea locally. Its task and README record actual replay results and limits. It remains separate from Lab publication; no article byline or real-world capability is implied.

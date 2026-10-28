@@ -13,7 +13,7 @@ Apply actual vendor installer fixes discovered during the [continuing improvemen
 
 ## Scope
 
-Upgrade to a verified patched stable release within pnpm 11, preserve Node 24.22.1, application dependency versions, strict engines, managed runtime and project-local stores. Update current toolchain instructions and test ordinary-Node bootstrap, frozen installation and the full release gate. No exploit replay, compromise claim, account setting or application architecture change.
+Upgrade to a verified patched stable release within pnpm 11, preserve Node 24.22.1, strict engines, managed runtime and project-local stores. Use a coherent mature Astro baseline where the newer installer enforces release age against freshly published locked packages. Update current toolchain instructions and test ordinary-Node bootstrap, frozen installation and the full release gate. No exploit replay, compromise claim, account setting or application architecture change.
 
 ## Execution boundaries
 
@@ -31,7 +31,7 @@ Upgrade to a verified patched stable release within pnpm 11, preserve Node 24.22
 ## Acceptance criteria
 
 - Project uses a verified stable pnpm 11 release above the checked advisory patch floors.
-- Exact package-manager/engine agreement, Node runtime pin and all existing application dependency versions remain coherent.
+- Exact package-manager/engine agreement and Node runtime remain coherent; application version changes are limited to the reviewed mature Astro set needed for the intact settling policy.
 - Frozen installation and full checks pass; cold setup starts on the supported ordinary launcher without global configuration writes.
 - Current instructions reflect the new pin; historical evidence retains versions actually tested.
 - Evidence distinguishes the bounded vendor-advisory review from a full transitive audit and records CI/merge/deployment separately.
@@ -45,10 +45,14 @@ Maintain the accepted stack and active reviewed-maintenance convention. Prefer t
 - On 2026-10-28, `pnpm audit --json` exited 1 with `fetch failed`; no advisory report was obtained. Direct official advisory review was used for specific package-manager findings, not as a complete replacement audit.
 - Official [tarball manifest traversal advisory](https://github.com/pnpm/pnpm/security/advisories/GHSA-vq4v-j7r6-jq4m), [virtual-store traversal advisory](https://github.com/pnpm/pnpm/security/advisories/GHSA-c59q-g84q-2gj5) and [proxy placeholder advisory](https://github.com/pnpm/pnpm/security/advisories/GHSA-vx52-2968-3vc6) list pnpm 11 before 11.11.0 as affected and 11.11.0+ as patched. [Build-approval identity advisory](https://github.com/pnpm/pnpm/security/advisories/GHSA-5wx6-mg75-v57r) is patched in 11.5.3+. These concern installation/configuration exposure; no malicious dependency or compromise was observed here.
 - Official [11.28.9 release](https://github.com/pnpm/pnpm/releases/tag/v11.28.9) is stable, published 2026-10-27 and the highest stable 11.x tag observed on 2026-10-28. It is above the checked patch floors and includes an additional registry-response dependency fix. Major 12 was available but is outside this same-major maintenance scope.
-- Both manifest pins now agree on 11.28.9. Node 24.22.1, application dependencies, lockfile and workspace policies are unchanged. An added runtime assertion checks the actual launching manager's user-agent metadata; a direct negative probe correctly rejects missing manager metadata.
+- Both manifest pins agree on 11.28.9 and Node remains 24.22.1. An added runtime assertion checks the actual launching manager's user-agent metadata; a direct negative probe correctly rejects missing manager metadata.
 - The machine's launcher is a Corepack shim. Preparing the uncached manager with project-local `COREPACK_HOME` failed on registry DNS (`EAI_AGAIN`) before installation. An escalated download attempt was automatically rejected because this harness disables sandbox approval; no global cache/configuration writes or policy bypass were used. Local new-manager installation and full checks are unverified.
 - Both existing CI jobs now set `COREPACK_HOME` inside the workspace; README/runbook instructions use the same project-local cache export. Independent source review found no blocker. Authorized CI will establish cold Node-22 bootstrap, exact manager/runtime execution, frozen lock compatibility and the full gate before merge.
 - Actual public-policy main `a7ba607` was integrated without application conflicts. The prior full checks on unchanged application/runtime inputs remain historical evidence, not a claim of new-manager execution.
+- Initial new-manager [PR CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40730370243) and [push CI](https://github.com/HadiAbouDaya/fidret/actions/runs/40730360141) successfully downloaded/executed 11.28.9 but failed frozen installation because five Astro lock entries had been published at 14:48 UTC that day, inside the 24-hour release-age window. No gate was disabled.
+- Compatibility scope was narrowed to the mature 2026-10-21 set: Astro 7.4.2, markdown-remark 7.3.4, markdown-satteri 0.4.5, Prism 4.1.1 and telemetry 3.4.1. Official [Astro release](https://github.com/withastro/astro/releases/tag/astro%407.4.2), [remark release](https://github.com/withastro/astro/releases/tag/%40astrojs%2Fmarkdown-remark%407.3.4), published registry metadata and pinned API source were reviewed. Current unified processor/hooks remain supported; configured syntax highlighting is disabled, so the newer Prism-rendering patch path is unused. Reviewed core advisory patch floors are below the selected Astro version; this is a bounded review, not a full transitive audit.
+- Lock resolution used the available cached 11.1.2 only in an isolated lock-only fixture with the canonical lockfile as input and unchanged age defaults. Exactly five related package/snapshot records changed; every shared record, including Node archive integrity, stayed byte-identical. Target project manager remains 11.28.9. The settling policy is now explicit at 1440 minutes with no exclusions; CI must verify the final lock and actual new-manager pipeline.
+- The independently checked synthetic prototype from actual main `d0bfa94` was integrated; final CI covers its 17 tests alongside the publication gate. Final cold/frozen/full checks remain pending the updated PR head.
 
 ## Handoff
 

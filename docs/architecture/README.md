@@ -25,6 +25,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `src/content.config.ts`, `src/lib/lab-schema.ts`, `src/lib/lab.ts` | Typed collections, publication rules and published-entry queries | Preserve author/date/schema rules and draft exclusion |
 | `src/plugins/lab-policy.mjs` | Markdown AST policy for safe content and complete published narrative | Keep meaningful injection, link and completeness failure tests |
 | `scripts/lab.mjs` | Safe draft creation | Preserve explicit authors, UTC dates and filesystem boundaries |
+| `experiments/` | Reproducible local software explorations, outside website output | Read the experiment assumptions/task; retain baseline, actual evidence, tests and limits |
 | `src/pages/sitemap.xml.ts` | Root sitemap with company/Lab URLs and published pieces | Keep drafts and withdrawn pieces out; preserve the root URL entries |
 | `src/styles/` | Canonical site and Lab CSS | Astro imports produce external fingerprinted CSS; edit these sources, not generated aliases |
 | `src/integrations/` | Build-time compatibility assets | Keep `/styles.css` and `/lab.css` generated from the canonical CSS; no duplicate editable copies |
@@ -47,6 +48,7 @@ Every substantive task starts with `AGENTS.md`, the charter, contribution workfl
 | Lab content or publishing | [Lab guide](../../lab/README.md), [current publishing decision](../decisions/0008-astro-publishing.md), sources and collections above |
 | Company or practice direction | [Roadmap](../foundation/roadmap.md), [physical AI brief](../foundation/physical-ai.md), relevant decision records |
 | Physical experiments | Physical AI brief, [engagement brief](../templates/engagement-brief.md), task-specific operating authorization and evaluation evidence |
+| Local practice prototypes | [Experiment index](../../experiments/README.md), the prototype's README/task and [sensor timing research](../foundation/sensor-freshness-research.md); no equipment action is authorized by a software check |
 | Shared instructions, tooling or handoffs | [Agent workflow](../collaboration/agent-workflow.md), [context decision](../decisions/0002-shared-agent-context.md), [readiness convention](../decisions/0006-agent-readiness.md), validators and tests |
 
 ## Accepted stack and future choices

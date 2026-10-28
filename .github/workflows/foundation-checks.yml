@@ -36,6 +36,7 @@ jobs:
         run: |
           test "$(node --version)" = 'v22.22.0'
           test "$(pnpm config get engine-strict)" = 'true'
+          test "$(pnpm config get minimum-release-age)" = '1440'
           test "$(pnpm exec node --version)" = "v$(cat .node-version)"
           pnpm runtime:check
           test "$(node --version)" = 'v22.22.0'

@@ -10,6 +10,8 @@ GitHub's [supported-ecosystem table](https://docs.github.com/en/code-security/re
 
 Review release notes, compatibility and the exact diff. Preserve exact package pins and a deliberate lockfile. For Actions, verify the replacement SHA belongs to the official action/release and retain read-only workflow permissions. Follow the usual task/PR workflow, run the full gate and inspect the actual deployment after merge. A green update is evidence for those checks, not permission to infer wider capability or another contributor's approval.
 
+The workspace explicitly retains a 24-hour minimum release age with no blanket exclusions. If frozen installation rejects freshly published lock entries, inspect dates and release/security changes, then use a compatible mature baseline or wait for the settling window. Do not suppress the policy merely to turn CI green.
+
 ## Node and pnpm upgrades
 
 Check supported LTS releases at least monthly and when a relevant vendor security release appears. This is an operating instruction, not a scheduled automation. Use [Node's release policy](https://nodejs.org/en/about/previous-releases) and the exact release notes; prefer a supported LTS line unless an actual requirement justifies changing it.
