@@ -4,7 +4,7 @@ This map describes the implementation in Git, not a live service-health report. 
 
 ## Current implementation
 
-Fidret has a public company website and a shared technical Lab built with Astro in static mode, strict TypeScript, custom CSS, SVG assets and local fonts. Validated Markdown collections supply Lab articles and their metadata. Node 24.21.0 and pnpm 11.1.2 are pinned for development/builds; Python 3.12 runs the repository and public-output validators. Exact direct and resolved dependencies live in `package.json` and `pnpm-lock.yaml`.
+Fidret has a public company website and a shared technical Lab built with Astro in static mode, strict TypeScript, custom CSS, SVG assets and local fonts. Validated Markdown collections supply Lab articles and their metadata. Node 24.22.1 and pnpm 11.1.2 are pinned for development/builds; Python 3.12 runs the repository and public-output validators. Exact direct and resolved dependencies live in `package.json` and `pnpm-lock.yaml`.
 
 Astro generates plain HTML/CSS/assets in ignored `website/`. The current pages require no browser JavaScript, application server, database or authentication service. There is no React/MDX integration or server adapter; add one only for an actual requirement under a separate task.
 
@@ -12,7 +12,7 @@ Cloudflare Pages Free is configured to build from GitHub `main`, run `sh scripts
 
 ## Sources and outputs
 
-The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` and the lockfile provision exact Node 24.21 for pnpm scripts. `.node-version`/`.nvmrc` agree with that pin. Stores/caches stay under ignored `.local/`; no machine-wide NVM update is required. CI exercises both the supported Node 22 bootstrap and the pinned build environment.
+The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` and the lockfile provision exact Node 24.22.1 for pnpm scripts. `.node-version`/`.nvmrc` agree with that pin. Stores/caches stay under ignored `.local/`; no machine-wide NVM update is required. CI exercises both the supported Node 22 bootstrap and the pinned build environment. Follow the [maintenance guide](../collaboration/dependency-maintenance.md) for reviewed dependency proposals and coherent runtime upgrades.
 
 | Location | Responsibility | How to change it |
 | --- | --- | --- |
