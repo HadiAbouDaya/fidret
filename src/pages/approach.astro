@@ -1,0 +1,29 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+const principles = [
+  { title: 'Understand before choosing.', text: 'Begin with the people, the workflow and the outcome that matters. Constraints and alternatives are part of the problem, not details to discover after a solution is chosen.' },
+  { title: 'Make commitments clear.', text: 'Define scope, ownership, success criteria and dependencies. When the situation changes, surface it early. A commitment should be understandable to the people relying on it.' },
+  { title: 'Keep claims close to evidence.', text: 'An idea, a simulation, a pilot and a deployed system support different claims. Preserve the conditions, failure cases and unanswered questions alongside any result.' },
+  { title: 'Leave work others can use.', text: 'Implementation is part of delivery. Validation, documentation, handover and ownership determine whether the work remains useful after it leaves our hands.' },
+];
+---
+<SiteLayout title="Our approach — Fidret" description="How Fidret intends to earn trust: understand the need, make commitments clear, preserve evidence and deliver work others can use." canonical="https://fidret.com/approach/">
+  <main id="main" class="approach-page">
+    <section class="approach-hero shell" aria-labelledby="approach-title">
+      <p class="section-context">Our approach</p>
+      <h1 id="approach-title">Confidence has<br />to be built.</h1>
+      <div class="approach-intro"><p class="section-intro">Trust is the result of working together well. We intend to earn it through our judgment, the work itself and what happens after delivery.</p><p>These are the commitments guiding the company we’re building. They are a standard to work towards, and to be held to.</p></div>
+    </section>
+    <section class="principles-section shell" aria-labelledby="principles-title">
+      <div class="principles-intro"><h2 id="principles-title">What that asks<br />of the work.</h2><p>Useful questions. Clear expectations. Evidence you can examine.</p></div>
+      <div class="principles-list">{principles.map(principle => <article><h3>{principle.title}</h3><p>{principle.text}</p></article>)}</div>
+    </section>
+    <section class="evidence-path-section inverse" aria-labelledby="evidence-title"><div class="shell">
+      <div class="evidence-heading"><h2 id="evidence-title">Each step earns<br />the next.</h2><p>Our Physical AI practice starts with bounded exploration. A result does not become a broader claim simply because it is promising.</p></div>
+      <ol class="evidence-path"><li><span>Understand</span><p>A workflow, its users and the current baseline.</p></li><li><span>Demonstrate</span><p>A reproducible experiment and its failure cases.</p></li><li><span>Evaluate</span><p>Representative conditions and explicit limits.</p></li><li><span>Trial</span><p>A supervised pilot with agreed acceptance criteria.</p></li><li><span>Deliver</span><p>Integration, maintenance and accountable ownership.</p></li></ol>
+      <p class="evidence-path-note">A working sequence for developing the practice, not a claim that every stage has been completed.</p>
+    </div></section>
+    <section class="approach-responsibility shell" aria-labelledby="responsibility-title"><div><p class="section-context">People remain responsible</p><h2 id="responsibility-title">Knowing when<br />to stop matters.</h2></div><div><p>When systems affect the physical world, operating limits, supervision and recovery need a responsible owner. A successful software test does not establish that a machine is ready to act.</p><p>Sound judgment can mean narrowing a scope, seeking a partner or stopping. The reason should be clear to the people affected.</p><a class="text-link" href="/explorations/signal-freshness/">Explore one bounded question</a></div></section>
+    <section class="approach-open shell" aria-labelledby="open-title"><h2 id="open-title">Open about<br />where we are.</h2><div><p>Fidret is taking shape. Physical AI is the first practice we’re developing. We share software explorations and technical thinking as that foundation grows.</p><div class="hero-actions"><a class="button" href="/lab/">Visit Fidret Lab</a><a class="text-link" href="https://github.com/HadiAbouDaya/fidret/blob/main/docs/foundation/charter.md">Read the company charter</a></div></div></section>
+  </main>
+</SiteLayout>

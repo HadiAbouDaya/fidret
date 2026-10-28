@@ -8,6 +8,8 @@ export const GET: APIRoute = async () => {
   const urls = [
     'https://fidret.com/',
     'https://fidret.com/lab/',
+    'https://fidret.com/approach/',
+    'https://fidret.com/explorations/signal-freshness/',
     ...pieces.map((piece) => `https://fidret.com/lab/${piece.data.slug}/`),
   ];
   const body = '<?xml version="1.0" encoding="UTF-8"?>\n'

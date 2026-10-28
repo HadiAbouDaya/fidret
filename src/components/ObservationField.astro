@@ -1,0 +1,50 @@
+---
+// Original conceptual geometry, not sampled equipment or claimed experiment data.
+const project = (x: number, y: number, z = 0) => ({ x: 320 + (x - y) * 11.5, y: 348 + (x + y) * 6.1 - z });
+const grid = Array.from({ length: 13 }, (_, i) => i * 2 - 12);
+const points: { x: number; y: number; surface: boolean }[] = [];
+for (let y = -10; y <= 10; y += 1) {
+  for (let x = -12; x <= 12; x += 1) {
+    const onPart = Math.abs(x) <= 6 && Math.abs(y) <= 5;
+    const z = onPart ? (x < 0 ? 76 : 44) : 0;
+    points.push({ ...project(x, y, z), surface: onPart });
+  }
+}
+const line = (a: {x: number; y: number}, b: {x: number; y: number}) => `M${a.x},${a.y}L${b.x},${b.y}`;
+---
+<figure class="observation-figure">
+  <div class="field-heading"><span class="field-indicator" aria-hidden="true"></span><span>A field of observations</span></div>
+  <svg class="observation-field" viewBox="0 0 640 540" role="img" aria-labelledby="field-title field-description">
+    <title id="field-title">From a physical shape to a field of observations</title>
+    <desc id="field-description">A conceptual isometric sensing study. Points describe a stepped object within a measured area. A line joins a sensor reference to an observed point. This is an original illustration, not hardware data.</desc>
+    <path d="M44 385V462H170 M596 385V462H470 M44 176V99H168 M596 176V99H474" class="field-corners" />
+    <g class="field-grid">
+      {grid.map(n => <path d={line(project(n, -10), project(n, 10))} />)}
+      {grid.filter(n => Math.abs(n) <= 10).map(n => <path d={line(project(-12, n), project(12, n))} />)}
+    </g>
+    <path d="M182 348L320 275L458 348L320 421Z" class="field-base" />
+    <g class="field-points">
+      {points.map(p => <circle cx={p.x} cy={p.y} r={p.surface ? 1.8 : 1.15} class:list={{ 'field-surface-point': p.surface }} />)}
+    </g>
+    <path d="M320 107L182 281L320 354L458 281Z" class="field-volume" />
+    <path d="M320 107L320 272" class="field-ray" />
+    <circle cx="320" cy="272" r="6" class="field-observation" />
+    <circle cx="320" cy="272" r="14" class="field-observation-ring" />
+    <g class="field-sensor">
+      <path d="M296 85L320 72L344 85L320 98Z" />
+      <path d="M296 85V105L320 118L344 105V85L320 98V118" />
+      <circle cx="320" cy="105" r="3" />
+    </g>
+    <path d="M344 86H434L457 64" class="field-annotation" />
+    <text x="459" y="62" class="field-caption">Sensor reference</text>
+    <path d="M340 272H480L504 248" class="field-annotation" />
+    <text x="461" y="235" class="field-caption">Observed point</text>
+    <path d="M320 439V467" class="field-annotation" />
+    <text x="320" y="490" text-anchor="middle" class="field-caption">Physical environment</text>
+    <path d="M78 462H116M78 462V424" class="field-axis" />
+    <text x="123" y="467" class="field-axis-label">x</text>
+    <text x="74" y="415" class="field-axis-label">z</text>
+  </svg>
+  <figcaption>To make a sound decision, first understand what you can observe.</figcaption>
+  <span class="field-note">Conceptual study. No hardware data.</span>
+</figure>
