@@ -1,0 +1,64 @@
+---
+import { walkthroughMoments } from '../lib/signal-walkthrough';
+
+const ticks = Array.from({ length: 6 }, (_, i) => i * 2);
+const x = (time: number) => 72 + time * 84;
+---
+
+<fieldset class="signal-bench" aria-describedby="signal-instructions">
+  <legend>Choose a moment</legend>
+  <p id="signal-instructions">Move through a fixed sequence: a fresh signal, an interruption, a late packet and recovery.</p>
+  <div class="signal-selector">
+    {walkthroughMoments.map((moment, index) => (
+      <>
+        <input class="signal-choice" type="radio" name="signal-moment" id={`moment-${moment.key}`} checked={index === 0} aria-controls={`snapshot-${moment.key}`} />
+        <label class="signal-choice-label" for={`moment-${moment.key}`}>
+          <span>{moment.label}</span>
+          <span class="signal-choice-time">{moment.now} s</span>
+        </label>
+      </>
+    ))}
+    {walkthroughMoments.map((moment) => (
+      <section class:list={['signal-snapshot', `snapshot-${moment.key}`, `state-${moment.expected.state}`]} id={`snapshot-${moment.key}`} aria-labelledby={`title-${moment.key}`}>
+        <div class="signal-snapshot-heading">
+          <p class="signal-state"><span class="signal-state-dot" aria-hidden="true"></span>{moment.expected.state === 'fresh' ? 'Fresh' : moment.expected.state === 'stale' ? 'Stale' : 'Recovering'}</p>
+          <p class="signal-asof">Snapshot at {moment.now} s</p>
+        </div>
+        <div class="signal-snapshot-copy">
+          <h3 id={`title-${moment.key}`}>{moment.title}</h3>
+          <p>{moment.explanation}</p>
+        </div>
+        <div class="signal-timeline" aria-hidden="true">
+          <svg viewBox="0 0 984 256" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <line class="signal-axis" x1="72" y1="176" x2="912" y2="176" />
+            <line class="signal-window" x1={x(moment.expected.acceptedSourceTime)} y1="176" x2={x(moment.expected.acceptedSourceTime + 3)} y2="176" />
+            {ticks.map((tick) => (
+              <g class="signal-tick">
+                <line x1={x(tick)} y1="168" x2={x(tick)} y2="184" />
+                <text x={x(tick)} y="214" text-anchor="middle">{tick} s</text>
+              </g>
+            ))}
+            <line class="signal-now" x1={x(moment.now)} y1="44" x2={x(moment.now)} y2="176" />
+            <text class="signal-now-label" x={x(moment.now)} y="30" text-anchor="middle">Now</text>
+            <circle class="signal-observation" cx={x(moment.expected.acceptedSourceTime)} cy="176" r="9" />
+            {moment.key === 'delayed' && (
+              <g class="signal-late-packet">
+                <path d={`M ${x(2)} 110 H ${x(5)} M ${x(5)-8} 102 L ${x(5)} 110 L ${x(5)-8} 118`} />
+                <circle cx={x(2)} cy="110" r="5" />
+                <text x={x(3.5)} y="90" text-anchor="middle">Observed at 2 s, arrives at 5 s</text>
+              </g>
+            )}
+            <text class="signal-timeline-note" x="72" y="250">Source time on one synthetic clock</text>
+          </svg>
+        </div>
+        <dl class="signal-readout">
+          <div><dt>Last accepted timestamp</dt><dd>{moment.expected.acceptedSourceTime}<span> s</span></dd></div>
+          <div><dt>Age of accepted reading</dt><dd>{moment.expected.acceptedAge}<span> s</span></dd></div>
+          <div><dt>Current value</dt><dd class:list={{ 'signal-withheld': moment.expected.currentValue === null }}>{moment.expected.currentValue === null ? 'Withheld' : moment.expected.currentValue}<span>{moment.expected.currentValue === null ? '' : ' synthetic units'}</span></dd></div>
+        </dl>
+        <div class="signal-decision"><span>{moment.decision}</span><span>Recovery {moment.expected.recoveryCount} / 2</span></div>
+      </section>
+    ))}
+  </div>
+  <p class="signal-bench-caption">The highlighted interval marks the age window after the last accepted timestamp. The timestamp can remain visible while the value is withheld.</p>
+</fieldset>
