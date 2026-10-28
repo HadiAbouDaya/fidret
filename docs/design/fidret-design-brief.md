@@ -70,6 +70,7 @@ A new surface should use the part of this grammar that serves its task. It need 
 - Use original SVG or other code-native artwork for sensing fields, observation boundaries and signal paths. Maintain consistent line weights, point shapes, spacing and label hierarchy.
 - Separate conceptual artwork from measured evidence in the caption. An isometric scene is not a photograph or record of built hardware.
 - Distinguish observations, accepted state and rejected/stale events through shape or text as well as color. Essential graphic cues need visible contrast; decorative mesh may be quieter.
+- Wide technical figures retain readable horizontal access or a full-size link on narrow screens; keep a useful plain-text caption. The first structured article image is its cover.
 - Every technical axis, number and status must have a defined meaning. Do not invent live telemetry, accuracy figures or operating conditions for visual atmosphere.
 - Put essential explanations in normal page text so they remain readable on a phone and available without interpreting a drawing. Hide decorative SVG from assistive technology; give explanatory figures an appropriate accessible name and caption.
 - Do not reuse third-party project imagery as Fidret's work. Record source and license when an external asset is actually introduced.
@@ -90,7 +91,7 @@ Use specific nouns, plain verbs and sentence case. Explain a need, a decision or
 
 Keep a visible distinction between company purpose, developing practice, candidate application and demonstrated work. A software exploration has its actual assumptions and limits. A simulation result does not establish a physical-system outcome. Preserve actual authors and dates; an agent-built interface does not establish a human byline or joint review.
 
-Keep website navigation focused on Fidret’s public pages. Hadi requested removal of outbound GitHub links on 29 October 2026: do not add them to public navigation, project actions, bylines or article templates. Keep contributor names and internal repository provenance intact. Do not invent an email address, inquiry form, client logo, testimonial, service package or outcome metric to complete the layout.
+Keep website navigation focused on Fidret’s public pages. Hadi requested removal of outbound GitHub links on 29 October 2026: do not add them to public navigation, project actions, bylines or article templates. Use designed onsite project, charter, contributor, experiment-method and article-source pages for those destinations. Keep contributor names and internal repository provenance intact. Do not invent an email address, inquiry form, client logo, testimonial, service package or outcome metric to complete the layout.
 
 ## Avoiding template habits
 

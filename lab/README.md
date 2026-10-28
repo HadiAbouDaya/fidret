@@ -31,7 +31,7 @@ pnpm lab:new camera-placement-tradeoffs \
   --author hadi
 ```
 
-For a genuine joint contribution, pass both `--author hadi --author elie`. Use `--author elie` for Elie's piece. The registry in [authors.json](authors.json) supplies names and profile links consistently. Shared branding does not make every piece jointly authored.
+For a genuine joint contribution, pass both `--author hadi --author elie`. Use `--author elie` for Elie's piece. The registry in [authors.json](authors.json) supplies names and onsite contributor profile links consistently. Profiles list only work credited in published pieces. Shared branding does not make every piece jointly authored.
 
 The command creates `lab/pieces/<slug>.md` using `lab/TEMPLATE.md`, without overwriting an existing source. Incomplete drafts are allowed. Astro's typed collection validates the metadata and Markdown policy during checks/builds; do not create a second source in `src/pages/` or generated `website/`.
 
@@ -78,6 +78,8 @@ Commit the Markdown source and public assets, with any deliberate toolchain/lock
 ## Optional code and images
 
 Fenced Markdown is suitable for code in the narrative. Optional frontmatter `snippets` objects retain `title`, `language` and `code` for a separately captioned excerpt; code is displayed as text and never executed. A `resources` entry has a `label` and safe HTTPS or root-local `url`.
+
+The first structured `media` entry is the article cover; later entries appear as supporting figures. Wide technical diagrams need readable narrow-screen access. Every published piece also gets an onsite sources/publication-notes page from its references and current dates; drafts do not.
 
 Put public images under `public/lab-assets/<slug>/` and use structured frontmatter `media` entries with `src`, `alt`, `caption`, positive integer `width` and `height`. The `src` is its `/lab-assets/...` URL; the local file must exist and use an allowed image format. Assets in `public/` are copied into every build independently of a piece's status, so an image is public even while its article is a draft. Say when an image is simulated, synthetic, illustrative or adapted from another source, and include required attribution. Large videos or demos can be linked as resources rather than embedded.
 

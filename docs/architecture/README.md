@@ -20,6 +20,8 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `docs/foundation/` | Company purpose, practice scope, evidence needed to progress | Preserve established direction; record meaningful choices in decisions |
 | `docs/decisions/` | Durable choices, rationale, status and basis | Add a numbered record and register it; preserve superseded history |
 | `docs/tasks/` | Ownership, scope, authorization, verification and next action | Keep the relevant task current at meaningful checkpoints |
+| `src/pages/project.astro`, `src/pages/charter.astro`, `src/pages/people/`, `src/pages/lab/[slug]/sources.astro` | Public project/company views, published-credit profiles and article references/edition notes | Keep public copy faithful to canonical context; derive credit and source routes from published entries only |
+| `src/lib/sensor-evidence.ts`, `src/pages/explorations/signal-freshness/method.astro` | Checked synthetic replay snapshot and public model contract | Keep the Python-oracle parity test and distinguish software evidence from physical validation |
 | `src/pages/`, `src/layouts/`, `src/components/` | Canonical Astro routes, shared structure and presentation | Edit using the design brief; preserve public URLs and page semantics |
 | `lab/pieces/*.md`, `lab/TEMPLATE.md`, `lab/authors.json` | Canonical Lab prose, metadata, template and bylines | Follow the Lab guide; create drafts with `pnpm lab:new` |
 | `src/content.config.ts`, `src/lib/lab-schema.ts`, `src/lib/lab.ts` | Typed collections, publication rules and published-entry queries | Preserve author/date/schema rules and draft exclusion |

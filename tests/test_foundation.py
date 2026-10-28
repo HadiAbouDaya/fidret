@@ -64,6 +64,41 @@ class FoundationTests(unittest.TestCase):
                           "[Web](https://example.com/unknown)\n[Anchor](#heading)\n")
         self.assertEqual(check_links(self.root, path), [])
 
+    def test_canonical_lab_piece_site_urls_defer_target_existence(self):
+        path = self.write("lab/pieces/example.md", "[Project](/project/?view=overview#purpose)\n"
+                          "[Walkthrough](/explorations/signal-freshness/)\n"
+                          "[Image](/lab-assets/with%20space.svg)\n"
+                          "[Not built yet](/missing-route/)\n")
+        # No website or corresponding filesystem targets exist in this fixture.
+        self.assertEqual(check_links(self.root, path), [])
+
+    def test_site_url_exception_does_not_apply_to_repository_documents(self):
+        for filename in ("README.md", "docs/example.md", "lab/README.md",
+                         "lab/pieces/README.md", "lab/pieces/nested/example.md"):
+            with self.subTest(filename=filename):
+                path = self.write(filename, "[Project](/project/)\n")
+                self.assertTrue(any("leaves repository" in error
+                                    for error in check_links(self.root, path)))
+
+    def test_lab_relative_links_keep_filesystem_validation(self):
+        self.write("docs/guide.md", "# Guide\n")
+        path = self.write("lab/pieces/example.md", "[Guide](../../docs/guide.md)\n")
+        self.assertEqual(check_links(self.root, path), [])
+        path.write_text("[Missing](missing.md)\n")
+        self.assertTrue(any("missing link target" in error
+                            for error in check_links(self.root, path)))
+        path.write_text("[Outside](../../../private.md)\n")
+        self.assertTrue(any("leaves repository" in error
+                            for error in check_links(self.root, path)))
+
+    def test_lab_site_urls_do_not_bypass_traversal_or_encoding_checks(self):
+        for destination in ("/%2e%2e/private", "/project/../private", "/%2Fexample.com",
+                            "/project%5c..%5cprivate", "/project\\private", "/bad%ZZ", "/bad%FF"):
+            with self.subTest(destination=destination):
+                path = self.write("lab/pieces/example.md", f"[Invalid]({destination})\n")
+                self.assertTrue(any("invalid Lab website link" in error
+                                    for error in check_links(self.root, path)))
+
     def test_broken_internal_link(self):
         path = self.write("README.md", "[Missing](missing.md)\n")
         self.assertIn("missing link target", check_links(self.root, path)[0])
