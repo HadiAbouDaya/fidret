@@ -1,11 +1,11 @@
 # Fidret design language and website revamp
 
-- Status: active
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex with coordinated implementation and review agents
-- Branch: hadi/design-revamp
+- Branch: hadi/design-revamp; closing evidence on hadi/design-handoff
 - Updated: 2026-10-28
-- Verification status: partial
+- Verification status: passed
 
 ## Purpose
 
@@ -45,22 +45,25 @@ Research selected Impeccable's anti-template critique and design-surface distinc
 
 ## Verification
 
-Initial main clean at `11105131e9257edede2d814a8cbeee41264858d8`. The exact toolchain installed successfully in the task worktree using project-local Corepack: Node24.22.1, pnpm11.28.9, Astro7.4.2, frozen lockfile unchanged. Prior worktrees are preserved.
+Initial main clean at `11105131e9257edede2d814a8cbeee41264858d8`. The exact toolchain installed successfully in the task worktree using project-local Corepack: Node 24.22.1, pnpm 11.28.9, Astro 7.4.2, frozen lockfile unchanged. Prior worktrees are preserved.
 
-First combined `sh scripts/check_deployment.sh` passed: foundation56documents/14tasks/3adapters, Astro33files with zero diagnostic issues,36Node tests,78Python tests,5staticpages and output validation. The walkthrough test compares all scheduled snapshots with the independent Python model.
+First combined `sh scripts/check_deployment.sh` passed: foundation 56 documents / 14 tasks / 3 adapters, Astro 33 files with zero diagnostic issues,36 Node tests,78 Python tests,5 static pages and output validation. The walkthrough test compares all scheduled snapshots with the independent Python model.
 
 Independent source/fixture reviews found and root corrected a future article resource-anchor collision (covered in the existing actual-build fixture), two narrowly insufficient informative-line contrasts and an ineffective generic-div aria label. Root also increased mobile diagram labels and added print-friendly walkthrough states. Final combined checks follow refinements.
 
-Rendered production-output review: desktop1704 and phone390/320 layouts; all5currentpublicpages at320 had no document overflow and zero scripts. Native radio keyboard arrows/Space changed the selected moment and exposed only its corresponding panel in the accessibility tree. Tablet768 review confirmed the Lab and approach composition. A disposable article fixture with code/table and deliberate resource-heading collisions was reviewed at390; the Resources jump uses a unique target and allIDs are unique. A separate disposable200%root-text fixture produced34pxbody text without document overflow on home/approach/Lab/exploration/article at390. This is a text-enlargement fixture, not a claim of an assistive-technology audit or a browser's200%zoom setting.
+Rendered production-output review: desktop1704 and phone390/320 layouts; all5currentpublicpages at 320 had no document overflow and zero scripts. Native radio keyboard arrows/Space changed the selected moment and exposed only its corresponding panel in the accessibility tree. Tablet 768 review confirmed the Lab and approach composition. A disposable article fixture with code/table and deliberate resource-heading collisions was reviewed at 390; the Resources jump uses a unique target and all IDs are unique. A separate disposable 200% root-text fixture produced34 px body text without document overflow on home/approach/Lab/exploration/article at 390. This is a text-enlargement fixture, not a claim of an assistive-technology audit or a browser's 200% zoom setting.
 
-Final combined `sh scripts/check_deployment.sh` passed after refinements:36Node tests,78Python tests, Astro33files with zero diagnostic issues, foundation and output contracts. Computed informative-line contrast is now3.67:1(field annotation on sage) and3.58:1(timeline axis on forest). Header/navigation, article guide, code/table containment, five native state choices and real source links were reviewed. Initial compressedHTML measurements: home6,661bytes; exploration4,429bytes (gzip locally, not a field-performance claim). No external design detector, fieldCWV or formal accessibility certification claimed.
+Final combined `sh scripts/check_deployment.sh` passed after refinements:36 Node tests,78 Python tests, Astro 33 files with zero diagnostic issues, foundation and output contracts. Computed informative-line contrast is now3.67:1 (field annotation on sage) and3.58:1 (timeline axis on forest). Header/navigation, article guide, code/table containment, five native state choices and real source links were reviewed. Initial compressed HTML measurements: home 6,661 bytes; exploration 4,429 bytes (gzip locally, not a field-performance claim). No external design detector, field CWV or formal accessibility certification claimed.
+
+
+Production release evidence: Cloudflare's authenticated GitHub check reports success for merge `b0bea72` and [deployment d30a6120](https://d30a6120.fidret.pages.dev). Live home, approach, Lab and walkthrough return HTTP 200 and byte-match their checked local HTML; both fingerprinted stylesheets return HTTP 200, immutable caching and exact byte parity. Strict CSP remains present, with zero scripts or inline styles. Internal `AGENTS.md` and experiment source paths return 404. The browser loaded the new typography/figure and normal navigation from home to Lab to walkthrough; selecting the delayed moment revealed only `snapshot-delayed`, with accepted timestamp 1 s, age 4 s and value withheld. Both CSSOM sheets and self-hosted fonts loaded. This verifies the published software interface, not physical equipment or a field-performance claim.
 
 ## Handoff
 
-- Checkpoint: complete redesign and documented language integrated; first shared gate passed; independent review fixes applied; production-output visual review in progress.
-- Remaining work: remote CI/publication and production deployment verification.
-- Next action: publish the checked implementation for CI review, then merge and verify production.
+- Checkpoint: complete redesign and reusable design language/skill merged, deployed and verified on the custom domain.
+- Remaining work: none for the requested redesign; future authored Lab pieces and representative physical-system evaluation belong to separate tasks.
+- Next action: use the canonical design language and project skill for future website changes; preserve the tested evidence boundaries.
 - Blockers: none; exact local toolchain installation now works.
 - Acceptance basis: Hadi's explicit full-revamp request and applicable standing publication authorization; no Elie review or agreement inferred.
-- Publication: local integration commits through `57f1cd0` plus review refinements; no remote push, PR, merge or deployment yet.
-- Last verified: 2026-10-28, combined local check output and source/production-render review; main base `1110513`, integration checkpoint `57f1cd0`.
+- Publication: [PR 18](https://github.com/HadiAbouDaya/fidret/pull/18) merged as `b0bea72e3f1befb34185689e1f5324f042ea1207`; checked source head `f54fa84be29597909b6057fc000bad0c2091443d`. Push CI `40782843865`, PR CI `40782874763` and merged-main CI `40783110437` passed. Cloudflare production deployment `d30a6120-8432-4dd3-9248-a767d1cda2a8` succeeded and the actual redesign was verified on `fidret.com` at 22:56–22:57 UTC. This closing record follows on `hadi/design-handoff`; its PR tracks the later documentation-only release, which does not change public source bytes.
+- Last verified: 2026-10-28, exact local/remote checks, Cloudflare success for `b0bea72`, live HTML/CSS parity, browser rendering and native walkthrough behavior at 22:56–22:57 UTC.
