@@ -58,7 +58,7 @@ This maintains accepted [stack decision 0007](../decisions/0007-static-website-g
 
 - Checkpoint: coherent Node security update and reviewed maintenance workflow delivered through checks, independent review, both CI jobs, merged PR and verified production. An actual Actions bot proposal is observable.
 - Remaining work: none for this implementation; npm service compatibility and a complete advisory audit remain follow-up evidence.
-- Next action: maintain synchronized pins and review actual dependency proposals; complete the separately scoped pnpm security update.
+- Next action: maintain synchronized pins and review actual dependency proposals; the separately scoped pnpm security update is delivered in PR 15 and its task.
 - Blockers: none requiring user input.
 - Acceptance basis: Hadi's explicit Node-update and continuing autonomous-work authorization; no other contributor approval is inferred.
 - Publication: PR 12 merged as `9dadc41`; production `413a7d85` verified successful. This closure is recorded in the following publication-contract branch.

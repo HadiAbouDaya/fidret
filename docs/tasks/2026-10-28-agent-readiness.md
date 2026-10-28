@@ -42,7 +42,7 @@ Shared instructions, source-of-truth and architecture map, agent startup/recover
 
 ## Decisions
 
-Use [decision 0006](../decisions/0006-agent-readiness.md) for the strengthened shared workflow and [proposal 0007](../decisions/0007-static-website-growth.md) for the future static website growth stack. Hadi's request authorizes agent-readiness implementation; it does not establish acceptance of an Astro migration or Elie's review.
+Use [decision 0006](../decisions/0006-agent-readiness.md) for the strengthened shared workflow. At this task's checkpoint, [0007](../decisions/0007-static-website-growth.md) was a proposal; Hadi later accepted it and the migration task records implementation. This task's original agent-readiness authorization did not itself establish migration acceptance or Elie's review.
 
 ## Verification
 
