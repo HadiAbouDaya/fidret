@@ -282,3 +282,12 @@ button, input, select, textarea { font: inherit; }
   .inverse { --fd-text: black; --fd-heading: black; --fd-muted: #333; --fd-link: black; background: white; color: black; }
   h1 { font-size: 40pt; }
 }
+
+.latest-lab { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: 8%; padding-block: 1rem 4rem; }
+.latest-lab-heading h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: .75rem; }
+.latest-lab-heading > p, .latest-lab-date, .latest-lab-credit { color: var(--fd-muted); font-size: .875rem; }
+.latest-lab article { padding-top: 2rem; border-top: 1px solid var(--fd-rule); }
+.latest-lab h3 { font-size: clamp(2rem, 3.6vw, 3.5rem); line-height: 1.15; letter-spacing: -.045em; max-width: 26ch; margin-bottom: 1.5rem; }
+.latest-lab h3 a { text-decoration-thickness: 1px; text-underline-offset: .16em; }
+.latest-lab article > p { max-width: 52ch; }
+@media (max-width: 700px) { .latest-lab { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-block: 0 3rem; } .latest-lab article { padding-top: 1.5rem; } }

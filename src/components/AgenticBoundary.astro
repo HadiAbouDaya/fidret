@@ -22,7 +22,7 @@ const actions = [
     access: 'The existing grant permits drafting from redacted context. It does not yet permit sending.',
     tools: 'Prepare a draft. Hold the outbound send until its review conditions are satisfied.',
     boundary: 'Bind review to the exact recipient, message version, acting identity and expiry. A changed recipient or message needs a new decision; execution rechecks the binding.',
-    evidence: 'Retain the reviewed recipient and message version, reviewer decision, identity, policy and expiry, followed by the actual send outcome if execution is authorized.',
+    evidence: 'Retain controlled references to the reviewed recipient and message version, the reviewer decision, identity, policy and expiry, followed by the actual send outcome if execution is authorized.',
   },
   {
     key: 'deploy', label: 'Deploy a change', result: 'Denied',

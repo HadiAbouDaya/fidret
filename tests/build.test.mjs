@@ -46,7 +46,7 @@ function writePiece(root, slug, { status = 'published', authors = ['elie', 'hadi
 
 test('actual Astro builds publish only complete pieces with ordered credit and safe rendering; withdrawal removes output', () => {
   const root = fixture();
-  mkdirSync(join(root, 'public/lab-assets'));
+  mkdirSync(join(root, 'public/lab-assets'), { recursive: true });
   writeFileSync(join(root, 'public/lab-assets/pipeline-fixture.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="8" height="8"/></svg>');
   writePiece(root, 'published-fixture', {
     resources: [{ label: 'Independent reference', url: 'https://example.com/reference' }],
@@ -72,6 +72,8 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   assert.ok(article.indexOf('Elie Azoury') < article.indexOf('Hadi Abou Daya'));
   assert.match(article, /https:\/\/fidret\.com\/lab\/published-fixture\//);
   assert.match(listing, /published-fixture/);
+  assert.equal(existsSync(join(root, 'website/lab/published-fixture/sources/index.html')), true);
+  assert.equal(existsSync(join(root, 'website/lab/private-draft/sources/index.html')), false);
   assert.match(sitemap, /<loc>https:\/\/fidret\.com\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/fidret\.com\/lab\/<\/loc>/);
   assert.match(sitemap, /published-fixture/);
@@ -84,6 +86,7 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, 'website/lab/published-fixture')), false);
+  assert.equal(existsSync(join(root, 'website/lab/published-fixture/sources')), false);
   assert.doesNotMatch(readFileSync(join(root, 'website/sitemap.xml'), 'utf8'), /published-fixture/);
 });
 

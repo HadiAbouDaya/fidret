@@ -1,6 +1,5 @@
 /* Public company context and contributor reading surfaces. */
 .site-header .nav-project { gap: .7rem; margin-left: clamp(.5rem, 2vw, 2rem); border-bottom: 1px solid var(--fd-control-border); }
-.site-header .nav-project svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .footer-intro > .text-link { font-size: .875rem; }
 a.byline-name { display: inline-flex; min-height: 44px; align-items: center; }
 .knowledge-hero { padding-block: clamp(3rem, 6vw, 6rem) clamp(4rem, 8vw, 8rem); }
