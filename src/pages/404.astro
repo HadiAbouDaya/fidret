@@ -3,10 +3,15 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 ---
 
 <SiteLayout title="Page not found — Fidret" variant="minimal" noindex>
-  <main class="not-found shell" id="main">
-    <h1>Page not found.</h1>
-    <p>This address doesn’t lead to a page on Fidret. Visit the homepage to learn about our purpose and first practice.</p>
-    <p><a class="primary-link" href="/">Go to the homepage</a></p>
-    <p><a href="/lab/">Explore Fidret Lab</a></p>
+  <main class="nf-main shell" id="main">
+    <div class="nf-coordinate" aria-hidden="true">404</div>
+    <div class="nf-copy">
+      <h1>Page not found.</h1>
+      <p>This address doesn’t lead to a page on Fidret. You can return to our purpose, or find a question to explore in the Lab.</p>
+      <div class="nf-links">
+        <a class="button" href="/">Go to the homepage</a>
+        <a class="text-link" href="/lab/">Explore Fidret Lab</a>
+      </div>
+    </div>
   </main>
 </SiteLayout>
