@@ -1,9 +1,9 @@
 # A reusable brief for a first agent workflow
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex with an isolated content worker and read-only review
-- Branch: hadi/workflow-field-guide
+- Branch: hadi/workflow-field-guide; closing record on hadi/workflow-handoff
 - Updated: 2026-10-29
 - Verification status: passed
 
@@ -49,12 +49,14 @@ Implementation gate passed: 41 Node tests, 83 Python tests, zero diagnostics acr
 
 Rendered review: default desktop at 1704 px, phones at 320/390 px and tablet at 768 px; no document overflow. The authority disclosure opens with Enter and the unknown-outcome checkbox toggles with Space, both with visible focus. Reduced-motion rendering was exercised and temporary browser overrides restored. A four-page A4 print proof was rendered and inspected; the headline retains its space and the decision section starts together. Browser download activation opened the expected named Save dialog; after Hadi asked not to be involved in file saving, it was dismissed and verification continued through a direct local HTTP download (200, text/markdown, 6,498 exact bytes), saved under ignored local evidence. Production MIME/header/byte parity remains a release check. No private data is entered or transmitted by the guide, and no browser settings were changed.
 
+Production verification passed after deployment `a672c671-3ae1-4cf4-aecd-405777afe2f2` succeeded at 2026-10-29 18:23:16 UTC. All 12 canonical routes return HTTP 200 and byte-match the checked output; six fingerprinted stylesheets match and use immutable caching. Initial immediate checks observed mixed old/new pages during release propagation; a subsequent complete check matched every page. The Markdown response on both the custom domain and exact deployment URL is HTTP 200, `text/markdown; charset=utf-8`, 6,498 matching bytes and `public, max-age=0, must-revalidate`. The companion appears in the sitemap; public HTML has no GitHub anchors, scripts or inline styles and retains CSP. Internal instruction, author-registry and experiment-source probes return 404. The live browser shows five examples, five review controls and the correct download destination. A live screenshot was saved locally without another Save prompt. The project design skill now records direct download verification and Hadi's instruction to handle test-file saving autonomously. No field performance, comprehensive accessibility audit, enterprise security assessment or physical trial is claimed.
+
 ## Handoff
 
-- Checkpoint: companion, editable download, navigation, publication lifecycle, shared documentation and local review complete.
-- Remaining work: remote checks, merge, deployment verification and closing evidence.
-- Next action: publish the checked task branch and verify its production release.
+- Checkpoint: companion, editable download, navigation and publication contracts are merged, deployed and verified; closing evidence recorded.
+- Remaining work: none for the feature; the closing record release is tracked in its PR.
+- Next action: use the canonical Lab/design workflow for future changes; keep readers' completed briefs in their own approved workspace.
 - Blockers: none.
 - Acceptance basis: Hadi's continuation request and existing website/article publication authorization; no Elie review or authorship inferred.
-- Publication: local implementation includes isolated content commit `1641a0f`; no new push, PR, merge or deployment yet.
-- Last verified: 2026-10-29, combined local gate and browser/print/direct-download evidence; production remains unverified for this change.
+- Publication: [PR 23](https://github.com/HadiAbouDaya/fidret/pull/23) merged as `f585b268042f2fe05c5e341c62dbbc6c6926f433`, checked source head `dc9090e0aed11982bc6828c8d3c08d148e82df22` (including isolated content commit `1641a0f`). Push CI `40929489412`, PR CI `40929536667` and merged-main CI `40929776712` passed. Cloudflare deployment `a672c671-3ae1-4cf4-aecd-405777afe2f2` succeeded; this closing branch records the completed release and the download-testing instruction. Its PR tracks the final merge/deployment.
+- Last verified: 2026-10-29, deployed `f585b26`, 12-route / 6-CSS / download / sitemap / private-path checks and live browser proof passed; local A4 print and native-control review recorded above.
