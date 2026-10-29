@@ -1,9 +1,9 @@
 # Agentic-company article and onsite knowledge pages
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex with coordinated research and implementation agents
-- Branch: hadi/agentic-publication
+- Branch: hadi/agentic-publication; closing record on hadi/agentic-handoff
 - Updated: 2026-10-29
 - Verification status: passed
 
@@ -52,12 +52,15 @@ Keep the current architecture and publication schema unless a concrete content r
 
 Initial link removal is complete: PR 20 merged `152dacf509c4a8da18c3cf98abafe6a150cb2f12`; Cloudflare `2ddc643d-467a-4d5a-8f0e-c1759d97243b` succeeded. Live home/Lab/approach/exploration return HTTP 200, match the checked build and contain zero GitHub anchors. Full gate passed 36 Node and 78 Python tests. New isolated implementation checks passed. The article is 1,897 words with 15 primary references, a dated research ledger and explicit Hadi byline; an independent source/security review found no material overclaim and prompted precise OAuth wording plus readable diagram access. Root integration found an existing foundation-link mismatch: canonical Lab root-local URLs were treated as filesystem paths. A bounded fix with four regression cases preserves document/traversal checks and defers website-route existence to publishing/output validation. The combined gate passed: foundation 60 documents / 15 tasks / 3 adapters, Astro 41 files with zero errors/warnings/hints, 38 Node tests, 82 Python tests and static output validation. Initial actual-build fixture failed because it assumed no public Lab assets existed; recursive fixture directory creation corrected that assumption while preserving the source/withdrawal assertions. Public article/source routes, profile queries and exact model replay are covered. Rendered review passed at 320/390/768/1704 pixels across the new public routes. All tested documents fit their viewport; the architecture figure keeps readable horizontal access on phones. The reply policy radio selected only its panel, and author/profile links, sources and experiment navigation remained onsite. A separate scan of all 12 generated HTML pages found zero GitHub anchors, scripts or duplicate IDs. Minor header refinements removed an external-looking icon from the internal project link and use location semantics for parent sections; the final typecheck/build/output/foundation checks passed after those refinements.
 
+
+Production evidence: all 11 canonical public routes return HTTP 200 and byte-match the checked build. Five fingerprinted stylesheets return HTTP 200, exact bytes and immutable caching. Public HTML has zero GitHub anchors, scripts or inline styles, and CSP remains present. Internal AGENTS/author-registry/experiment-source paths return 404. The live article has Hadi Abou Daya's byline linked onsite; its three native controls load, and selecting deployment exposes only the denied panel. Self-hosted fonts load. The evidence/source/profile/method pages and sitemap are deployed. No field Core Web Vitals, comprehensive assistive-technology audit, company security assessment or hardware trial is claimed.
+
 ## Handoff
 
-- Checkpoint: article and onsite destinations implemented, sourced, independently reviewed and verified locally; release prepared.
-- Remaining work: remote CI, merge and actual production deployment/render verification.
-- Next action: publish a reviewable PR, merge after CI passes, and verify the actual production routes and article.
+- Checkpoint: article and all onsite counterparts merged, deployed and verified on the custom domain; release evidence recorded.
+- Remaining work: none for the requested article and onsite features; the closing record and UTC publication-date reconciliation are tracked on the closing branch.
+- Next action: use the canonical Lab/design workflow for future pieces; actual company agent access and physical operation remain separately scoped work.
 - Blockers: none; authorship answered explicitly.
 - Acceptance basis: Hadi's explicit post/onsite-pages requests and byline choice, with standing publication authorization; no Elie authorship or review inferred.
-- Publication: local integration commits plus current article/layout/records changes; no new feature PR or deployment yet.
-- Last verified: 2026-10-29 local / 2026-10-28 UTC, main `152dacf` and the completed link-removal deployment.
+- Publication: [PR 21](https://github.com/HadiAbouDaya/fidret/pull/21) merged as `45dcf3732abb53f8c2f430042c788ca415a1ddc9`; checked source head `400a28bb6fa38e6a3ee5c203ad4163565fdb17b1`. Push CI `40790564350` and PR CI `40790638164` passed, as did both merged-main jobs. Cloudflare deployment `51b3cc0b-d018-417c-ba1f-c159cd244f2f` succeeded at 2026-10-29 00:02:00 UTC. The first release crossed UTC midnight; this closing branch preserves creation on 28 October and reconciles publication/update dates to the actual 29 October release. The closing PR tracks its final deployment.
+- Last verified: 2026-10-29 UTC, exact build/live parity for all 11 public routes, CSS and private-path probes; live Hadi byline/profile and policy exercise verified after deployment `51b3cc0b`.
