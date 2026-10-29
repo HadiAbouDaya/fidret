@@ -4,6 +4,7 @@ Task records make work transferable between people and harnesses. Create a recor
 
 | Task | Human owner | State |
 | --- | --- | --- |
+| [A reusable agent-workflow brief](2026-10-29-workflow-brief.md) | Hadi Abou Daya | See task record |
 | [Agentic-company article and onsite pages](2026-10-29-agentic-company-post.md) | Hadi Abou Daya | See task record |
 | [Website design revamp](2026-10-28-design-revamp.md) | Hadi Abou Daya | See task record |
 | [Shared foundation](2026-10-24-foundation.md) | Hadi Abou Daya | See task record |

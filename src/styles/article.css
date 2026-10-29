@@ -46,3 +46,6 @@
   .sources-edition > p { max-width: 48ch; }
 }
 @media print { .sources-edition { position: static; } .lab-experience-jump { display: none; } }
+.lab-brief-callout { padding: 1.5rem; border: 1px solid var(--fd-control-border); margin-top: 2rem; }
+.lab-brief-callout h2 { font-size: 1.625rem; margin-bottom: .75rem; }
+.lab-brief-callout p { font-size: .9375rem; margin-bottom: .5rem; }

@@ -1,5 +1,8 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { getPublishedPieces } from '../lib/lab';
+import { HARNESS_SLUG, GUIDE_PATH } from '../lib/workflow-brief';
+const hasWorkflowBrief = (await getPublishedPieces()).some(piece => piece.data.slug === HARNESS_SLUG);
 const principles = [
   { title: 'Understand before choosing.', text: 'Begin with the people, the workflow and the outcome that matters. Constraints and alternatives are part of the problem, not details to discover after a solution is chosen.' },
   { title: 'Make commitments clear.', text: 'Define scope, ownership, success criteria and dependencies. When the situation changes, surface it early. A commitment should be understandable to the people relying on it.' },
@@ -24,6 +27,7 @@ const principles = [
       <p class="evidence-path-note">A working sequence for developing the practice, not a claim that every stage has been completed.</p>
     </div></section>
     <section class="approach-responsibility shell" aria-labelledby="responsibility-title"><div><p class="section-context">People remain responsible</p><h2 id="responsibility-title">Knowing when<br />to stop matters.</h2></div><div><p>When systems affect the physical world, operating limits, supervision and recovery need a responsible owner. A successful software test does not establish that a machine is ready to act.</p><p>Sound judgment can mean narrowing a scope, seeking a partner or stopping. The reason should be clear to the people affected.</p><a class="text-link" href="/explorations/signal-freshness/">Explore one bounded question</a></div></section>
+    {hasWorkflowBrief && <section class="approach-brief shell" aria-labelledby="brief-title"><div class="approach-brief-surface"><div><p class="section-context">Put the commitments to work</p><h2 id="brief-title">Start with one<br />agent workflow.</h2></div><div><p>Make the outcome, permissions, evidence and recovery plan clear before widening access. Our practical brief pairs five contracts with a fictional worked example and review cases.</p><a class="text-link" href={GUIDE_PATH}>Plan a bounded agent workflow</a></div></div></section>}
     <section class="approach-open shell" aria-labelledby="open-title"><h2 id="open-title">Open about<br />where we are.</h2><div><p>Fidret is taking shape. Physical AI is the first practice we’re developing. We share software explorations and technical thinking as that foundation grows.</p><div class="hero-actions"><a class="button" href="/lab/">Visit Fidret Lab</a><a class="text-link" href="/charter/">Read the company charter</a></div></div></section>
   </main>
 </SiteLayout>

@@ -45,6 +45,19 @@ class WebsiteTests(unittest.TestCase):
     def test_valid_static_site(self):
         self.assertEqual(validate(self.root), [])
 
+    def test_curated_markdown_download_does_not_allow_other_repository_markdown(self):
+        download = self.site / "lab/agentic-company-harness/workflow-brief.md"
+        download.parent.mkdir(parents=True)
+        download.write_text("# Agent workflow brief\n\nAn authored public planning template.\n")
+        self.assertEqual(validate(self.root), [])
+        for relative in ("AGENTS.md", "lab/pieces/internal-draft.md", "lab/agentic-company-harness/other.md"):
+            with self.subTest(relative=relative):
+                private_source = self.site / relative
+                private_source.parent.mkdir(parents=True, exist_ok=True)
+                private_source.write_text("# Internal source\n")
+                self.assertTrue(any(f"Unexpected public file type: {relative}" in error for error in validate(self.root)))
+                private_source.unlink()
+
     def test_each_security_header_is_required_in_the_global_rule(self):
         path = self.site / "_headers"
         for header in ("Content-Security-Policy", "Referrer-Policy", "X-Content-Type-Options", "Permissions-Policy"):
