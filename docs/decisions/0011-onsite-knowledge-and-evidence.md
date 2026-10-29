@@ -20,6 +20,8 @@ Generate all article and sources routes through the same published-entry query, 
 
 Use onsite destinations for project/profile/source actions and preserve primary external citations at their publishers. Public HTML must contain no GitHub anchors. No browser JavaScript, backend, account policy change or agent framework is introduced by this publication work.
 
+29 October continuation: the [workflow-brief task](../tasks/2026-10-29-workflow-brief.md) adds an article-specific planning companion and an editable Markdown download. Both derive from shared typed prompts and are generated through the published-entry query; withdrawal also removes their entry points. The output validator permits only that exact Markdown path, preserving the boundary against publishing arbitrary repository documents. Native examples/checklists and a print layout support discussion; the resource confers no permissions or security assurance. The Lab schema and static architecture remain unchanged.
+
 ## Consequences
 
 Visitors can follow the reasoning without leaving for repository files. Maintaining public views requires keeping claims aligned with the charter, actual credits and replay evidence. The checked sensor snapshot is compared against the Python model. Article controls explain fixed examples and confer no real permissions.

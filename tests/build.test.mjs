@@ -90,6 +90,42 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   assert.doesNotMatch(readFileSync(join(root, 'website/sitemap.xml'), 'utf8'), /published-fixture/);
 });
 
+test('workflow companion, download and entry points follow parent publication and withdrawal', () => {
+  const root = fixture();
+  const slug = 'agentic-company-harness';
+  const guidePath = `/lab/${slug}/workflow-brief/`;
+  const downloadPath = `/lab/${slug}/workflow-brief.md`;
+  writePiece(root, slug, {authors: ['hadi']});
+  writePiece(root, 'published-fixture');
+  let result = build(root);
+  assert.equal(result.status, 0, result.output);
+  const guide = readFileSync(join(root, 'website', guidePath, 'index.html'), 'utf8');
+  const download = readFileSync(join(root, 'website', downloadPath), 'utf8');
+  assert.match(guide, /download="fidret-agent-workflow-brief.md"/);
+  assert.match(guide, /type="checkbox"/);
+  assert.doesNotMatch(guide, /<(?:script|form)(?:\s|>)/i);
+  assert.match(download, /^# Agent workflow brief\n/);
+  assert.match(download, /\[not yet tested\]/);
+  assert.match(download, /Human launch decision/);
+  for (const section of ['Purpose', 'Context', 'Authority', 'Evidence', 'Recovery']) {
+    assert.ok(download.includes(`## ${section}\n`), `${section} must be in the actual download`);
+  }
+  for (const route of [`lab/${slug}/index.html`, 'approach/index.html', 'sitemap.xml']) {
+    assert.ok(readFileSync(join(root, 'website', route), 'utf8').includes(guidePath), `${route} must expose the companion`);
+  }
+  assert.ok(guide.includes(downloadPath));
+  assert.equal(existsSync(join(root, 'website/lab/published-fixture/workflow-brief')), false);
+
+  writePiece(root, slug, {status: 'draft', body: '## Question\n'});
+  result = build(root);
+  assert.equal(result.status, 0, result.output);
+  assert.equal(existsSync(join(root, 'website', guidePath)), false);
+  assert.equal(existsSync(join(root, 'website', downloadPath)), false);
+  for (const route of ['approach/index.html', 'sitemap.xml', 'lab/index.html']) {
+    assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(guidePath), `${route} must withdraw the entry point`);
+  }
+});
+
 test('actual Astro build rejects incomplete published narrative', () => {
   const root = fixture();
   writePiece(root, 'incomplete', { body: '## Question\n\n## Approach\n\n## Takeaways\n\n## Limits\n\n## Next steps\n' });

@@ -1,0 +1,112 @@
+.workflow-hero { padding-block: 1.5rem clamp(4rem, 7vw, 7rem); }
+.workflow-back { margin-bottom: clamp(2.5rem, 5vw, 5rem); }
+.workflow-hero-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+.workflow-hero h1 { font-size: clamp(3rem, 5.8vw, 6rem); max-width: 14ch; margin-bottom: 2rem; }
+.workflow-lead { font-size: clamp(1.125rem, 1.65vw, 1.375rem); line-height: 1.65; max-width: 45ch; margin-bottom: 2rem; }
+.workflow-format { color: var(--fd-muted); font-size: .8125rem; margin-top: 1rem; max-width: 55ch; }
+.workflow-specimen { padding: clamp(1.75rem, 3vw, 3rem); border-top: 4px solid var(--fd-copper); }
+.workflow-specimen-label { color: var(--fd-sage); font-size: .8125rem; margin-bottom: 2rem; }
+.workflow-specimen h2 { font-size: clamp(1.875rem, 3vw, 3rem); line-height: 1.15; margin-bottom: 2.5rem; letter-spacing: -.045em; }
+.workflow-specimen h2 span { color: var(--fd-sage); }
+.workflow-specimen dl { margin: 0; }
+.workflow-specimen dl > div { padding-block: .875rem; border-top: 1px solid var(--fd-rule); }
+.workflow-specimen dt { color: var(--fd-sage); font-size: .75rem; margin-bottom: .25rem; }
+.workflow-specimen dd { margin: 0; font-size: .875rem; line-height: 1.6; }
+.workflow-specimen > p:last-child { margin: 1.5rem 0 0; font-size: .75rem; color: var(--fd-sage); }
+.workflow-reading { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 2fr); gap: clamp(2.5rem, 8vw, 8rem); }
+.workflow-index nav { position: sticky; top: 2rem; }
+.workflow-index nav > p { font-size: .8125rem; color: var(--fd-muted); margin-bottom: 1rem; }
+.workflow-index ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fd-rule); }
+.workflow-index li { border-bottom: 1px solid var(--fd-rule); }
+.workflow-index li a { display: flex; align-items: center; min-height: 44px; padding-block: .3rem; font-size: .875rem; }
+.workflow-index-note { margin-top: 2rem; font-size: .8125rem; line-height: 1.7; color: var(--fd-muted); }
+.workflow-body { min-width: 0; }
+.workflow-body h2 { font-size: clamp(2rem, 3.4vw, 3.5rem); }
+.workflow-body > section > p { max-width: 64ch; }
+.workflow-opening { padding-bottom: 2rem; }
+.workflow-contract { padding-block: 2.5rem; border-top: 1px solid var(--fd-control-border); scroll-margin-top: 2rem; }
+.workflow-contract-heading { display: grid; grid-template-columns: minmax(0, .5fr) minmax(0, 1.5fr); gap: 1.5rem; }
+.workflow-contract-name { font-size: .875rem; color: var(--fd-copper); margin: .3rem 0 0; }
+.workflow-contract-heading h3 { font-size: clamp(1.375rem, 2.2vw, 2.125rem); line-height: 1.25; letter-spacing: -.035em; margin: 0; max-width: 28ch; }
+.workflow-prompts { margin: 1.75rem 0; padding-left: 1.25rem; max-width: 64ch; font-size: .9375rem; }
+.workflow-prompts li { padding-left: .35rem; margin-bottom: .75rem; }
+.workflow-evidence { border-left: 2px solid var(--fd-forest); padding-left: 1.25rem; margin-block: 2rem 1.5rem; font-size: .875rem; }
+.workflow-evidence > span { display: block; font-weight: 600; color: var(--fd-forest); margin-bottom: .375rem; }
+.workflow-example { background: var(--fd-sage); }
+.workflow-example summary { min-height: 52px; padding: .875rem 1.25rem; cursor: pointer; color: var(--fd-forest); font-size: .875rem; font-weight: 500; }
+.workflow-example summary:hover { text-decoration: underline; text-underline-offset: .25em; }
+.workflow-example > div { padding: .5rem 1.25rem 1.5rem; }
+.workflow-example p { font-size: .9375rem; margin-bottom: 0; }
+.workflow-example .workflow-example-label { font-size: .75rem; margin-bottom: .5rem; color: var(--fd-forest); }
+.workflow-review { padding-block: 3.5rem; border-top: 1px solid var(--fd-control-border); }
+.workflow-checklist { margin: 2rem 0 1rem; padding: 0; border: 0; min-width: 0; }
+.workflow-checklist legend { font-size: .875rem; color: var(--fd-muted); padding: 0 0 1rem; }
+.workflow-check { display: flex; align-items: start; gap: 1rem; min-height: 44px; padding-block: 1.5rem; border-top: 1px solid var(--fd-rule); cursor: pointer; }
+.workflow-check > input { flex: 0 0 1.25rem; width: 1.25rem; height: 1.25rem; margin: .25rem 0 0; accent-color: var(--fd-forest); }
+.workflow-check strong { display: block; font-size: 1rem; font-weight: 500; line-height: 1.5; color: var(--fd-forest); }
+.workflow-check > span > span { display: block; margin-top: .75rem; font-size: .875rem; line-height: 1.75; }
+.workflow-check:has(input:checked) { border-top-color: var(--fd-forest); }
+.workflow-check:has(input:checked) strong { text-decoration: underline; text-underline-offset: .25em; }
+.workflow-local-note { font-size: .8125rem; color: var(--fd-muted); }
+.workflow-decision { padding-block: 1rem 4rem; }
+.workflow-decisions { margin: 2rem 0; }
+.workflow-decisions > div { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.5fr); gap: 1.5rem; padding-block: 1.25rem; border-top: 1px solid var(--fd-rule); }
+.workflow-decisions dt { color: var(--fd-forest); font-size: 1rem; font-weight: 500; }
+.workflow-decisions dd { margin: 0; font-size: .9375rem; }
+.workflow-limit { margin: 2rem 0; padding: 1.25rem; border: 1px solid var(--fd-control-border); font-size: .875rem; }
+.workflow-colophon { display: flex; align-items: start; justify-content: space-between; gap: 2rem; padding-block: 2rem 4rem; }
+.workflow-colophon > p { max-width: 72ch; font-size: .8125rem; color: var(--fd-muted); margin: 0; }
+.workflow-colophon .byline-name { display: inline; }
+.workflow-colophon > a { flex-shrink: 0; }
+
+@media (max-width: 900px) {
+  .workflow-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: 2rem; }
+  .workflow-reading { grid-template-columns: minmax(0, .6fr) minmax(0, 2fr); gap: 2rem; }
+  .workflow-contract-heading { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+}
+@media (max-width: 700px) {
+  .workflow-hero-grid, .workflow-reading { grid-template-columns: minmax(0, 1fr); }
+  .workflow-specimen { margin-top: 1rem; }
+  .workflow-index nav { position: static; }
+  .workflow-index ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; }
+  .workflow-index-note { max-width: 56ch; }
+  .workflow-contract { padding-block: 2rem; }
+  .workflow-decisions > div { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+  .workflow-colophon { flex-direction: column; gap: 1rem; }
+}
+@media print {
+  @page { size: A4; margin: 16mm; }
+  .workflow-page { color: #000; font: 10pt/1.45 Arial, sans-serif; }
+  body:has(.workflow-page) { background: #fff; }
+  body:has(.workflow-page) > .site-header, body:has(.workflow-page) > .site-footer,
+  body:has(.workflow-page) > .skip-link, .workflow-back, .workflow-index, .workflow-format,
+  .workflow-page .hero-actions, .workflow-example, .workflow-specimen, .workflow-colophon > a { display: none; }
+  .workflow-page .shell { max-width: none; padding-inline: 0; }
+  .workflow-hero { padding: 0 0 1rem; }
+  .workflow-hero-grid, .workflow-reading { display: block; }
+  .workflow-hero h1 { max-width: none; font: 500 26pt/1.1 Arial, sans-serif; margin-bottom: .75rem; letter-spacing: -.025em; }
+  .workflow-hero h1 br { display: none; }
+  .workflow-lead { max-width: none; font-size: 11pt; line-height: 1.45; margin-bottom: 0; }
+  .workflow-page h2 { font-size: 18pt; line-height: 1.15; }
+  .workflow-contract-heading { grid-template-columns: 1fr 3fr; }
+  .workflow-contract-heading h3 { font-size: 14pt; }
+  .workflow-contract { padding-block: 1rem; break-inside: avoid; }
+  .workflow-opening { padding-bottom: .75rem; }
+  .workflow-opening > p, .workflow-review > p, .workflow-decision > p { font-size: 10pt; }
+  .workflow-contract-name, .workflow-contract-heading h3, .workflow-page h2,
+  .workflow-page h1, .workflow-evidence > span, .workflow-check strong, .workflow-decisions dt { color: #000; }
+  .workflow-prompts { font-size: 10pt; margin-block: .75rem; max-width: none; }
+  .workflow-prompts li { margin-bottom: .375rem; }
+  .workflow-evidence { margin: .75rem 0 0; font-size: 9pt; }
+  .workflow-review { padding-block: 1rem; break-before: page; }
+  .workflow-checklist { margin-block: 1rem; }
+  .workflow-check { padding-block: .75rem; break-inside: avoid; }
+  .workflow-check strong { font-size: 10pt; }
+  .workflow-check > span > span { margin-top: .25rem; font-size: 9pt; }
+  .workflow-decision { padding: 1rem 0; break-before: page; }
+  .workflow-decisions > div { padding-block: .625rem; break-inside: avoid; }
+  .workflow-decisions dt, .workflow-decisions dd { font-size: 10pt; }
+  .workflow-limit { padding: .75rem; margin-block: 1rem; }
+  .workflow-colophon { padding-block: 1rem 0; }
+  .workflow-page a { color: #000; }
+}

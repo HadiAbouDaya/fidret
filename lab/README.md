@@ -81,6 +81,8 @@ Fenced Markdown is suitable for code in the narrative. Optional frontmatter `sni
 
 The first structured `media` entry is the article cover; later entries appear as supporting figures. Wide technical diagrams need readable narrow-screen access. Every published piece also gets an onsite sources/publication-notes page from its references and current dates; drafts do not.
 
+The company-harness article also has a purpose-built workflow-brief companion and editable Markdown download. Both are generated only while that article is published, from shared prompts in `src/lib/workflow-brief.ts`. Withdrawal removes their routes, sitemap entry and approach-page action. The exact public download is an output-validator exception, not permission to copy internal Markdown or drafts into the website. Other pieces do not receive this companion automatically. Its native checkboxes are a reading aid, with no backend or stored answers; the Markdown copy holds the reader's lasting work.
+
 Put public images under `public/lab-assets/<slug>/` and use structured frontmatter `media` entries with `src`, `alt`, `caption`, positive integer `width` and `height`. The `src` is its `/lab-assets/...` URL; the local file must exist and use an allowed image format. Assets in `public/` are copied into every build independently of a piece's status, so an image is public even while its article is a draft. Say when an image is simulated, synthetic, illustrative or adapted from another source, and include required attribution. Large videos or demos can be linked as resources rather than embedded.
 
 ## Build credibility over time

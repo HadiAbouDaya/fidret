@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import Byline from '../../../components/Byline.astro';
+import { getPublishedPieces } from '../../../lib/lab';
+import { HARNESS_SLUG, GUIDE_PATH, DOWNLOAD_PATH, contracts, reviewCases } from '../../../lib/workflow-brief';
+import '../../../styles/workflow-brief.css';
+
+export const getStaticPaths = (async () => (await getPublishedPieces())
+  .filter(piece => piece.data.slug === HARNESS_SLUG)
+  .map(piece => ({params: {slug: piece.data.slug}, props: {piece}}))) satisfies GetStaticPaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const {piece} = Astro.props;
+---
+
+<SiteLayout title="Plan one agent workflow — Fidret Lab" description="A practical workflow brief: five contracts, a fictional worked example, review cases and an editable Markdown template." canonical={`https://fidret.com${GUIDE_PATH}`} variant="lab">
+  <main id="main" class="workflow-page">
+    <header class="workflow-hero shell">
+      <a class="text-link workflow-back" href={`/lab/${piece.data.slug}/`}>Back to the article</a>
+      <div class="workflow-hero-grid">
+        <div>
+          <p class="section-context">A working brief</p>
+          <h1>Give one workflow{' '}<br />a clear boundary.</h1>
+          <p class="workflow-lead">Before connecting more tools, write down what a useful result looks like, which actions are allowed and what happens when the outcome is uncertain.</p>
+          <div class="hero-actions"><a class="button" href={DOWNLOAD_PATH} download="fidret-agent-workflow-brief.md">Download the editable brief</a><a class="text-link" href="#contracts">Work through the contracts</a></div>
+          <p class="workflow-format">Markdown · edit in your own workspace. Or print this page for a discussion.</p>
+        </div>
+        <aside class="workflow-specimen inverse" aria-labelledby="specimen-title">
+          <p class="workflow-specimen-label">Fictional trial boundary</p>
+          <h2 id="specimen-title">Investigate.<br />Prepare a draft.<br /><span>Hand it over.</span></h2>
+          <dl><div><dt>The task</dt><dd>One synthetic support ticket.</dd></div><div><dt>The artifact</dt><dd>A reply for a person to review.</dd></div><div><dt>The limit</dt><dd>No customer sending. No deployment.</dd></div><div><dt>When uncertain</dt><dd>Stop, reconcile and involve the owner.</dd></div></dl>
+          <p>A planning example. No system is connected here.</p>
+        </aside>
+      </div>
+    </header>
+
+    <div class="workflow-reading shell">
+      <aside class="workflow-index">
+        <nav aria-label="In this brief"><p>Keep the pieces together</p><ol>{contracts.map(contract => <li><a href={`#${contract.id}`}>{contract.title}</a></li>)}<li><a href="#review-cases">Review cases</a></li><li><a href="#decision">Human decision</a></li></ol></nav>
+        <p class="workflow-index-note">Five contracts from the accompanying article. An original planning synthesis, rather than a control standard.</p>
+      </aside>
+
+      <div class="workflow-body">
+        <section class="workflow-opening" id="contracts" aria-labelledby="contracts-title">
+          <p class="section-context">Make the reasoning inspectable</p>
+          <h2 id="contracts-title">Write the contract.<br />Keep the evidence.</h2>
+          <p>Choose one workflow and name its accountable human owner. Use the prompts below to prepare your own brief. Each example follows the same fictional, draft-only support investigation.</p>
+          <p>Keep the completed version in an approved workspace, with controlled references to sensitive evidence. The download contains blank responses and untested review cases for you to adapt.</p>
+        </section>
+
+        <div class="workflow-contracts">
+          {contracts.map(contract => <section class="workflow-contract" id={contract.id} aria-labelledby={`${contract.id}-title`}>
+            <div class="workflow-contract-heading"><p class="workflow-contract-name">{contract.title}</p><h3 id={`${contract.id}-title`}>{contract.question}</h3></div>
+            <ul class="workflow-prompts">{contract.prompts.map(prompt => <li>{prompt}</li>)}</ul>
+            <p class="workflow-evidence"><span>Bring to the review</span>{contract.evidence}</p>
+            <details class="workflow-example"><summary>See the {contract.title.toLowerCase()} example</summary><div><p class="workflow-example-label">Fictional support investigation</p><p>{contract.example}</p></div></details>
+          </section>)}
+        </div>
+
+        <section class="workflow-review" id="review-cases" aria-labelledby="review-title">
+          <p class="section-context">Test the boundaries you wrote</p>
+          <h2 id="review-title">What happens<br />when it goes wrong?</h2>
+          <p>Run these cases in an authorized test environment. Record the actual result and a protected evidence reference in your copy of the brief. Extend them to your workflow; five cases cannot establish complete coverage.</p>
+          <fieldset class="workflow-checklist" aria-describedby="checklist-note"><legend>Cases to carry into your review</legend>{reviewCases.map((reviewCase, index) => <label class="workflow-check"><input type="checkbox" name={`review-${index}`} /><span><strong>{reviewCase.title}</strong><span>{reviewCase.expected}</span></span></label>)}</fieldset>
+          <p class="workflow-local-note" id="checklist-note">Checks are a reading aid. Fidret does not store them or receive your answers. Keep lasting results in your own brief.</p>
+        </section>
+
+        <section class="workflow-decision" id="decision" aria-labelledby="decision-title">
+          <p class="section-context">A named person makes the next decision</p>
+          <h2 id="decision-title">A completed brief<br />is a starting point.</h2>
+          <p>Bring the proposed scope, observed results and unresolved risks to the accountable owner. Record a decision and the conditions that would require another review.</p>
+          <dl class="workflow-decisions"><div><dt>Hold</dt><dd>A required boundary or result remains unresolved. Record the owner and next step.</dd></div><div><dt>Narrower trial</dt><dd>Reduce the data, tools or consequences, then evaluate that smaller scope.</dd></div><div><dt>Proceed within scope</dt><dd>The owner records the accepted evidence, operating conditions and stop rules for that specific trial.</dd></div></dl>
+          <p class="workflow-limit">This resource does not grant permissions, establish implemented controls or assess security or compliance. Work affecting equipment needs its own operating authorization and validation.</p>
+          <div class="hero-actions"><a class="button" href={DOWNLOAD_PATH} download="fidret-agent-workflow-brief.md">Take the brief into your team</a><a class="text-link" href={`/lab/${piece.data.slug}/sources/`}>Inspect the article’s sources</a></div>
+        </section>
+      </div>
+    </div>
+
+    <footer class="workflow-colophon shell"><p>A practical companion to <a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a>, by <Byline authors={piece.data.authors} />. The article keeps the research, its dates and its limits.</p><a class="text-link" href="#main">Back to the brief</a></footer>
+  </main>
+</SiteLayout>

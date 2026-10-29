@@ -133,6 +133,8 @@ The right controls depend on data sensitivity, consequences, the actual executio
 
 Start with one useful workflow whose consequences are easy to inspect and reverse. Write its five contracts before connecting broad permissions.
 
+The [workflow brief](/lab/agentic-company-harness/workflow-brief/) turns these contracts into prompts, a fictional worked example and review cases. Download its editable Markdown template to record your own scope and evidence.
+
 1. Name the outcome, owner and acceptance conditions.
 2. Map the data, identities, tools and trust boundaries involved.
 3. Begin with investigation and draft artifacts; test representative and adversarial cases.

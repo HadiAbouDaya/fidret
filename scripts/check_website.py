@@ -11,6 +11,8 @@ from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
+# An authored public download, not permission to publish repository Markdown.
+PUBLIC_MARKDOWN_DOWNLOADS = {"lab/agentic-company-harness/workflow-brief.md"}
 PROTECTED_HEADERS = {
     "content-security-policy": "Content-Security-Policy",
     "referrer-policy": "Referrer-Policy",
@@ -180,7 +182,8 @@ def validate(root: Path) -> list[str]:
         if not path.is_file():
             continue
         suffix = path.suffix.lower()
-        if path.name.startswith(".") or (suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2", ".png", ".jpg", ".jpeg", ".webp", ".gif"} and path.name != "_headers"):
+        curated_markdown = path.relative_to(site).as_posix() in PUBLIC_MARKDOWN_DOWNLOADS
+        if path.name.startswith(".") or (suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2", ".png", ".jpg", ".jpeg", ".webp", ".gif"} and path.name != "_headers" and not curated_markdown):
             errors.append(f"Unexpected public file type: {path.relative_to(site)}")
         if suffix == ".html":
             documents[path] = Document(path.read_text(encoding="utf-8"))
