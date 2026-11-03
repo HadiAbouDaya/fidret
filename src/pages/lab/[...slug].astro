@@ -39,12 +39,12 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
 ---
 
 <SiteLayout
-  title={`${piece.data.title} — Fidret Lab`}
+  title={`${piece.data.title} | Fidret Lab`}
   description={piece.data.summary}
   canonical={`https://fidret.com/lab/${piece.data.slug}/`}
   variant="lab"
 >
-  <main id="main" class="lab-main">
+  <main tabindex="-1" id="main" class="lab-main">
     <article class="lab-piece shell">
       <a class="lab-back" href="/lab/">Fidret Lab</a>
       <header class="lab-piece-heading">

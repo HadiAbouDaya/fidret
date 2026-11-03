@@ -1,7 +1,7 @@
 .method-header { padding-block: clamp(2rem, 5vw, 5rem) clamp(3.5rem, 7vw, 7rem); }
 .method-back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: clamp(2rem, 4vw, 4rem); font-size: .9375rem; }
 .method-title-grid { display: grid; grid-template-columns: 1.35fr 1fr; align-items: end; gap: clamp(2rem, 6vw, 6rem); }
-.method-title-grid h1 { max-width: 12ch; margin: 0; font-size: clamp(3rem, 6.3vw, 6.5rem); line-height: 1.03; letter-spacing: -.055em; }
+.method-title-grid h1 { max-width: 20ch; margin: 0; font-size: clamp(2.5rem, 4.5vw, 4.5rem); line-height: 1.03; letter-spacing: -.055em; }
 .method-header-copy > p:first-child { font-size: clamp(1.125rem, 1.6vw, 1.375rem); max-width: 34ch; }
 .method-scope { color: var(--fd-muted); font-size: .8125rem; margin-bottom: 0; line-height: 1.65; }
 .method-body { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(0, 4.5fr); gap: clamp(2rem, 5vw, 5rem); padding-bottom: clamp(4rem, 8vw, 8rem); }
@@ -60,7 +60,7 @@
 .method-replay-table td:nth-child(4) { width: 12rem; }
 .method-replay-table td > span, .method-replay-table td > strong, .method-replay-table td small { display: block; }
 .method-replay-table td > strong { font-weight: 600; color: var(--fd-forest); }
-.method-replay-table td small { font-size: .6875rem; color: var(--fd-muted); margin-top: .375rem; line-height: 1.6; }
+.method-replay-table td small { font-size: .8125rem; color: var(--fd-muted); margin-top: .375rem; line-height: 1.6; }
 .method-replay-table td .method-rollback { color: var(--fd-copper); }
 .method-next-work { margin-block: 2rem 0; padding: 1.5rem 2rem; background: var(--fd-sage); }
 .method-next-work h3 { color: var(--fd-forest); margin-block: 0 .75rem; font-weight: 600; font-size: 1rem; }
@@ -82,7 +82,7 @@
 
 @media (max-width: 700px) {
   .method-title-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .method-title-grid h1 { font-size: clamp(3rem, 12vw, 5rem); }
+  .method-title-grid h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
   .method-header-copy > p:first-child { max-width: 44ch; }
   .method-body { gap: 2rem; }
   .method-contents { font-size: .75rem; column-gap: 1.125rem; }

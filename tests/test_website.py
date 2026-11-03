@@ -19,7 +19,7 @@ class WebsiteTests(unittest.TestCase):
         self.save_config()
         html = ('<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width">'
                 '<link rel="canonical" href="https://fidret.com/"></head>'
-                '<body><h1>Trust earned.</h1><a href="#purpose">Purpose</a><section id="purpose">Fidret</section></body></html>')
+                '<body><main id="main" tabindex="-1"><h1>Trust earned.</h1><a href="#purpose">Purpose</a><section id="purpose">Fidret</section></main></body></html>')
         (self.site / "index.html").write_text(html)
         (self.site / "404.html").write_text(html.replace("</head>", '<meta name="robots" content="noindex"></head>'))
         (self.site / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
@@ -57,6 +57,50 @@ class WebsiteTests(unittest.TestCase):
                 private_source.write_text("# Internal source\n")
                 self.assertTrue(any(f"Unexpected public file type: {relative}" in error for error in validate(self.root)))
                 private_source.unlink()
+
+    def test_skip_link_needs_a_focusable_main_destination(self):
+        path = self.site / "index.html"
+        for replacement in ('<main id="main">', '<main tabindex="-1">', '<div id="main" tabindex="-1">'):
+            with self.subTest(replacement=replacement):
+                original = path.read_text()
+                path.write_text(original.replace('<main id="main" tabindex="-1">', replacement))
+                self.assertTrue(any("skip link needs a focusable main destination" in error
+                                    for error in validate(self.root)))
+                path.write_text(original)
+
+    def test_public_em_dash_rule_catches_literal_and_encoded_copy(self):
+        for value in ("\u2014", "&mdash;", "&#8212;", "&#x2014;", "&#X2014;"):
+            for markup in (f"<p>One{value}two</p>", f'<img alt="One{value}two" src="/favicon.svg">',
+                           f"<title>One{value}two</title>"):
+                with self.subTest(value=value, markup=markup):
+                    self.change_html(markup)
+                    self.assertTrue(any("index.html: public text must not contain em dashes" in error
+                                        for error in validate(self.root)))
+                    path = self.site / "index.html"
+                    path.write_text(path.read_text().replace(markup, ""))
+
+    def test_public_em_dash_rule_covers_figures_and_authored_downloads(self):
+        for relative, text in (("figure.svg", '<svg><title>One&#x2014;two</title></svg>'),
+                               ("lab/agentic-company-harness/workflow-brief.md", "One\u2014two")):
+            with self.subTest(relative=relative):
+                path = self.site / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text)
+                self.assertTrue(any(f"{relative}: public text must not contain em dashes" in error
+                                    for error in validate(self.root)))
+                path.unlink()
+
+    def test_public_em_dash_rule_covers_css_generated_text(self):
+        path = self.site / "copy.css"
+        for value in ("\u2014", r"\2014", r"\002014", r"\2014 "):
+            with self.subTest(value=value):
+                path.write_text(f'.label::after {{ content: "{value}"; }}')
+                self.assertTrue(any("copy.css: public text must not contain em dashes" in error
+                                    for error in validate(self.root)))
+
+    def test_public_copy_allows_other_punctuation(self):
+        self.change_html("<p>Fidret | Lab: 1–3 seconds (synthetic), source-time check.</p>")
+        self.assertEqual(validate(self.root), [])
 
     def test_each_security_header_is_required_in_the_global_rule(self):
         path = self.site / "_headers"

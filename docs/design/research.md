@@ -26,3 +26,13 @@ These primary-source references inform judgment. No reference imagery, logos, re
 | [Vitsœ: good design](https://www.vitsoe.com/gb/about/good-design) | Usefulness, understandability, honesty and durability | Favor an inspectable experiment and readable limits over fabricated portfolio material |
 
 The selected direction, **A working field of evidence**, makes the existing synthetic signal-freshness exploration the useful interactive artifact. Forest, ivory, sage, copper and the licensed Manrope/Newsreader assets maintain continuity, while composition, scale and original figures make the redesign substantial. A gallery of supposed client work was rejected because the current evidence cannot support it.
+
+## 3 November 2026 review
+
+For the [website craft task](../tasks/2026-11-03-website-craft.md), reviewed the three references supplied by Hadi:
+
+- [wpgaurav/design-slop](https://github.com/wpgaurav/design-slop/blob/main/SKILL.md), including its symptom catalog and before/after examples: record a symptom, its cost to this reader, the smallest suitable removal/replacement and a verification method.
+- [muris11/anti-ai-slop](https://github.com/muris11/anti-ai-slop), including the core `skills/antislop/SKILL.md`: ask what purpose a treatment serves and whether it repeats without cause. Treat it as a diagnostic filter rather than a replacement identity.
+- [nattergabriel/frontend-craft](https://github.com/nattergabriel/frontend-craft), including `skills/frontend-craft/SKILL.md`, its tell catalog and craft checklist: inventory the existing system, repair shared patterns and inspect rendered pages after subtracting clutter.
+
+These were read as design references and adapted into original Fidret guidance. No upstream executable, installer or scoring tool was run, and no upstream skill tree was vendored. Their installation wizards and approval rounds are not adopted: this task already authorizes implementation and shared rules through Fidret’s existing workflow. Technique lists and reported detector counts are not treated as evidence that a site is good or bad. The retained palette, fonts and useful native controls remain project choices.
