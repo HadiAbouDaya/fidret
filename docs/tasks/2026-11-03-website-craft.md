@@ -1,11 +1,11 @@
 # Website clarity and lasting design discipline
 
-- Status: active
+- Status: review
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/website-craft
 - Updated: 2026-11-03
-- Verification status: partial
+- Verification status: passed
 
 - Issue: [#25](https://github.com/HadiAbouDaya/fidret/issues/25)
 
@@ -52,18 +52,25 @@ Initial source audit: generic Home h1, repeated mission fragments, redundant pur
 
 ## Verification
 
-2026-11-03 integrated review: `pnpm check` passed (Astro 0 errors/warnings/hints, 41 Node tests, 88 Python tests and real site build/output validation). The added tests reject literal/entity-encoded em dashes in text, titles, alt labels, SVG and Markdown, CSS generated text/hex escapes, and absent keyboard skip destinations; normal punctuation still passes. No dependencies or lockfile changes.
+2026-11-03, source checkpoints `08ecc7b`, `ecc40d3`, `6dbd67d`:
 
-Read-only independent source review corrected Home recovery wording, an unconditional article-specific Lab intro and CSS-generated-text guard coverage. Native skip-link focus was found deficient in rendered QA and corrected with focusable main destinations across all pages. Isolated empty-Lab build and 390 px render passed with the article withdrawn and exploration reachable. Final cross-browser pass and minor copy polish verification in progress.
+- Baseline and final `pnpm check` passed with the pinned Node 24.22.1/pnpm 11.28.9. Final result: Astro 0 errors/warnings/hints, 41 Node tests and 88 Python tests; real site build and public-output validation passed. Bootstrap recovered from a transient runtime-archive timeout. No dependency or lockfile changes.
+- New failure tests cover literal/entity-encoded em dashes in text, titles, alt labels, SVG and Markdown, CSS generated text/hex escapes and missing keyboard skip destinations. Normal punctuation passes. `git diff --check` passed.
+- Local headless Chromium and WebKit passed 104 route/browser/viewport combinations: all 13 current HTML routes at 1440, 768, 390 and 320 CSS px. No page-level horizontal overflow, browser JavaScript or page errors. Wide technical diagrams/tables retain their own horizontal access.
+- Both engines passed keyboard selection through all five signal moments with the correct visible state/value withholding, native brief disclosure and checkbox activation, and skip-link focus moving to `main`. Home, Lab, Approach and the workflow brief also passed 200% root-text enlargement at 390 px. These are automated local browser checks, not real-device or assistive-technology certification.
+- Manually inspected before/after Home at desktop/phone sizes, final Home/Lab/Approach desktop composition, and phone reading surfaces including article, project, charter, contributor, sources, method, brief, exploration and 404. Removed tiny nonessential SVG labels and allowed the Home caption its full width. No detector score is claimed.
+- An isolated build with the only article withdrawn rendered the Lab empty state at 390 px, omitted withdrawn-article links and kept the exploration reachable. This changed no canonical publication status.
+- Direct local download returned HTTP 200, `text/markdown`, exactly 6,498 bytes matching built output; SHA-256 `862e91395a57011c3adc4b140c6a8c42c982b209227f757e6fe7ce1f050dbe26`. No em dash present.
+- Independent read-only source review corrected Home recovery wording, an unconditional article-specific Lab intro and CSS-generated-text guard coverage. Rendered QA found and corrected the existing skip-link focus defect.
 
-Baseline `pnpm check` passed on 2026-11-03 with Node 24.22.1/pnpm 11.28.9: Astro 0 diagnostics, Node suite passed and 83 Python tests passed. Bootstrap obtained the pinned runtime after a transient archive timeout. First increment build passed; before/after Home rendered and visually inspected at 1440 and 390 CSS px using local headless Chromium. Final combined checks pending.
+Local screenshots, fixture paths and detailed browser results remain ignored scratch artifacts. This summary is the portable evidence. Early QA harness retries addressed a mismatched WebKit executable path and a legitimate HTTP 304 cache response; the final sweep used the installed WebKit runtime and unique verification URLs and passed. No browser/download settings or live content were changed for testing.
 
 ## Handoff
 
-- Checkpoint: UI/copy refinements and shared rules implemented in three increments; integrated automated checks passed; final cross-browser render review in progress.
-- Remaining work: final visual checks, task evidence and remote publication.
-- Next action: finish Chromium/WebKit checks and publish the verified branch.
-- Blockers: none.
-- Acceptance basis: Hadi's 2026-11-03 request and standing checked-publication authorization; no Elie review asserted.
-- Publication: first local checkpoint `08ecc7b`; remaining edits local. Issue #25 created. No push, PR, merge or deployment from this task.
-- Last verified: 2026-11-03 full shared checks passed after implementation; final render coverage pending. Base `8182e9c`, task branch above.
+- Checkpoint: three coherent implementation increments complete; final shared and local cross-browser checks passed. [PR #26](https://github.com/HadiAbouDaya/fidret/pull/26) is open.
+- Remaining work: GitHub checks for the final documentation checkpoint, checked merge under standing authorization, then observe automatic production publication separately.
+- Next action: inspect final PR checks and merge once successful; verify any resulting live publication before claiming it is deployed.
+- Blockers: none; remote CI status must be confirmed.
+- Acceptance basis: Hadi’s 2026-11-03 request and standing checked-publication/merge authorization; no Elie review asserted. [Decision 0012](../decisions/0012-website-craft.md) is active within this scope.
+- Publication: branch `hadi/website-craft` pushed; PR #26 open, issue #25 linked. No merge or deployment from this task at this checkpoint. Final evidence update will be a normal additional commit.
+- Last verified: 2026-11-03 local shared checks and final Chromium/WebKit sweep passed for `6dbd67d`; remaining task-document edits receive foundation/diff checks. Live site not yet verified against these changes.
