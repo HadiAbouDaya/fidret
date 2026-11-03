@@ -1,13 +1,12 @@
 .workflow-hero { padding-block: 1.5rem clamp(4rem, 7vw, 7rem); }
 .workflow-back { margin-bottom: clamp(2.5rem, 5vw, 5rem); }
 .workflow-hero-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
-.workflow-hero h1 { font-size: clamp(3rem, 5.8vw, 6rem); max-width: 14ch; margin-bottom: 2rem; }
+.workflow-hero h1 { font-size: clamp(2.5rem, 4.5vw, 4.5rem); max-width: 14ch; margin-bottom: 2rem; }
 .workflow-lead { font-size: clamp(1.125rem, 1.65vw, 1.375rem); line-height: 1.65; max-width: 45ch; margin-bottom: 2rem; }
 .workflow-format { color: var(--fd-muted); font-size: .8125rem; margin-top: 1rem; max-width: 55ch; }
-.workflow-specimen { padding: clamp(1.75rem, 3vw, 3rem); border-top: 4px solid var(--fd-copper); }
+.workflow-specimen { padding: clamp(1.75rem, 3vw, 3rem);  }
 .workflow-specimen-label { color: var(--fd-sage); font-size: .8125rem; margin-bottom: 2rem; }
 .workflow-specimen h2 { font-size: clamp(1.875rem, 3vw, 3rem); line-height: 1.15; margin-bottom: 2.5rem; letter-spacing: -.045em; }
-.workflow-specimen h2 span { color: var(--fd-sage); }
 .workflow-specimen dl { margin: 0; }
 .workflow-specimen dl > div { padding-block: .875rem; border-top: 1px solid var(--fd-rule); }
 .workflow-specimen dt { color: var(--fd-sage); font-size: .75rem; margin-bottom: .25rem; }
@@ -30,7 +29,7 @@
 .workflow-contract-heading h3 { font-size: clamp(1.375rem, 2.2vw, 2.125rem); line-height: 1.25; letter-spacing: -.035em; margin: 0; max-width: 28ch; }
 .workflow-prompts { margin: 1.75rem 0; padding-left: 1.25rem; max-width: 64ch; font-size: .9375rem; }
 .workflow-prompts li { padding-left: .35rem; margin-bottom: .75rem; }
-.workflow-evidence { border-left: 2px solid var(--fd-forest); padding-left: 1.25rem; margin-block: 2rem 1.5rem; font-size: .875rem; }
+.workflow-evidence {  margin-block: 2rem 1.5rem; font-size: .875rem; }
 .workflow-evidence > span { display: block; font-weight: 600; color: var(--fd-forest); margin-bottom: .375rem; }
 .workflow-example { background: var(--fd-sage); }
 .workflow-example summary { min-height: 52px; padding: .875rem 1.25rem; cursor: pointer; color: var(--fd-forest); font-size: .875rem; font-weight: 500; }

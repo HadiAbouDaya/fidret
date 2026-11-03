@@ -7,11 +7,11 @@ import { getPublishedPieces } from '../lib/lab';
 const [latestPiece] = await getPublishedPieces();
 ---
 <SiteLayout
-  title="Fidret — Trust earned."
+  title="Fidret | Trust earned."
   description="Expertise that earns trust through sound judgment, useful work and reliable delivery. Developing our first practice in Physical AI."
   canonical="https://fidret.com/"
 >
-  <main id="main">
+  <main tabindex="-1" id="main">
     <section class="home-hero shell" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="hero-context">Trust earned.</p>
@@ -44,7 +44,7 @@ const [latestPiece] = await getPublishedPieces();
     <section class="home-workbench shell" aria-labelledby="workbench-title">
       <div class="workbench-intro">
         <div><h2 id="workbench-title">When is a reading too old?</h2></div>
-        <p>Our signal experiment tests a three-second age limit. See when a delayed reading is withheld and what has to happen before the system accepts readings again.</p>
+        <p>Our signal experiment tests a three-second age limit. See when a delayed reading is withheld and what has to happen before the model exposes a current value again.</p>
       </div>
       <a class="experiment-preview" href="/explorations/signal-freshness/">
         <div class="experiment-copy"><span class="experiment-kind">Synthetic software exploration</span><h3>Signal freshness</h3><p>Inspect a fixed sequence, from a fresh reading to expiry and recovery.</p><span class="experiment-action">Open the walkthrough</span></div>

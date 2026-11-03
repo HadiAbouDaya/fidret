@@ -38,21 +38,21 @@ const decisions: Record<string, string> = {
   accepted: 'Accepted', no_reading: 'No arrival', delayed_stale: 'Already stale',
   out_of_order: 'Older timestamp', duplicate: 'Duplicate timestamp',
 };
-const display = (value: number | null) => value === null ? '—' : Number(value.toFixed(3)).toString();
+const display = (value: number | null) => value === null ? 'None' : Number(value.toFixed(3)).toString();
 const displayState = (state: string) => state.charAt(0).toUpperCase() + state.slice(1);
 ---
 
 <SiteLayout
-  title="Signal freshness: method and replay — Fidret"
+  title="Signal freshness: method and replay | Fidret"
   description="The full contract, fixed inputs, observed replay results and limitations behind Fidret’s synthetic signal-freshness walkthrough."
   canonical="https://fidret.com/explorations/signal-freshness/method/"
   variant="lab"
 >
-  <main id="main" class="method-page">
+  <main tabindex="-1" id="main" class="method-page">
     <header class="method-header shell">
       <a class="method-back" href="/explorations/signal-freshness/">Signal freshness walkthrough</a>
       <div class="method-title-grid">
-        <h1>From a rule<br />to a replay.</h1>
+        <h1>Signal freshness: method and replay</h1>
         <div class="method-header-copy">
           <p>A closer look at the software model: what it accepts, when it withholds a value, and what the fixed scenarios actually show.</p>
           <p class="method-scope">Method and replay · Synthetic software experiment<br />Evidence captured <time datetime={sensorEvidenceCaptureDate}>29 October 2026</time></p>
@@ -141,7 +141,7 @@ const displayState = (state: string) => state.charAt(0).toUpperCase() + state.sl
         </section>
 
         <section class="method-section" id="results" aria-labelledby="results-title">
-          <h2 id="results-title">Five scenarios. Specific evidence.</h2>
+          <h2 id="results-title">Results across five scenarios</h2>
           <p>The replay contains {sensorEvidenceTotals.observations} scheduled observation points. Under these inputs, the baseline exposes an age-invalid value at {sensorEvidenceTotals.baseline_age_invalid} points and moves its stored timestamp backward {sensorEvidenceTotals.baseline_timestamp_rollbacks} times. The freshness model exposes an age-invalid current value at {sensorEvidenceTotals.guarded_age_invalid} points.</p>
           <div class="method-table-scroll" tabindex="0" role="region" aria-label="Scenario result counts; scroll horizontally if needed">
             <table class="method-summary-table">
@@ -159,7 +159,7 @@ const displayState = (state: string) => state.charAt(0).toUpperCase() + state.sl
         </section>
 
         <section class="method-section" id="replay" aria-labelledby="replay-title">
-          <h2 id="replay-title">Follow every observation.</h2>
+          <h2 id="replay-title">Replay by scenario</h2>
           <p>Open a scenario to inspect its scheduled inputs and outputs. Times are synthetic seconds; values have no physical units. “Withheld” means the model exposes no current value. Displayed decimal ages are rounded to three places.</p>
           <div class="method-scenarios">
             {scenarios.map((scenario, index) => (
@@ -189,7 +189,7 @@ const displayState = (state: string) => state.charAt(0).toUpperCase() + state.sl
         </section>
 
         <section class="method-section" id="limits" aria-labelledby="limits-title">
-          <h2 id="limits-title">Where this evidence stops.</h2>
+          <h2 id="limits-title">Limits of this experiment</h2>
           <p>The experiment addresses source age and ordering only. A timely number can still be physically wrong, misleading, malicious or inappropriate for a decision.</p>
           <p>It does not model clock drift, transport or protocol behavior, identity, authentication, calibration, physical units, multiple sensors, persisted state or scheduling delays. Clock and sensor restarts require a separately designed reset policy. Precision of floating-point timestamps at very large clock values has not been evaluated.</p>
           <p>The three-second timeout and two-observation recovery threshold are illustrative. No hardware, real sensor or client data, actuation, safety assessment or representative industrial evaluation is involved. Withholding a current value does not define a safe fallback.</p>
@@ -197,7 +197,7 @@ const displayState = (state: string) => state.charAt(0).toUpperCase() + state.sl
         </section>
 
         <section class="method-section method-reproduction" aria-labelledby="reproduction-title">
-          <h2 id="reproduction-title">A small, reproducible experiment.</h2>
+          <h2 id="reproduction-title">Reproduce the experiment</h2>
           <p>The underlying Python 3.12 experiment uses only the standard library. Its fixed replay produces the values shown here. The website stores a checked snapshot, and a parity test compares every row with a fresh run of the Python model.</p>
           <div class="method-code"><p>From a checkout of the Fidret project:</p><pre><code>python3 -m experiments.sensor_freshness</code></pre></div>
           <p>The experiment’s focused tests cover the exact deadline, source-based expiry, invalid and future inputs, atomic invalid-time rejection, retained ordering and immutable snapshots. They also examine every five-step schedule from six bounded input categories: <code>6⁵ = 7,776</code> schedules. This enumeration is not a proof over all inputs.</p>

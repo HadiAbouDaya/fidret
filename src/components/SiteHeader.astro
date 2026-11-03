@@ -12,6 +12,6 @@ const withinLab = ['/lab/', '/people/', '/explorations/'].some(prefix => path.st
     <a href={isHome ? '#physical-ai' : '/#physical-ai'}>Physical AI</a>
     <a href="/approach/" aria-current={path.startsWith('/approach') ? 'page' : undefined}>Our approach</a>
     <a href="/lab/" aria-current={path === '/lab/' ? 'page' : withinLab ? 'location' : undefined}>Lab</a>
-    <a class="nav-project" href="/project/" aria-current={path === '/project/' ? 'page' : path === '/charter/' ? 'location' : undefined}>Inside Fidret</a>
+    <a href="/project/" aria-current={path === '/project/' ? 'page' : path === '/charter/' ? 'location' : undefined}>Inside Fidret</a>
   </nav>}
 </header>
