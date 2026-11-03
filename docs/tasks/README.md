@@ -4,6 +4,7 @@ Task records make work transferable between people and harnesses. Create a recor
 
 | Task | Human owner | State |
 | --- | --- | --- |
+| [One-minute website tour](2026-11-03-site-tour-video.md) | Hadi Abou Daya | See task record |
 | [Website clarity and design discipline](2026-11-03-website-craft.md) | Hadi Abou Daya | See task record |
 | [A reusable agent-workflow brief](2026-10-29-workflow-brief.md) | Hadi Abou Daya | See task record |
 | [Agentic-company article and onsite pages](2026-10-29-agentic-company-post.md) | Hadi Abou Daya | See task record |
