@@ -1,9 +1,9 @@
 # Website clarity and lasting design discipline
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
-- Branch: hadi/website-craft
+- Branch: hadi/website-craft-release
 - Updated: 2026-11-03
 - Verification status: passed
 
@@ -65,12 +65,22 @@ Initial source audit: generic Home h1, repeated mission fragments, redundant pur
 
 Local screenshots, fixture paths and detailed browser results remain ignored scratch artifacts. This summary is the portable evidence. Early QA harness retries addressed a mismatched WebKit executable path and a legitimate HTTP 304 cache response; the final sweep used the installed WebKit runtime and unique verification URLs and passed. No browser/download settings or live content were changed for testing.
 
+## Remote publication
+
+On 2026-11-03, GitHub directly confirmed final PR head `b2849c31f9c57c8d7e6f4c921210888affcc7532` passed both `foundation` and `runtime-bootstrap` in [run 41627849959](https://github.com/HadiAbouDaya/fidret/actions/runs/41627849959). There were no discussion comments, submitted reviews or review threads. [PR #26](https://github.com/HadiAbouDaya/fidret/pull/26) merged under the standing authorization as `fa9feb0939ff5c43abc4613a0d53ac634e0fae91`. The same jobs passed on `main` in [run 41632173624](https://github.com/HadiAbouDaya/fidret/actions/runs/41632173624); the merged checkout also passed `pnpm check` locally (41 Node tests, 88 Python tests, Astro zero diagnostics).
+
+T3's watcher twice stopped after repeated host-read failures. Direct GitHub reads worked; the watcher failure did not represent a CI failure. The PR is now merged, so further work concerns automatic production publication rather than waiting for that PR.
+
+Cloudflare Pages deployment `6c5af99b-4bd1-4ca1-b8ad-13642e640876` completed successfully for `fa9feb0`. GitHub’s Cloudflare check supplied the immutable [deployment URL](https://6c5af99b.fidret.pages.dev). At 12:05 UTC on 2026-11-03, direct HTTPS verification of `fidret.com` found exact byte parity with the merged build on all 12 published content routes and their six linked fingerprinted stylesheets. No public HTML contained an em dash after entity decoding. The Markdown download matched the recorded 6,498 bytes/hash; an unknown URL returned the custom 404 with the static CSP, referrer, permissions and content-type headers intact. No manual deployment or account change was made.
+
+The website outcome is complete under the request and standing authorization. This documentation-only release checkpoint records the observed result without changing any public asset.
+
 ## Handoff
 
-- Checkpoint: three coherent implementation increments complete; final shared and local cross-browser checks passed. [PR #26](https://github.com/HadiAbouDaya/fidret/pull/26) is open.
-- Remaining work: GitHub checks for the final documentation checkpoint, checked merge under standing authorization, then observe automatic production publication separately.
-- Next action: inspect final PR checks and merge once successful; verify any resulting live publication before claiming it is deployed.
-- Blockers: none; remote CI status must be confirmed.
-- Acceptance basis: Hadi’s 2026-11-03 request and standing checked-publication/merge authorization; no Elie review asserted. [Decision 0012](../decisions/0012-website-craft.md) is active within this scope.
-- Publication: branch `hadi/website-craft` pushed; PR #26 open, issue #25 linked. No merge or deployment from this task at this checkpoint. Final evidence update will be a normal additional commit.
-- Last verified: 2026-11-03 local shared checks and final Chromium/WebKit sweep passed for `6dbd67d`; remaining task-document edits receive foundation/diff checks. Live site not yet verified against these changes.
+- Checkpoint: UI/copy improvements and lasting rules merged in PR #26 as `fa9feb0`, checked and verified live on `fidret.com`.
+- Remaining work: no website acceptance criteria remain. Publish and merge this documentation-only release checkpoint through the normal checked PR workflow.
+- Next action: merge the release-record PR once its checks pass; any further website change belongs in a new task.
+- Blockers: none.
+- Acceptance basis: Hadi’s 2026-11-03 request and standing checked-publication/merge authorization; verified completion under that authority. No Elie review asserted. Decision 0012 is active within this scope.
+- Publication: PR #26 merged and issue #25 closed. Automatic production deployment for `fa9feb0` succeeded and live output matched. Release evidence is on `hadi/website-craft-release`; its own PR/merge state is available from GitHub and Git. This checkpoint adds no public-output changes.
+- Last verified: 2026-11-03 12:05 UTC, direct GitHub CI/deployment evidence and live HTML/CSS/download parity. Merged-checkout `pnpm check` passed (41 Node tests, 88 Python tests, Astro zero diagnostics); release documentation passes foundation/diff checks.
