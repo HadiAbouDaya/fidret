@@ -1,18 +1,18 @@
 # Fidret design language
 
-Version 2 · 28 October 2026 · **A working field of evidence**
+Version 3 · 3 November 2026 · **A working field of evidence**
 
-This is the canonical visual direction for Fidret. Hadi requested a complete redesign and delegated its creative choices; [decision 0010](../decisions/0010-evidence-design-language.md) records the implementation basis. It replaces the layout and composition defaults of the supplied 24 October brief, preserved in Git history. The [charter](../foundation/charter.md) remains the authority for company purpose and claims.
+This is the canonical visual direction for Fidret. Hadi requested a complete redesign and delegated its creative choices; [decision 0010](../decisions/0010-evidence-design-language.md) records the implementation basis. It replaces the layout and composition defaults of the supplied 24 October brief, preserved in Git history. The [website craft convention](../decisions/0012-website-craft.md) refines its application after Hadi’s 3 November review. The [charter](../foundation/charter.md) remains the authority for company purpose and claims.
 
 ## The idea
 
-Make careful thinking tangible. Fidret's first practice concerns observations, time, decisions and physical conditions. Let an original explanatory artifact carry that world into the design, with the confidence of large typography and the clarity of a well-made instrument.
+Make careful thinking tangible. Fidret's first practice concerns observations, time, decisions and physical conditions. Let an original explanatory artifact carry that world into the design, with clear language, readable typography and figures that explain a specific idea.
 
 The audience is a business or technical reader deciding whether Fidret exercises sound judgment. Give that reader a clear understanding of the company, access to actual work and an honest account of its limits. Physical AI is a developing practice. The design must never imply an established delivery history.
 
 ## Visual signature
 
-The company homepage pairs a substantial, left-aligned statement with an original isometric sensing field. Broad areas of ivory and forest give it scale. The graphic suggests observation and interpretation; its caption identifies it as conceptual. Other pages reuse its grammar where it explains something, without repeating the whole hero.
+The company homepage names the developing Physical AI practice beside an original isometric sensing illustration. Its caption explains the sampled surface and identifies the illustration as conceptual. The primary action reaches the actual signal experiment. Forest and ivory separate the introduction, practice explanation and work. Other pages use descriptive headings and proportions suited to their content, rather than inheriting a marketing hero.
 
 The signature is the relationship between an observation and the evidence needed to rely on it. Avoid using a decorative point cloud or instrument display without an understandable purpose. In the signal walkthrough, each highlighted mark corresponds to an actual selected state.
 
@@ -87,7 +87,7 @@ Motion may clarify a user's action through a brief state transition, approximate
 
 ## Words and evidence
 
-Use specific nouns, plain verbs and sentence case. Explain a need, a decision or an observable result. Preserve **Fidret** and **Trust earned.** The name is inspired by the Latin trust root; do not present the coined name as a literal ancient translation.
+Use specific nouns, plain verbs and sentence case. Do not use em dashes in public output, including document titles, metadata, source labels, accessible text, figures and authored downloads. Use full sentences, commas, colons or parentheses; use ` | ` between a page title and site name. Label missing values explicitly instead of using a dash placeholder. Explain a need, a decision or an observable result. Preserve **Fidret** and **Trust earned.** The name is inspired by the Latin trust root; do not present the coined name as a literal ancient translation.
 
 Keep a visible distinction between company purpose, developing practice, candidate application and demonstrated work. A software exploration has its actual assumptions and limits. A simulation result does not establish a physical-system outcome. Preserve actual authors and dates; an agent-built interface does not establish a human byline or joint review.
 
@@ -99,10 +99,25 @@ Reject repeated icon-heading-copy cards, obligatory all-caps labels, meaningless
 
 These are diagnostics, not a substitute for looking. The retained forest/ivory/copper palette is a deliberate Fidret choice. A distinctive result depends on hierarchy, content, proportion and craft; changing to fashionable colors would not establish it.
 
+## Website craft rules
+
+These rules apply to all new public pages and edits. Start with the visitor’s task and Fidret’s purpose, rather than a list of fashionable visual prohibitions.
+
+1. **Name the subject.** A reader should quickly understand what Fidret is developing or what this page explains. Prefer “Signal freshness: method and replay” to “From a rule to a replay.” Put context in the introduction rather than repeating the heading in an eyebrow.
+2. **Give each region one job.** Home introduces the company and leads to work; the Lab lists publications before its larger exploration feature; an article supports reading; a method page supports inspecting evidence. The shared footer ends the page with compact navigation and the tagline.
+3. **Say it once.** Preserve “Trust earned.” as the brand promise. Do not repeat it as several display statements on the same page, or fill sections with punchy fragments and variations of the mission. Do not repeat the same action under several vague labels.
+4. **Earn every visual element.** Explain what a figure, icon, container, rule, number or dark surface helps the reader understand. Remove decoration that cannot answer that question. Avoid interchangeable icon-heading-copy trios, accent stripes on ordinary panels, fake telemetry and oversized slogan footers. A real state boundary or focus ring is functional and should remain visible.
+5. **Keep claims proportionate.** Give software experiments their conditions and limits. Keep conceptual illustrations distinct from measurements. Do not invent contact destinations, metrics, client proof or capabilities to finish a layout. Show actual credits and dates.
+6. **Use the existing system.** Retain the licensed fonts, palette, semantic tokens and static Astro architecture. Fix shared patterns at their source. Do not replace one generic template with another, add a framework for decoration, or leave unused selectors behind.
+7. **Compose for reading and action.** Use descriptive link text, an obvious next step, natural heading wrapping and readable captions. Keep practical/source pages quieter than Home. Use numbering only for a meaningful sequence. Preserve keyboard access, visible focus, 44 px primary touch targets and reduced-motion behavior.
+8. **Inspect the whole result.** After each coherent increment, look at the rendered page before polishing it. Check wide desktop, tablet, 390 px and 320 px layouts, enlarged text, links and relevant native-control states. Exercise the Lab’s empty state when its template changes. Record exact coverage and limits in the task; passing CI is not proof of design quality.
+
+Before merging, the task or PR records the page’s reader task, the concrete clutter/confusion removed, why any new visual treatment helps and the render/behavior checks actually performed. An automated “AI slop score” cannot establish these judgments. The public-output validator enforces the objective em-dash rule, including encoded HTML entities, alongside existing publication contracts.
+
 ## Build, look, refine
 
 Read the [project design skill](../../skills/fidret-design/SKILL.md) when changing the website. Inspect the relevant content and current render, choose the surface's job, then implement against this language. Review the complete page before refining individual details.
 
-Before release, verify narrow mobile, tablet and wide desktop layouts, readable enlarged text, native-control keyboard behavior, visible focus, contrast and all destinations. Look at home, Lab, an article fixture, 404 and the exploration. Check that diagrams explain their concepts and that selected states agree with their model. Run the repository's shared checks and record exactly which visual and functional checks actually ran in the [task](../tasks/2026-10-28-design-revamp.md).
+Before release, verify narrow mobile, tablet and wide desktop layouts, readable enlarged text, native-control keyboard behavior, visible focus, contrast and all destinations. Look at home, Lab, an article fixture, 404 and the exploration. Check that diagrams explain their concepts and that selected states agree with their model. Run the repository's shared checks and record exactly which visual and functional checks actually ran in the current [task record](../tasks/README.md).
 
 [Research and adaptation provenance](research.md) records the reviewed skills, reference principles and intentionally omitted upstream machinery. This brief is a maintained Fidret specification; it does not assert that an external design detector or certification ran.

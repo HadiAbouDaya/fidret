@@ -36,7 +36,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `public/` | Public media, licensed fonts, favicon, robots and response headers | Edit assets here; every asset is public regardless of an article's draft status |
 | `website/` | Disposable generated site, including Lab pages and sitemap | Rebuild with `pnpm build`; never hand-edit or commit |
 | `astro.config.mjs`, `tsconfig.json`, `package.json`, `pnpm-lock.yaml`, runtime pin files | Static build, strict types and reproducible toolchain | Update coherently; install from the frozen lockfile and verify compatibility |
-| `scripts/check_foundation.py`, `scripts/check_website.py`, `tests/` | Executable repository contracts and regression checks | Update checks with the behavior they protect; retain meaningful failure cases |
+| `scripts/check_foundation.py`, `scripts/check_website.py`, `tests/` | Executable repository contracts, public em-dash policy and regression checks | Update checks with the behavior they protect; retain meaningful failure cases |
 | `scripts/check_build_boundary.mjs`, `scripts/check_deployment.sh` | Safe output preflight and common validation/test/build entry point | Run from the repository root using the pinned toolchain |
 | `.github/workflows/`, `wrangler.json`, `public/_headers` | CI, publish directory and public response configuration | Follow the deployment guide and task's authorization |
 

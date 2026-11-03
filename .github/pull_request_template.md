@@ -12,7 +12,7 @@ Link durable decisions. Identify proposed choices, changed commitments, or evide
 
 ## Verification
 
-Record commands or review steps and results, including relevant failure cases and any checks not run.
+Record commands or review steps and results, including relevant failure cases and any checks not run. For website changes, follow the [craft rules](../docs/design/fidret-design-brief.md#website-craft-rules): state the reader’s task, the concrete clutter/confusion removed, why any new treatment helps, and the viewport, keyboard and text-enlargement checks actually performed.
 
 ## Handoff and review
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -185,6 +186,16 @@ def validate(root: Path) -> list[str]:
         curated_markdown = path.relative_to(site).as_posix() in PUBLIC_MARKDOWN_DOWNLOADS
         if path.name.startswith(".") or (suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2", ".png", ".jpg", ".jpeg", ".webp", ".gif"} and path.name != "_headers" and not curated_markdown):
             errors.append(f"Unexpected public file type: {path.relative_to(site)}")
+        # Check built output so templates, Markdown, SVG and authored downloads
+        # follow the same public-copy rule, including HTML character references.
+        if suffix in {".html", ".svg", ".txt", ".xml", ".md", ".css"}:
+            text = unescape(path.read_text(encoding="utf-8"))
+            if suffix == ".css":
+                # CSS hexadecimal escapes can supply generated visible text.
+                text = re.sub(r"\\([0-9a-fA-F]{1,6})[ \t\r\n\f]?",
+                              lambda match: chr(int(match[1], 16)) if 0 < int(match[1], 16) <= 0x10ffff else "\ufffd", text)
+            if "\u2014" in text:
+                errors.append(f"{path.relative_to(site)}: public text must not contain em dashes (U+2014)")
         if suffix == ".html":
             documents[path] = Document(path.read_text(encoding="utf-8"))
         if suffix == ".css":
@@ -206,6 +217,9 @@ def validate(root: Path) -> list[str]:
             errors.append(f"{path.name}: missing mobile viewport")
         if sum(tag == "h1" for tag, _ in doc.tags) != 1:
             errors.append(f"{path.name}: expected one primary heading")
+        if not any(tag == "main" and attrs.get("id") == "main" and attrs.get("tabindex") == "-1"
+                   for tag, attrs in doc.tags):
+            errors.append(f"{path.relative_to(site)}: skip link needs a focusable main destination")
         for tag, attrs in doc.tags:
             if (path != site / "404.html" and tag == "meta"
                     and (attrs.get("name") or "").strip(" \t\r\n\f").lower() in ROBOTS_META_NAMES
