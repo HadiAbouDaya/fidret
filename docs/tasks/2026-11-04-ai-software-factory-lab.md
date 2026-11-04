@@ -1,9 +1,9 @@
 # AI software factory Lab
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
-- Branch: hadi/ai-software-factory-lab
+- Branch: hadi/ai-software-factory-lab; release record: hadi/software-factory-release-evidence
 - Updated: 2026-11-04
 - Verification status: passed
 
@@ -68,12 +68,24 @@ All 20 initial primary-source URLs returned HTTP 200, including the AWS rollback
 
 [Research and iteration basis](../design/software-factory-research.md) retains source interpretations, important technical corrections and the initial rendered review. The initial phone station was too long; detailed handoff/evidence now use a native disclosure, with responsibility still visible and direct return/navigation links.
 
+### Published release, 4 November 2026
+
+[PR 31](https://github.com/HadiAbouDaya/fidret/pull/31) passed [GitHub run 41873979077](https://github.com/HadiAbouDaya/fidret/actions/runs/41873979077) for final head `a5648fbddfcbab2ae164dd82380ba8d4033c517f`, with no outstanding review threads, reviews or comments observed before merge. Merged under standing authorization as `e4561829060cf564258d83babe68dd5ea3bb7c7f`. The [main run 41875632416](https://github.com/HadiAbouDaya/fidret/actions/runs/41875632416) also passed foundation and runtime-bootstrap checks.
+
+Cloudflare Pages reported successful deployment `35f0b78d-2952-4e61-9b98-d3de9121dec0` for that merge commit. Its exact [deployment URL](https://35f0b78d.fidret.pages.dev) and [production Lab](https://fidret.com/lab/ai-software-factory/) are distinct from the preceding GitHub checks.
+
+Direct HTTPS verification on `fidret.com` passed for eight routes: Home, Lab index, new article, sources page, Hadi's profile, Inside Fidret, sitemap and the editable brief. All returned 200 with exact local-build byte parity. All three fingerprinted article CSS assets returned 200 with exact byte parity and CSS content types. Actual public CSP retained the same-origin static boundary. No em dashes, browser scripts or forms were found in the new article/output checked.
+
+The [operating brief](https://fidret.com/lab/ai-software-factory/operating-brief.md) returned `text/markdown; charset=utf-8`, 5,654 bytes, SHA-256 `3f7e074a2c12ba4b509da2c97644066ef003f5bdda2ef379d5c3dc87078cee1c`, matching the generated source exactly. No response-header change was needed.
+
+Live Chromium review at 1440, 390 and 320 px confirmed local fonts loaded, no horizontal overflow or page errors, the Verify station, healthy automatic-promotion and unknown-outcome reconciliation choices, and skip-link focus. The broader Chromium/WebKit matrix remains the preceding local evidence. A read-only merge audit found only task-handoff documentation changed between reviewed implementation `50facad` and the deployed merge.
+
 ## Handoff
 
-- Checkpoint: researched note, native walkthrough, five promotion exercises, operating brief and lifecycle tests implemented. Three read-only AI reviews informed technical and craft corrections; rendered accessibility issues fixed.
-- Remaining work: remote PR checks, merge and live verification.
-- Next action: inspect PR 31 readiness when its checks complete; merge under standing authorization, then verify public output and record the release.
+- Checkpoint: researched note, native walkthrough, five promotion exercises, operating brief and lifecycle tests are merged and verified live. Three read-only AI reviews informed technical and craft corrections; rendered accessibility issues fixed.
+- Remaining work: none for the Lab release. This documentation-only completion record follows the normal PR workflow separately.
+- Next action: publish and merge this release record after its checks pass. Future experiments or reader feedback belong to a new task.
 - Blockers: none.
 - Acceptance basis: Hadi's 4 November request and delegated decisions; existing standing branch/merge authorization. No joint human review asserted.
-- Publication: implementation commit `50facad528bcafbc34e4066cc673e933f7ca41f8` pushed to the task branch; [PR 31](https://github.com/HadiAbouDaya/fidret/pull/31) opened and linked. This verification handoff is a documentation follow-up on that branch. No merge or deployment yet.
-- Last verified: 2026-11-04, final local full check and cross-browser matrix passed for `50facad`. Origin main remained `75e526f` at the pre-publication fetch; remote PR readiness and public deployment still need direct verification.
+- Publication: implementation `50facad`, verification head `a5648fb`, PR 31 and merge `e456182` complete; Cloudflare deployment `35f0b78d-2952-4e61-9b98-d3de9121dec0` succeeded and production bytes/render verified. This completion record is a documentation-only follow-up, not another feature deployment or a human peer-review claim.
+- Last verified: 2026-11-04, deployed `e456182` on `fidret.com`; eight routes, three CSS assets, exact brief bytes/type and live Chromium at three widths passed. Local full-suite and cross-browser evidence remains tied to `50facad`; no public source changes occurred afterward.
