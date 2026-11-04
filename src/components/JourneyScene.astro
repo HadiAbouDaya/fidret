@@ -1,0 +1,21 @@
+---
+import type {JourneyStep} from '../lib/lab-journeys';
+interface Props {kind:'farm'|'factory';step:JourneyStep}
+const {kind,step}=Astro.props;
+const changedSignals:Record<string,string[]>={water:['Current','Missing','Ready'],probe:['Checked','Checked','Restored'],care:['Care risk','Can wait','Still local'],receipt:kind==='farm'?['Accepted','Found','Confirmed complete']:['Submitted','Received','Confirmed'],offline:['Unavailable','No valid delegation','Independent'],evidence:['13','13','Matched'],observe:['Confirmed','Healthy','Within policy'],authority:['Verified','Revoked','Healthy'],recovery:['Breached','Stop','Not reversible by code']};
+---
+<figure class:list={['journey-scene',`journey-scene--${kind}`]}>
+  {kind==='farm'?<svg class="journey-farm-plan" viewBox="0 0 520 250" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path class="j-land" d="M20 70 265 15 500 75 470 205 220 240 20 175Z"/>
+    <path class="j-field" d="m290 45 150 35-20 75-150-25Z"/><path class="j-furrow" d="m305 55-17 76m47-69-17 76m47-69-17 76m47-69-17 76"/>
+    <path class="j-water" d="M50 105c0-25 80-25 80 0v48c0 25-80 25-80 0Z"/><ellipse class="j-water-top" cx="90" cy="105" rx="40" ry="15"/>
+    <path class="j-pipe" d="M129 133h68l43-23 39 5M208 120v65h89"/>
+    <rect class="j-controller" x="185" y="98" width="45" height="42" rx="4"/><path class="j-controller-mark" d="m195 118 8 8 15-17"/>
+    <path class="j-barn" d="m300 168 55-30 77 23v49l-70 16-62-20Z"/><path class="j-roof" d="m291 167 65-39 87 30-82 22Z"/><path class="j-door" d="m327 181 25 6v29l-25-5Z"/>
+    <path class="j-cloud" d="M75 36c-3-18 22-26 33-12 12-8 28 0 26 13 20 8 12 24-4 24H81c-22 0-23-22-6-25Z"/>
+    <path class="j-signal" d="m121 62 68 35"/><path class="j-stop" d="m196 104 23 27m0-27-23 27"/>
+  </svg>:<div class="journey-proof" aria-label="Candidate and evidence relationship"><div class="journey-proof-paper"><span>Candidate</span><strong>13</strong><span>The proposed artifact</span><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></div><div class:list={['journey-proof-join',{'is-mismatch':step.key==='evidence'}]}><span data-proof-relation data-original={step.key==='evidence'?'Does not match':'Matches'}>{step.key==='evidence'?'Does not match':'Matches'}</span><span aria-hidden="true" data-proof-symbol data-original={step.key==='evidence'?'≠':'='}>{step.key==='evidence'?'≠':'='}</span></div><div class="journey-proof-paper journey-proof-evidence"><span>Evidence</span><strong data-proof-value data-original={step.key==='evidence'?'12':'13'} data-changed="13">{step.key==='evidence'?'12':'13'}</strong><span>Verified candidate</span><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></div></div>}
+  <figcaption data-scene-caption>The starting evidence</figcaption>
+  <dl class="journey-signals">{step.signals.map((signal,index)=><div><dt>{signal.label}</dt><dd data-signal-value data-original={signal.value} data-changed={changedSignals[step.key]?.[index]||signal.value}>{signal.value}</dd></div>)}</dl>
+  <div class="journey-visible-result" data-visual-result hidden><span>Policy response</span><strong data-response-label>{step.decisionLabel}</strong><p data-changed-caption hidden>{step.counter.condition}</p></div>
+</figure>

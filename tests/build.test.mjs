@@ -136,39 +136,41 @@ test('actual Astro build rejects incomplete published narrative', () => {
   assert.equal(repaired.status, 0, repaired.output);
 });
 
-test('factory walkthrough, evidence exercises and exact download follow source publication and withdrawal', () => {
+test('factory guided story, complete notes, situation library and download follow publication and withdrawal', () => {
   const root = fixture();
-  // Control publication ordering independently of whatever real pieces ship later.
   rmSync(join(root, 'lab/pieces'), {recursive: true});
   mkdirSync(join(root, 'lab/pieces'));
   const slug = 'ai-software-factory';
-  const articlePath = `lab/${slug}/index.html`;
   const downloadPath = `lab/${slug}/operating-brief.md`;
-  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAn authored heading.\n\n### Factory station order\nAnother authored heading.\n\n### Factory case title stale\nA shared namespace.\n`});
+  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAuthored heading remains reachable.\n\n### Factory case title stale\nA shared namespace.\n`});
   writePiece(root, 'published-fixture');
   let result = build(root);
   assert.equal(result.status, 0, result.output);
-  const article = readFileSync(join(root, 'website', articlePath), 'utf8');
-  assert.match(article, /class="factory-experience"/);
-  assert.match(article, /type="radio"/);
-  assert.match(article, /download="fidret-software-factory-brief.md"/);
-  assert.doesNotMatch(article, /<(?:script|form)(?:\s|>)/i);
-  assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
-  assert.equal(existsSync(join(root, 'website/lab/published-fixture/operating-brief.md')), false);
-  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /class="factory-experience"/);
-  const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
-  assert.equal(new Set(ids).size, ids.length, 'Factory controls and authored headings share a collision-safe namespace');
-  for (const [, target] of article.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g)) assert.ok(ids.includes(target), `Factory reference resolves: ${target}`);
-  for (const route of ['index.html', 'lab/index.html', 'project/index.html', 'people/hadi/index.html', 'sitemap.xml']) {
-    assert.ok(readFileSync(join(root, 'website', route), 'utf8').includes(`/lab/${slug}/`), `${route} discovers the factory`);
+  const article = readFileSync(join(root, `website/lab/${slug}/index.html`), 'utf8');
+  assert.match(article, /data-lab-journey/);
+  assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length, 5);
+  assert.match(article, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
+  assert.match(article, /Start the story/);
+  assert.doesNotMatch(article, /<form(?:\s|>)/i);
+  for (const route of ['engineering-notes', 'scenarios']) {
+    const html = readFileSync(join(root, `website/lab/${slug}/${route}/index.html`), 'utf8');
+    assert.ok(html.includes(`/lab/${slug}/`));
+    assert.ok(readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/${route}/`));
+    assert.equal(existsSync(join(root, `website/lab/published-fixture/${route}`)), false);
   }
+  const notes = readFileSync(join(root, `website/lab/${slug}/engineering-notes/index.html`), 'utf8');
+  assert.match(notes, /Authored heading remains reachable/);
+  assert.match(notes, /id="factory-journey"/);
+  assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
+  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /data-lab-journey|<script(?:\s|>)/);
+  const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const [, target] of article.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g)) assert.ok(ids.includes(target), target);
   writePiece(root, slug, {status: 'draft', body: '## Question\n'});
   result = build(root);
   assert.equal(result.status, 0, result.output);
-  assert.equal(existsSync(join(root, 'website/lab', slug)), false);
-  for (const route of ['index.html', 'lab/index.html', 'project/index.html', 'people/hadi/index.html', 'sitemap.xml']) {
-    assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(`/lab/${slug}/`), `${route} withdraws the factory`);
-  }
+  assert.equal(existsSync(join(root, `website/lab/${slug}`)), false);
+  assert.ok(!readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/`));
 });
 
 test('actual Astro build rejects raw HTML through the configured Markdown pipeline', () => {
@@ -209,15 +211,18 @@ test('farm simple/deep routes, control references and brief follow publication a
     const html=readFileSync(join(root,`website/lab/${slug}/${route}/index.html`),'utf8');
     const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
     assert.equal(new Set(ids).size,ids.length,route);
-    assert.doesNotMatch(html,/<(?:script|form|iframe)(?:\s|>)/i);
+    assert.doesNotMatch(html,/<(?:form|iframe)(?:\s|>)/i);
+    assert.equal([...html.matchAll(/<script /g)].length,1);
+    assert.match(html, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
     for(const [,target]of html.matchAll(/(?:href="#|aria-controls="|for=")([^"]+)"/g)) assert.ok(ids.includes(target),`${route}: ${target}`);
     for(const [,target]of html.matchAll(/href="\/lab\/autonomous-farm\/blueprint\/#([^"]+)"/g)) assert.ok(blueprintIds.includes(target),`deep link: ${target}`);
     assert.ok(readFileSync(join(root,'website/sitemap.xml'),'utf8').includes(`/lab/${slug}/${route}/`));
     assert.equal(existsSync(join(root,`website/lab/published-fixture/${route}`)),false);
   }
   const desk=readFileSync(join(root,`website/lab/${slug}/scenario-desk/index.html`),'utf8');
-  assert.equal([...desk.matchAll(/class="farm-scene"/g)].length,28);
-  assert.equal([...desk.matchAll(/class="farm-answer-feedback"/g)].length,168);
+  assert.equal([...desk.matchAll(/class="reference-situation"/g)].length,28);
+  assert.match(desk,/data-topic-finder/);
+  assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length,5);
   const brief=readFileSync(join(root,`website/lab/${slug}/operating-brief.md`),'utf8');
   assert.match(brief,/^# Autonomous mixed farm: operating brief/);
   assert.match(brief,/\[not yet tested\]/);

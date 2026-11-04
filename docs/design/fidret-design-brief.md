@@ -77,7 +77,7 @@ A new surface should use the part of this grammar that serves its task. It need 
 
 ## Interaction and motion
 
-Keep the accepted static Astro architecture, same-origin assets and external fingerprinted CSS. The current site has no browser JavaScript. Native links, radio groups and disclosure controls are sufficient for the designed exploration; do not introduce a framework or relax CSP merely to add spectacle.
+Keep the accepted static Astro architecture, same-origin assets and external fingerprinted CSS. Under [decision 0013](../decisions/0013-progressive-lab-experiences.md), the farm/factory Lab routes may progressively enhance complete HTML with one small approved native module. Other pages remain script-free. Use local state, shareable scene links, concise causal feedback and direct reference access. No framework, analytics, external requests or compulsory tour is introduced. Runtime and CSP changes require synchronized output tests, not an unreviewed exception for spectacle.
 
 A radio group selects a documented moment in the synthetic signal scenario. Its labels identify the choices, the selected state is visibly different, and the revealed explanation describes what changed. It is a walkthrough, not a running simulator or real sensor feed. Keep controls keyboard usable and their order consistent with the visible sequence. Expose essential limits beside the experience, rather than behind an interaction.
 
