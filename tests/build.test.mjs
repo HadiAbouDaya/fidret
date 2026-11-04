@@ -190,3 +190,41 @@ test('actual Astro collection rejects an unregistered author', () => {
   const repaired = build(root);
   assert.equal(repaired.status, 0, repaired.output);
 });
+
+test('farm simple/deep routes, control references and brief follow publication and withdrawal',()=>{
+  const root=fixture();
+  rmSync(join(root,'lab/pieces'),{recursive:true});
+  mkdirSync(join(root,'lab/pieces'));
+  const slug='autonomous-farm';
+  writePiece(root,slug,{authors:['hadi'],publicationDate:'2025-01-03'});
+  writePiece(root,'published-fixture');
+  let result=build(root);
+  assert.equal(result.status,0,result.output);
+  const article=readFileSync(join(root,`website/lab/${slug}/index.html`),'utf8');
+  assert.ok(article.includes(`/lab/${slug}/scenario-desk/`));
+  assert.ok(article.includes(`/lab/${slug}/blueprint/`));
+  const blueprint=readFileSync(join(root,`website/lab/${slug}/blueprint/index.html`),'utf8');
+  const blueprintIds=[...blueprint.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
+  for(const route of ['scenario-desk','blueprint']){
+    const html=readFileSync(join(root,`website/lab/${slug}/${route}/index.html`),'utf8');
+    const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
+    assert.equal(new Set(ids).size,ids.length,route);
+    assert.doesNotMatch(html,/<(?:script|form|iframe)(?:\s|>)/i);
+    for(const [,target]of html.matchAll(/(?:href="#|aria-controls="|for=")([^"]+)"/g)) assert.ok(ids.includes(target),`${route}: ${target}`);
+    for(const [,target]of html.matchAll(/href="\/lab\/autonomous-farm\/blueprint\/#([^"]+)"/g)) assert.ok(blueprintIds.includes(target),`deep link: ${target}`);
+    assert.ok(readFileSync(join(root,'website/sitemap.xml'),'utf8').includes(`/lab/${slug}/${route}/`));
+    assert.equal(existsSync(join(root,`website/lab/published-fixture/${route}`)),false);
+  }
+  const desk=readFileSync(join(root,`website/lab/${slug}/scenario-desk/index.html`),'utf8');
+  assert.equal([...desk.matchAll(/class="farm-scene"/g)].length,28);
+  assert.equal([...desk.matchAll(/class="farm-answer-feedback"/g)].length,168);
+  const brief=readFileSync(join(root,`website/lab/${slug}/operating-brief.md`),'utf8');
+  assert.match(brief,/^# Autonomous mixed farm: operating brief/);
+  assert.match(brief,/\[not yet tested\]/);
+  for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml']) assert.ok(readFileSync(join(root,'website',route),'utf8').includes(`/lab/${slug}/`),route);
+  writePiece(root,slug,{status:'draft',body:'## Question\n'});
+  result=build(root);
+  assert.equal(result.status,0,result.output);
+  assert.equal(existsSync(join(root,`website/lab/${slug}`)),false);
+  for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/lab/${slug}/`),route);
+});

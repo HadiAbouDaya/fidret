@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_MARKDOWN_DOWNLOADS = {
     "lab/agentic-company-harness/workflow-brief.md",
     "lab/ai-software-factory/operating-brief.md",
+    "lab/autonomous-farm/operating-brief.md",
 }
 PROTECTED_HEADERS = {
     "content-security-policy": "Content-Security-Policy",

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getPublishedPieces } from '../lib/lab';
 import { authorRegistry } from '../lib/lab-schema';
+import {FARM_SLUG, FARM_DESK_PATH, FARM_BLUEPRINT_PATH} from '../lib/autonomous-farm';
 import { HARNESS_SLUG, GUIDE_PATH } from '../lib/workflow-brief';
 
 export const prerender = true;
@@ -17,6 +18,7 @@ export const GET: APIRoute = async () => {
     'https://fidret.com/explorations/signal-freshness/',
     'https://fidret.com/explorations/signal-freshness/method/',
     ...pieces.flatMap((piece) => [`https://fidret.com/lab/${piece.data.slug}/`, `https://fidret.com/lab/${piece.data.slug}/sources/`]),
+    ...pieces.filter(piece => piece.data.slug === FARM_SLUG).flatMap(() => [FARM_DESK_PATH, FARM_BLUEPRINT_PATH].map(path => `https://fidret.com${path}`)),
     ...pieces.filter(piece => piece.data.slug === HARNESS_SLUG).map(() => `https://fidret.com${GUIDE_PATH}`),
   ];
   const body = '<?xml version="1.0" encoding="UTF-8"?>\n'

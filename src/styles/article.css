@@ -49,3 +49,5 @@
 .lab-brief-callout { padding: 1.5rem; border: 1px solid var(--fd-control-border); margin-top: 2rem; }
 .lab-brief-callout h2 { font-size: 1.625rem; margin-bottom: .75rem; }
 .lab-brief-callout p { font-size: .9375rem; margin-bottom: .5rem; }
+
+.lab-reference-disclosure summary{min-height:44px;display:list-item;cursor:pointer;padding-block:.75rem;line-height:1.6}
