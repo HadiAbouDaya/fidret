@@ -59,10 +59,10 @@ Direct source-link checking found a UF/IFAS redirect loop; replaced it with dire
 
 ## Handoff
 
-- Checkpoint: simple article, scenario desk with 28 cases, 19-section blueprint, 26-source interpretation list and operating brief implemented; local checks and repeated rendered reviews passed.
+- Checkpoint: implementation a20280b is pushed and [PR 35](https://github.com/HadiAbouDaya/fidret/pull/35) is open. Simple article, scenario desk with 28 cases, 19-section blueprint, 26-source interpretation list and brief passed local checks and repeated rendered reviews.
 - Remaining work: remote PR checks, merge and production deployment/byte/render verification.
-- Next action: push the reviewed branch, open the task PR and merge after checks, then verify live routes/assets/brief.
+- Next action: verify final-head GitHub checks and review state, merge PR 35 under standing authorization, then verify actual production deployment, routes/assets/brief and native controls.
 - Blockers: none.
 - Acceptance basis: Hadi's original request and continuation; standing branch/merge authorization and requested Lab publication. No human peer review asserted.
-- Publication: local task branch prepared. No new PR, merge or live release claimed yet.
+- Publication: implementation commit a20280b pushed on hadi/autonomous-farm-lab; PR 35 open. This handoff-only follow-up records remote state. Merge and production release have not yet been claimed.
 - Last verified: 2026-11-04, current local source; full shared checks, complete Chromium/WebKit scenario matrix and final layout/build/public-output checks described above. Physical systems and cloud farm execution remain unimplemented and untested.
