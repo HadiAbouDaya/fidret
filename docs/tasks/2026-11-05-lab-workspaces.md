@@ -9,7 +9,7 @@
 
 ## Purpose
 
-After the first reading redesign, Hadi said it was progress but asked for better. He also authorized improving design/search guidance and the frontend-design skill. Help readers test the argument, understand why a boundary changes and reach the full engineering without another long onboarding sequence. [Issue 41](https://github.com/HadiAbouDaya/fidret/issues/41) tracks this iteration.
+After the first reading redesign, Hadi said it was progress but asked for better. He also authorized improving design/search guidance and the frontend-design skill. Help readers test the argument, understand why a boundary changes and reach the full engineering without another long onboarding sequence. [Issue 41](https://github.com/HadiAbouDaya/fidret/issues/41) tracks this iteration; [PR 42](https://github.com/HadiAbouDaya/fidret/pull/42) publishes it.
 
 ## Scope
 
@@ -68,10 +68,10 @@ Integrated the published SEO branch, preserved visible actual edition dates and 
 
 ## Handoff
 
-- Checkpoint: the compact workspaces, 69 model states, distinct artifacts, exact condition sharing/returns and revised shared guidance are implemented and locally verified. The branch includes the merged search prerequisite.
+- Checkpoint: the compact workspaces, 69 model states, distinct artifacts, exact condition sharing/returns and revised shared guidance are implemented, locally verified and pushed in PR 42. The branch includes the merged search prerequisite.
 - Remaining work: protected PR checks/review-state verification, merge and actual production verification of the v2 experience.
-- Next action: publish this branch and PR, verify the exact head under required checks, merge under standing authorization and verify changed routes/assets plus live condition behavior.
+- Next action: verify PR 42 final-head required CI and unresolved reviews, merge under standing authorization, then verify the actual production commit/deployment, changed routes/assets, exact briefs and live condition behavior. Recheck external state after a monitoring wake; do not replay an already completed merge.
 - Blockers: none. Shared-preview resize lag was handled by checking actual dimensions; all editing remained isolated.
 - Acceptance basis: Hadi's follow-up and explicit guidance authorization, with standing repository publication/merge authorization. No invented human usability review or comprehension gain.
-- Publication: implementation checkpoints `36ae37c`, `4c72def`, `70e471d` and integrated main checkpoint `a5069cb` are local. The v2 push, PR, merge and deployment are not yet claimed.
+- Publication: implementation checkpoints `36ae37c`, `4c72def`, `70e471d`, integrated-main checkpoint `a5069cb` and verification handoff `a12a485` are pushed on `hadi/lab-experience-v2`. PR 42 is open. This documentation-only follow-up records that state. V2 merge and production deployment are still pending, separate from the original PR 38 and search PR 40 releases.
 - Last verified: 2026-11-05, integrated source, full shared check and final shared-Chromium behavior/render coverage above. Production v2, another browser engine, screen-reader listening and real-user comprehension remain unverified.
