@@ -49,7 +49,7 @@
 html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
 body { margin: 0; background: var(--fd-bg); color: var(--fd-text); font: 400 1.0625rem/1.7 var(--fd-font-ui); -webkit-font-smoothing: antialiased; }
 ::selection { color: var(--fd-ivory); background: var(--fd-forest); }
-a { color: var(--fd-link); text-underline-offset: .28em; text-decoration-thickness: 1px; }
+a { color: var(--fd-link); text-underline-offset: .28em; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--fd-focus); outline-offset: 5px; }
 p, h1, h2, h3 { margin-top: 0; overflow-wrap: break-word; }
@@ -116,7 +116,8 @@ button, input, select, textarea { font: inherit; }
 .experiment-copy p { max-width: 28ch; }
 .experiment-action { display: inline-flex; align-items: center; gap: 1rem; margin-top: 1rem; font-size: .9375rem; font-weight: 500; }
 .signal-preview { padding: 3rem clamp(1.5rem, 3vw, 3rem) 3rem 0; }
-.preview-clock { display: flex; justify-content: space-between; padding-inline: 6%; font-size: .75rem; }
+.preview-clock { display: flex; flex-wrap: wrap; gap: .5rem 1rem; justify-content: space-between; padding-inline: 6%; font-size: .75rem; }
+.preview-clock span { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .signal-preview svg { display: block; width: 100%; padding-top: 1.5rem; }
 .preview-guide { stroke: #a2b5a5; stroke-width: 1; }
 .preview-tick { stroke: var(--fd-forest); stroke-width: 1; }

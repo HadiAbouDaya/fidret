@@ -45,6 +45,21 @@ class WebsiteTests(unittest.TestCase):
     def test_valid_static_site(self):
         self.assertEqual(validate(self.root), [])
 
+    def test_only_valid_inert_schema_data_can_use_the_inline_data_exception(self):
+        graph = '{"@context":"https://schema.org","@graph":[]}'
+        safe = f'<script type="application/ld+json">{graph}</script>'
+        self.change_html(safe)
+        self.assertEqual(validate(self.root), [])
+        path = self.site / "index.html"
+        original = path.read_text()
+        for bad in (safe.replace(graph, "alert(1)"), safe.replace('type=', 'src="/favicon.svg" type='),
+                    safe.replace('type=', 'onload="alert(1)" type='), safe.replace('application/ld+json', 'text/javascript'),
+                    safe.replace(graph, graph + '</script><script>alert(1)')):
+            with self.subTest(bad=bad):
+                path.write_text(original.replace(safe, bad))
+                self.assertTrue(validate(self.root))
+        path.write_text(original)
+
     def test_curated_markdown_download_does_not_allow_other_repository_markdown(self):
         download = self.site / "lab/agentic-company-harness/workflow-brief.md"
         download.parent.mkdir(parents=True)
