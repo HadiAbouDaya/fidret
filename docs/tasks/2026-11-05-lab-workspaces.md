@@ -1,11 +1,11 @@
 # Hands-on Lab workspaces
 
-- Status: active
+- Status: review
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
 - Branch: hadi/lab-experience-v2
 - Updated: 2026-11-05
-- Verification status: partial
+- Verification status: passed
 
 ## Purpose
 
@@ -54,12 +54,24 @@ Current critique: old first controls were below the desktop fold; answer buttons
 
 [Second-iteration research](../design/lab-workspace-research.md) records primary sources, design inferences and limitations. Source-based AI reviewers agree on a constrained model workspace with supported exploration. They are not human usability participants.
 
+The final local `pnpm check` passed on the integrated tree: zero diagnostics in 69 files, 62 Node tests, 100 Python tests, production build and security/SEO/foundation validators. All 69 declared states equal their canonical assessor's decision and reasons. Multi-blocker, local-protection precedence, completed-operation suppression and unconfirmed-observation trace regressions are tested. An earlier pre-integration run failed the obsolete “Start the story” assertion; it was replaced with the new model-response/publication contract, retaining withdrawal and script-security coverage.
+
+Root used the shared Chromium preview, served from an isolated local QA server with the production CSP. At 1440/768/390/320, all 69 states passed output/reason/artifact/URL/focus and overflow checks (552 state checks across eight Lab views). The final 200% text pass at 1440/390/320 covered another 414 state checks, including selected-option text width and reflow. Resize completion was explicitly checked because the preview sometimes reported the preceding viewport during a resize. No second browser engine or screen-reader listening is claimed for this iteration.
+
+All ten situation-to-notes returns restored noninitial two/three-digit condition tokens and opened the reasoning. Native selection, Home/ArrowDown/Enter, retained input focus, skip-to-main without changing the active state, actual browser Back, malformed/unknown state fallback and reference search/matching/empty/clear behavior passed. Six fallback views covered an absent module, malformed manifest and a deliberate initialization failure after a scene was hidden; each retained five worked examples and hid unusable controls. Simulated before/after-print events preserved Read all and a skip-link view, while selected settings and print styles were reviewed; a physical print/PDF and screen-reader speech were not tested.
+
+Render review corrected the initial mobile orientation burden, contradictory grant/evidence labels, apparent care-path coupling, repeated changed-state prose, phone map-label overlap, enlarged gutters/native controls and an inherited dark heading color in the response region. The final result heading is ivory on forest. The first input is at 610/635 px for farm/factory at 1440×900, and 697/723 px at 390×844; at 320 px both first inputs still fit the 844 px view. These are layout observations, not comprehension or completion measures.
+
+The approved runtime is 13,589 raw bytes (3,852 under local gzip), below the unchanged 16 KB gate. Farm/factory entry HTML is 86,841/90,066 bytes (9,045/8,840 local gzip bytes). Larger inert model data replaces answer recognition with the complete declared input space; there is no new browser dependency, API request, storage, script route or CSP permission. These are local build measurements, not production timing or field Core Web Vitals.
+
+Integrated the published SEO branch, preserved visible actual edition dates and shared metadata, then merged the prerequisite PR 40 after exact-head `foundation`, `runtime-bootstrap` and `seo-geo` success and empty review/thread lists. Main merge: `010b74bba5d5c6bc53b5c6ef4c6a0757e00440fe`. The v2 branch includes that main commit. Original narrative dates and exact briefs remain unchanged; interface work is recorded here and in Git, without manufacturing research freshness. Guidance changes live in the shared design/search skills and a portable frontend-craft reference rather than a machine-specific plugin cache.
+
 ## Handoff
 
-- Checkpoint: baseline recovered; isolated workspace, source critique and primary research complete. Implementation is in progress locally.
-- Remaining work: render refinement, meaningful regression/behavior verification, guidance synchronization, SEO integration and publication.
-- Next action: inspect the first implementation at wide and narrow widths and correct semantic or causal mismatches before running release checks.
-- Blockers: none. Concurrent work is isolated.
-- Acceptance basis: Hadi's follow-up and guidance authorization; standing repository workflow. No invented human review or comprehension gain.
-- Publication: no second-iteration commit, push, PR, merge or deployment yet.
-- Last verified: 2026-11-05, source/model and current live baseline. The second iteration has not yet passed release verification.
+- Checkpoint: the compact workspaces, 69 model states, distinct artifacts, exact condition sharing/returns and revised shared guidance are implemented and locally verified. The branch includes the merged search prerequisite.
+- Remaining work: protected PR checks/review-state verification, merge and actual production verification of the v2 experience.
+- Next action: publish this branch and PR, verify the exact head under required checks, merge under standing authorization and verify changed routes/assets plus live condition behavior.
+- Blockers: none. Shared-preview resize lag was handled by checking actual dimensions; all editing remained isolated.
+- Acceptance basis: Hadi's follow-up and explicit guidance authorization, with standing repository publication/merge authorization. No invented human usability review or comprehension gain.
+- Publication: implementation checkpoints `36ae37c`, `4c72def`, `70e471d` and integrated main checkpoint `a5069cb` are local. The v2 push, PR, merge and deployment are not yet claimed.
+- Last verified: 2026-11-05, integrated source, full shared check and final shared-Chromium behavior/render coverage above. Production v2, another browser engine, screen-reader listening and real-user comprehension remain unverified.
