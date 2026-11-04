@@ -17,6 +17,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | Location | Responsibility | How to change it |
 | --- | --- | --- |
 | `AGENTS.md` | Canonical shared agent policy | Update it once; keep harness adapters as pointers |
+| `src/lib/seo.ts`, `src/layouts/SiteLayout.astro`, `src/pages/llms.txt.ts`, `scripts/check_seo.py` | Shared canonical/social/schema identity, published-only optional AI directory and search regression contracts | Follow [search quality](../collaboration/search-quality.md); retain safe inert-data serialization and the independent executable-script boundary |
 | `docs/foundation/` | Company purpose, practice scope, evidence needed to progress | Preserve established direction; record meaningful choices in decisions |
 | `docs/decisions/` | Durable choices, rationale, status and basis | Add a numbered record and register it; preserve superseded history |
 | `docs/tasks/` | Ownership, scope, authorization, verification and next action | Keep the relevant task current at meaningful checkpoints |

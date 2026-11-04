@@ -68,10 +68,14 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   for (const [, target] of article.matchAll(/href="#([^"]+)"/g)) {
     assert.ok(articleIds.includes(target), `Article navigation must resolve: ${target}`);
   }
-  assert.doesNotMatch(article, /<script(?:\s|>)/i);
+  assert.doesNotMatch(article, /<script(?! type="application\/ld\+json")(?:\s|>)/i);
   assert.ok(article.indexOf('Elie Azoury') < article.indexOf('Hadi Abou Daya'));
   assert.match(article, /https:\/\/fidret\.com\/lab\/published-fixture\//);
   assert.match(listing, /published-fixture/);
+  assert.match(readFileSync(join(root, 'website/llms.txt'), 'utf8'), /published-fixture/);
+  assert.doesNotMatch(readFileSync(join(root, 'website/llms.txt'), 'utf8'), /private-draft/);
+  const schema = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(article)[1]);
+  assert.ok(schema['@graph'].some(node => node['@type'] === 'Article' && node.url.endsWith('/published-fixture/')));
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/sources/index.html')), true);
   assert.equal(existsSync(join(root, 'website/lab/private-draft/sources/index.html')), false);
   assert.match(sitemap, /<loc>https:\/\/fidret\.com\/<\/loc>/);
@@ -86,6 +90,7 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, 'website/lab/published-fixture')), false);
+  assert.doesNotMatch(readFileSync(join(root, 'website/llms.txt'), 'utf8'), /published-fixture/);
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/sources')), false);
   assert.doesNotMatch(readFileSync(join(root, 'website/sitemap.xml'), 'utf8'), /published-fixture/);
 });
@@ -103,7 +108,7 @@ test('workflow companion, download and entry points follow parent publication an
   const download = readFileSync(join(root, 'website', downloadPath), 'utf8');
   assert.match(guide, /download="fidret-agent-workflow-brief.md"/);
   assert.match(guide, /type="checkbox"/);
-  assert.doesNotMatch(guide, /<(?:script|form)(?:\s|>)/i);
+  assert.doesNotMatch(guide, /<(?:script(?! type="application\/ld\+json")|form)(?:\s|>)/i);
   assert.match(download, /^# Agent workflow brief\n/);
   assert.match(download, /\[not yet tested\]/);
   assert.match(download, /Human launch decision/);
@@ -164,7 +169,7 @@ test('factory guided story, complete notes, situation library and download follo
   assert.match(notes, /Authored heading remains reachable/);
   assert.match(notes, /id="factory-journey"/);
   assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
-  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /data-lab-journey|<script(?:\s|>)/);
+  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /data-lab-journey|<script(?! type="application\/ld\+json")(?:\s|>)/);
   const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(new Set(ids).size, ids.length);
   for (const [, target] of article.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g)) assert.ok(ids.includes(target), target);
@@ -214,7 +219,7 @@ test('farm simple/deep routes, control references and brief follow publication a
     const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
     assert.equal(new Set(ids).size,ids.length,route);
     assert.doesNotMatch(html,/<(?:form|iframe)(?:\s|>)/i);
-    assert.equal([...html.matchAll(/<script /g)].length,1);
+    assert.equal([...html.matchAll(/<script (?!type="application\/ld\+json")/g)].length,1);
     assert.match(html, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
     for(const [,target]of html.matchAll(/(?:href="#|aria-controls="|for=")([^"]+)"/g)) assert.ok(ids.includes(target),`${route}: ${target}`);
     for(const [,target]of html.matchAll(/href="\/lab\/autonomous-farm\/blueprint\/#([^"]+)"/g)) assert.ok(blueprintIds.includes(target),`deep link: ${target}`);

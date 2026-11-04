@@ -1,20 +1,21 @@
 ---
 import type {LabJourney} from '../lib/lab-journeys';
 import Byline from './Byline.astro';
+import PublicationDate from './PublicationDate.astro';
 import WorkspaceArtifact from './WorkspaceArtifact.astro';
 import {workspacesFor} from '../lib/lab-workspaces';
 import runtimeUrl from '../scripts/lab-experience.js?url&no-inline';
 import '../styles/lab-experience.css';
 import '../styles/workspace.css';
-interface Props {journey:LabJourney;authors:string[];legacyHeadings?:{slug:string;text:string}[]}
-const {journey,authors,legacyHeadings=[]}=Astro.props;
+interface Props {journey:LabJourney;authors:string[];published:string;updated:string;legacyHeadings?:{slug:string;text:string}[]}
+const {journey,authors,published,updated,legacyHeadings=[]}=Astro.props;
 const cases=workspacesFor(journey.kind);
 const ids=new Set(journey.steps.map(s=>`scene-${s.key}`));
 const farmLegacy:Record<string,string>={question:'architecture',approach:'architecture','the-short-version-observe-decide-act-check':'architecture','the-agents-have-different-jobs':'agents','different-living-systems-need-different-plans':'crops','milk-eggs-vegetables-and-meat-remain-traceable':'food','the-farmer-receives-decisions-not-just-notifications':'people',takeaways:'evaluation','local-protection-keeps-its-own-authority':'welfare','some-effects-cannot-be-retried-casually':'commands','security-and-sovereignty-include-the-whole-path':'security',limits:'research','next-steps':'evaluation'};
 ---
 <div class:list={['lab-experience','shell',`lab-experience--${journey.kind}`]} data-lab-journey>
   <p class="visually-hidden" role="status" aria-atomic="true" data-announce></p>
-  <header class="experience-heading"><div class="experience-intro"><div><h1>{journey.kind==='farm'?'Autonomous farm':'AI software factory'}</h1><p class="experience-lead">{journey.kind==='farm'?'Explore how a cloud proposal becomes a physical action. Change the conditions and see what follows.':'Explore what makes an AI-built change ready for release. Change the evidence and see what follows.'}</p></div><div class="experience-metadata"><p class="experience-credit">By <Byline authors={authors} /></p><p class="experience-scope">A teaching model. No real {journey.kind==='farm'?'farm or equipment':'customers or deployment service'} is connected.</p><a href={journey.notes}>Engineering notes</a></div></div></header>
+  <header class="experience-heading"><div class="experience-intro"><div><h1>{journey.title}</h1><p class="experience-lead">{journey.kind==='farm'?'Explore how a cloud proposal becomes a physical action. Change the conditions and see what follows.':'Explore what makes an AI-built change ready for release. Change the evidence and see what follows.'}</p></div><div class="experience-metadata"><p class="experience-credit">By <Byline authors={authors} /></p><p class="experience-dates">Published <PublicationDate value={published}/>{updated!==published&&<>. Updated <PublicationDate value={updated}/></>}</p><p class="experience-scope">A teaching model. No real {journey.kind==='farm'?'farm or equipment':'customers or deployment service'} is connected.</p><a href={journey.notes}>Engineering notes</a></div></div></header>
   <section class="journey" id="read-all" aria-label={journey.kind==='farm'?'Farm decision workspace':'Software release workspace'}>
     <label class="workspace-situation-select" data-only-enhanced hidden><span>Explore a situation</span><select data-scene-select>{journey.steps.map((step,i)=><option value={step.key}>{i+1}. {step.short}</option>)}</select></label>
     <nav class="journey-progress" aria-label="Situations"><ol>{journey.steps.map((step,i)=><li><a href={`#scene-${step.key}`}><span aria-hidden="true">{i+1}</span>{step.short}</a></li>)}</ol></nav>

@@ -152,19 +152,29 @@ class Document(HTMLParser):
         self.ids = set()
         self.inline_script = False
         self.in_script = False
+        self.schema_data = []
+        self.script_buffer = []
+        self.is_schema = False
         self.feed(text)
 
     def handle_data(self, data):
-        if self.in_script and data.strip():
+        if self.in_script and self.is_schema:
+            self.script_buffer.append(data)
+        elif self.in_script and data.strip():
             self.inline_script = True
 
     def handle_endtag(self, tag):
         if tag == "script":
+            if self.is_schema:
+                self.schema_data.append("".join(self.script_buffer))
             self.in_script = False
+            self.is_schema = False
 
     def handle_starttag(self, tag, attrs):
         if tag == "script":
             self.in_script = True
+            self.is_schema = next((v for k,v in attrs if k == "type"), None) == "application/ld+json"
+            self.script_buffer = []
         # HTML keeps the first occurrence of a duplicate attribute.
         attributes = {}
         for name, value in attrs:
@@ -245,7 +255,14 @@ def validate(root: Path) -> list[str]:
     for path, doc in documents.items():
         if doc.inline_script:
             errors.append(f"{path.name}: inline script content is not permitted")
-        if sum(tag == "script" for tag, _ in doc.tags) > 1:
+        for raw in doc.schema_data:
+            try:
+                graph = json.loads(raw)
+                if not isinstance(graph, dict) or graph.get("@context") != "https://schema.org" or not isinstance(graph.get("@graph"), list):
+                    raise ValueError("expected a schema.org graph")
+            except (ValueError, TypeError):
+                errors.append(f"{path.name}: invalid inert structured data")
+        if sum(tag == "script" and attrs.get("type") != "application/ld+json" for tag, attrs in doc.tags) > 1:
             errors.append(f"{path.name}: at most one approved Lab runtime is permitted")
         if not any(tag == "html" and attrs.get("lang") == "en" for tag, attrs in doc.tags):
             errors.append(f"{path.name}: missing English document language")
@@ -261,6 +278,10 @@ def validate(root: Path) -> list[str]:
                     and (attrs.get("name") or "").strip(" \t\r\n\f").lower() in ROBOTS_META_NAMES
                     and suppresses_indexing(attrs.get("content") or "")):
                 errors.append(f"{path.relative_to(site)}: intended public page must not suppress indexing with robots noindex/none")
+            if tag == "script" and attrs.get("type") == "application/ld+json":
+                if set(attrs) != {"type"}:
+                    errors.append(f"{path.name}: structured data must be inert, with only its MIME type")
+                continue
             if tag == "script":
                 src = attrs.get("src") or ""
                 if (path.relative_to(site).as_posix() not in LAB_RUNTIME_ROUTES

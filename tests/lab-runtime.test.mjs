@@ -13,8 +13,11 @@ test('one fingerprinted source-parity runtime is confined to six Lab surfaces an
   for(const route of routes){
    const html=readFileSync(join(root,'website',route),'utf8');
    const tags=[...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)];
-   assert.equal(tags.length,1,route);assert.equal(tags[0][1],'');
-   const src=/src="([^\"]+)"/.exec(tags[0][0])[1];
+   const schema=tags.filter(([tag])=>tag.startsWith('<script type="application/ld+json">'));
+   assert.equal(schema.length,1,route);assert.equal(JSON.parse(schema[0][1])['@context'],'https://schema.org');
+   const executable=tags.filter(([tag])=>!tag.startsWith('<script type="application/ld+json">'));
+   assert.equal(executable.length,1,route);assert.equal(executable[0][1],'');
+   const src=/src="([^\"]+)"/.exec(executable[0][0])[1];
    assert.match(src,/^\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js$/);scripts.push(src);
    assert.doesNotMatch(html,/\son\w+=|\sstyle=/i);
   }
@@ -23,7 +26,7 @@ test('one fingerprinted source-parity runtime is confined to six Lab surfaces an
   assert.deepEqual(readFileSync(join(root,'website',scripts[0])),source);
   assert.ok(source.length<=16000);
   assert.doesNotMatch(source.toString(),/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|localStorage|sessionStorage|indexedDB|eval)\b|\.(?:innerHTML|outerHTML)\s*=/);
-  for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','404.html','lab/agentic-company-harness/index.html']) assert.doesNotMatch(readFileSync(join(root,'website',route),'utf8'),/<script\b/);
+  for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','404.html','lab/agentic-company-harness/index.html']) assert.doesNotMatch(readFileSync(join(root,'website',route),'utf8'),/<script(?! type="application\/ld\+json")\b/);
   assert.deepEqual(readdirSync(join(root,'website/_astro')).filter(f=>f.endsWith('.js')).sort(),[scripts[0].split('/').pop()]);
   writeFileSync(join(root,'src/scripts/lab-experience.js'),source+'\n// Deliberate fixture-only runtime revision.\n');
   result=buildSite(root);assert.equal(result.status,0,result.output);
