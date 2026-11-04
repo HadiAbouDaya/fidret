@@ -26,3 +26,9 @@
 .world-care-pipe{fill:none;stroke:#66766a;stroke-width:3}.artifact-boundary{display:block;font-size:.8rem;margin-bottom:.35rem;color:var(--fd-forest)}.world-label[data-deciding=true]{box-shadow:0 0 0 2px var(--fd-forest)}.factory-object[data-deciding=true]{outline:2px solid var(--fd-forest);outline-offset:3px}
 .experience-dates{font-size:.75rem;line-height:1.5;color:var(--fd-muted);margin:.2rem 0}
 @media(max-width:700px){.experience-dates{flex-basis:100%;order:4}}
+/* Phone labels reflow as evidence, instead of colliding over a fixed drawing. */
+@media(max-width:700px){.farm-world{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;padding:.75rem;min-height:0}.farm-world svg{grid-column:1/-1;height:180px}.world-label{position:static;max-width:none;margin:0;font-size:.75rem}.world-label>strong{font-size:.8rem}.world-label--care{grid-column:1/-1}.workspace-artifact figcaption{font-size:.78rem}}
+@media(max-width:700px){.workspace-controls label{display:flex;flex-wrap:wrap;gap:.4rem .7rem}.workspace-controls label>span{flex:1 1 5rem}.workspace-controls select{flex:1.2 1 8rem;width:auto}.workspace-controls label[data-modified=true]>span::after{display:block;margin-left:0}}
+/* Enlarging text must not enlarge the phone's empty gutters. */
+@media(max-width:700px){.lab-experience.shell{padding-inline:16px}.workspace-inputs,.workspace-result{padding:16px}.workspace-situation-select{flex-wrap:wrap}.workspace-situation-select>span{flex:1 1 6rem}.workspace-situation-select select{flex:1 1 9rem;max-width:100%}.factory-object{display:flex;flex-wrap:wrap;gap:.4rem 1rem;padding:12px}.factory-object>span:first-child{flex:1 1 5rem}.factory-object>strong{flex:1 1 7rem}.factory-object>p{flex:1 1 100%}.factory-artifact{padding:16px}}
+.workspace-result h3{color:inherit}

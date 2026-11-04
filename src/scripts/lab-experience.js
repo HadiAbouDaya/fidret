@@ -36,8 +36,7 @@ function renderWorkspace(scene, table, key) {
     line.querySelector('[data-trace-label]').textContent = traceLabels[state.trace[i].status];
   });
   const changed = key !== scene.dataset.initial;
-  scene.querySelector('[data-custom]').hidden = !changed;
-  scene.querySelector('[data-baseline]').hidden = !changed;
+  scene.querySelector('[data-baseline]').hidden = !changed || state.label===table[scene.dataset.initial].label;
   scene.querySelector('[data-priority-note]').hidden = !['protect','reconcile','recorded','contain'].includes(state.decision);
   const fragment = `#scene-${scene.dataset.key}~v1-${key}`;
   scene.querySelector('[data-share]').href = fragment;
@@ -127,9 +126,9 @@ function enhanceJourney(root) {
   };
   window.addEventListener('hashchange',syncLocation);
   window.addEventListener('popstate',syncLocation);
-  const printed = new Map();
-  window.addEventListener('beforeprint',() => { printing=true; scenes.forEach(scene => { scene.hidden=false; scene.querySelectorAll('details').forEach(d => { printed.set(d,d.open); d.open=true; }); }); });
-  window.addEventListener('afterprint',() => { printed.forEach((open,d) => { d.open=open; }); printed.clear(); printing=false; if(root.dataset.enhanced==='true') render(location.hash); });
+  const printed = new Map(), printedScenes = new Map();
+  window.addEventListener('beforeprint',() => { printing=true; scenes.forEach(scene => { printedScenes.set(scene,scene.hidden); scene.hidden=false; scene.querySelectorAll('details').forEach(d => { printed.set(d,d.open); d.open=true; }); }); });
+  window.addEventListener('afterprint',() => { printed.forEach((open,d) => { d.open=open; }); printed.clear(); printedScenes.forEach((hidden,scene) => {scene.hidden=hidden;}); printedScenes.clear(); printing=false; });
   scenes.forEach(scene => renderWorkspace(scene,tables.get(scene),scene.dataset.initial));
   render(location.hash);
   root.querySelectorAll('[data-only-enhanced]').forEach(control => { control.hidden=false; });

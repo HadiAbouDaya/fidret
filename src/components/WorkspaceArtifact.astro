@@ -4,11 +4,11 @@ interface Props {kind:'farm'|'factory';scene:string;state:WorkspaceState}
 const {kind,scene,state}=Astro.props;
 const v=state.values;
 const factoryNodes:Record<string,{key:string;label:string;note:string}[]>={
-  evidence:[{key:'candidate',label:'Proposed candidate',note:'The bytes for release'},{key:'proof',label:'Verified candidate',note:'Evidence has an address'},{key:'grant',label:'Execution boundary',note:'Checked when acting'}],
+  evidence:[{key:'candidate',label:'Proposed candidate',note:'The bytes for release'},{key:'proof',label:'Evidence covers',note:'Identity and result are separate'},{key:'grant',label:'Execution boundary',note:'Checked when acting'}],
   receipt:[{key:'receipt',label:'Operation release-13',note:'Illustrative stable reference'},{key:'observation',label:'Customer journey',note:'Booking and reminder behavior'},{key:'recovery',label:'Recovery position',note:'Needed before promotion'}],
   observe:[{key:'receipt',label:'Limited rollout',note:'A receipt establishes deployment'},{key:'observation',label:'Customer evidence',note:'Sample and window must qualify'},{key:'recovery',label:'Recovery position',note:'Part of the release policy'}],
   authority:[{key:'grant',label:'Execution grant',note:'Current at execution'},{key:'review',label:'Change boundary',note:'Routine or designated exception'},{key:'checks',label:'Exact artifact',note:'Green checks do not widen scope'}],
-  recovery:[{key:'observation',label:'Customer promise',note:'Watch the actual outcome'},{key:'recovery',label:'Recovery position',note:'Affects available options'},{key:'receipt',label:'External effect',note:'Rollback cannot unsend a message'}],
+  recovery:[{key:'observation',label:'Customer promise',note:'Watch the actual outcome'},{key:'recovery',label:'Recovery position',note:'Affects available options'},{key:'receipt',label:'Deployment receipt',note:'Separate from an already-sent message'}],
 };
 ---
 <figure class:list={['workspace-artifact',`workspace-artifact--${kind}`]}>
@@ -22,13 +22,13 @@ const factoryNodes:Record<string,{key:string;label:string;note:string}[]>={
      <path class="world-barn" d="m404 225 62-31 81 28v50l-78 19-65-23Z"/><path class="world-roof" d="m393 225 74-44 91 37-89 27Z"/><path class="world-door" d="m431 244 26 7v30l-26-8Z"/>
      <path class="world-cloud" d="M219 38c-5-25 30-35 46-17 16-11 39 0 35 18 27 9 18 33-5 33h-70c-30 0-30-28-6-34Z"/><path class="world-link" d="M260 74v68"/>
    </svg>
-   <div class="world-label world-label--cloud" data-artifact-node="grant"><span>Cloud proposal</span><strong data-artifact-value="cloud">{v.cloud}</strong></div>
+   <div class="world-label world-label--cloud" data-artifact-node="grant"><span>Cloud proposal</span><strong data-artifact-value="grant">{v.grant}</strong><span data-artifact-value="cloud">{v.cloud}</span></div>
    <div class="world-label world-label--field" data-artifact-node="field"><span>Field</span><strong data-artifact-value="field">{v.field}</strong></div>
    <div class="world-label world-label--water" data-artifact-node="water"><span>Shared water</span><strong data-artifact-value="water">{v.water}</strong></div>
    <div class="world-label world-label--local" data-artifact-node={scene==='receipt'?'effect':'local'}><span>Local controller</span><strong data-artifact-value={scene==='receipt'?'effect':'local'}>{scene==='receipt'?v.effect:v.local}</strong></div>
    <div class="world-label world-label--care" data-artifact-node="care"><span>Animal care</span><strong data-artifact-value="care">{v.care}</strong></div>
  </div>:<div class:list={['factory-artifact',`factory-artifact--${scene}`]}>
-   {factoryNodes[scene]!.map((node,i)=><div class="factory-object" data-artifact-node={node.key}><span>{node.label}</span><strong data-artifact-value={node.key}>{v[node.key]}</strong><p>{node.note}</p>{i<2&&<span class="factory-connection" data-match-symbol={scene==='evidence'&&i===0?'true':undefined} aria-hidden="true">{scene==='evidence'&&i===0?'≠':'→'}</span>}</div>)}
+   {factoryNodes[scene]!.map((node,i)=><div class="factory-object" data-artifact-node={node.key}><span>{node.label}</span><strong data-artifact-value={node.key}>{v[node.key]}</strong><p>{scene==='evidence'&&i===1?<span data-artifact-value="checks">{v.checks}</span>:node.note}</p>{i<2&&<span class="factory-connection" data-match-symbol={scene==='evidence'&&i===0?'true':undefined} aria-hidden="true">{scene==='evidence'&&i===0?'≠':'→'}</span>}</div>)}
  </div>}
  <figcaption><strong class="artifact-boundary">Decision boundary: <span data-artifact-value="boundary">{v.boundary}</span></strong>{kind==='farm'?'Conceptual layout. The highlighted controller governs this proposal; essential care has its own local plan.':'Illustrative release record. These objects describe evidence and boundaries, not a running deployment.'}</figcaption>
 </figure>

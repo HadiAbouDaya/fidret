@@ -49,6 +49,9 @@ test('combined blockers survive individual repairs and priority does not imply l
   assert.equal(receipt['10']!.decision,'hold');
   assert.equal(receipt['11']!.decision,'advance');
   assert.equal(receipt['02']!.decision,'contain');
+  assert.equal(receipt['01']!.trace[0]!.status,'deferred');
+  assert.equal(farmWorkspaces[1]!.states['11']!.values.grant,'Grant revoked');
+  assert.equal(farmWorkspaces[4]!.states['010']!.values.grant,'No offline delegation');
 });
 
 test('workspace fragments are versioned categorical state and keep old scene links valid',()=>{
