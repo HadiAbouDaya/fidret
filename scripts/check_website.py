@@ -13,7 +13,10 @@ from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 # An authored public download, not permission to publish repository Markdown.
-PUBLIC_MARKDOWN_DOWNLOADS = {"lab/agentic-company-harness/workflow-brief.md"}
+PUBLIC_MARKDOWN_DOWNLOADS = {
+    "lab/agentic-company-harness/workflow-brief.md",
+    "lab/ai-software-factory/operating-brief.md",
+}
 PROTECTED_HEADERS = {
     "content-security-policy": "Content-Security-Policy",
     "referrer-policy": "Referrer-Policy",

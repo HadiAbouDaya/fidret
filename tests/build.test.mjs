@@ -33,11 +33,11 @@ No real experiment or client result is claimed.
 Discard the fixture after checking it.
 `;
 
-function writePiece(root, slug, { status = 'published', authors = ['elie', 'hadi'], body = narrative, media = [], resources = [] } = {}) {
+function writePiece(root, slug, { status = 'published', authors = ['elie', 'hadi'], body = narrative, media = [], resources = [], publicationDate = '2025-01-02' } = {}) {
   const data = {
     schema_version: 1, slug, title: 'Pipeline fixture <b>literal</b>', kind: 'technical-note', status,
-    authors, created: '2025-01-01', published: status === 'published' ? '2025-01-02' : null,
-    updated: '2025-01-02', summary: 'A disposable pipeline test, not company evidence.',
+    authors, created: '2025-01-01', published: status === 'published' ? publicationDate : null,
+    updated: publicationDate, summary: 'A disposable pipeline test, not company evidence.',
     resources, media, snippets: [],
   };
   const frontmatter = Object.entries(data).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n');
@@ -134,6 +134,41 @@ test('actual Astro build rejects incomplete published narrative', () => {
   writePiece(root, 'incomplete');
   const repaired = build(root);
   assert.equal(repaired.status, 0, repaired.output);
+});
+
+test('factory walkthrough, evidence exercises and exact download follow source publication and withdrawal', () => {
+  const root = fixture();
+  // Control publication ordering independently of whatever real pieces ship later.
+  rmSync(join(root, 'lab/pieces'), {recursive: true});
+  mkdirSync(join(root, 'lab/pieces'));
+  const slug = 'ai-software-factory';
+  const articlePath = `lab/${slug}/index.html`;
+  const downloadPath = `lab/${slug}/operating-brief.md`;
+  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAn authored heading.\n\n### Factory station order\nAnother authored heading.\n\n### Factory case title stale\nA shared namespace.\n`});
+  writePiece(root, 'published-fixture');
+  let result = build(root);
+  assert.equal(result.status, 0, result.output);
+  const article = readFileSync(join(root, 'website', articlePath), 'utf8');
+  assert.match(article, /class="factory-experience"/);
+  assert.match(article, /type="radio"/);
+  assert.match(article, /download="fidret-software-factory-brief.md"/);
+  assert.doesNotMatch(article, /<(?:script|form)(?:\s|>)/i);
+  assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
+  assert.equal(existsSync(join(root, 'website/lab/published-fixture/operating-brief.md')), false);
+  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /class="factory-experience"/);
+  const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(new Set(ids).size, ids.length, 'Factory controls and authored headings share a collision-safe namespace');
+  for (const [, target] of article.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g)) assert.ok(ids.includes(target), `Factory reference resolves: ${target}`);
+  for (const route of ['index.html', 'lab/index.html', 'project/index.html', 'people/hadi/index.html', 'sitemap.xml']) {
+    assert.ok(readFileSync(join(root, 'website', route), 'utf8').includes(`/lab/${slug}/`), `${route} discovers the factory`);
+  }
+  writePiece(root, slug, {status: 'draft', body: '## Question\n'});
+  result = build(root);
+  assert.equal(result.status, 0, result.output);
+  assert.equal(existsSync(join(root, 'website/lab', slug)), false);
+  for (const route of ['index.html', 'lab/index.html', 'project/index.html', 'people/hadi/index.html', 'sitemap.xml']) {
+    assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(`/lab/${slug}/`), `${route} withdraws the factory`);
+  }
 });
 
 test('actual Astro build rejects raw HTML through the configured Markdown pipeline', () => {
