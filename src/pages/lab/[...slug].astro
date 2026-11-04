@@ -45,10 +45,11 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
   title={`${piece.data.title} | Fidret Lab`}
   description={piece.data.summary}
   canonical={`https://fidret.com/lab/${piece.data.slug}/`}
+  article={{headline:journey?.title ?? piece.data.title,authors:piece.data.authors,published:piece.data.published!,updated:piece.data.updated}}
   variant="lab"
 >
   <main tabindex="-1" id="main" class="lab-main">
-    {journey ? <LabExperience journey={journey} authors={piece.data.authors} legacyHeadings={headings}/> : <article class="lab-piece shell">
+    {journey ? <LabExperience journey={journey} authors={piece.data.authors} published={piece.data.published!} updated={piece.data.updated} legacyHeadings={headings}/> : <article class="lab-piece shell">
       <a class="lab-back" href="/lab/">Fidret Lab</a>
       <header class="lab-piece-heading">
         <p class="lab-kind">{kindLabels[piece.data.kind]}</p>

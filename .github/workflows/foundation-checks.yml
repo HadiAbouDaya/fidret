@@ -65,3 +65,14 @@ jobs:
           pnpm install --frozen-lockfile
       - name: Validate, test and build static public output
         run: sh scripts/check_deployment.sh
+  seo-geo:
+    name: seo-geo
+    needs: [foundation]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Require the full build including SEO and GEO regression contracts
+        env:
+          FOUNDATION_RESULT: ${{ needs.foundation.result }}
+        run: test "$FOUNDATION_RESULT" = success

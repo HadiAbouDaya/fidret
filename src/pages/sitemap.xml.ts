@@ -24,9 +24,10 @@ export const GET: APIRoute = async () => {
     ...pieces.filter(piece => piece.data.slug === FARM_SLUG).flatMap(() => [FARM_DESK_PATH, FARM_BLUEPRINT_PATH].map(path => `https://fidret.com${path}`)),
     ...pieces.filter(piece => piece.data.slug === HARNESS_SLUG).map(() => `https://fidret.com${GUIDE_PATH}`),
   ];
+  const updated = new Map(pieces.map(piece => [`https://fidret.com/lab/${piece.data.slug}/`,piece.data.updated]));
   const body = '<?xml version="1.0" encoding="UTF-8"?>\n'
     + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + urls.map((url) => `  <url><loc>${url}</loc></url>`).join('\n')
+    + urls.map((url) => `  <url><loc>${url}</loc>${updated.has(url) ? `<lastmod>${updated.get(url)}</lastmod>` : ''}</url>`).join('\n')
     + '\n</urlset>\n';
   return new Response(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
 };

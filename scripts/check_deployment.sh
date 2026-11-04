@@ -7,4 +7,5 @@ pnpm typecheck
 pnpm test
 pnpm build
 python3 scripts/check_website.py
+python3 scripts/check_seo.py
 python3 -m unittest discover -s tests -v

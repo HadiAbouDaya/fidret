@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import {searchGraph,serializeGraph,SOCIAL_IMAGE,type ArticleMetadata} from '../lib/seo';
 import '../styles/styles.css';
 import '../styles/lab.css';
 
@@ -11,11 +12,12 @@ interface Props {
   ogDescription?: string;
   variant?: 'home' | 'lab' | 'minimal';
   noindex?: boolean;
+  article?: ArticleMetadata;
 }
 
 const {
   title, description, canonical, ogDescription = description,
-  variant = 'home', noindex = false,
+  variant = 'home', noindex = false, article,
 } = Astro.props;
 ---
 
@@ -35,11 +37,23 @@ const {
     )}
     {canonical && (
       <>
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content={article ? 'article' : 'website'} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={ogDescription} />
         <meta property="og:url" content={canonical} />
         <meta property="og:site_name" content="Fidret" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:image" content={SOCIAL_IMAGE} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Fidret. Trust earned. Developing a Physical AI practice." />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={ogDescription} />
+        <meta name="twitter:image" content={SOCIAL_IMAGE} />
+        {article && <><meta property="article:published_time" content={article.published} /><meta property="article:modified_time" content={article.updated} /></>}
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+        {!noindex && description && <script is:inline type="application/ld+json" set:html={serializeGraph(searchGraph(canonical,title,description,article))} />}
       </>
     )}
   </head>

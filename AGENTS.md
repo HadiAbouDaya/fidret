@@ -47,6 +47,10 @@ These instructions apply to every agent and contributor in this repository. Foll
 3. Update the task's verification and handoff: checkpoint, remaining work, next action, blockers, acceptance basis, publication state and last verification. State checks you could not run. A done task requires passed verification and actual acceptance or applicable standing authorization.
 4. Report local files, commits, remote pushes, PRs, merges, and deployments separately. Under Hadi's standing authorization, publish useful checkpoints on task branches and merge completed work to `main` after checks pass. A narrower task instruction takes precedence. This authorization does not extend to deployments, account changes, or contacting others.
 
+## Search and AI-search quality
+
+For every public-page, Lab, asset, metadata, route, crawler or related CI change, read the [search standard](docs/collaboration/search-quality.md) and use the [Fidret search skill](skills/fidret-search/SKILL.md). Keep canonical metadata, truthful structured identity, meaningful initial HTML, actual authors/edition dates and published-only discovery synchronized. Preserve craft and evidence rules; do not add keyword stuffing, fake claims or ranking/citation guarantees. `pnpm check` includes the SEO/GEO contracts. Before merging, verify the current head's required `foundation`, `runtime-bootstrap` and `seo-geo` checks and unresolved review state on GitHub. Report actual host enforcement separately from workflow execution and actual search performance separately from technical checks.
+
 ## Harness adapters
 
 Keep harness-specific entry points small and point them here. Shared policy belongs in this file; task history belongs in task records. Do not build separate instruction systems for different tools.

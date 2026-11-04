@@ -1,16 +1,17 @@
 ---
 import type {LabJourney} from '../lib/lab-journeys';
 import Byline from './Byline.astro';
+import PublicationDate from './PublicationDate.astro';
 import JourneyScene from './JourneyScene.astro';
 import runtimeUrl from '../scripts/lab-experience.js?url&no-inline';
 import '../styles/lab-experience.css';
-interface Props {journey:LabJourney;authors:string[];legacyHeadings?:{slug:string;text:string}[]}
-const {journey,authors,legacyHeadings=[]}=Astro.props;
+interface Props {journey:LabJourney;authors:string[];published:string;updated:string;legacyHeadings?:{slug:string;text:string}[]}
+const {journey,authors,published,updated,legacyHeadings=[]}=Astro.props;
 const ids=new Set(journey.steps.map(s=>`scene-${s.key}`));
 const farmLegacy:Record<string,string>={question:'architecture',approach:'architecture','the-short-version-observe-decide-act-check':'architecture','the-agents-have-different-jobs':'agents','different-living-systems-need-different-plans':'crops','milk-eggs-vegetables-and-meat-remain-traceable':'food','the-farmer-receives-decisions-not-just-notifications':'people',takeaways:'evaluation','local-protection-keeps-its-own-authority':'welfare','some-effects-cannot-be-retried-casually':'commands','security-and-sovereignty-include-the-whole-path':'security',limits:'research','next-steps':'evaluation'};
 ---
 <div class:list={['lab-experience','shell',`lab-experience--${journey.kind}`]} data-lab-journey>
-  <p class="visually-hidden" role="status" aria-atomic="true" data-announce></p><header class="experience-heading"><a class="lab-back" href="/lab/">Fidret Lab</a><h1>{journey.title}</h1><p class="experience-lead">{journey.lead}</p><p class="experience-credit">By <Byline authors={authors} /> <span>Five decisions. Explore at your own pace.</span></p><div class="experience-entry"><a class="button" href={`#scene-${journey.steps[0]!.key}`}>Start the story</a><a class="text-link" href={journey.notes}>Engineering notes</a></div><p class="experience-scope">A fictional walkthrough. No real {journey.kind==='farm'?'farm or equipment':'customers or deployment service'} is connected.</p></header>
+  <p class="visually-hidden" role="status" aria-atomic="true" data-announce></p><header class="experience-heading"><a class="lab-back" href="/lab/">Fidret Lab</a><h1>{journey.title}</h1><p class="experience-lead">{journey.lead}</p><p class="experience-credit">By <Byline authors={authors} /> <span>Five decisions. Explore at your own pace.</span></p><p class="experience-credit">Published <PublicationDate value={published}/>{updated!==published && <> · Updated <PublicationDate value={updated}/></>}</p><div class="experience-entry"><a class="button" href={`#scene-${journey.steps[0]!.key}`}>Start the story</a><a class="text-link" href={journey.notes}>Engineering notes</a></div><p class="experience-scope">A fictional walkthrough. No real {journey.kind==='farm'?'farm or equipment':'customers or deployment service'} is connected.</p></header>
   <div class="journey-orientation"><p><strong>Your goal</strong> {journey.goal}</p><div class="journey-tools"><a href="#read-all">Read all five scenes</a><button type="button" data-reset data-only-enhanced hidden>Start again</button></div></div>
   <section class="journey" id="read-all" aria-label={journey.kind==='farm'?'A morning on the farm':'A change through the software factory'}>
     <nav class="journey-progress" aria-label="Story scenes"><ol>{journey.steps.map((step,i)=><li><a href={`#scene-${step.key}`}><span aria-hidden="true">{i+1}</span>{step.short}</a></li>)}</ol></nav>
