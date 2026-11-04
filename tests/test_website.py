@@ -49,8 +49,12 @@ class WebsiteTests(unittest.TestCase):
         download = self.site / "lab/agentic-company-harness/workflow-brief.md"
         download.parent.mkdir(parents=True)
         download.write_text("# Agent workflow brief\n\nAn authored public planning template.\n")
+        factory_download = self.site / "lab/ai-software-factory/operating-brief.md"
+        factory_download.parent.mkdir(parents=True)
+        factory_download.write_text("# Software factory brief\n\nAn authored public planning template.\n")
         self.assertEqual(validate(self.root), [])
-        for relative in ("AGENTS.md", "lab/pieces/internal-draft.md", "lab/agentic-company-harness/other.md"):
+        for relative in ("AGENTS.md", "lab/pieces/internal-draft.md", "lab/agentic-company-harness/other.md",
+                         "lab/ai-software-factory/other.md", "lab/other/operating-brief.md"):
             with self.subTest(relative=relative):
                 private_source = self.site / relative
                 private_source.parent.mkdir(parents=True, exist_ok=True)
@@ -81,7 +85,8 @@ class WebsiteTests(unittest.TestCase):
 
     def test_public_em_dash_rule_covers_figures_and_authored_downloads(self):
         for relative, text in (("figure.svg", '<svg><title>One&#x2014;two</title></svg>'),
-                               ("lab/agentic-company-harness/workflow-brief.md", "One\u2014two")):
+                               ("lab/agentic-company-harness/workflow-brief.md", "One\u2014two"),
+                               ("lab/ai-software-factory/operating-brief.md", "One\u2014two")):
             with self.subTest(relative=relative):
                 path = self.site / relative
                 path.parent.mkdir(parents=True, exist_ok=True)

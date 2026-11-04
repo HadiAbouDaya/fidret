@@ -5,6 +5,8 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import Byline from '../../components/Byline.astro';
 import PublicationDate from '../../components/PublicationDate.astro';
 import AgenticBoundary from '../../components/AgenticBoundary.astro';
+import SoftwareFactory from '../../components/SoftwareFactory.astro';
+import {FACTORY_SLUG, FACTORY_BRIEF_PATH} from '../../lib/software-factory';
 import '../../styles/article.css';
 import { getPublishedPieces } from '../../lib/lab';
 import { kindLabels } from '../../lib/lab-schema';
@@ -36,6 +38,9 @@ const briefTitleId = unusedId('workflow-brief-title');
 const resources = piece.data.resources ?? [];
 const [cover, ...additionalMedia] = piece.data.media ?? [];
 const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
+const hasFactoryExperience = piece.data.slug === FACTORY_SLUG;
+const factoryJourneyId = unusedId('factory-journey');
+const factoryReleaseId = unusedId('factory-release');
 ---
 
 <SiteLayout
@@ -45,7 +50,7 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
   variant="lab"
 >
   <main tabindex="-1" id="main" class="lab-main">
-    <article class="lab-piece shell">
+    <article class:list={['lab-piece', 'shell', {'factory-piece': hasFactoryExperience}]}>
       <a class="lab-back" href="/lab/">Fidret Lab</a>
       <header class="lab-piece-heading">
         <p class="lab-kind">{kindLabels[piece.data.kind]}</p>
@@ -61,7 +66,9 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
           </div>
         </div>
         {hasBoundaryExperience && <div class="hero-actions lab-experience-jump"><a class="text-link" href="#authority-bench">Inspect an authority boundary</a><a class="text-link" href={GUIDE_PATH}>Plan your first workflow</a></div>}
+        {hasFactoryExperience && <div class="hero-actions lab-experience-jump"><a class="button" href={`#${factoryJourneyId}`}>Follow a change</a><a class="text-link" href={`#${factoryReleaseId}`}>Make the release decisions</a><a class="text-link" href={FACTORY_BRIEF_PATH} download="fidret-software-factory-brief.md">Get the operating brief</a></div>}
       </header>
+      {hasFactoryExperience && <SoftwareFactory journeyId={factoryJourneyId} releaseId={factoryReleaseId} allocateId={unusedId} />}
       {cover && <figure class:list={['lab-cover', {'lab-cover--architecture': hasBoundaryExperience}]}><div class="lab-cover-scroll" tabindex={hasBoundaryExperience ? 0 : undefined} role={hasBoundaryExperience ? 'region' : undefined} aria-label={hasBoundaryExperience ? 'Scrollable control-boundary architecture diagram' : undefined}><img src={cover.src} alt={cover.alt} width={cover.width} height={cover.height} /></div>{hasBoundaryExperience && <p class="lab-cover-hint">Scroll the diagram horizontally on a narrow screen to inspect every boundary.</p>}<figcaption>{cover.caption} <a href={cover.src}>Open the figure</a></figcaption></figure>}
       <div class="lab-reading-grid">
         <aside class="lab-reading-guide">
@@ -89,9 +96,10 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
           ))}
           {resources.length > 0 && <section class="lab-section" id={resourcesId} aria-labelledby={resourcesTitleId}>
             <h2 id={resourcesTitleId}>Resources</h2>
+            {hasFactoryExperience ? <details class="factory-reference-list"><summary>Browse the research and companion material</summary><ul class="lab-resources">{resources.map(resource => <li><a href={resource.url}>{resource.label}</a></li>)}</ul></details> :
             <ul class="lab-resources">
               {resources.map((resource) => <li><a href={resource.url}>{resource.label}</a></li>)}
-            </ul>
+            </ul>}
           </section>}
           {hasBoundaryExperience && <aside class="lab-brief-callout" aria-labelledby={briefTitleId}><h2 id={briefTitleId}>Take one workflow into a review.</h2><p>Five contracts, a worked example and failure cases to discuss with your team. Take an editable brief with you.</p><a class="text-link" href={GUIDE_PATH}>Open the workflow brief</a></aside>}
           <aside class="lab-publication-notes"><p>Keep the references and publication record with the piece.</p><a class="text-link" href={`/lab/${piece.data.slug}/sources/`}>Sources and publication notes</a></aside>
