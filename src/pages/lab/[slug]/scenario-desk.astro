@@ -1,12 +1,9 @@
 ---
 import type {GetStaticPaths} from 'astro';
 import SiteLayout from '../../../layouts/SiteLayout.astro';
-import FarmDesk from '../../../components/FarmDesk.astro';
+import ScenarioLibrary from '../../../components/ScenarioLibrary.astro';
 import {getPublishedPieces} from '../../../lib/lab';
-import {FARM_SLUG,FARM_PATH,FARM_DESK_PATH,FARM_BLUEPRINT_PATH} from '../../../lib/autonomous-farm';
-import '../../../styles/farm.css';
+import {FARM_SLUG,FARM_DESK_PATH} from '../../../lib/autonomous-farm';
 export const getStaticPaths=(async()=>(await getPublishedPieces()).filter(p=>p.data.slug===FARM_SLUG).map(p=>({params:{slug:p.data.slug}}))) satisfies GetStaticPaths;
 ---
-<SiteLayout title="Autonomous farm: scenario desk | Fidret Lab" description="Make consequential decisions across 28 fictional crop, livestock, food and cloud scenarios. Inspect why an action runs, waits or needs recovery." canonical={`https://fidret.com${FARM_DESK_PATH}`} variant="lab">
-<main id="main" tabindex="-1" class="farm-page shell"><header class="farm-page-heading"><a class="text-link" href={FARM_PATH}>The simple explanation</a><h1>Your turn to run the farm.</h1><p class="farm-lead">A heatwave, a misleading probe, a cow that needs care, a command that may already have acted. What should the system do next?</p><nav class="farm-reading-routes" aria-label="Farm Lab reading routes"><a href="#scenario-selector">Try the 28 situations</a><a href={FARM_BLUEPRINT_PATH}>Technical blueprint</a><a href={`${FARM_PATH}sources/`}>Sources and scope</a></nav></header><FarmDesk /></main>
-</SiteLayout>
+<SiteLayout title="Autonomous farm: situation library | Fidret Lab" description="Find one of 28 fictional farm situations, from water and animal care to food lineage, cloud outages and uncertain commands." canonical={`https://fidret.com${FARM_DESK_PATH}`} variant="lab"><main id="main" tabindex="-1" class="reference-page shell"><ScenarioLibrary kind="farm"/></main></SiteLayout>
