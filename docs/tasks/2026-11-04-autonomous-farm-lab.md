@@ -1,9 +1,9 @@
 # Autonomous mixed-farm Lab
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/autonomous-farm-lab
+- Branch: hadi/autonomous-farm-lab; release record: hadi/autonomous-farm-release-evidence
 - Updated: 2026-11-04
 - Verification status: passed
 
@@ -57,12 +57,24 @@ Final production build, `python3 scripts/check_website.py`, foundation validatio
 
 Direct source-link checking found a UF/IFAS redirect loop; replaced it with directly inspected University of Minnesota Extension guidance. Some official sources blocked curl with bot/rate/challenge responses despite successful research-reader access. No blanket claim that all sources returned HTTP 200 is made. All external claims retain primary-source scope and jurisdiction limits.
 
+### Remote publication checkpoint
+
+[PR 35](https://github.com/HadiAbouDaya/fidret/pull/35) passed [GitHub run 41909304837](https://github.com/HadiAbouDaya/fidret/actions/runs/41909304837) for final head `3d930061787c742d83afb5b0adf1c2aae0e4559e`. No submitted reviews or review threads were present before merge. Merged under standing authorization as `e0a1351e63db6de94e7a2d08616531abfa74791e`. The [main run 41911133152](https://github.com/HadiAbouDaya/fidret/actions/runs/41911133152) passed foundation and runtime-bootstrap checks. Cloudflare Pages reported successful deployment `140a886d-7142-4ee4-9103-08e3661d93fb` for that exact merge at 20:57:52 UTC. The [exact deployment](https://140a886d.fidret.pages.dev/lab/autonomous-farm/) returned 200 with exact article byte parity. GitHub success and verified hosting publication are separate evidence.
+
+A read-only AI release audit confirmed only handoff documentation differs between reviewed implementation `a20280b` and the merge. The output validator passed; all four farm HTML pages remain script/form-free with unique IDs; sitemap and public-output boundaries are correct. The operating brief matches its renderer exactly: 20,212 bytes, SHA-256 `b5e3f590f52ceed9122b282c96f9b7286bf7919511d203d02f31be460fe1aad2`. The audit was local; subsequent production verification follows below.
+
+### Verified live release
+
+Direct HTTPS checks on `fidret.com` passed for ten routes: Home, Lab index, simple article, scenario desk, blueprint, source notes, Hadi's profile, Inside Fidret, sitemap and operating brief. Every route returned 200 and exact local-build bytes. Four fingerprinted CSS assets returned 200 with exact bytes and CSS types. Actual CSP retains the same-origin static boundary; no browser script/form or public em dash appeared in the checked HTML. The 20,212-byte brief returned `text/markdown; charset=utf-8` with the SHA-256 recorded above and exact source-render parity.
+
+Live Chromium checks at 1440, 390 and 320 px passed for all three reading routes, local font loading, no horizontal overflow, skip-link focus and four consequential native scenarios: routine irrigation, unknown fertilizer effect, duplicate completed command and urgent welfare protection. No page errors occurred. The broader Chromium/WebKit matrix remains the preceding local evidence. No physical-system outcome or human usability study is claimed.
+
 ## Handoff
 
-- Checkpoint: implementation a20280b is pushed and [PR 35](https://github.com/HadiAbouDaya/fidret/pull/35) is open. Simple article, scenario desk with 28 cases, 19-section blueprint, 26-source interpretation list and brief passed local checks and repeated rendered reviews.
-- Remaining work: remote PR checks, merge and production deployment/byte/render verification.
-- Next action: verify final-head GitHub checks and review state, merge PR 35 under standing authorization, then verify actual production deployment, routes/assets/brief and native controls.
+- Checkpoint: all requested Lab content is merged through PR 35 and verified live. Simple/deep routes, native scenarios, source interpretations and brief are complete. Repeated AI reviews and root browser iterations informed corrections.
+- Remaining work: none for the Lab release. This documentation-only completion record follows the normal PR workflow separately.
+- Next action: publish this release record; any new experiment, runtime simulation or physical trial belongs to a new task with its own evidence and authorization.
 - Blockers: none.
-- Acceptance basis: Hadi's original request and continuation; standing branch/merge authorization and requested Lab publication. No human peer review asserted.
-- Publication: implementation commit a20280b pushed on hadi/autonomous-farm-lab; PR 35 open. This handoff-only follow-up records remote state. Merge and production release have not yet been claimed.
-- Last verified: 2026-11-04, current local source; full shared checks, complete Chromium/WebKit scenario matrix and final layout/build/public-output checks described above. Physical systems and cloud farm execution remain unimplemented and untested.
+- Acceptance basis: Hadi's original request and continuation, explicit request for deployment notification, standing branch/merge authorization and requested Lab publication. No human peer review asserted.
+- Publication: implementation a20280b, final head 3d93006, PR 35 and merge e0a1351 complete. Cloudflare deployment 140a886d succeeded and production bytes/render verified. This follow-up records evidence; it introduces no public-source or infrastructure change.
+- Last verified: 2026-11-04, deployed e0a1351 on fidret.com; ten routes/four CSS assets, exact brief bytes/type, exact deployment article and live Chromium at three widths passed. Local cross-browser/model evidence remains as recorded above; reviewed public sources are unchanged. Physical systems and cloud farm execution remain unimplemented and untested.
