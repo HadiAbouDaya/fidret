@@ -1,11 +1,11 @@
 # AI software factory Lab
 
-- Status: active
+- Status: review
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex
 - Branch: hadi/ai-software-factory-lab
 - Updated: 2026-11-04
-- Verification status: partial
+- Verification status: passed
 
 ## Purpose
 
@@ -60,7 +60,7 @@ Baseline `pnpm check` passed: zero Astro diagnostics, 41 Node tests and 88 Pytho
 
 The first full check caught an error in the new publication test: it assumed its factory fixture was latest on Home, while the copied repository still contained a newer real article. Corrected the disposable fixture to control its own piece collection and publication ordering, preserving the latest-piece contract rather than changing production behavior. The isolated publication/withdrawal test then passed.
 
-The full check passed after the functional and accessibility corrections: zero diagnostics in 49 Astro/TypeScript files, 47 Node tests and 88 Python tests. A final source-currency pass added METR's May 2026 distinction between reported value and speed; the final combined check is running against that last prose/source addition.
+The final `COREPACK_HOME="$PWD/.local/corepack" pnpm check` passed against implementation commit `50facad`: zero diagnostics in 49 Astro/TypeScript files, 47 Node tests and 88 Python tests, followed by a successful production build and public-output validation. This includes the final METR source/prose addition and accessibility corrections. `git diff --check` and the foundation validator passed.
 
 Chromium and WebKit review at 1440, 768, 390 and 320 px passed: 72 route/viewport views, 56 selected station views, 160 decision-feedback states and 112 disclosures. Checked native radio arrow-key operation, visible focus, skip-link focus, 200% text, reduced motion and print. All stages and correct explanations appear in print; incorrect choice feedback is suppressed. A separate 320 px check found no visible primary controls, labels, summaries or station return links below 44 px. No screen-reader listening or independent human usability study is claimed.
 
@@ -71,9 +71,9 @@ All 20 initial primary-source URLs returned HTTP 200, including the AWS rollback
 ## Handoff
 
 - Checkpoint: researched note, native walkthrough, five promotion exercises, operating brief and lifecycle tests implemented. Three read-only AI reviews informed technical and craft corrections; rendered accessibility issues fixed.
-- Remaining work: final combined check for the last source addition, remote PR checks, merge and live verification.
-- Next action: complete the check, commit and publish the task branch through a PR.
+- Remaining work: remote PR checks, merge and live verification.
+- Next action: inspect PR 31 readiness when its checks complete; merge under standing authorization, then verify public output and record the release.
 - Blockers: none.
 - Acceptance basis: Hadi's 4 November request and delegated decisions; existing standing branch/merge authorization. No joint human review asserted.
-- Publication: issue 30 created; implementation is local, uncommitted. No push, PR, merge or deployment for this task.
-- Last verified: 2026-11-04, full functional suite and cross-browser matrix passed after corrections; latest research paragraph is awaiting the final combined check. Origin main remains `75e526f` with no concurrent changes observed.
+- Publication: implementation commit `50facad528bcafbc34e4066cc673e933f7ca41f8` pushed to the task branch; [PR 31](https://github.com/HadiAbouDaya/fidret/pull/31) opened and linked. This verification handoff is a documentation follow-up on that branch. No merge or deployment yet.
+- Last verified: 2026-11-04, final local full check and cross-browser matrix passed for `50facad`. Origin main remained `75e526f` at the pre-publication fetch; remote PR readiness and public deployment still need direct verification.
