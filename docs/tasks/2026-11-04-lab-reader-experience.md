@@ -71,10 +71,10 @@ The module is 12,436 source bytes (approximately 3.2 KB under local gzip), below
 
 ## Handoff
 
-- Checkpoint: both guided entries, causal comparisons, searchable scenario/topic layers and bounded enhancement are implemented and locally verified. Research, decisions and shared instructions are synchronized.
+- Checkpoint: implementation b4fcd41 is pushed and [PR 38](https://github.com/HadiAbouDaya/fidret/pull/38) is open. Both guided entries, causal comparisons, searchable scenario/topic layers and bounded enhancement passed local verification. Research, decisions and shared instructions are synchronized.
 - Remaining work: remote CI/review-state check, merge and actual production verification.
-- Next action: publish the task branch and PR; merge under standing authorization after checks, then verify six public surfaces, assets/CSP, briefs and live interactions.
+- Next action: verify final-head CI and review state, merge PR 38 under standing authorization, then verify six public surfaces, assets/CSP, briefs and live interactions.
 - Blockers: none. Shared preview screenshots were unreliable; the documented local browser fallback completed verification.
 - Acceptance basis: Hadi's current request and delegated design decisions; standing branch/merge authorization and existing Lab publication scope. No invented human usability review.
-- Publication: local reviewed task branch prepared; no new UX PR, merge or live publication claimed yet.
+- Publication: implementation b4fcd41 pushed on hadi/lab-reader-experience, PR 38 open. This handoff-only follow-up records remote state. Merge and live publication have not yet been claimed.
 - Last verified: 2026-11-04, current source; full shared check, complete two-engine matrix and final build/keyboard/validators described above. Real-user comprehension, actual farm/production execution and screen-reader listening remain untested.
