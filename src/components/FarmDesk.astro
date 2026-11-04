@@ -1,0 +1,33 @@
+---
+import FarmMap from './FarmMap.astro';
+import {farmDomains, farmScenarios, assessFarm, farmDecisionLabels, FARM_PATH, FARM_BLUEPRINT_PATH, FARM_BRIEF_PATH, type FarmDecision} from '../lib/autonomous-farm';
+const choices: FarmDecision[] = ['run','hold','review','reconcile','protect','recorded'];
+---
+<section class="farm-orientation" aria-labelledby="farm-orientation-title">
+  <div><h2 id="farm-orientation-title">A farm is a set of relationships.</h2><p>Water, power, routes and human attention connect every unit. An efficient plan for one unit can harm another. Inspect a situation, choose the next action, then open the engineering reasoning.</p><p class="farm-scope">Fictional teaching scenarios, evaluated at build time. No live telemetry, AI agents, physiological model or equipment runs here. Choices do not persist to Fidret or carry over between scenarios.</p></div>
+  <FarmMap />
+</section>
+<section class="farm-desk" aria-labelledby="farm-desk-title">
+  <div class="farm-desk-intro"><h2 id="farm-desk-title">You have the next decision.</h2><p>Try Morning irrigation, then Fertilizer receipt lost. They look like ordinary commands but need very different responses. Every case is independent; the times are fictional context.</p></div>
+  <fieldset class="farm-domain-selector" id="scenario-selector">
+    <legend>Choose a part of the farm</legend><p class="farm-help">Use the labels or focus a radio group and use arrow keys. Select a situation, then an action. Answers explain a deliberately limited policy, not a complete response procedure.</p>
+    <div class="farm-domain-options">{farmDomains.map((domain,index) => <><input class="farm-radio farm-category-choice" type="radio" name="farm-domain" id={`farm-domain-${domain.key}`} value={domain.key} checked={index===0} aria-controls={`farm-panel-${domain.key}`} /><label for={`farm-domain-${domain.key}`}><strong>{domain.name}</strong><span>{farmScenarios.filter(s=>s.domain===domain.key).length} situations</span></label></>)}</div>
+    {farmDomains.map(domain => <section class="farm-domain-panel" data-domain={domain.key} id={`farm-panel-${domain.key}`} aria-labelledby={`farm-domain-title-${domain.key}`}>
+      <div class="farm-domain-heading"><h3 id={`farm-domain-title-${domain.key}`}>{domain.name}</h3><p>{domain.description}</p></div>
+      <fieldset class="farm-scenarios"><legend>Choose a situation</legend><div class="farm-scene-layout">
+        <div class="farm-scenario-list">{farmScenarios.filter(s=>s.domain===domain.key).map((s,index)=><><input class="farm-radio farm-case-radio" type="radio" name={`farm-scenario-${domain.key}`} id={`farm-case-${s.key}`} value={s.key} checked={s.key==='morning'||(domain.key!=='fields'&&index===0)} aria-controls={`farm-scene-${s.key}`}/><label for={`farm-case-${s.key}`}>{s.label}</label></>)}</div>
+        <div class="farm-scene-panels">{farmScenarios.filter(s=>s.domain===domain.key).map(s=>{
+          const result=assessFarm(s.facts);
+          return <section class="farm-scene" data-case={s.key} id={`farm-scene-${s.key}`} aria-labelledby={`farm-scene-title-${s.key}`}>
+            <div class="farm-evidence inverse"><p class="farm-time">Fictional case · {s.time}</p><h4 id={`farm-scene-title-${s.key}`}>{s.title}</h4><ul>{s.observations.map(observation=><li>{observation}</li>)}</ul><p class="farm-proposal"><strong>The proposed action</strong>{s.proposal}</p></div>
+            <fieldset class="farm-decision"><legend>What should happen next?</legend><div class="farm-decision-options">{choices.map(choice=><><input class="farm-radio" type="radio" name={`farm-decision-${s.key}`} value={choice} id={`farm-call-${s.key}-${choice}`} aria-controls={`farm-feedback-${s.key}-${choice}`} /><label for={`farm-call-${s.key}-${choice}`}>{farmDecisionLabels[choice]}</label></>)}{choices.map(choice=><p class="farm-answer-feedback" data-answer={choice} id={`farm-feedback-${s.key}-${choice}`}>{choice===result.decision?'That matches the illustrated policy.':`The illustrated policy instead calls for: ${farmDecisionLabels[result.decision].toLowerCase()}.`}</p>)}</div>
+              <div class="farm-resolution"><p class="farm-model-answer"><strong>Primary illustrated action: {farmDecisionLabels[result.decision]}</strong></p><h5>What follows from this decision</h5><p>{s.lesson}</p><p>{s.consequence}</p><dl><div><dt>Responsible people</dt><dd>{s.person}</dd></div><div><dt>Evidence to look for next</dt><dd>{s.nextEvidence}</dd></div></dl><details><summary>Inspect the decision gates</summary><ul>{result.reasons.map(reason=><li>{reason}</li>)}</ul><p>These gates are an educational simplification. Protective response, notification and reconciliation may need to run together. A human signature cannot repair missing evidence or authorize a different action.</p></details></div>
+            </fieldset>
+            <div class="farm-scene-return"><a href="#scenario-selector">Choose another situation</a><a href={`${FARM_BLUEPRINT_PATH}#${s.deep}`}>Read the {s.deep==='food'?'food-chain':s.deep} engineering notes</a></div>
+          </section>;
+        })}</div>
+      </div></fieldset>
+    </section>)}
+  </fieldset>
+</section>
+<section class="farm-next" aria-labelledby="farm-next-title"><h2 id="farm-next-title">Turn a decision into a design.</h2><p>Which evidence was missing? Who could respond locally? What could already have happened? The blueprint follows those questions through the whole architecture.</p><div class="hero-actions"><a class="button" href={FARM_BLUEPRINT_PATH}>Open the technical blueprint</a><a class="text-link" href={FARM_BRIEF_PATH} download="fidret-autonomous-farm-brief.md">Take the editable operating brief</a><a class="text-link" href={FARM_PATH}>Return to the simple explanation</a></div></section>

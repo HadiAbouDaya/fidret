@@ -4,6 +4,7 @@ Task records make work transferable between people and harnesses. Create a recor
 
 | Task | Human owner | State |
 | --- | --- | --- |
+| [Autonomous mixed-farm Lab](2026-11-04-autonomous-farm-lab.md) | Hadi Abou Daya | See task record |
 | [AI software factory Lab](2026-11-04-ai-software-factory-lab.md) | Hadi Abou Daya | See task record |
 | [One-minute website tour](2026-11-03-site-tour-video.md) | Hadi Abou Daya | See task record |
 | [Website clarity and design discipline](2026-11-03-website-craft.md) | Hadi Abou Daya | See task record |
