@@ -1,6 +1,6 @@
 # Fidret visitor review and growth plan
 
-Review date: 5 November 2026. Human owner: Hadi Abou Daya. Status: proposals for discussion, not accepted website changes. [Task and verification](../tasks/2026-11-05-visitor-site-review.md).
+Review date: 5 November 2026. Human owner: Hadi Abou Daya. Status: historical review and proposals. Hadi subsequently authorized implementation in the [visitor-experience task](../tasks/2026-11-05-visitor-experience.md). [Task and verification](../tasks/2026-11-05-visitor-site-review.md).
 
 ## Judgment
 

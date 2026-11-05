@@ -1,6 +1,6 @@
 # Fidret design language
 
-Version 3 · 3 November 2026 · **A working field of evidence**
+Version 4 · 5 November 2026 · **A working field of evidence**
 
 This is the canonical visual direction for Fidret. Hadi requested a complete redesign and delegated its creative choices; [decision 0010](../decisions/0010-evidence-design-language.md) records the implementation basis. It replaces the layout and composition defaults of the supplied 24 October brief, preserved in Git history. The [website craft convention](../decisions/0012-website-craft.md) refines its application after Hadi’s 3 November review. The [charter](../foundation/charter.md) remains the authority for company purpose and claims.
 
@@ -8,11 +8,19 @@ This is the canonical visual direction for Fidret. Hadi requested a complete red
 
 Make careful thinking tangible. Fidret's first practice concerns observations, time, decisions and physical conditions. Let an original explanatory artifact carry that world into the design, with clear language, readable typography and figures that explain a specific idea.
 
-The audience is a business or technical reader deciding whether Fidret exercises sound judgment. Give that reader a clear understanding of the company, access to actual work and an honest account of its limits. Physical AI is a developing practice. The design must never imply an established delivery history.
+The audience is a prospective collaborator or technical reviewer assessing a concrete project question. Help them understand relevance, identify Fidret's actual contribution, inspect proportionate evidence, understand the people and approach, and choose a useful next step. The website does not need to explain its commercial purpose. Physical AI is a developing practice; do not imply an established delivery history.
+
+## Visitor outcomes
+
+Each primary page should help its intended visitor understand the subject, assess its relevance, identify what Fidret actually contributed, inspect proportionate evidence and choose a useful next step. Define the reader's question before selecting a composition. A page can be visually restrained and technically correct while still leaving that question unanswered.
+
+Home introduces relevance and leads promptly to selected work. Work curates contributions by usefulness and evidence, while Lab remains the publication collection. A forwarded work link must make sense without a visit to Home. Explain professional background separately from Fidret engagement history. A discussion invitation uses a real, maintained destination; it does not require a new form or backend.
+
+Use the [work and journey reference](../../skills/fidret-design/references/work-and-journeys.md) for contribution summaries and whole-journey critique. [Decision 0015](../decisions/0015-visitor-outcomes.md) records this convention. No design check proves that a lead will become a partner.
 
 ## Visual signature
 
-The company homepage names the developing Physical AI practice beside an original isometric sensing illustration. Its caption explains the sampled surface and identifies the illustration as conceptual. The primary action reaches the actual signal experiment. Forest and ivory separate the introduction, practice explanation and work. Other pages use descriptive headings and proportions suited to their content, rather than inheriting a marketing hero.
+Make the strongest relevant work easy to find. Original sensing and decision artifacts connect the visual identity to the subject; captions distinguish concepts from observations. Choose the primary action from the visitor's task and current evidence, rather than permanently prescribing one experiment. Forest and ivory establish purposeful emphasis. Other pages use descriptive headings and proportions suited to their content, rather than inheriting Home's introduction.
 
 The signature is the relationship between an observation and the evidence needed to rely on it. Avoid using a decorative point cloud or instrument display without an understandable purpose. In the signal walkthrough, each highlighted mark corresponds to an actual selected state.
 
@@ -57,10 +65,16 @@ Use flat surfaces and modest rounding where a control or enclosed experiment nee
 
 | Surface | Reader's job | Design response |
 | --- | --- | --- |
-| Home and approach | Understand Fidret's purpose, developing practice and way of working | Strong statement, useful original figure, concrete explanatory copy and a clear route to evidence |
+| Home | Recognize the problem space and reach useful evidence | Plain subject, concise introduction, early selected work and an obvious next step |
+| Work overview | Choose a relevant contribution | Curated questions, actual artifacts, evidence levels and links to contribution summaries |
+| Individual work | Assess what exists and why it matters | Question, contribution, finding, relevance, limits, next validation and direct artifact/method access |
+| Approach | Understand how a bounded project could begin | Starting context, scope, useful outputs, evidence, responsibilities and a discussion route |
+| About and people | Understand the company and responsible people | Approved roles/background, actual contributions, clear distinction from company delivery history |
+| Contact | Reach a real person with useful context | Maintained destination, accurate handoff explanation and no fictional address, form or response guarantee |
 | Lab index | Find and assess published work | Readable titles, real kind/date/byline metadata, an honest publication state and a route to the existing exploration |
 | Lab article | Understand a question, method, result and limits | Restrained reading measure, strong headings, legible figures/code, visible authorship, dates and sources |
 | Signal walkthrough | Inspect why a reading is accepted or stale | Native state selection, explicit time/age/status, a persistent explanation and direct model/source references |
+| Model workspace | Change assumptions and understand the response | Useful initial example, nearby inputs/result, explicit teaching scope, matching reading order and direct project context |
 | 404 | Recover from an unknown address | Familiar identity, clear explanation, working home and Lab links; noindex retained |
 
 A new surface should use the part of this grammar that serves its task. It need not inherit the company's largest headline, hero figure or dark panel.
@@ -107,7 +121,7 @@ These rules apply to all new public pages and edits. Start with the visitor’s 
 
 1. **Name the subject.** A reader should quickly understand what Fidret is developing or what this page explains. Prefer “Signal freshness: method and replay” to “From a rule to a replay.” Put context in the introduction rather than repeating the heading in an eyebrow.
 2. **Give each region one job.** Home introduces the company and leads to work; the Lab lists publications before its larger exploration feature; an article supports reading; a method page supports inspecting evidence. The shared footer ends the page with compact navigation and the tagline.
-3. **Say it once.** Preserve “Trust earned.” as the brand promise. Do not repeat it as several display statements on the same page, or fill sections with punchy fragments and variations of the mission. Do not repeat the same action under several vague labels.
+3. **Give evidence the emphasis.** Preserve “Trust earned.” as the brand promise. Establish relevance, expose the useful work and keep its essential scope nearby. Remove repeated mission fragments and development statements. Repeating a clear action at a useful decision point can help; repeating it under vague labels does not.
 4. **Earn every visual element.** Explain what a figure, icon, container, rule, number or dark surface helps the reader understand. Remove decoration that cannot answer that question. Avoid interchangeable icon-heading-copy trios, accent stripes on ordinary panels, fake telemetry and oversized slogan footers. A real state boundary or focus ring is functional and should remain visible.
 5. **Keep claims proportionate.** Give software experiments their conditions and limits. Keep conceptual illustrations distinct from measurements. Do not invent contact destinations, metrics, client proof or capabilities to finish a layout. Show actual credits and dates.
 6. **Use the existing system.** Retain the licensed fonts, palette, semantic tokens and static Astro architecture. Fix shared patterns at their source. Do not replace one generic template with another, add a framework for decoration, or leave unused selectors behind.
@@ -121,5 +135,18 @@ Before merging, the task or PR records the page’s reader task, the concrete cl
 Read the [project design skill](../../skills/fidret-design/SKILL.md) when changing the website. Inspect the relevant content and current render, choose the surface's job, then implement against this language. Review the complete page before refining individual details.
 
 Before release, verify narrow mobile, tablet and wide desktop layouts, readable enlarged text, native-control keyboard behavior, visible focus, contrast and all destinations. Look at home, Lab, an article fixture, 404 and the exploration. Check that diagrams explain their concepts and that selected states agree with their model. Run the repository's shared checks and record exactly which visual and functional checks actually ran in the current [task record](../tasks/README.md).
+
+Review the full journey as well as the component. On a phone, check which useful evidence appears first, how much explanation precedes it and whether the reader can reach a legitimate next step. Do not equate no overflow with useful prioritization. Keep DOM reading order aligned with visual order, including results and diagrams.
+
+| Evidence | What to record | What it cannot establish alone |
+| --- | --- | --- |
+| Automated contracts | Types, behavior, lifecycle withdrawal, links, metadata and security boundaries | Prose truth, visual taste, comprehension or commercial effectiveness |
+| Render inspection | Actual routes, widths, text enlargement, states, emphasis and destinations | Screen-reader speech, every device or real-reader understanding |
+| Keyboard and assistive use | Tasks completed, focus, announcements, reading order, diagram alternatives and exact tools used | Full accessibility conformance from a single pass |
+| Performance | Environment, cache/network conditions, routes, paint/layout/interaction observations | Field Core Web Vitals from a local laboratory run |
+| Reader feedback | Actual unprompted interpretation, navigation, hesitation and evidence needs | Conversion rates or universal conclusions from a small sample |
+| Inquiry outcomes | Attempted contact, confirmed inquiry, qualified discussion and progression separately | A partnership inferred from a click or time on page |
+
+Use the [visitor validation plan](visitor-validation.md) for actual-reader tasks and outcome records. Keep personal inquiry details in an appropriate private workspace; public repository notes should contain only non-sensitive aggregate findings. Update guidance when repeated observed confusion supports a change, rather than accumulating prohibitions from individual tastes.
 
 [Research and adaptation provenance](research.md) records the reviewed skills, reference principles and intentionally omitted upstream machinery. This brief is a maintained Fidret specification; it does not assert that an external design detector or certification ran.

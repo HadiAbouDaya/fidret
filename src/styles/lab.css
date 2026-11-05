@@ -23,7 +23,7 @@
 .lab-timing-delay path { stroke-dasharray: 5 6; }
 .lab-timing-figure figcaption { max-width: 42ch; margin: .5rem auto 0; color: var(--fd-muted); font-size: .8125rem; line-height: 1.7; }
 .lab-section-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 2rem; margin-bottom: 2rem; }
-.lab-section-heading h2 { margin: 0; font-size: clamp(1.75rem, 3vw, 2.5rem); }
+.lab-section-heading h2 { min-width: 0; max-width: 100%; margin: 0; font-size: clamp(1.75rem, 3vw, 2.5rem); }
 .lab-section-heading p { margin: 0; color: var(--fd-muted); font-size: .9375rem; }
 .lab-collection { padding-bottom: clamp(4rem, 7vw, 7rem); }
 .lab-list { border-top: 1px solid var(--fd-rule); }
@@ -145,7 +145,7 @@
   .lab-section { padding-top: 2.5rem; }
   .lab-piece-footer { margin-top: 3rem; padding-top: 1.5rem; }
   .nf-main { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding-block: 3rem 5rem; }
-  .nf-coordinate { font-size: clamp(8rem, 36vw, 14rem); }
+  .nf-coordinate { font-size: min(36vw, 14rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {

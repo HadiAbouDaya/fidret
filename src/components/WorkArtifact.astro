@@ -1,0 +1,7 @@
+---
+interface Props { kind: string; }
+const { kind } = Astro.props;
+---
+<div class:list={['work-artifact', `artifact-${kind}`]} aria-hidden="true">
+  {kind === 'signal-freshness' ? <><div class="artifact-track"><span>Observation</span><i></i><i></i><i class="delayed"></i><i></i></div><div class="artifact-track"><span>Arrival</span><i></i><i></i><i></i><i class="delayed"></i></div><p>Arrival does not establish freshness.</p></> : kind === 'publishing-system' ? <><div class="artifact-stages"><span>Authored work</span><span>Checks</span><span>Public pages</span></div><p>One source. Checked publication.</p></> : kind === 'autonomous-farm' ? <><div class="artifact-stages"><span>Cloud proposal</span><span>Local check</span><span>Bounded action</span></div><p>Evidence, resources and authority must agree.</p></> : kind === 'ai-software-factory' ? <><div class="artifact-pair"><span>Proposed artifact<strong>13</strong></span><span>Evidence covers<strong>12</strong></span></div><p>A passing check must cover the candidate.</p></> : <><div class="artifact-contracts"><span>Purpose</span><span>Context</span><span>Authority</span><span>Evidence</span><span>Recovery</span></div><p>Define the boundary before widening access.</p></>}
+</div>

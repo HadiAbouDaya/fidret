@@ -52,8 +52,8 @@ A compact current/proposed journey comparison was prepared outside Git in `deliv
 
 - Checkpoint: full visitor review, site-wide growth assessment, proposed guidance amendments and phased plan completed as local internal documents. No website or canonical design-guidance changes.
 - Remaining work: none for the review request. Recommendations remain proposals.
-- Next action: Hadi can use phase 1 to choose the primary lead/project situation and current credible scope. Future implementation belongs to a separate task.
+- Next action: the subsequent [visitor-experience task](2026-11-05-visitor-experience.md) implements the recommendations under Hadi’s later explicit authorization. The original review-only boundary remains historical.
 - Blockers: none for the review.
 - Acceptance basis: Hadi's explicit review/planning request and expanded request to assess all aspects and design guidance, completed within that scope. No invented human acceptance of the recommendations.
-- Publication: local report, task and task-register entry only; no commit, push, PR, merge or deployment for this review. The comparison file is outside Git. Public copy and canonical guidance remain unchanged.
+- Publication: review records were initially local only, then committed as `01c208a` when Hadi authorized implementation. Their later publication is tracked in the visitor-experience task. No website implementation was performed during the review itself. The comparison file is outside Git. Public copy and canonical guidance remain unchanged.
 - Last verified: 2026-11-05, source base `ba38bc1`, live shared-Chromium review and full local checks above. Field performance, search-account outcomes, screen-reader listening, second-engine behavior and human comprehension remain unverified in this review.

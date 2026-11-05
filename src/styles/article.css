@@ -41,7 +41,7 @@
   .sources-heading h1 { max-width: 16ch; }
   .sources-piece-title { font-size: 1.25rem; }
   .sources-edition { position: static; }
-  .sources-edition dl { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .sources-edition dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: 1rem; margin-bottom: 1rem; }
   .sources-edition dl > div { min-width: 0; margin-bottom: 0; }
   .sources-edition > p { max-width: 48ch; }
 }

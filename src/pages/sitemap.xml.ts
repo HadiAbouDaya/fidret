@@ -5,6 +5,7 @@ import {FARM_SLUG, FARM_DESK_PATH, FARM_BLUEPRINT_PATH} from '../lib/autonomous-
 import {FACTORY_SLUG} from '../lib/software-factory';
 import {FACTORY_NOTES_PATH,FACTORY_SCENARIOS_PATH} from '../lib/lab-journeys';
 import { HARNESS_SLUG, GUIDE_PATH } from '../lib/workflow-brief';
+import {visibleWork,workPath} from '../lib/work';
 
 export const prerender = true;
 
@@ -12,6 +13,9 @@ export const GET: APIRoute = async () => {
   const pieces = await getPublishedPieces();
   const urls = [
     'https://fidret.com/',
+    'https://fidret.com/work/',
+    'https://fidret.com/contact/',
+    ...visibleWork(pieces.map(piece=>piece.data.slug)).map(work=>`https://fidret.com${workPath(work)}`),
     'https://fidret.com/lab/',
     'https://fidret.com/approach/',
     'https://fidret.com/project/',

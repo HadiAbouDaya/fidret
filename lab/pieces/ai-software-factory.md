@@ -8,8 +8,8 @@ authors:
   - hadi
 created: "2026-11-04"
 published: "2026-11-04"
-updated: "2026-11-04"
-summary: "Follow one AI-built booking change through evidence, release and recovery. Make five decisions, then inspect the engineering."
+updated: "2026-11-05"
+summary: "Explore a release-decision model for an AI-built change. Change its evidence and authority, then inspect the engineering."
 resources:
   - label: "Michelin: what a Star recognizes (2025)"
     url: "https://guide.michelin.com/us/en/article/features/what-is-a-michelin-star"
