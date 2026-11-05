@@ -1,11 +1,11 @@
 # Visitor experience and credible project journey
 
-- Status: active
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
 - Branch: hadi/visitor-experience-2026-11-05
 - Updated: 2026-11-05
-- Verification status: partial
+- Verification status: passed
 
 ## Purpose
 
@@ -57,12 +57,25 @@ Farm/factory summaries now describe editable condition models. Their publication
 
 The [verification record](../design/2026-11-05-visitor-verification.md) captures the completed local work: all 28 HTML pages at four widths and normal/200% text (224 combinations), all 69 model states across that matrix (552 checks), native keyboard/selection/reference/reset behavior, production-header/absent-runtime fallback, social assets and explicit performance/assistive/human-research limits. Final local shared checks passed after correcting the render findings. No real-reader or commercial outcome is inferred.
 
+## Verified release
+
+PR 45 merged as `4e1729891f5f24ba9a53c21f22469d36d2597ff0` after exact head `e3f154e70dbfbfea08eb16f87671c485d96dbd3b` passed `foundation`, `runtime-bootstrap` and `seo-geo` in workflow `42025880734`. Reviews, inline threads and conversation comments were empty. Main workflow `42026364122` passed all three jobs. A fresh branch read confirmed protection enabled for everyone with those three contexts bound to GitHub Actions.
+
+Cloudflare Pages reported a successful deployment for commit `4e17298`: deployment `35e2fda4-7b79-457d-a03c-e8b1c6f79474`, [immutable deployment](https://35e2fda4.fidret.pages.dev). Live `fidret.com` verification through the shared browser found:
+
+- All 28 HTML views returned the expected title, canonical/description/social identity, styles and normalized main content. The explicit `/404.html` resource redirects to `/404`; an internal source request at `/AGENTS.md` returns an actual 404 with noindex.
+- All ten fingerprinted CSS/JS assets and four text/compatibility resources (robots, AI directory and legacy CSS aliases) returned 200 and matched the local build bytes. All five new sharing PNGs returned 200 with the expected 1200 by 630 dimensions and matching decoded pixels.
+- The 27 sitemap URLs exactly matched the canonical HTML set. The browser's enforced CSP matched the source policy; an expected blocked connection exposed the actual policy without weakening it.
+- Ten principal routes at 1440/390/320 px and normal/200% text passed another 60 live layout checks. The factory's changed evidence/authority state `evidence~v1-101` survived a real engineering-notes return with reasoning open. The live Contact action opened Hadi's actual contact page and its form was present; no message was sent.
+
+The verifier initially counted SVG title elements as head titles and initially encoded the raw browser text-document view without reversing its reported Windows-1252 decoding. Both verifier errors were corrected, then strict metadata and byte comparisons passed. These were verification-tool assumptions, not deployed content or runtime changes.
+
 ## Handoff
 
-- Checkpoint: the full revision, guidance, reader-validation plan and verification record are published in [PR 45](https://github.com/HadiAbouDaya/fidret/pull/45). Shared checks and independent source/skill review passed; rendered issues were fixed and rechecked.
-- Remaining work: confirm exact-head required checks/reviews, merge and verify actual production. Real visitor outcomes remain a separate ongoing measurement.
-- Next action: inspect PR 45's current head, required `foundation`, `runtime-bootstrap` and `seo-geo` checks and unresolved reviews; merge when ready, then verify the production release.
+- Checkpoint: the complete website revision and guidance are merged, deployed and live-verified. The implementation is complete within Hadi's authorization.
+- Remaining work: none for the website revision. This documentation-only branch publishes the verified release record. Real visitor outcomes remain a separate ongoing measurement.
+- Next action: merge the release-record PR after its required checks pass. Use the reader/inquiry validation plan with actual visitors; future website revisions belong to a new task rather than replaying PR 45.
 - Blockers: none for implementation. Actual prospect outcomes need future real visitors; no claims will be invented.
-- Acceptance basis: Hadi's explicit implementation request and contact/profile direction in this conversation.
-- Publication: review commit `01c208a` and implementation checkpoint `aa4ebaa` are pushed on `hadi/visitor-experience-2026-11-05` in PR 45. This documentation checkpoint records the protected PR. No merge or deployment of this revision has been claimed.
-- Last verified: 2026-11-05, final local shared check, skill validation, source reviews and shared-Chromium evidence in the verification record. PR 45 was created with source head `aa4ebaa54fe64fadf9d807bbf012ab68389d2418`; current-head CI and production still need verification.
+- Acceptance basis: Hadi's explicit end-to-end implementation request, supplied contact/profile direction and standing verified-work publication/merge authorization. This does not claim his visual approval, Elie's review or measured prospect conversion.
+- Publication: review `01c208a`, implementation `aa4ebaa` and PR handoff `e3f154e` were pushed in PR 45 and merged as `4e17298`. Cloudflare deployment `35e2fda4-7b79-457d-a03c-e8b1c6f79474` succeeded and the actual production checks above passed. The `hadi/visitor-release-record` branch changes only these internal release records.
+- Last verified: 2026-11-05, exact-head and main workflows, current host protection, successful Pages release and actual production metadata/content/assets/layout/interaction/contact checks above. Real-reader outcomes, field Core Web Vitals, second-engine behavior and screen-reader speech remain unmeasured.
