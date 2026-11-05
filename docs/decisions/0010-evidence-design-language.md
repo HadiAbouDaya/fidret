@@ -34,3 +34,5 @@ Design evolution should update the canonical brief and relevant implementation t
 ## Review
 
 Established as an implementation convention within Hadi's 28 October 2026 request. This records agent selection under delegated scope, not a claim that Hadi approved the finished visual result or that Elie reviewed it. Implementation, checks, publication and live verification belong in the task and PR.
+
+The later [bounded Lab enhancement convention](0013-progressive-lab-experiences.md) supersedes the zero-browser-script constraint only for its declared Lab surfaces. The rest of this visual direction remains in effect.

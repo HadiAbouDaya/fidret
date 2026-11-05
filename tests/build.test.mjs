@@ -68,10 +68,14 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   for (const [, target] of article.matchAll(/href="#([^"]+)"/g)) {
     assert.ok(articleIds.includes(target), `Article navigation must resolve: ${target}`);
   }
-  assert.doesNotMatch(article, /<script(?:\s|>)/i);
+  assert.doesNotMatch(article, /<script(?! type="application\/ld\+json")(?:\s|>)/i);
   assert.ok(article.indexOf('Elie Azoury') < article.indexOf('Hadi Abou Daya'));
   assert.match(article, /https:\/\/fidret\.com\/lab\/published-fixture\//);
   assert.match(listing, /published-fixture/);
+  assert.match(readFileSync(join(root, 'website/llms.txt'), 'utf8'), /published-fixture/);
+  assert.doesNotMatch(readFileSync(join(root, 'website/llms.txt'), 'utf8'), /private-draft/);
+  const schema = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(article)[1]);
+  assert.ok(schema['@graph'].some(node => node['@type'] === 'Article' && node.url.endsWith('/published-fixture/')));
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/sources/index.html')), true);
   assert.equal(existsSync(join(root, 'website/lab/private-draft/sources/index.html')), false);
   assert.match(sitemap, /<loc>https:\/\/fidret\.com\/<\/loc>/);
@@ -86,6 +90,7 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, 'website/lab/published-fixture')), false);
+  assert.doesNotMatch(readFileSync(join(root, 'website/llms.txt'), 'utf8'), /published-fixture/);
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/sources')), false);
   assert.doesNotMatch(readFileSync(join(root, 'website/sitemap.xml'), 'utf8'), /published-fixture/);
 });
@@ -103,7 +108,7 @@ test('workflow companion, download and entry points follow parent publication an
   const download = readFileSync(join(root, 'website', downloadPath), 'utf8');
   assert.match(guide, /download="fidret-agent-workflow-brief.md"/);
   assert.match(guide, /type="checkbox"/);
-  assert.doesNotMatch(guide, /<(?:script|form)(?:\s|>)/i);
+  assert.doesNotMatch(guide, /<(?:script(?! type="application\/ld\+json")|form)(?:\s|>)/i);
   assert.match(download, /^# Agent workflow brief\n/);
   assert.match(download, /\[not yet tested\]/);
   assert.match(download, /Human launch decision/);
@@ -115,11 +120,15 @@ test('workflow companion, download and entry points follow parent publication an
   }
   assert.ok(guide.includes(downloadPath));
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/workflow-brief')), false);
+  assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), true);
+  assert.ok(readFileSync(join(root,'website/work/index.html'),'utf8').includes(`/work/${slug}/`));
 
   writePiece(root, slug, {status: 'draft', body: '## Question\n'});
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, 'website', guidePath)), false);
+  assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
+  for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
   assert.equal(existsSync(join(root, 'website', downloadPath)), false);
   for (const route of ['approach/index.html', 'sitemap.xml', 'lab/index.html']) {
     assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(guidePath), `${route} must withdraw the entry point`);
@@ -136,39 +145,45 @@ test('actual Astro build rejects incomplete published narrative', () => {
   assert.equal(repaired.status, 0, repaired.output);
 });
 
-test('factory walkthrough, evidence exercises and exact download follow source publication and withdrawal', () => {
+test('factory guided story, complete notes, situation library and download follow publication and withdrawal', () => {
   const root = fixture();
-  // Control publication ordering independently of whatever real pieces ship later.
   rmSync(join(root, 'lab/pieces'), {recursive: true});
   mkdirSync(join(root, 'lab/pieces'));
   const slug = 'ai-software-factory';
-  const articlePath = `lab/${slug}/index.html`;
   const downloadPath = `lab/${slug}/operating-brief.md`;
-  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAn authored heading.\n\n### Factory station order\nAnother authored heading.\n\n### Factory case title stale\nA shared namespace.\n`});
+  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAuthored heading remains reachable.\n\n### Factory case title stale\nA shared namespace.\n`});
   writePiece(root, 'published-fixture');
   let result = build(root);
   assert.equal(result.status, 0, result.output);
-  const article = readFileSync(join(root, 'website', articlePath), 'utf8');
-  assert.match(article, /class="factory-experience"/);
-  assert.match(article, /type="radio"/);
-  assert.match(article, /download="fidret-software-factory-brief.md"/);
-  assert.doesNotMatch(article, /<(?:script|form)(?:\s|>)/i);
-  assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
-  assert.equal(existsSync(join(root, 'website/lab/published-fixture/operating-brief.md')), false);
-  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /class="factory-experience"/);
-  const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
-  assert.equal(new Set(ids).size, ids.length, 'Factory controls and authored headings share a collision-safe namespace');
-  for (const [, target] of article.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g)) assert.ok(ids.includes(target), `Factory reference resolves: ${target}`);
-  for (const route of ['index.html', 'lab/index.html', 'project/index.html', 'people/hadi/index.html', 'sitemap.xml']) {
-    assert.ok(readFileSync(join(root, 'website', route), 'utf8').includes(`/lab/${slug}/`), `${route} discovers the factory`);
+  const article = readFileSync(join(root, `website/lab/${slug}/index.html`), 'utf8');
+  assert.match(article, /data-lab-journey/);
+  assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length, 5);
+  assert.match(article, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
+  assert.match(article, /data-model=/);
+  assert.match(article, /Primary model response/);
+  assert.doesNotMatch(article, /Start the story|data-choice=/);
+  assert.doesNotMatch(article, /<form(?:\s|>)/i);
+  for (const route of ['engineering-notes', 'scenarios']) {
+    const html = readFileSync(join(root, `website/lab/${slug}/${route}/index.html`), 'utf8');
+    assert.ok(html.includes(`/lab/${slug}/`));
+    assert.ok(readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/${route}/`));
+    assert.equal(existsSync(join(root, `website/lab/published-fixture/${route}`)), false);
   }
+  const notes = readFileSync(join(root, `website/lab/${slug}/engineering-notes/index.html`), 'utf8');
+  assert.match(notes, /Authored heading remains reachable/);
+  assert.match(notes, /id="factory-journey"/);
+  assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
+  assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /data-lab-journey|<script(?! type="application\/ld\+json")(?:\s|>)/);
+  const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const [, target] of article.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g)) assert.ok(ids.includes(target), target);
   writePiece(root, slug, {status: 'draft', body: '## Question\n'});
   result = build(root);
   assert.equal(result.status, 0, result.output);
-  assert.equal(existsSync(join(root, 'website/lab', slug)), false);
-  for (const route of ['index.html', 'lab/index.html', 'project/index.html', 'people/hadi/index.html', 'sitemap.xml']) {
-    assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(`/lab/${slug}/`), `${route} withdraws the factory`);
-  }
+  assert.equal(existsSync(join(root, `website/lab/${slug}`)), false);
+  assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
+  for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
+  assert.ok(!readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/`));
 });
 
 test('actual Astro build rejects raw HTML through the configured Markdown pipeline', () => {
@@ -189,4 +204,50 @@ test('actual Astro collection rejects an unregistered author', () => {
   writePiece(root, 'wrong-author', { authors: ['hadi'] });
   const repaired = build(root);
   assert.equal(repaired.status, 0, repaired.output);
+});
+
+test('farm simple/deep routes, control references and brief follow publication and withdrawal',()=>{
+  const root=fixture();
+  rmSync(join(root,'lab/pieces'),{recursive:true});
+  mkdirSync(join(root,'lab/pieces'));
+  const slug='autonomous-farm';
+  writePiece(root,slug,{authors:['hadi'],publicationDate:'2025-01-03'});
+  writePiece(root,'published-fixture');
+  let result=build(root);
+  assert.equal(result.status,0,result.output);
+  const article=readFileSync(join(root,`website/lab/${slug}/index.html`),'utf8');
+  assert.ok(article.includes(`/lab/${slug}/scenario-desk/`));
+  assert.ok(article.includes(`/lab/${slug}/blueprint/`));
+  const blueprint=readFileSync(join(root,`website/lab/${slug}/blueprint/index.html`),'utf8');
+  const blueprintIds=[...blueprint.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
+  for(const route of ['scenario-desk','blueprint']){
+    const html=readFileSync(join(root,`website/lab/${slug}/${route}/index.html`),'utf8');
+    const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
+    assert.equal(new Set(ids).size,ids.length,route);
+    assert.doesNotMatch(html,/<(?:form|iframe)(?:\s|>)/i);
+    assert.equal([...html.matchAll(/<script (?!type="application\/ld\+json")/g)].length,1);
+    assert.match(html, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
+    for(const [,target]of html.matchAll(/(?:href="#|aria-controls="|for=")([^"]+)"/g)) assert.ok(ids.includes(target),`${route}: ${target}`);
+    for(const [,target]of html.matchAll(/href="\/lab\/autonomous-farm\/blueprint\/#([^"]+)"/g)) assert.ok(blueprintIds.includes(target),`deep link: ${target}`);
+    assert.ok(readFileSync(join(root,'website/sitemap.xml'),'utf8').includes(`/lab/${slug}/${route}/`));
+    assert.equal(existsSync(join(root,`website/lab/published-fixture/${route}`)),false);
+  }
+  const desk=readFileSync(join(root,`website/lab/${slug}/scenario-desk/index.html`),'utf8');
+  assert.equal([...desk.matchAll(/class="reference-situation"/g)].length,28);
+  assert.match(desk,/data-topic-finder/);
+  assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length,5);
+  const brief=readFileSync(join(root,`website/lab/${slug}/operating-brief.md`),'utf8');
+  assert.match(brief,/^# Autonomous mixed farm: operating brief/);
+  assert.match(brief,/\[not yet tested\]/);
+  for(const route of ['index.html','work/index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml']) assert.ok(readFileSync(join(root,'website',route),'utf8').includes(route==='index.html'||route==='work/index.html'?`/work/${slug}/`:`/lab/${slug}/`),route);
+  assert.equal(existsSync(join(root,`website/work/${slug}/index.html`)),true);
+  writePiece(root,slug,{status:'draft',body:'## Question\n'});
+  result=build(root);
+  assert.equal(result.status,0,result.output);
+  assert.equal(existsSync(join(root,`website/lab/${slug}`)),false);
+  for(const route of ['index.html','work/index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml','llms.txt']) {
+    const output=readFileSync(join(root,'website',route),'utf8');
+    assert.ok(!output.includes(`/lab/${slug}/`)&&!output.includes(`/work/${slug}/`),route);
+  }
+  assert.equal(existsSync(join(root,`website/work/${slug}/index.html`)),false);
 });

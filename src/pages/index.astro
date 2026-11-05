@@ -1,63 +1,23 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import ObservationField from '../components/ObservationField.astro';
-import Byline from '../components/Byline.astro';
-import PublicationDate from '../components/PublicationDate.astro';
+import SelectedWork from '../components/SelectedWork.astro';
+import ProjectInvitation from '../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../lib/lab';
-const [latestPiece] = await getPublishedPieces();
+import { visibleWork } from '../lib/work';
+import '../styles/visitor.css';
+import {hadiProfile} from '../lib/people';
+const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug)).filter(work => work.featured);
 ---
-<SiteLayout
-  title="Fidret | Trust earned."
-  description="Expertise that earns trust through sound judgment, useful work and reliable delivery. Developing our first practice in Physical AI."
-  canonical="https://fidret.com/"
->
+<SiteLayout title="Fidret | Physical AI, experiments and engineering" description="Explore Fidret’s software experiments, system designs and working interfaces. Physical AI is our first practice. Inspect the contribution and evidence behind the work." canonical="https://fidret.com/">
   <main tabindex="-1" id="main">
-    <section class="home-hero shell" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="hero-context">Trust earned.</p>
-        <h1 id="hero-title">Building a Physical AI practice.</h1>
-        <p class="hero-intro">Fidret is a company taking shape around expertise clients can rely on. We’re starting with systems that use observations of the physical world to support decisions and actions.</p>
-        <div class="hero-actions">
-          <a class="button" href="/explorations/signal-freshness/">Explore the signal experiment</a>
-          <a class="text-link" href="/approach/">Our approach</a>
-        </div>
-      </div>
+    <section class="visitor-home-hero shell" aria-labelledby="hero-title">
+      <div><h1 id="hero-title">Physical AI, from observation to action.</h1><p class="visitor-lead">We build software experiments and explore system designs for AI that works with the physical world.</p><div class="visitor-actions"><a class="button" href="/work/">Explore our work</a><a class="text-link" href="/contact/">Discuss a project</a></div></div>
       <ObservationField />
-
     </section>
-
-    <section id="physical-ai" class="practice-section inverse" aria-labelledby="practice-title">
-      <div class="shell practice-grid">
-        <div class="practice-heading">
-          <h2 id="practice-title">From observations to decisions</h2>
-          <p class="practice-lead">A model’s output is only part of a physical system.</p>
-        </div>
-        <div class="practice-detail">
-          <p>Sensor quality, timing and changing conditions affect what a system can reliably do. Integration and the people operating it need to be considered from the start.</p>
-          <p>Our practice begins with software experiments that test a specific rule. Equipment trials and delivery commitments require further evidence under the intended conditions.</p>
-          <a class="text-link" href="/charter/">Our commitments</a>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="home-workbench shell" aria-labelledby="workbench-title">
-      <div class="workbench-intro">
-        <div><h2 id="workbench-title">When is a reading too old?</h2></div>
-        <p>Our signal experiment tests a three-second age limit. See when a delayed reading is withheld and what has to happen before the model exposes a current value again.</p>
-      </div>
-      <a class="experiment-preview" href="/explorations/signal-freshness/">
-        <div class="experiment-copy"><span class="experiment-kind">Synthetic software exploration</span><h3>Signal freshness</h3><p>Inspect a fixed sequence, from a fresh reading to expiry and recovery.</p><span class="experiment-action">Open the walkthrough</span></div>
-        <div class="signal-preview" aria-hidden="true">
-          <div class="preview-clock"><span>Observation time</span><span>Arrival time</span></div>
-          <svg viewBox="0 0 580 265"><path class="preview-guide" d="M36 56H544M36 201H544M36 128H544"/><path class="preview-tick" d="M76 48v16m106-16v16m106-16v16m106-16v16M76 193v16m106-16v16m106-16v16m106-16v16m106-16v16"/><path class="preview-good" d="M76 56L130 201M182 56L236 201M394 56L448 201"/><path class="preview-delay" d="M288 56L500 201"/><g class="preview-node"><circle cx="76" cy="56" r="6"/><circle cx="182" cy="56" r="6"/><circle cx="394" cy="56" r="6"/><circle cx="130" cy="201" r="6"/><circle cx="236" cy="201" r="6"/><circle cx="448" cy="201" r="6"/></g><g class="preview-late-node"><circle cx="288" cy="56" r="6"/><circle cx="500" cy="201" r="6"/></g><path class="preview-annotation" d="M385 122h78"/><text x="385" y="105" class="preview-label">Late arrival</text></svg>
-          <div class="preview-explanation"><span class="preview-key" aria-hidden="true"></span><span>Arrival alone doesn’t make an observation current.</span></div>
-        </div>
-      </a>
-      <div class="workbench-footer"><p>Synthetic data and fixed snapshots. The three-second limit is illustrative; no hardware was tested.</p><a class="text-link" href="/lab/">More from Fidret Lab</a></div>
-    </section>
-
-    {latestPiece && <section class="latest-lab shell" aria-labelledby="latest-title"><div class="latest-lab-heading"><h2 id="latest-title">From the Lab</h2><p>Technical writing from Fidret</p></div><article><p class="latest-lab-date"><PublicationDate value={latestPiece.data.published} /></p><h3><a href={`/lab/${latestPiece.data.slug}/`}>{latestPiece.data.title}</a></h3><p>{latestPiece.data.summary}</p><p class="latest-lab-credit">By <Byline authors={latestPiece.data.authors} /></p></article></section>}
-
+    <section class="home-selected work-collection shell" aria-labelledby="work-title"><div class="visitor-section-heading"><h2 id="work-title">Selected work</h2></div><SelectedWork works={works}/><a class="text-link" href="/work/">Explore all the work</a></section>
+    <section id="physical-ai" class="work-evidence inverse"><div class="visitor-split shell"><h2>Decisions depend on the whole system.</h2><div><p>Is the observation still current? Are the resources available? What happens when a command’s outcome is unknown?</p><p>Our Physical AI practice starts with those concrete questions. Related work on agents and software delivery examines the evidence, authority and recovery those systems also need.</p><a class="text-link" href="/approach/">How we approach a project</a></div></div></section>
+    <section class="visitor-split shell" aria-labelledby="people-title"><h2 id="people-title">The person behind the work</h2><div><h3><a href="/people/hadi/">Hadi Abou Daya</a></h3><p>{hadiProfile.role}. {hadiProfile.background}</p><p>At Fidret, he authors the published Lab work on Physical AI, agent workflows and AI-assisted software delivery.</p><p>Each contribution keeps its question, reasoning, sources and limits available for inspection.</p><a class="text-link" href="/project/">About Fidret</a></div></section>
+    <ProjectInvitation />
   </main>
 </SiteLayout>

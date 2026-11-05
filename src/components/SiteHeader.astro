@@ -3,15 +3,15 @@ import '../styles/knowledge.css';
 interface Props { variant?: 'home' | 'lab' | 'minimal'; }
 const { variant = 'home' } = Astro.props;
 const path = Astro.url.pathname;
-const isHome = path === '/';
 const withinLab = ['/lab/', '/people/', '/explorations/'].some(prefix => path.startsWith(prefix));
 ---
 <header class="site-header shell">
   <a class="wordmark" href="/" aria-label="Fidret home">Fidret<span class="brand-period" aria-hidden="true">.</span></a>
   {variant !== 'minimal' && <nav class="main-navigation" aria-label="Main navigation">
-    <a href={isHome ? '#physical-ai' : '/#physical-ai'}>Physical AI</a>
-    <a href="/approach/" aria-current={path.startsWith('/approach') ? 'page' : undefined}>Our approach</a>
+    <a href="/work/" aria-current={path === '/work/' ? 'page' : path.startsWith('/work/') ? 'location' : undefined}>Work</a>
+    <a href="/approach/" aria-current={path.startsWith('/approach') ? 'page' : undefined}>Approach</a>
+    <a href="/project/" aria-current={path === '/project/' ? 'page' : path === '/charter/' ? 'location' : undefined}>About</a>
     <a href="/lab/" aria-current={path === '/lab/' ? 'page' : withinLab ? 'location' : undefined}>Lab</a>
-    <a href="/project/" aria-current={path === '/project/' ? 'page' : path === '/charter/' ? 'location' : undefined}>Inside Fidret</a>
+    <a href="/contact/" aria-current={path === '/contact/' ? 'page' : undefined}>Contact</a>
   </nav>}
 </header>

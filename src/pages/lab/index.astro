@@ -20,14 +20,15 @@ const pieces = await getPublishedPieces();
         <h1 id="lab-title">Fidret Lab</h1>
       </div>
       <div class="lab-intro-copy">
-        <p class="lab-lead">Experiments and technical writing from the company we’re building.</p>
-        <p>Explore our published writing or inspect the synthetic signal experiment. Each piece includes its method, sources and limitations.</p>
+        <p class="lab-lead">Fidret Lab shares explorations of Physical AI, autonomous systems and AI-assisted software delivery.</p>
+        <p>Explore interactive models, inspect the synthetic signal experiment or read the technical notes. Each piece includes its method, sources and limitations.</p>
+        <a class="text-link" href="/work/">Start with the contributions and evidence</a>
       </div>
     </section>
 
     <section class="lab-collection shell" aria-labelledby="lab-collection-title">
       <div class="lab-section-heading">
-        <h2 id="lab-collection-title">Written pieces</h2>
+        <h2 id="lab-collection-title">Explorations and technical notes</h2>
       </div>
       {pieces.length > 0 ? (
         <div class="lab-list">
@@ -47,10 +48,10 @@ const pieces = await getPublishedPieces();
         </div>
       ) : (
         <div class="lab-empty">
-          <h3>No written pieces published yet.</h3>
+          <h3>The signal experiment is available to inspect.</h3>
           <div>
-            <p>Our first written pieces are still ahead. In the meantime, the signal-freshness walkthrough is available to explore.</p>
-            <a class="text-link" href="/project/">Inside Fidret</a>
+            <p>Published technical notes will appear here. For now, inspect the software rule, its replay and its limitations.</p>
+            <a class="text-link" href="/explorations/signal-freshness/">Inspect signal freshness</a>
           </div>
         </div>
       )}
@@ -100,7 +101,7 @@ const pieces = await getPublishedPieces();
       </div>
       <div class="lab-contributor-links">
         <ul>
-          {Object.entries(authorRegistry).map(([id]) => <li><Byline authors={[id]} /></li>)}
+          {Object.keys(authorRegistry).map(id => <li><Byline authors={[id]} /></li>)}
         </ul>
       </div>
     </aside>

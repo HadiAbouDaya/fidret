@@ -1,7 +1,11 @@
 import type { APIRoute } from 'astro';
 import { getPublishedPieces } from '../lib/lab';
 import { authorRegistry } from '../lib/lab-schema';
+import {FARM_SLUG, FARM_DESK_PATH, FARM_BLUEPRINT_PATH} from '../lib/autonomous-farm';
+import {FACTORY_SLUG} from '../lib/software-factory';
+import {FACTORY_NOTES_PATH,FACTORY_SCENARIOS_PATH} from '../lib/lab-journeys';
 import { HARNESS_SLUG, GUIDE_PATH } from '../lib/workflow-brief';
+import {visibleWork,workPath} from '../lib/work';
 
 export const prerender = true;
 
@@ -9,6 +13,9 @@ export const GET: APIRoute = async () => {
   const pieces = await getPublishedPieces();
   const urls = [
     'https://fidret.com/',
+    'https://fidret.com/work/',
+    'https://fidret.com/contact/',
+    ...visibleWork(pieces.map(piece=>piece.data.slug)).map(work=>`https://fidret.com${workPath(work)}`),
     'https://fidret.com/lab/',
     'https://fidret.com/approach/',
     'https://fidret.com/project/',
@@ -17,11 +24,14 @@ export const GET: APIRoute = async () => {
     'https://fidret.com/explorations/signal-freshness/',
     'https://fidret.com/explorations/signal-freshness/method/',
     ...pieces.flatMap((piece) => [`https://fidret.com/lab/${piece.data.slug}/`, `https://fidret.com/lab/${piece.data.slug}/sources/`]),
+    ...pieces.filter(piece => piece.data.slug === FACTORY_SLUG).flatMap(() => [FACTORY_NOTES_PATH,FACTORY_SCENARIOS_PATH].map(path => `https://fidret.com${path}`)),
+    ...pieces.filter(piece => piece.data.slug === FARM_SLUG).flatMap(() => [FARM_DESK_PATH, FARM_BLUEPRINT_PATH].map(path => `https://fidret.com${path}`)),
     ...pieces.filter(piece => piece.data.slug === HARNESS_SLUG).map(() => `https://fidret.com${GUIDE_PATH}`),
   ];
+  const updated = new Map(pieces.map(piece => [`https://fidret.com/lab/${piece.data.slug}/`,piece.data.updated]));
   const body = '<?xml version="1.0" encoding="UTF-8"?>\n'
     + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + urls.map((url) => `  <url><loc>${url}</loc></url>`).join('\n')
+    + urls.map((url) => `  <url><loc>${url}</loc>${updated.has(url) ? `<lastmod>${updated.get(url)}</lastmod>` : ''}</url>`).join('\n')
     + '\n</urlset>\n';
   return new Response(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
 };

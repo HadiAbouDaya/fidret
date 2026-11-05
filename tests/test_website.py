@@ -27,7 +27,7 @@ class WebsiteTests(unittest.TestCase):
         (self.site / "robots.txt").write_text("User-agent: *\nAllow: /\n")
         self.headers = (
             "/*\n"
-            "  Content-Security-Policy: default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; "
+            "  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; "
             "base-uri 'none'; form-action 'none'; frame-ancestors 'none'\n"
             "  Referrer-Policy: strict-origin-when-cross-origin\n"
             "  X-Content-Type-Options: nosniff\n"
@@ -45,6 +45,21 @@ class WebsiteTests(unittest.TestCase):
     def test_valid_static_site(self):
         self.assertEqual(validate(self.root), [])
 
+    def test_only_valid_inert_schema_data_can_use_the_inline_data_exception(self):
+        graph = '{"@context":"https://schema.org","@graph":[]}'
+        safe = f'<script type="application/ld+json">{graph}</script>'
+        self.change_html(safe)
+        self.assertEqual(validate(self.root), [])
+        path = self.site / "index.html"
+        original = path.read_text()
+        for bad in (safe.replace(graph, "alert(1)"), safe.replace('type=', 'src="/favicon.svg" type='),
+                    safe.replace('type=', 'onload="alert(1)" type='), safe.replace('application/ld+json', 'text/javascript'),
+                    safe.replace(graph, graph + '</script><script>alert(1)')):
+            with self.subTest(bad=bad):
+                path.write_text(original.replace(safe, bad))
+                self.assertTrue(validate(self.root))
+        path.write_text(original)
+
     def test_curated_markdown_download_does_not_allow_other_repository_markdown(self):
         download = self.site / "lab/agentic-company-harness/workflow-brief.md"
         download.parent.mkdir(parents=True)
@@ -52,9 +67,12 @@ class WebsiteTests(unittest.TestCase):
         factory_download = self.site / "lab/ai-software-factory/operating-brief.md"
         factory_download.parent.mkdir(parents=True)
         factory_download.write_text("# Software factory brief\n\nAn authored public planning template.\n")
+        farm_download = self.site / "lab/autonomous-farm/operating-brief.md"
+        farm_download.parent.mkdir(parents=True)
+        farm_download.write_text("# Farm brief\n\nAn authored public planning template.\n")
         self.assertEqual(validate(self.root), [])
         for relative in ("AGENTS.md", "lab/pieces/internal-draft.md", "lab/agentic-company-harness/other.md",
-                         "lab/ai-software-factory/other.md", "lab/other/operating-brief.md"):
+                         "lab/ai-software-factory/other.md", "lab/autonomous-farm/other.md", "lab/other/operating-brief.md"):
             with self.subTest(relative=relative):
                 private_source = self.site / relative
                 private_source.parent.mkdir(parents=True, exist_ok=True)
@@ -86,7 +104,8 @@ class WebsiteTests(unittest.TestCase):
     def test_public_em_dash_rule_covers_figures_and_authored_downloads(self):
         for relative, text in (("figure.svg", '<svg><title>One&#x2014;two</title></svg>'),
                                ("lab/agentic-company-harness/workflow-brief.md", "One\u2014two"),
-                               ("lab/ai-software-factory/operating-brief.md", "One\u2014two")):
+                               ("lab/ai-software-factory/operating-brief.md", "One\u2014two"),
+                               ("lab/autonomous-farm/operating-brief.md", "One\u2014two")):
             with self.subTest(relative=relative):
                 path = self.site / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -127,7 +146,7 @@ class WebsiteTests(unittest.TestCase):
         lines = self.headers.splitlines()
         lines[1] = (
             "  content-security-policy: frame-ancestors 'none'; form-action 'none'; base-uri 'none'; "
-            "img-src 'self'; font-src 'self'; style-src 'self'; default-src 'none';"
+            "img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self'; default-src 'none';"
         )
         lines[4] = "  Permissions-Policy: geolocation=( ),\tcamera=(), microphone=()"
         (self.site / "_headers").write_text("\n".join(lines))
@@ -325,6 +344,39 @@ class WebsiteTests(unittest.TestCase):
                 path.write_text(original.replace("</body>", f'<a href="{href}">Unsafe</a></body>'))
                 self.assertTrue(any("unsafe external link" in error for error in validate(self.root)))
                 path.write_text(original)
+
+
+    def test_only_the_exact_source_controlled_runtime_is_allowed_on_declared_lab_routes(self):
+        runtime = self.site / "_astro/lab-experience.Fixture1.js"
+        runtime.parent.mkdir()
+        source = self.root / "src/scripts/lab-experience.js"
+        source.parent.mkdir(parents=True)
+        source.write_text("export const localReading = true;\n")
+        runtime.write_bytes(source.read_bytes())
+        page = self.site / "lab/autonomous-farm/index.html"
+        page.parent.mkdir(parents=True)
+        html = (self.site / "index.html").read_text()
+        script = '<script type="module" src="/_astro/lab-experience.Fixture1.js"></script>'
+        page.write_text(html.replace('</body>', script + '</body>'))
+        self.assertEqual(validate(self.root), [])
+        for tag in (script.replace('type="module"', 'type="text/javascript"'),
+                    script.replace('</script>', 'alert(1)</script>'),
+                    script.replace('></script>', ' onload="alert(1)"></script>'),
+                    script.replace('Fixture1.js', 'Fixture1.js?extra=1'),
+                    script + script):
+            with self.subTest(tag=tag):
+                page.write_text(html.replace('</body>', tag + '</body>'))
+                self.assertTrue(validate(self.root))
+        page.write_text(html.replace('</body>', script + '</body>'))
+        self.change_html(script)
+        self.assertTrue(any('script is outside' in e for e in validate(self.root)))
+        (self.site / "index.html").write_text(html)
+        runtime.write_text("export const substituted = true;\n")
+        self.assertTrue(any('canonical source' in e for e in validate(self.root)))
+        runtime.write_bytes(source.read_bytes())
+        arbitrary = self.site / "_astro/other.Fixture1.js"
+        arbitrary.write_text("export const unexpected = true;\n")
+        self.assertTrue(any('Unexpected public file type' in e for e in validate(self.root)))
 
 
 if __name__ == "__main__":

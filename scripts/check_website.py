@@ -16,6 +16,14 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_MARKDOWN_DOWNLOADS = {
     "lab/agentic-company-harness/workflow-brief.md",
     "lab/ai-software-factory/operating-brief.md",
+    "lab/autonomous-farm/operating-brief.md",
+}
+# One source-controlled local module, only on the declared progressive Lab surfaces.
+LAB_RUNTIME = re.compile(r"_astro/lab-experience\.[A-Za-z0-9_-]+\.js")
+LAB_RUNTIME_ROUTES = {
+    "lab/autonomous-farm/index.html", "lab/ai-software-factory/index.html",
+    "lab/autonomous-farm/scenario-desk/index.html", "lab/autonomous-farm/blueprint/index.html",
+    "lab/ai-software-factory/scenarios/index.html", "lab/ai-software-factory/engineering-notes/index.html",
 }
 PROTECTED_HEADERS = {
     "content-security-policy": "Content-Security-Policy",
@@ -25,6 +33,7 @@ PROTECTED_HEADERS = {
 }
 STATIC_CSP = {
     "default-src": ("'none'",),
+    "script-src": ("'self'",),
     "style-src": ("'self'",),
     "font-src": ("'self'",),
     "img-src": ("'self'",),
@@ -141,9 +150,31 @@ class Document(HTMLParser):
         super().__init__()
         self.tags = []
         self.ids = set()
+        self.inline_script = False
+        self.in_script = False
+        self.schema_data = []
+        self.script_buffer = []
+        self.is_schema = False
         self.feed(text)
 
+    def handle_data(self, data):
+        if self.in_script and self.is_schema:
+            self.script_buffer.append(data)
+        elif self.in_script and data.strip():
+            self.inline_script = True
+
+    def handle_endtag(self, tag):
+        if tag == "script":
+            if self.is_schema:
+                self.schema_data.append("".join(self.script_buffer))
+            self.in_script = False
+            self.is_schema = False
+
     def handle_starttag(self, tag, attrs):
+        if tag == "script":
+            self.in_script = True
+            self.is_schema = next((v for k,v in attrs if k == "type"), None) == "application/ld+json"
+            self.script_buffer = []
         # HTML keeps the first occurrence of a duplicate attribute.
         attributes = {}
         for name, value in attrs:
@@ -186,12 +217,20 @@ def validate(root: Path) -> list[str]:
         if not path.is_file():
             continue
         suffix = path.suffix.lower()
-        curated_markdown = path.relative_to(site).as_posix() in PUBLIC_MARKDOWN_DOWNLOADS
-        if path.name.startswith(".") or (suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2", ".png", ".jpg", ".jpeg", ".webp", ".gif"} and path.name != "_headers" and not curated_markdown):
+        relative = path.relative_to(site).as_posix()
+        curated_markdown = relative in PUBLIC_MARKDOWN_DOWNLOADS
+        approved_runtime = bool(LAB_RUNTIME.fullmatch(relative))
+        if path.name.startswith(".") or (suffix not in {".html", ".css", ".svg", ".txt", ".xml", ".woff2", ".png", ".jpg", ".jpeg", ".webp", ".gif"} and path.name != "_headers" and not curated_markdown and not approved_runtime):
             errors.append(f"Unexpected public file type: {path.relative_to(site)}")
+        if approved_runtime:
+            source = root / "src/scripts/lab-experience.js"
+            if not source.is_file() or path.read_bytes() != source.read_bytes():
+                errors.append(f"{relative}: Lab runtime must match its approved canonical source")
+            if path.stat().st_size > 16000:
+                errors.append(f"{relative}: Lab runtime exceeds the 16 KB source budget")
         # Check built output so templates, Markdown, SVG and authored downloads
         # follow the same public-copy rule, including HTML character references.
-        if suffix in {".html", ".svg", ".txt", ".xml", ".md", ".css"}:
+        if suffix in {".html", ".svg", ".txt", ".xml", ".md", ".css", ".js"}:
             text = unescape(path.read_text(encoding="utf-8"))
             if suffix == ".css":
                 # CSS hexadecimal escapes can supply generated visible text.
@@ -214,6 +253,17 @@ def validate(root: Path) -> list[str]:
                 if not target.resolve().is_relative_to(site.resolve()) or not target.is_file():
                     errors.append(f"{path.name}: missing CSS asset: {value}")
     for path, doc in documents.items():
+        if doc.inline_script:
+            errors.append(f"{path.name}: inline script content is not permitted")
+        for raw in doc.schema_data:
+            try:
+                graph = json.loads(raw)
+                if not isinstance(graph, dict) or graph.get("@context") != "https://schema.org" or not isinstance(graph.get("@graph"), list):
+                    raise ValueError("expected a schema.org graph")
+            except (ValueError, TypeError):
+                errors.append(f"{path.name}: invalid inert structured data")
+        if sum(tag == "script" and attrs.get("type") != "application/ld+json" for tag, attrs in doc.tags) > 1:
+            errors.append(f"{path.name}: at most one approved Lab runtime is permitted")
         if not any(tag == "html" and attrs.get("lang") == "en" for tag, attrs in doc.tags):
             errors.append(f"{path.name}: missing English document language")
         if not any(tag == "meta" and attrs.get("name") == "viewport" for tag, attrs in doc.tags):
@@ -228,7 +278,17 @@ def validate(root: Path) -> list[str]:
                     and (attrs.get("name") or "").strip(" \t\r\n\f").lower() in ROBOTS_META_NAMES
                     and suppresses_indexing(attrs.get("content") or "")):
                 errors.append(f"{path.relative_to(site)}: intended public page must not suppress indexing with robots noindex/none")
-            if tag in {"script", "style", "iframe", "form", "object", "embed", "base"}:
+            if tag == "script" and attrs.get("type") == "application/ld+json":
+                if set(attrs) != {"type"}:
+                    errors.append(f"{path.name}: structured data must be inert, with only its MIME type")
+                continue
+            if tag == "script":
+                src = attrs.get("src") or ""
+                if (path.relative_to(site).as_posix() not in LAB_RUNTIME_ROUTES
+                        or set(attrs) != {"src", "type"} or attrs.get("type") != "module"
+                        or not src.startswith("/") or not LAB_RUNTIME.fullmatch(src[1:])):
+                    errors.append(f"{path.name}: script is outside the approved Lab runtime scope")
+            if tag in {"style", "iframe", "form", "object", "embed", "base"}:
                 errors.append(f"{path.name}: {tag} is outside this static website's scope")
             if any(key.startswith("on") for key in attrs):
                 errors.append(f"{path.name}: inline event handlers are not permitted")

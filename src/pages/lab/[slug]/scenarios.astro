@@ -1,0 +1,10 @@
+---
+import type {GetStaticPaths} from 'astro';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ScenarioLibrary from '../../../components/ScenarioLibrary.astro';
+import {getPublishedPieces} from '../../../lib/lab';
+import {FACTORY_SLUG} from '../../../lib/software-factory';
+import {FACTORY_SCENARIOS_PATH} from '../../../lib/lab-journeys';
+export const getStaticPaths=(async()=>(await getPublishedPieces()).filter(p=>p.data.slug===FACTORY_SLUG).map(p=>({params:{slug:p.data.slug}}))) satisfies GetStaticPaths;
+---
+<SiteLayout title="AI software factory: release situations | Fidret Lab" description="Find and inspect five release situations: mismatched evidence, unknown effects, missing observations, current authority and containment." canonical={`https://fidret.com${FACTORY_SCENARIOS_PATH}`} variant="lab"><main id="main" tabindex="-1" class="reference-page shell"><ScenarioLibrary kind="factory"/></main></SiteLayout>

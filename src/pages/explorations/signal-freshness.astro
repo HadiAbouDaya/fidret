@@ -1,6 +1,10 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import SignalWalkthrough from '../../components/SignalWalkthrough.astro';
+import WorkContext from '../../components/WorkContext.astro';
+import {workCatalogue} from '../../lib/work';
+import '../../styles/visitor.css';
+const work=workCatalogue.find(work=>work.slug==='signal-freshness')!;
 import '../../styles/exploration.css';
 ---
 
@@ -20,6 +24,7 @@ import '../../styles/exploration.css';
           <p class="exploration-scope">A synthetic software walkthrough. Fixed snapshots, invented data, no hardware.</p>
         </div>
       </div>
+      <WorkContext work={work}/>
     </header>
 
     <section class="exploration-bench-section shell" aria-labelledby="bench-title">
@@ -90,5 +95,6 @@ import '../../styles/exploration.css';
         </details>
       </div>
     </section>
+    <aside class="shell"><a class="text-link" href="/contact/">Discuss a related project</a></aside>
   </main>
 </SiteLayout>

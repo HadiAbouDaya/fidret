@@ -18,7 +18,7 @@ const routes = ['index.html', 'lab/index.html', '404.html'];
 function linkedStyles(root) {
   return routes.map((route) => {
     const html = readFileSync(join(root, 'website', route), 'utf8');
-    assert.doesNotMatch(html, /<(?:style|script)(?:\s|>)/i);
+    assert.doesNotMatch(html, /<(?:style|script(?! type="application\/ld\+json"))(?:\s|>)/i);
     assert.doesNotMatch(html, /\sstyle\s*=/i);
     const links = [...html.matchAll(/<link\b[^>]*>/gi)]
       .filter(([tag]) => /\brel="stylesheet"/.test(tag))

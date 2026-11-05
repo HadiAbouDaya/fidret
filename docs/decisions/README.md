@@ -4,6 +4,9 @@ Record durable choices here so both contributors and their agents can understand
 
 | Record | Status | Subject |
 | --- | --- | --- |
+| [0015](0015-visitor-outcomes.md) | active | Visitor outcomes, curated work evidence and an actual contact journey |
+| [0014](0014-search-quality.md) | active | Search metadata, shared SEO/GEO skill and required PR checks |
+| [0013](0013-progressive-lab-experiences.md) | active | Bounded progressive enhancement for guided Lab experiences |
 | [0001](0001-company-purpose.md) | accepted | Founding purpose and first practice |
 | [0002](0002-shared-agent-context.md) | active | Shared agent context and collaboration structure |
 | [0003](0003-free-static-hosting.md) | superseded | Initial Workers static hosting implementation |
