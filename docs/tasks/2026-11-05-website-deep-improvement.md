@@ -19,8 +19,8 @@ Review all public surfaces and their delivery, then prioritize observed weakness
 
 - Authorized scope: Hadi explicitly requested autonomous improvements across all aspects for two hours. Existing end-to-end website publication and standing PR/merge authorization apply. No account/security-setting changes, paid service, new business claims or messages to prospects.
 - Time window: 5 November 2026, 15:17:39 to 17:17:39 UTC. Use the window for useful investigation, implementation and verification; report actual elapsed work and any unfinished release separately.
-- Worktree: root integrates on `hadi/website-deep-improvement`, based on main `8bf2d31`. Implementation delegates use tool-created isolated worktrees, without rewriting other contributors' history.
-- Coordination: root Astra owns planning, design direction, integration, review, QA and task records. Sol visitor implementation owns Home/Work/Approach/Contact, work catalogue, selected-work/invitation/evidence components and visitor CSS. Sol delivery implementation owns published-sibling/contributor filtering, response headers, shared style imports, affected Lab/reference markup and publication/style tests. Sol interaction implementation owns the Lab browser controller, its tests and Lab/workspace/article/method accessibility/print CSS. Each returns committed changes without pushing, opening a PR or deploying. Do not edit another owner's files; report overlap to root.
+- Worktree: `hadi/website-deep-improvement` in the actual `fidret` repository, based on main `8bf2d31`. The isolated-checkout tool could not resolve the parent checkout commit from the surrounding workspace. No child checkout or implementation started through that tool; no workspace settings were changed.
+- Coordination: one 6.1 Sol worker owns all implementation files in the shared checkout. Root Astra owns planning, design direction, review, QA and records, and remains read-only while the worker edits. The worker returns committed changes without pushing, opening a PR or deploying. This avoids concurrent edits and preserves the requested model roles without rewriting other contributors' history.
 
 ## Plan
 
@@ -48,15 +48,15 @@ Keep the existing visual identity and static architecture. Lead with specific wo
 
 - Entry state clean. PR 33's merge `8bf2d31` passed all three main jobs; Cloudflare deployment `c322e310-8379-4e7c-b82b-e4d736c3a2f5` completed successfully. The preceding full gate passed 63 Node and 100 Python tests; the dependency patch emitted byte-identical public output.
 - Independent read-only audits found concrete content, focus/history, contrast, print, delivery and withdrawal opportunities. These are source findings until reproduced in the relevant environment.
-- Shared preview navigation and page evaluation work. Snapshot capture repeatedly timed out; recording exposed the host's AppArmor restriction. The alternative browser-access host is unavailable. No security policy was changed. An isolated local WebKit review is being attempted; record its actual result.
+- Shared preview navigation and page evaluation work. Snapshot capture repeatedly timed out; recording exposed the host's AppArmor restriction. The alternative browser-access host is unavailable. No security policy was changed. The installed WebKit test browser successfully rendered the local production output and captured a baseline full-page image. Its explicit installed executable path was needed because the Python runner's default browser revision was not installed.
 - Implementation, integrated checks and release evidence follow.
 
 ## Handoff
 
 - Checkpoint: initial audits and implementation plan complete; task branch created from current main.
-- Remaining work: isolated Sol implementation, integration, QA, final review, checks and publication.
-- Next action: dispatch the three nonoverlapping implementation tasks and continue rendered review.
-- Blockers: shared preview image capture is unavailable; DOM inspection works and alternative local rendering is being assessed.
+- Remaining work: Sol implementation, integration, QA, final review, checks and publication.
+- Next action: dispatch the single Sol implementation owner and continue read-only rendered review.
+- Blockers: none requiring user input. Shared preview capture is unavailable; page evaluation and isolated WebKit rendering work.
 - Acceptance basis: Hadi's two-hour autonomous improvement request, explicit Astra/Sol role split, prior contact/profile direction and existing website publication authorization.
 - Publication: local planning branch only; issue 47 opened. No new website revision published in this task yet.
 - Last verified: 2026-11-05, clean main-derived source, previous deployment success and initial read-only audits.
