@@ -59,6 +59,20 @@ test('actual Astro builds publish only complete pieces with ordered credit and s
   const article = readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8');
   const listing = readFileSync(join(root, 'website/lab/index.html'), 'utf8');
   const sitemap = readFileSync(join(root, 'website/sitemap.xml'), 'utf8');
+  const signal = readFileSync(join(root, 'website/explorations/signal-freshness/index.html'), 'utf8');
+  assert.doesNotMatch(signal, /<script(?! type="application\/ld\+json")(?:\s|>)/i);
+  // Historical numbers stay visible without being offered as current readings.
+  for (const [key, historical, available] of [
+    ['fresh', 21, 21], ['expired', 21, 'Withheld'], ['delayed', 21, 'Withheld'],
+    ['recovering', 23, 'Withheld'], ['recovered', 24, 24],
+  ]) {
+    const panel = new RegExp(`<section[^>]*id="snapshot-${key}"[^>]*>([\\s\\S]*?)</section>`).exec(signal)?.[1];
+    assert.ok(panel, `Recorded moment ${key} remains in initial HTML`);
+    const text = panel.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+    assert.ok(text.includes(`Last accepted number ${historical} synthetic units`), key);
+    assert.ok(text.includes(`Value available to use ${available}`), key);
+    assert.ok(signal.includes(`aria-controls="snapshot-${key}"`), key);
+  }
   assert.match(article, /&lt;b&gt;literal&lt;\/b&gt;/);
   assert.match(article, /(?:&lt;|&#x3c;)script(?:&gt;|>)/i);
   assert.match(article, /src="\/lab-assets\/pipeline-fixture.svg"/);
@@ -108,6 +122,14 @@ test('workflow companion, download and entry points follow parent publication an
   const download = readFileSync(join(root, 'website', downloadPath), 'utf8');
   assert.match(guide, /download="fidret-agent-workflow-brief.md"/);
   assert.match(guide, /type="checkbox"/);
+  const explanation = readFileSync(join(root, `website/lab/${slug}/index.html`), 'utf8');
+  for (const [key, result] of [['investigate', 'Allowed within scope'], ['reply', 'Review required'], ['deploy', 'Denied']]) {
+    assert.ok(explanation.includes(`aria-controls="agentic-boundary-${key}-panel"`));
+    const panel = new RegExp(`<section[^>]*id="agentic-boundary-${key}-panel"[^>]*>([\\s\\S]*?)</section>`).exec(explanation)?.[1];
+    assert.ok(panel?.includes(result), `Keep the ${key} permission boundary in initial HTML`);
+  }
+  assert.match(explanation, /does not yet permit sending/);
+  assert.doesNotMatch(explanation, /<script(?! type="application\/ld\+json")(?:\s|>)/i);
   assert.doesNotMatch(guide, /<(?:script(?! type="application\/ld\+json")|form)(?:\s|>)/i);
   assert.match(download, /^# Agent workflow brief\n/);
   assert.match(download, /\[not yet tested\]/);
@@ -163,7 +185,7 @@ test('factory guided story, complete notes, situation library and download follo
   assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length, 5);
   assert.match(article, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
   assert.match(article, /data-model=/);
-  assert.match(article, /Primary model response/);
+  assert.match(article, /What the model would do/);
   assert.doesNotMatch(article, /Start the story|data-choice=/);
   assert.doesNotMatch(article, /<form(?:\s|>)/i);
   for (const route of ['engineering-notes', 'scenarios']) {

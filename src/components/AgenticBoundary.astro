@@ -7,8 +7,8 @@ interface Props {
 const { id = 'agentic-boundary' } = Astro.props;
 const actions = [
   {
-    key: 'investigate', label: 'Investigate', result: 'Allowed within scope',
-    title: 'Investigate ticket T-104',
+    key: 'investigate', label: 'Read the ticket', result: 'Allowed within scope',
+    title: 'Read and summarize ticket T-104',
     proposal: 'Read the reported issue and summarize the findings.',
     access: 'Only the redacted ticket and logs explicitly granted to this investigation.',
     tools: 'Read the redacted ticket. Query the scoped logs.',
@@ -16,8 +16,8 @@ const actions = [
     evidence: 'Retain the investigation identity and task, grant and policy version, data accessed, redacted tool results or controlled references, and the decision time.',
   },
   {
-    key: 'reply', label: 'Reply to a customer', result: 'Review required',
-    title: 'Send a customer reply',
+    key: 'reply', label: 'Send a reply', result: 'Review required',
+    title: 'Drafting is allowed. Sending needs review.',
     proposal: 'Send a prepared message to an illustrative recipient.',
     access: 'The existing grant permits drafting from redacted context. It does not yet permit sending.',
     tools: 'Prepare a draft. Hold the outbound send until its review conditions are satisfied.',
@@ -37,8 +37,8 @@ const actions = [
 ---
 
 <fieldset class="authority-bench" aria-describedby={`${id}-scope`}>
-  <legend>One investigation. Three different actions.</legend>
-  <p id={`${id}-scope`} class="authority-scope">Fictional support ticket T-104. Choose an action to inspect a fixed, illustrative policy decision.</p>
+  <legend>May the agent read, draft or send?</legend>
+  <p id={`${id}-scope`} class="authority-scope">For fictional support ticket T-104, the agent may read the granted information and draft a reply. Sending it needs a separate review. Choose an action to see where that permission stops. These are fixed examples; no agent runs here.</p>
   <div class="authority-selector">
     {actions.map((action, index) => (
       <>
@@ -56,18 +56,18 @@ const actions = [
           </div>
           <div class="authority-result">
             <span class:list={['authority-result-symbol', `authority-symbol-${action.key}`]} aria-hidden="true">{action.key === 'investigate' ? '✓' : action.key === 'reply' ? '…' : '×'}</span>
-            <p class="authority-field-label">Illustrative policy result</p>
+            <p class="authority-field-label">What this example permits</p>
             <p class="authority-result-text">{action.result}</p>
           </div>
         </div>
         <dl class="authority-detail-grid">
-          <div><dt>Allowed data</dt><dd>{action.access}</dd></div>
-          <div><dt>Available tools</dt><dd>{action.tools}</dd></div>
+          <div><dt>Information it may use</dt><dd>{action.access}</dd></div>
+          <div><dt>Actions it may take</dt><dd>{action.tools}</dd></div>
         </dl>
-        <div class="authority-binding"><h4>The authority boundary</h4><p>{action.boundary}</p></div>
-        <div class="authority-evidence"><h4>Evidence to retain</h4><p>{action.evidence}</p></div>
+        <div class="authority-binding"><h4>Where permission stops</h4><p>{action.boundary}</p></div>
+        <div class="authority-evidence"><h4>What the record needs to show</h4><p>{action.evidence}</p></div>
       </section>
     ))}
   </div>
-  <p class="authority-caption">This explanatory bench executes nothing and does not assess a company’s security. The recipient, message and investigation are illustrative; no customer data is used. A real system would need these checks enforced outside the model’s writable context.</p>
+  <p class="authority-caption">This explanation executes nothing and does not assess a company’s security. The recipient, message and investigation are illustrative; no customer data is used. A real system would need these checks enforced outside the model’s writable context.</p>
 </fieldset>
