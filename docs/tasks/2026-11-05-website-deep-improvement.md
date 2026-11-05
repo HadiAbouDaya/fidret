@@ -1,9 +1,9 @@
 # Deep website improvement session
 
-- Status: active
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Astra planning and review; 6.1 Sol implementation in T3 Code
-- Branch: hadi/website-deep-improvement
+- Branch: hadi/website-deep-release-record (release record); implementation: hadi/website-deep-improvement
 - Updated: 2026-11-05
 - Verification status: passed
 
@@ -56,11 +56,33 @@ Keep the existing visual identity and static architecture. Lead with specific wo
 - Actual A4 PDF review reproduced missing closed replay scenarios and a clipped harness architecture figure. Repaired print output exposes all five replay tables and the complete figure; Chromium PDFs and WebKit print-media geometry were inspected. Print returns disclosures to their prior open/closed state. An initial QA script retained screen-media emulation between PDF captures; that test artifact was corrected and the actual print captures repeated.
 - Independent Astra review corroborated all five canonical examples and identified one wording overclaim: the build checks required sections, registered bylines and valid dates, rather than verifying narrative truth or actual authorship. Integration also moves relevance before extended examples, includes the canonical fictional recovery answer and invites the reader to include a relevant page link in an inquiry. Encoded state-fragment failure cases now match the runtime's literal token parser.
 - All 69 finite workspace states (32 farm, 37 factory) matched their response, reasons, trace and diagram values in each engine. Exact work-example links survived reference returns and reload. Both engines retained all five worked situations without JavaScript, keyboard-scrolled the newly named code regions and reported no runtime errors in these journeys. QA scripts were corrected to use the visible phone picker, await native scrolling and wait for enhancement after navigation; those initial harness failures were not product defects.
-- Payload inspection found Home/Work CSS reduced from 29,694 to 17,249 raw bytes (6,766 to 4,582 bytes when each linked file is gzipped locally). The first styling pass left the generic Lab article route eagerly including mutually exclusive workspace and authority-bench styles; its gzip total increased slightly despite lower raw bytes. The final Sol pass, `4ff67b0`, uses processed external conditional CSS links: each workspace now loads 48,595 raw / 11,879 summed gzip bytes; the harness article loads 34,525 / 9,054. Each links five stylesheets. The other 25 routes retain identical stylesheet URLs and payloads. Component imports, asset rewriting, determinism, selective fingerprint changes and tiny external styles are covered by focused passing regressions. This is an asset-cost comparison, not field performance evidence.
+- Payload inspection found Home/Work CSS reduced from 29,694 to 17,249 raw bytes (6,766 to 4,582 bytes when each linked file is gzipped locally). The first styling pass left the generic Lab article route eagerly including mutually exclusive workspace and authority-bench styles; its gzip total increased slightly despite lower raw bytes. The final Sol pass, `4ff67b0`, uses processed external conditional CSS links: each workspace now loads 48,595 raw / 11,879 summed gzip bytes; the harness article loads 34,525 / 9,054. Each links five stylesheets. At that checkpoint, the other 25 routes retained identical stylesheet URLs and payloads. The later shared print-marker correction brings the final totals to 17,334 raw / 4,608 summed gzip bytes for Home/Work, 48,680 / 11,905 for each workspace and 34,610 / 9,080 for the harness article. Component imports, asset rewriting, determinism, selective fingerprint changes and tiny external styles are covered by focused passing regressions. This is an asset-cost comparison, not field performance evidence.
 - Final integration after `4ff67b0`: the pinned-toolchain `pnpm check` exited 0, including 67 Node tests, 104 Python tests, Astro type checking with no diagnostics, production build and source/output/search contracts. `git diff --check` passed. The 560-case layout matrix and all-route axe scan were repeated on this final output, with the same documented decorative contrast exception. Final print captures retain all replay tables and the full architecture figure; print summaries no longer display a closed-disclosure marker beside expanded content.
 - Both engines passed all 69 model states again under the configured local response headers. Explicit engineering-return controls restored farm token `010` and factory token `101` with reasoning open. Reduced-motion journeys covered all 28 pages. Forced-color emulation retained deciding-node and selected-filter outlines; failed font/runtime requests preserved narrow layouts and complete unenhanced workspaces on six representative routes. These are test-browser observations, not Windows high-contrast or assistive-technology certification.
 - WebKit 27.2 reports an inline-style CSP event for each native select even with runtime JavaScript blocked and no authored style attributes. A separate minimal page containing only a native select reproduced the event; a plain input did not. The full workspace behavior still passed with the original CSP. The QA record identifies these native-control events separately; no security policy was relaxed and no claim is made about all Safari versions. Chromium reported no such violations.
 - Final representative rendered inspection includes the conditionally styled farm workspace and harness article at phone/desktop sizes. The approved external contact destination opened successfully with its contact form, email and LinkedIn options; no form was submitted. The requested two-hour work window elapsed while verification was being completed; release work continues beyond that window.
+
+- Final independent Astra completion audit of `8bf2d31..9f7983e` found no blocking implementation defects. It independently matched all 62 release-manifest entries to the current output and reran website/search validation. The only reporting correction was to distinguish final CSS totals from the preceding checkpoint; the measurements above now do so. This audit did not claim production verification or human-reader research.
+
+## Release and completion audit
+
+[PR 48](https://github.com/HadiAbouDaya/fidret/pull/48) merged at `9f7983e81f227101ef8d0e05b3752b884e4cb010` on 5 November 2026. The exact PR head passed `foundation`, `runtime-bootstrap` and `seo-geo`, with no unresolved review threads or requested changes; main remained protected with those checks enforced for everyone. All three checks passed again on the merge commit. Cloudflare deployment `4ad0215a-a4a0-4655-87d4-57c6ea081962` reported success for that commit.
+
+Production verification at [fidret.com](https://fidret.com/) and the [exact deployment](https://4ad0215a.fidret.pages.dev/) matched SHA-256 bytes and expected status for all 62 release files on each origin, including 27 successful HTML routes, the custom 404, fingerprinted CSS/runtime, fonts, artwork, crawler files and all three Markdown downloads. Three internal-path probes also returned the expected custom 404, for 127 passing response checks. Markdown MIME and revalidation headers match the source; fingerprinted assets use immutable caching. All successful public HTML responses have the current CSP and no indexing-suppression header. Some unchanged non-HTML assets on the custom domain retain an older, more restrictive CSP in cache; their bytes match and their exact-deployment responses have the current policy. No account settings were changed.
+
+Both Chromium and WebKit passed all 69 finite model states against the public domain, plus exact example/reference returns, reload, native-picker focus, no-JavaScript content, named code scrolling, inquiry destination and runtime-error checks. Home, Work and the harness article rendered without overflow at 1440 and 390 px with local fonts loaded; representative screenshots and the authority component were inspected. The shared preview applied its phone size only after navigation, so the isolated browsers supplied the recorded viewport checks. Clicking the live contact link reached Hadi's working contact page; no message was submitted.
+
+The initial in-page file-hash probe was blocked by the site's deliberate `connect-src` restriction. Response comparison then used an isolated browser request context, without changing site CSP. This verification-tool failure is not a website network defect.
+
+| Acceptance criterion | Completion evidence |
+| --- | --- |
+| Concrete work examples and early relevance | Five source-derived contribution examples, exact model-state links, independent source review and rendered inspection |
+| Relevant invitations and published navigation | Project-specific next steps, approved contact journey, publication fixture tests and live links |
+| Keyboard, reversible reset, forced colors and print | Recorded two-engine behavior/exception tests, Back/Forward regression, printed tables and full figure |
+| Brief delivery and publication withdrawal | Passing source/build regressions plus exact live bytes, MIME and caching for all three downloads |
+| Styles follow actual consumers | Conditional page CSS tests, independent output inspection and live asset hashes |
+| Checks and actual publication | Full 67 Node / 104 Python gate, exact-head CI/review checks, successful Pages deployment and live response/journey verification |
+| Shared guidance and measurement limits | Updated design brief, design skill, architecture/deployment guidance and this completion record; visitor validation remains explicitly unmeasured |
 
 ## Guidance and remaining measurement
 
@@ -70,10 +92,10 @@ No technical review establishes how many leads will become partners. The [visito
 
 ## Handoff
 
-- Checkpoint: four Sol implementation checkpoints complete; independent Astra content review integrated; shared design guidance updated; final local gate and rendered verification passed.
-- Remaining work: publish the verified branch, satisfy current required CI and review state, merge and verify the deployed output.
-- Next action: inspect the PR head's required checks and reviews, then merge and verify the production release.
-- Blockers: none requiring user input. Shared preview capture is unavailable; page evaluation and isolated browser rendering provide the recorded fallback.
-- Acceptance basis: Hadi's two-hour autonomous improvement request, explicit Astra/Sol role split, prior contact/profile direction and existing website publication authorization. Local implementation meets the criteria; live release is still pending.
-- Publication: implementation committed through `59842f6` and pushed to the task branch; [PR 48](https://github.com/HadiAbouDaya/fidret/pull/48) is open against main. Issue 47 remains open. Merge and production deployment pending.
-- Last verified: 2026-11-05, final output after `4ff67b0` and the copy/print-marker integration, full gate, 560 layout checks, all 69 model states in both engines, accessibility, exceptional states and print review. Production verification pending.
+- Checkpoint: four Sol implementation checkpoints, Astra integration/review, full local verification, required CI, merge and production verification complete. This documentation follow-up records the measured release and corrected final CSS totals.
+- Remaining work: none in the implementation/release scope. Actual visitor comprehension, received inquiry quality and field performance are future measurements, not unfinished software checks or asserted outcomes.
+- Next action: use the visitor validation plan for relevant readers and real inquiries; open a new task for findings or for replacing Hadi's temporary contact destination.
+- Blockers: none.
+- Acceptance basis: completed under Hadi's two-hour autonomous improvement request, explicit Astra/Sol role split, prior contact/profile direction and existing website publication/merge authorization. No separate human-reader acceptance or conversion outcome is claimed.
+- Publication: implementation PR 48 merged at `9f7983e`; Cloudflare deployment `4ad0215a-a4a0-4655-87d4-57c6ea081962` verified on both its exact URL and fidret.com. This final record is a documentation-only follow-up on the named release-record branch; it changes no public source or output.
+- Last verified: 2026-11-05, release `9f7983e`, successful required checks and Pages deployment; 127 live response checks, 69 model states in each browser engine, representative desktop/phone rendering and approved contact-link arrival. Earlier comprehensive local layout/accessibility/print evidence remains above; no real inquiry or human research was performed.
