@@ -50,4 +50,6 @@ No second browser engine, screen-reader speech, field-performance dataset, searc
 
 ## Release
 
-Local implementation and verification are complete and published in [PR 45](https://github.com/HadiAbouDaya/fidret/pull/45), with source checkpoint `aa4ebaa`. Exact-head required checks, merge and actual production verification are recorded in the task as they occur. A successful local build alone does not establish a live release.
+[PR 45](https://github.com/HadiAbouDaya/fidret/pull/45) merged as `4e17298` after exact-head required checks passed. Main checks passed and Cloudflare deployment `35e2fda4-7b79-457d-a03c-e8b1c6f79474` succeeded. The [task](../tasks/2026-11-05-visitor-experience.md#verified-release) records actual host enforcement and the production checks.
+
+All 28 production HTML views matched the verified main content and metadata. Ten fingerprinted CSS/JS assets and four text/compatibility resources matched bytes; five new sharing images matched dimensions and pixels. The sitemap's 27 canonical URLs, enforced CSP, an actual source-path 404/noindex, 60 additional principal-route layout checks, a changed-state reference return and the live contact handoff passed. No inquiry was sent and no reader/conversion claim is inferred.
