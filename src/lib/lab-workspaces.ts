@@ -60,7 +60,7 @@ export const farmWorkspaces:WorkspaceCase[]=[
     dimension<FarmFacts>('Shared water',[['Reserved',{resourcesReserved:true}],['Not reserved',{resourcesReserved:false}]]),
     dimension<FarmFacts>('Local checks',[['Ready',{localReady:true}],['Missing',{localReady:false}]]),
   ]),
-  farm('probe','dry-probe',{title:'One reading says dry. Another says wet.',context:'An extra watering cycle depends on readings that agree. Checking the readings and having permission to act are separate requirements.',challenge:'Set Field readings to Checked, then set Action permission to Revoked. Which requirement still makes the job wait?',fixed:'Resource reservation, identity, exact plan, local readiness, data path and operating envelope remain valid. There is no urgent event or pending earlier effect.'},[
+  farm('probe','dry-probe',{title:'Do the readings support another watering cycle?',context:'An extra watering cycle depends on readings that agree. Checking the readings and having permission to act are separate requirements.',challenge:'Set Field readings to Checked, then set Action permission to Revoked. Which requirement still makes the job wait?',fixed:'Resource reservation, identity, exact plan, local readiness, data path and operating envelope remain valid. There is no urgent event or pending earlier effect.'},[
     dimension<FarmFacts>('Field readings',[['Disagree',{evidence:'conflicting'}],['Checked',{evidence:'current'}],['Stale',{evidence:'stale'}]]),
     dimension<FarmFacts>('Action permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
   ]),
@@ -79,7 +79,7 @@ export const farmWorkspaces:WorkspaceCase[]=[
   ]),
 ];
 export const factoryWorkspaces:WorkspaceCase[]=[
-  factory('evidence','stale',{title:'The tests passed. Do they cover this version?',context:'Start with software version 13, the release candidate, and tests for version 12. The next rollout stage needs checks for the exact version being released, as well as permission to proceed.',challenge:'Set Tests cover version to 13, then set Release permission to Revoked. Matching tests do not replace permission.',fixed:'Build provenance is verified, the routine limited rollout is confirmed, the required observation window is healthy and recovery is prepared. This models the next stage, not the first deployment.'},[
+  factory('evidence','stale',{title:'Are the checks right for this version?',context:'Start with software version 13, the release candidate, and tests for version 12. The next rollout stage needs checks for the exact version being released, as well as permission to proceed.',challenge:'Set Tests cover version to 13, then set Release permission to Revoked. Matching tests do not replace permission.',fixed:'Build provenance is verified, the routine limited rollout is confirmed, the required observation window is healthy and recovery is prepared. This models the next stage, not the first deployment.'},[
     dimension<ReleaseFacts>('Tests cover version',[['12',{testedCandidate:'candidate-12',testedArtifact:'artifact-12'}],['13',{testedCandidate:'candidate-13',testedArtifact:'artifact-13'}]]),
     dimension<ReleaseFacts>('Acceptance checks',[['Passed',{checks:'pass'}],['Failed',{checks:'fail'}]]),
     dimension<ReleaseFacts>('Release permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),

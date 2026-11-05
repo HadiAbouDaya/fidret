@@ -34,3 +34,14 @@
 .workspace-result h3{color:inherit}
 
 @media (forced-colors: active) { [data-artifact-node][data-deciding=true] { outline: 3px solid Highlight; font-weight: 700; } }
+
+/* Let long explanations flow across paper, without stranding a whole scene. */
+@media print {
+  .journey-chapter { break-inside: auto; margin-block: 1.5rem; }
+  .experience-heading, .journey-chapter-heading { break-after: avoid; }
+  .journey-chapter-heading h2:focus-visible { outline: none; }
+  .workspace-stage, .workspace-trace li { break-inside: avoid; }
+  .workspace-trace { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem 1rem; }
+  .lab-experience .experience-completion[hidden] { display: block !important; }
+  .experience-return { display: none; }
+}

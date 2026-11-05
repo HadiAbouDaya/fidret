@@ -143,14 +143,14 @@ test('workflow companion, download and entry points follow parent publication an
   assert.ok(guide.includes(downloadPath));
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/workflow-brief')), false);
   assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), true);
-  assert.ok(readFileSync(join(root,'website/work/index.html'),'utf8').includes(`/work/${slug}/`));
+  for (const route of ['index.html', 'work/index.html']) assert.ok(readFileSync(join(root, 'website', route), 'utf8').includes(`/work/${slug}/`), route);
 
   writePiece(root, slug, {status: 'draft', body: '## Question\n'});
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, 'website', guidePath)), false);
   assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
-  for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
+  for(const route of ['index.html','work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
   assert.equal(existsSync(join(root, 'website', downloadPath)), false);
   for (const route of ['approach/index.html', 'sitemap.xml', 'lab/index.html']) {
     assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(guidePath), `${route} must withdraw the entry point`);
@@ -207,7 +207,7 @@ test('factory guided story, complete notes, situation library and download follo
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, `website/lab/${slug}`)), false);
   assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
-  for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
+  for(const route of ['index.html','work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
   assert.ok(!readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/`));
   assert.doesNotMatch(readFileSync(join(root, 'website/lab/autonomous-farm/index.html'), 'utf8'), /href="\/lab\/ai-software-factory\//);
 });

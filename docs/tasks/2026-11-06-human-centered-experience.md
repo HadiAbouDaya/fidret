@@ -6,6 +6,7 @@
 - Branch: hadi/human-centered-experience
 - Updated: 2026-11-06
 - Verification status: partial
+- Issue: https://github.com/HadiAbouDaya/fidret/issues/52
 
 ## Purpose
 
@@ -50,7 +51,7 @@ Approved discovery direction extends the existing visitor-outcomes convention wi
 
 ## Verification
 
-Baseline source cde7631: previous full gate passed with zero diagnostics, 67 Node tests and 104 Python tests. Current dependency lock unchanged. Root will rerun after integrated changes. Previous audit covered 28 live desktop/mobile renders; new work requires its own render checks.
+Baseline source cde7631: previous full gate passed with zero diagnostics, 67 Node tests and 104 Python tests. Current dependency lock unchanged. Integrated and review-fix gates passed; see the dated verification below. Previous audit covered 28 live desktop/mobile renders; new work requires its own render checks.
 
 ### First discovery checkpoint
 
@@ -58,12 +59,20 @@ Implemented plain company identity, question-led Work data and headings, short s
 
 The first root full deployment gate passed (zero diagnostics, 67 Node tests, 104 Python tests). An immediately subsequent heading-hierarchy correction and forthcoming Lab integration will receive combined verification. Inspected 22 local main/Work renders at 1440 and 390 px. Shared preview snapshot failed twice with its timeout error; isolated installed Brave/Playwright provided renders. Social preview images inspected. Remaining work includes narrower widths, enlarged text, keyboard/fallback/print and independent review.
 
+### Integrated verification checkpoint
+
+Discovery and Lab changes are committed in 79f589b and 14e311f. The integrated and review-fix deployment gates passed. Independent source review found three small issues, now addressed: condition-specific static headings, mismatched action legend and duplicated contact-note source. Existing tests now cover preview/source agreement and Home withdrawal. Browser review passed 128 default/enlarged layouts, 32 text-spacing layouts, 32 axe scans and all 69 exact model states. Keyboard, no-JavaScript, missing-module, reduced-motion/forced-color and printed-content checks are recorded with their limits in the [implementation verification](../design/2026-11-06-human-centered-verification.md).
+
+Printing revealed excessive fragmentation in the existing workspaces. Scoped print rules preserve all five situations and assumptions in six A4 pages instead of eleven and expose the final limits. No model policy or runtime change was needed. Hadi's approved eight-hour session remains active after this first useful increment.
+
+GitHub's current main protection was read on 6 November: foundation, runtime-bootstrap and seo-geo required from GitHub Actions, strict up-to-date branches, administrator enforcement, no force pushes and no assumed second approver. This is host-state evidence; the new branch's checks still need to execute.
+
 ## Handoff
 
-- Checkpoint: discovery implementation ready as a local source checkpoint; Lab delegate commit ready for integration.
-- Remaining work: source changes, guidance, integrated verification and publication.
-- Next action: implement discovery and delegate isolated Lab improvements.
+- Checkpoint: first discovery/Lab increment implemented, integrated and independently reviewed. Local verification passed; final print refinements and evidence record ready for publication.
+- Remaining work: publish and verify the first increment, then continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
+- Next action: commit the review fixes and verification record, open the PR, inspect exact-head checks and unresolved reviews, merge when ready and verify actual live output.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: local branch only; no implementation commit, push, PR, merge or deployment yet.
-- Last verified: 2026-11-06, current Git/source inspection and prior unchanged-source baseline.
+- Publication: local commits 641dc9f, 79f589b and 14e311f; issue 52 created. No implementation push, PR, merge or deployment yet.
+- Last verified: 2026-11-06, integrated/review-fix gates, rendered browser checks and current host protection. See the linked verification record for coverage and limits.
