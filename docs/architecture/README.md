@@ -16,7 +16,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 
 | Location | Responsibility | How to change it |
 | --- | --- | --- |
-| `src/lib/work.ts`, `src/pages/work/`, `SelectedWork.astro`, `WorkEvidence.astro`, `WorkContext.astro` | Curated contributions, source-derived worked examples and project-specific invitations, filtered by published Lab parents | Preserve evidence levels, exact model-state links and withdrawal across cards, related links, routes, sitemap and AI directory |
+| `src/lib/work.ts`, `src/pages/work/`, `SelectedWork.astro`, `WorkEvidence.astro`, `WorkContext.astro` | Question-led contributions with visible scope, source-derived previews/worked examples and project-specific invitations, filtered by published Lab parents | Preserve evidence levels, exact model-state links and withdrawal across cards, related links, routes, sitemap and AI directory |
 | `src/lib/contact.ts`, `src/pages/contact.astro`, `ProjectInvitation.astro` | Current project-inquiry destination and transparent handoff | Change the shared destination only from an authorized real contact route; no fictional mailbox or implied form submission |
 | `src/lib/people.ts`, `src/styles/visitor.css` | Approved professional context and visitor-journey presentation | Keep individual background distinct from Fidret delivery history; verify full responsive journeys |
 | `scripts/generate_social_previews.py`, `public/social/` | Source-generated work-specific 1200 by 630 PNG sharing diagrams | Manually render with Python/Pillow and licensed Manrope, inspect the images and keep canonical preview resolution tested |

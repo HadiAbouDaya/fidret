@@ -1,6 +1,6 @@
 # Fidret design language
 
-Version 5 · 5 November 2026 · **A working field of evidence**
+Version 6 · 6 November 2026 · **A working field of evidence**
 
 This is the canonical visual direction for Fidret. Hadi requested a complete redesign and delegated its creative choices; [decision 0010](../decisions/0010-evidence-design-language.md) records the implementation basis. It replaces the layout and composition defaults of the supplied 24 October brief, preserved in Git history. The [website craft convention](../decisions/0012-website-craft.md) refines its application after Hadi’s 3 November review. The [charter](../foundation/charter.md) remains the authority for company purpose and claims.
 
@@ -8,17 +8,31 @@ This is the canonical visual direction for Fidret. Hadi requested a complete red
 
 Make careful thinking tangible. Fidret's first practice concerns observations, time, decisions and physical conditions. Let an original explanatory artifact carry that world into the design, with clear language, readable typography and figures that explain a specific idea.
 
-The audience is a prospective collaborator or technical reviewer assessing a concrete project question. Help them understand relevance, identify Fidret's actual contribution, inspect proportionate evidence, understand the people and approach, and choose a useful next step. The website does not need to explain its commercial purpose. Physical AI is a developing practice; do not imply an established delivery history.
+The audience includes curious first-time readers, non-technical business owners and operators, people with early ideas, prospective collaborators and technical reviewers. Help them understand relevance, identify Fidret's actual contribution, inspect proportionate evidence, understand the people and approach, and choose a useful next step. The website does not need to explain its commercial purpose. Physical AI is a developing practice; do not imply an established delivery history.
 
 ## Visitor outcomes
 
 Each primary page should help its intended visitor understand the subject, assess its relevance, identify what Fidret actually contributed, inspect proportionate evidence and choose a useful next step. Define the reader's question before selecting a composition. A page can be visually restrained and technically correct while still leaving that question unanswered.
 
-Home introduces relevance and leads promptly to selected work. Work curates contributions by usefulness and evidence, while Lab remains the publication collection. A forwarded work link must make sense without a visit to Home. Explain professional background separately from Fidret engagement history. A discussion invitation uses a real, maintained destination; it does not require a new form or backend.
+Home identifies Fidret as an emerging engineering company, introduces familiar problems and leads promptly to selected work. Work curates contributions by usefulness and evidence, while Lab remains the publication collection. A forwarded work link must make sense without a visit to Home. Explain professional background separately from Fidret engagement history. A discussion invitation uses a real, maintained destination; it does not require a new form or backend.
 
 Establish relevance before an extended example. A contribution overview should show a compact case derived from its actual source: an observation and result, a changed assumption and response, or an answered planning decision. Keep the artifact directly accessible. A repeated conceptual preview can help identify work in a collection, but it does not substitute for evidence on the individual page.
 
 Use the [work and journey reference](../../skills/fidret-design/references/work-and-journeys.md) for contribution summaries and whole-journey critique. [Decision 0015](../decisions/0015-visitor-outcomes.md) records this convention. No design check proves that a lead will become a partner.
+
+## Human-centered discovery
+
+Hadi approved the [human-centered direction](2026-11-06-human-centered-proposal.md) on 6 November 2026. Make the mission, Trust earned, understandable through recognizable situations and visible engineering judgment. Lead with a question people can understand, then show the actual artifact, why it matters and where its evidence stops. Technical precision belongs after the underlying meaning, with a direct route to deeper work.
+
+The first experience must stand alone without reading engineering notes. Keep essential scope beside the claim, rather than hiding it in a disclosure: a fictional farm is not deployed equipment; a software-delivery teaching model is not an operating pipeline; a planning brief does not implement controls. Individual professional experience is not company delivery history.
+
+Curate Work as an exploration gallery, not a second Lab index. Use one distinct question, concise relevance, actual contribution, a short scope sentence and a project-specific action. A detailed Work page adds a source-derived example and keeps methods directly available. Do not repeat six labeled paragraphs in every gallery entry.
+
+A phone needs meaningful visual explanation too. Prefer a compact source-backed before/after near a project to a large decorative hero. A diagram may explain a reservation or a stale reading; it must not pretend to allocate water, run AI or measure a physical process. Native disclosures, recorded-moment controls and exact Lab links can provide discovery without expanding the runtime boundary.
+
+Make conversation invitations low-pressure: an early idea, a question or one example can begin. Other preparation is optional. Show the real contact handoff; do not invent services, a mailbox or a reply-time promise. The charter remains broader than Physical AI or any technology.
+
+Every design review distinguishes source/DOM inspection, visual/keyboard/accessibility testing and actual first-time reader feedback. Follow [visitor validation](visitor-validation.md); agent agreement and automated checks cannot establish comprehension or trust.
 
 ## Visual signature
 

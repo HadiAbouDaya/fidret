@@ -15,7 +15,7 @@ const modelKind = work.slug === 'autonomous-farm' ? 'farm' : work.slug === 'ai-s
 const model = modelKind ? workspacesFor(modelKind).find(item => item.key === (modelKind === 'farm' ? 'water' : 'evidence'))! : null;
 const examples = modelKind === 'farm'
   ? [{ token: '000', title: 'Water reserved' }, { token: '010', title: 'Water reservation removed' }]
-  : [{ token: '000', title: 'Evidence for the earlier candidate' }, { token: '100', title: 'Evidence for the exact candidate' }, { token: '101', title: 'Matching evidence, revoked permission' }];
+  : [{ token: '000', title: 'The tests cover an earlier version' }, { token: '100', title: 'The tests cover this version' }, { token: '101', title: 'Matching tests, but permission withdrawn' }];
 const expiration = sensorEvidence.scenarios.dropped!.snapshots.find(row => row.baseline.source_age === sensorEvidence.timeout)!;
 const planningQuestions = contracts.filter(contract => ['purpose', 'authority', 'recovery'].includes(contract.id));
 const publication = publishedWorks.find(item => item.sourceSlug === HARNESS_SLUG) ?? publishedWorks.find(item => item.sourceSlug);
@@ -27,12 +27,7 @@ const publicationPaths = publication
   {work.slug === 'signal-freshness' && (
     <>
       <h2 id="example-title">What happens when readings stop?</h2>
-      <p>
-        The replay checks {sensorEvidenceTotals.observations} scheduled observation points in {Object.keys(sensorEvidence.scenarios).length} fixed synthetic scenarios:
-        normal arrivals, dropped packets, delayed packets, out-of-order arrivals and recovery.
-        The last-arrival baseline exposes an age-invalid value at <strong>{sensorEvidenceTotals.baseline_age_invalid} points</strong>.
-        The guard does so at <strong>{sensorEvidenceTotals.guarded_age_invalid} points</strong>.
-      </p>
+      <p>The last received value still looks ordinary. But no new reading has arrived. Compare keeping that value with checking whether it is still current.</p>
       <div class="work-example-context">
         <h3>One point at the expiry boundary</h3>
         <p>No new packet arrives in the dropped-packet scenario. Both rules last received the value {expiration.baseline.current_value} at source time {expiration.baseline.source_time}.</p>
@@ -43,6 +38,14 @@ const publicationPaths = publication
           <div><dt>Freshness guard</dt><dd>{expiration.guarded.current_value === null ? 'No current value' : expiration.guarded.current_value} ({expiration.guarded.state})</dd></div>
         </dl>
       </div>
+      <details class="visitor-disclosure"><summary>What did the full software test check?</summary>
+      <p>
+        The replay checks {sensorEvidenceTotals.observations} scheduled observation points in {Object.keys(sensorEvidence.scenarios).length} fixed synthetic scenarios:
+        normal arrivals, dropped packets, delayed packets, out-of-order arrivals and recovery.
+        The last-arrival baseline exposes an age-invalid value at <strong>{sensorEvidenceTotals.baseline_age_invalid} points</strong>.
+        The guard does so at <strong>{sensorEvidenceTotals.guarded_age_invalid} points</strong>.
+      </p>
+      </details>
       <p class="work-example-conditions">
         Clock: {sensorEvidence.clock}. A usable reading has a source age at least zero and strictly below {sensorEvidence.timeout} seconds.
         Recovery requires {sensorEvidence.recovery_observations} distinct fresh observations. These are scheduled points in fixed traces, not independent trials or an estimate of field reliability.
@@ -53,9 +56,9 @@ const publicationPaths = publication
 
   {model && (
     <>
-      <h2 id="example-title">{modelKind === 'farm' ? 'Current evidence cannot reserve the water.' : 'The candidate and its permission both matter.'}</h2>
+      <h2 id="example-title">{modelKind === 'farm' ? 'Knowing the field is dry does not mean the water is available.' : 'The tests need to match the version.'}</h2>
       <p>{model.context}</p>
-      <p class="work-example-conditions"><strong>Held constant:</strong> {model.fixed}</p>
+      <details class="visitor-disclosure"><summary>What stays the same in this example?</summary><p class="work-example-conditions"><strong>Held constant:</strong> {model.fixed}</p></details>
       <ol class="work-model-examples">
         {examples.map(example => {
           const state = model.states[example.token]!;
@@ -70,7 +73,7 @@ const publicationPaths = publication
               <div class="work-example-response">
                 <p><strong>Model response: {state.label}</strong></p>
                 <ul>{state.reasons.map(reason => <li>{reason}</li>)}</ul>
-                <a class="text-link" href={`${work.artifact}#scene-${model.key}~v1-${example.token}`}>Open these conditions in the workspace</a>
+                <a class="text-link" href={`${work.artifact}#scene-${model.key}~v1-${example.token}`}>Try these conditions in the Lab</a>
               </div>
             </li>
           );
@@ -98,14 +101,14 @@ const publicationPaths = publication
 
   {work.slug === 'publishing-system' && (
     <>
-      <h2 id="example-title">Publish a parent. Withdraw its dependent pages.</h2>
-      <p>A Lab piece’s publication state controls its article, contribution overview and companion pages. Fixture builds exercise both states, including the listings and discovery entries that must change with them.</p>
+      <h2 id="example-title">Change one article. Keep the rest of the site in step.</h2>
+      <p>Publishing an article also makes its related pages available. Returning it to draft removes those pages from the next build. Automated tests exercise both states, including the listings that need to change with them.</p>
       {publication && (
         <div class="work-example-context">
           <h3>A current example: {publication.title}</h3>
-          <p>The published parent generates these related pages:</p>
+          <p>This published article creates these related pages:</p>
           <ul class="work-publication-paths">
-            {publicationPaths.map(path => <li><a href={path}>{path}</a></li>)}
+            {publicationPaths.map(path => <li><a href={path}>{path.endsWith('/sources/') ? 'Sources and edition notes' : path.startsWith('/work/') ? 'Project overview' : path.endsWith('/workflow-brief/') ? 'Editable workflow brief' : path.endsWith('/blueprint/') ? 'Farm engineering notes' : path.endsWith('/engineering-notes/') ? 'Software engineering notes' : 'Explore the published article'}</a></li>)}
           </ul>
         </div>
       )}
@@ -115,8 +118,8 @@ const publicationPaths = publication
           <p>The build checks required narrative sections, registered bylines and valid edition dates. It generates the article and references, includes the piece in Lab and discovery, and exposes its configured work overview and companions.</p>
         </li>
         <li>
-          <h3>Change that parent to draft</h3>
-          <p>The next build removes the article, references, dependent work overview and companions, including generated brief downloads. Its cards, sitemap and AI-directory entries withdraw with them. The authored source remains in the repository.</p>
+          <h3>Return the article to draft</h3>
+          <p>The next build removes the article and its related pages, including generated brief downloads. Its cards, sitemap and AI-directory entries withdraw with them. The authored source remains in the repository.</p>
         </li>
         <li>
           <h3>Keep internal records outside the output</h3>

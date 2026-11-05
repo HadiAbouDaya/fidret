@@ -11,6 +11,10 @@
 
 Implement the approved [human-centered proposal](../design/2026-11-06-human-centered-proposal.md), serving [Trust earned](../foundation/charter.md) through recognizable problems, inspectable judgment and an honest conversation route.
 
+## Session duration
+
+Hadi explicitly expanded the task to an eight-hour continuous improvement session, allowing mission-aligned work beyond the original scope. Start: 2026-11-05 23:16:59 UTC (6 November 00:16:59 Paris). Planned end: 2026-11-06 07:16:59 UTC (08:16:59 Paris). Continue useful verified increments until that deadline, unless redirected. Do not manufacture features, human research or verification to fill the session.
+
 ## Scope
 
 P0 clarity across company and Work pages; P1 narrative hierarchy, source-backed previews and mobile discovery; practical P2 refinement of existing Lab explanations and native interactions. Preserve architecture, routes, scope, credits and precise methods. Prepare real-reader materials without inventing participants or findings.
@@ -48,9 +52,15 @@ Approved discovery direction extends the existing visitor-outcomes convention wi
 
 Baseline source cde7631: previous full gate passed with zero diagnostics, 67 Node tests and 104 Python tests. Current dependency lock unchanged. Root will rerun after integrated changes. Previous audit covered 28 live desktop/mobile renders; new work requires its own render checks.
 
+### First discovery checkpoint
+
+Implemented plain company identity, question-led Work data and headings, short scope statements, project-specific actions, source-derived sensor/version previews and meaningful phone previews. Home now connects problems, current work, potential collaboration and Hadi. Approach has an accessible native detail section; Contact needs no prepared brief. About leads with company/person context. Sharing images were regenerated and visually inspected. Design guidance, architecture map and five-person validation protocol are synchronized.
+
+The first root full deployment gate passed (zero diagnostics, 67 Node tests, 104 Python tests). An immediately subsequent heading-hierarchy correction and forthcoming Lab integration will receive combined verification. Inspected 22 local main/Work renders at 1440 and 390 px. Shared preview snapshot failed twice with its timeout error; isolated installed Brave/Playwright provided renders. Social preview images inspected. Remaining work includes narrower widths, enlarged text, keyboard/fallback/print and independent review.
+
 ## Handoff
 
-- Checkpoint: approval recorded; implementation starting.
+- Checkpoint: discovery implementation ready as a local source checkpoint; Lab delegate commit ready for integration.
 - Remaining work: source changes, guidance, integrated verification and publication.
 - Next action: implement discovery and delegate isolated Lab improvements.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.

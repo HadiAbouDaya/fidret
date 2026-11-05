@@ -13,7 +13,7 @@ for (let y = -10; y <= 10; y += 1) {
 const line = (a: {x: number; y: number}, b: {x: number; y: number}) => `M${a.x},${a.y}L${b.x},${b.y}`;
 ---
 <figure class="observation-figure">
-  <p class="field-heading">A sensor observing a surface</p>
+  <p class="field-heading">A sensor sees a shape. What else matters?</p>
   <svg class="observation-field" viewBox="0 0 640 540" role="img" aria-labelledby="field-title field-description">
     <title id="field-title">From a physical shape to a field of observations</title>
     <desc id="field-description">A conceptual isometric sensing study. Points describe a stepped object within a measured area. A line joins a sensor reference to an observed point. This is an original illustration, not hardware data.</desc>
@@ -36,6 +36,6 @@ const line = (a: {x: number; y: number}, b: {x: number; y: number}) => `M${a.x},
     </g>
 
   </svg>
-  <figcaption>Points show a sampled surface beneath a sensor. The quality, timing and context of those observations affect the decisions they can support.</figcaption>
+  <figcaption>Seeing a shape is a start. Before acting on it, a system also needs to know how recent and reliable that information is.</figcaption>
   <p class="field-note">Conceptual illustration, not sensor data.</p>
 </figure>

@@ -97,7 +97,7 @@ ${['Question', 'Approach', 'Takeaways', 'Limits', 'Next steps'].map(heading => `
     const publishing = pages['publishing-system'];
     assert.match(publishing, /id="verification"/);
     assert.ok(publishing.includes(`href="${GUIDE_PATH}"`), 'The published example has real companion links');
-    assert.ok(plain(publishing).includes('Change that parent to draft'));
+    assert.ok(plain(publishing).includes('Return the article to draft'));
     assert.ok(plain(publishing).includes('including generated brief downloads'));
 
     // The publishing example must not keep advertising a withdrawn parent.

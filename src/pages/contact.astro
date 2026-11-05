@@ -3,40 +3,22 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import { projectContact } from '../lib/contact';
 import '../styles/visitor.css';
 ---
-<SiteLayout title="Discuss a project | Contact Fidret" description="Bring a workflow, system or project question to Hadi Abou Daya. Start with what happens today, what needs to change and the people and constraints involved." canonical="https://fidret.com/contact/">
+<SiteLayout title="Talk about an idea | Contact Fidret" description="An early idea or an unsolved problem is enough. Tell Hadi what is happening and what you would like to change. No finished brief needed." canonical="https://fidret.com/contact/">
   <main id="main" tabindex="-1">
     <header class="visitor-hero shell">
-      <h1>Discuss a project</h1>
-      <p class="visitor-lead">Tell Hadi what happens today and what you want to change.</p>
-      <p>Start with a task, a recurring problem or a question from the work on this site. You can use Hadi’s personal contact page to describe it; you do not need a finished specification.</p>
-      <p>If a particular example prompted your question, include its page link.</p>
+      <h1>Tell us what you have in mind.</h1>
+      <p class="visitor-lead">An early idea or an unsolved problem is enough.</p>
+      <p>Tell Hadi what is happening and what you would like to change. You do not need a finished brief.</p>
       <a class="button" href={projectContact.destination}>{projectContact.destinationLabel}</a>
-      <p class="contact-destination">{projectContact.note}</p>
+      <p class="contact-destination">This opens Hadi’s personal contact page, which currently handles Fidret inquiries.</p>
     </header>
-
     <section class="contact-preparation shell" aria-labelledby="context-title">
-      <div>
-        <h2 id="context-title">Useful starting context</h2>
-        <p>A short description or one worked example can explain where the difficulty lies.</p>
-      </div>
-      <ul>
-        <li>The task and how people carry it out today.</li>
-        <li>One example of a delay, error or decision you want to improve.</li>
-        <li>The information, equipment, access or timing limits involved.</li>
-        <li>Who uses the result, who reviews it and who can authorize changes.</li>
-      </ul>
+      <div><h2 id="context-title">Start wherever you are.</h2><p>A process that keeps going wrong, a possibility you want to explore, or a question about the work here.</p></div>
+      <details class="visitor-disclosure"><summary>Useful details, if you have them</summary><ul><li>One example of what happens today.</li><li>What you hope could be different.</li><li>The people involved or any constraints you already know.</li><li>A link to the project that prompted your question.</li></ul></details>
     </section>
-
     <section class="visitor-split shell">
-      <h2>Choose a question to examine first</h2>
-      <div>
-        <p>For example: how long can a reading support a decision? Can two plans use the same water allocation? Does a release check cover the version being deployed?</p>
-        <p>A first discussion can identify which part to investigate, what evidence is available and who needs to be involved. Scope, responsibilities and success criteria belong in the brief before a commitment.</p>
-        <div class="visitor-actions">
-          <a class="text-link" href="/approach/">How we approach a project</a>
-          <a class="text-link" href="/people/hadi/">About Hadi</a>
-        </div>
-      </div>
+      <h2>Find a useful next step.</h2>
+      <div><p>A conversation can help us decide whether there is something useful to investigate together. The right next step might be a smaller question, an experiment or a different approach.</p><div class="visitor-actions"><a class="text-link" href="/approach/">How we approach a project</a><a class="text-link" href="/people/hadi/">About Hadi</a></div></div>
     </section>
   </main>
 </SiteLayout>

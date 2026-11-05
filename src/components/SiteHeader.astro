@@ -2,14 +2,14 @@
 interface Props { variant?: 'home' | 'lab' | 'minimal'; }
 const { variant = 'home' } = Astro.props;
 const path = Astro.url.pathname;
-const withinLab = ['/lab/', '/people/', '/explorations/'].some(prefix => path.startsWith(prefix));
+const withinLab = ['/lab/', '/explorations/'].some(prefix => path.startsWith(prefix)) || (path.startsWith('/people/') && path !== '/people/hadi/');
 ---
 <header class="site-header shell">
   <a class="wordmark" href="/" aria-label="Fidret home">Fidret<span class="brand-period" aria-hidden="true">.</span></a>
   {variant !== 'minimal' && <nav class="main-navigation" aria-label="Main navigation">
     <a href="/work/" aria-current={path === '/work/' ? 'page' : path.startsWith('/work/') ? 'location' : undefined}>Work</a>
     <a href="/approach/" aria-current={path.startsWith('/approach') ? 'page' : undefined}>Approach</a>
-    <a href="/project/" aria-current={path === '/project/' ? 'page' : path === '/charter/' ? 'location' : undefined}>About</a>
+    <a href="/project/" aria-current={path === '/project/' ? 'page' : ['/charter/', '/people/hadi/'].includes(path) ? 'location' : undefined}>About</a>
     <a href="/lab/" aria-current={path === '/lab/' ? 'page' : withinLab ? 'location' : undefined}>Lab</a>
     <a href="/contact/" aria-current={path === '/contact/' ? 'page' : undefined}>Contact</a>
   </nav>}

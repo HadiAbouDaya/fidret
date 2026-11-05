@@ -1,7 +1,30 @@
 ---
+import { walkthroughSchedule, walkthroughTimeout } from '../lib/signal-walkthrough';
+import { workspacesFor } from '../lib/lab-workspaces';
 interface Props { kind: string; }
 const { kind } = Astro.props;
+const fresh = walkthroughSchedule.find(point => point.key === 'fresh')!;
+const expired = walkthroughSchedule.find(point => point.key === 'expired')!;
+const version = kind === 'ai-software-factory' ? workspacesFor('factory').find(scene => scene.key === 'evidence')!.states['000']! : null;
 ---
-<div class:list={['work-artifact', `artifact-${kind}`]} aria-hidden="true">
-  {kind === 'signal-freshness' ? <><div class="artifact-track"><span>Observation</span><i></i><i></i><i class="delayed"></i><i></i></div><div class="artifact-track"><span>Arrival</span><i></i><i></i><i></i><i class="delayed"></i></div><p>Arrival does not establish freshness.</p></> : kind === 'publishing-system' ? <><div class="artifact-stages"><span>Authored work</span><span>Checks</span><span>Public pages</span></div><p>One source. Checked publication.</p></> : kind === 'autonomous-farm' ? <><div class="artifact-stages"><span>Cloud proposal</span><span>Local check</span><span>Bounded action</span></div><p>Evidence, resources and authority must agree.</p></> : kind === 'ai-software-factory' ? <><div class="artifact-pair"><span>Proposed artifact<strong>13</strong></span><span>Evidence covers<strong>12</strong></span></div><p>A passing check must cover the candidate.</p></> : <><div class="artifact-contracts"><span>Purpose</span><span>Context</span><span>Authority</span><span>Evidence</span><span>Recovery</span></div><p>Define the boundary before widening access.</p></>}
-</div>
+<figure class:list={['work-artifact', `artifact-${kind}`]}>
+  {kind === 'signal-freshness' ? <>
+    <div class="artifact-pair">
+      <div><span>At {fresh.now} second</span><strong>{fresh.expected.currentValue}</strong><span>Current reading</span></div>
+      <div><span>At {expired.now} seconds</span><strong class="artifact-word">{expired.expected.currentValue === null ? 'Too old' : expired.expected.currentValue}</strong><span>No current value</span></div>
+    </div>
+    <figcaption>No updates arrive. After {walkthroughTimeout} seconds, the rule withholds the reading. Invented values and timing.</figcaption>
+  </> : kind === 'publishing-system' ? <>
+    <ol class="artifact-stages"><li>Write once</li><li>Check the build</li><li>Publish together</li></ol>
+    <figcaption>An article, its related pages and listings share one publication state.</figcaption>
+  </> : kind === 'autonomous-farm' ? <>
+    <div class="artifact-reservation"><p>The field is dry.</p><p>Is water reserved for this job?</p><p class="artifact-consequence">Without a reservation, the model holds the action.</p></div>
+    <figcaption>A fictional decision example, not a water-allocation simulator.</figcaption>
+  </> : version ? <>
+    <div class="artifact-pair"><div><span>Proposed version</span><strong>{version.values.candidate}</strong></div><div><span>Tests cover version</span><strong>{version.values.proof}</strong></div></div>
+    <figcaption>The tests passed, but they cover a different version. A teaching example.</figcaption>
+  </> : <>
+    <div class="artifact-permissions"><p>Read the ticket</p><p>Save a draft for review</p><p class="artifact-consequence">Sending the reply is outside this example’s permission.</p></div>
+    <figcaption>Separate what an agent can prepare from what it may do.</figcaption>
+  </>}
+</figure>

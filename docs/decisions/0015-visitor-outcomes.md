@@ -27,3 +27,7 @@ The site can present existing achievements affirmatively while keeping their lim
 ## Review
 
 Established within the explicit implementation scope on 5 November 2026. This is an authorized implementation convention, not a claim of Elie's review or Hadi's acceptance of every finished design choice. Release evidence and remaining outcome measurements belong to the task.
+
+## 6 November 2026: human-centered discovery
+
+Hadi approved the [human-centered proposal](../design/2026-11-06-human-centered-proposal.md) and authorized its implementation, then expanded the task to an eight-hour mission-aligned improvement session. The [implementation task](../tasks/2026-11-06-human-centered-experience.md) owns actual outcomes. Extend the existing convention with explicit company identity, familiar questions before terminology, visible artifact scope, useful mobile previews, optional depth and low-pressure conversation. Preserve the charter, static architecture and decision 0013 runtime boundary. No approval of fictional commercial claims or invented human research is implied.

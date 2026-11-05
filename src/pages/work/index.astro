@@ -5,33 +5,24 @@ import ProjectInvitation from '../../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../../lib/lab';
 import { visibleWork } from '../../lib/work';
 import '../../styles/visitor.css';
-
 const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug));
 ---
-<SiteLayout title="Our work | Experiments, systems and engineering | Fidret" description="Inspect what Fidret has made: synthetic software experiments, architecture teaching models, a planning brief and the implemented publishing system behind this site." canonical="https://fidret.com/work/">
+<SiteLayout title="Our work | Questions, experiments and working software | Fidret" description="Explore the questions behind Fidret’s sensor experiment, fictional farm, AI-assisted software design, agent planning brief and working publishing system." canonical="https://fidret.com/work/">
   <main id="main" tabindex="-1">
     <header class="visitor-hero shell">
-      <h1>Our work</h1>
-      <p class="visitor-lead">Explore how decisions hold up when observations, resources or authority change.</p>
+      <h1>Questions worth exploring.</h1>
+      <p class="visitor-lead">What happens when information is old, resources are shared, or software changes after its tests pass?</p>
+      <p>These are Fidret’s own projects and explorations. Each shows what we made, why it matters and what it does not yet establish.</p>
     </header>
-
-    <section class="work-collection shell" aria-labelledby="selected-title">
-      <div class="visitor-section-heading">
-        <h2 id="selected-title">Selected contributions</h2>
-        <p>These are Fidret’s own projects and explorations.</p>
-      </div>
-      <SelectedWork works={works} />
-    </section>
-
+    <section class="work-collection shell" aria-label="Our work"><SelectedWork works={works} headingLevel={2} /></section>
     <section class="visitor-split shell" aria-labelledby="connected-title">
-      <h2 id="connected-title">How the work connects</h2>
+      <h2 id="connected-title">Different questions. A shared concern.</h2>
       <div>
-        <p>Physical AI is our first practice: systems that use observations of the physical world to support decisions and actions.</p>
-        <p>The related work on agents and software delivery examines foundations those systems also need: usable evidence, bounded authority, reliable implementation and recovery.</p>
-        <a class="text-link" href="/lab/">Browse the full Lab</a>
+        <p>Physical AI is our first practice: helping systems use information from the world around them to support decisions and actions.</p>
+        <p>The related work on agents and software asks how to check information, set clear limits and recover when something goes wrong. Dependability needs all of those pieces.</p>
+        <a class="text-link" href="/lab/">Go deeper in the Lab</a>
       </div>
     </section>
-
     <ProjectInvitation />
   </main>
 </SiteLayout>

@@ -52,8 +52,8 @@ def render(slug, title, kind, labels, caption):
 
 
 if __name__ == '__main__':
-    render('signal-freshness', ['When a reading stops', 'being current'], 'Software experiment', [], 'Arrival does not establish freshness. Synthetic software evidence.')
-    render('autonomous-farm', ['From a cloud proposal', 'to a physical action'], 'Architecture and interactive model', ['Cloud|proposal', 'Local|checks', 'Bounded|action'], 'Evidence, resources and authority must agree. A teaching model.')
-    render('publishing-system', ['The publishing system', 'behind this site'], 'Implemented website and workflow', ['Authored|work', 'Publication|checks', 'Public|pages'], 'A working implementation, built for Fidret’s own publication.')
-    render('ai-software-factory', ['Evidence before', 'a software release'], 'Architecture and interactive model', ['Proposed|artifact 13', 'Evidence|covers 12', 'Hold this|candidate'], 'The evidence must cover the candidate. A teaching model.')
-    render('agentic-company-harness', ['Define one', 'agent workflow'], 'Research and practical brief', ['Purpose|and context', 'Authority|and evidence', 'Recovery|and ownership'], 'A planning structure, not a deployed enterprise control system.')
+    render('signal-freshness', ['What happens when a machine', 'trusts old information?'], 'Software experiment', [], 'Arrival does not establish freshness. Synthetic software evidence.')
+    render('autonomous-farm', ['What if two farm jobs', 'need the same water?'], 'Architecture and interactive model', ['Watering|proposed', 'Reservation|checked', 'Local checks|still needed'], 'A dry field does not mean water is reserved. A fictional teaching model.')
+    render('publishing-system', ['How do you keep a growing', 'website consistent?'], 'Implemented website and workflow', ['Authored|work', 'Publication|checks', 'Public|pages'], 'A working implementation, built for Fidret’s own publication.')
+    render('ai-software-factory', ['The tests passed.', 'Is this version ready?'], 'Architecture and interactive model', ['Proposed|version 13', 'Tests cover|version 12', 'Hold this|version'], 'The tests must cover this version. A teaching model.')
+    render('agentic-company-harness', ['Which parts of a task', 'should an AI agent handle?'], 'Research and practical brief', ['Read the|ticket', 'Draft for|review', 'Do not send|the reply'], 'A planning structure, not a deployed enterprise control system.')

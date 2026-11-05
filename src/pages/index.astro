@@ -4,54 +4,64 @@ import ObservationField from '../components/ObservationField.astro';
 import SelectedWork from '../components/SelectedWork.astro';
 import ProjectInvitation from '../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../lib/lab';
-import { visibleWork } from '../lib/work';
+import { visibleWork, workPath } from '../lib/work';
 import { hadiProfile } from '../lib/people';
 import '../styles/visitor.css';
-
-const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug)).filter(work => work.featured);
+const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug));
+const selected = works.filter(work => ['signal-freshness', 'autonomous-farm'].includes(work.slug));
+const conversations = [
+  { slug: 'signal-freshness', question: 'Information arrives late or is hard to trust.', label: 'Start with the sensor experiment' },
+  { slug: 'agentic-company-harness', question: 'You have a task you would like an AI agent to help with.', label: 'Explore the workflow brief' },
+  { slug: 'ai-software-factory', question: 'AI helps build your software. You need to know what was checked.', label: 'Explore the release example' },
+].flatMap(topic => { const work = works.find(work => work.slug === topic.slug); return work ? [{...topic, href: workPath(work)}] : []; });
 ---
-<SiteLayout title="Fidret | Physical AI, experiments and engineering" description="Explore Fidret’s software experiments, system designs and working interfaces. Physical AI is our first practice. Inspect the contribution and evidence behind the work." canonical="https://fidret.com/">
+<SiteLayout title="Fidret | Engineering, Physical AI and useful experiments" description="Fidret is an emerging engineering company. Explore software experiments, Physical AI designs and the questions behind dependable systems. Bring an idea or a problem." canonical="https://fidret.com/">
   <main tabindex="-1" id="main">
     <section class="visitor-home-hero shell" aria-labelledby="hero-title">
       <div>
-        <h1 id="hero-title">Physical AI, from observation to action.</h1>
-        <p class="visitor-lead">We build software experiments and explore system designs for AI that works with the physical world.</p>
-        <div class="visitor-actions">
-          <a class="button" href="/work/">Explore our work</a>
-          <a class="text-link" href="/contact/">Discuss a project</a>
-        </div>
+        <h1 id="hero-title">Exploring how to make AI dependable.</h1>
+        <p class="visitor-lead">Fidret is an emerging engineering company. We build software experiments and explore how AI systems can work with machines, information and people.</p>
+        <div class="visitor-actions"><a class="button" href="/work/">Explore our work</a><a class="text-link" href="/contact/">Talk about an idea</a></div>
       </div>
       <ObservationField />
     </section>
 
     <section class="home-selected work-collection shell" aria-labelledby="work-title">
-      <div class="visitor-section-heading"><h2 id="work-title">Selected work</h2></div>
-      <SelectedWork works={works} />
-      <a class="text-link" href="/work/">Explore all the work</a>
+      <div class="visitor-section-heading"><h2 id="work-title">What happens when conditions change?</h2><p>A reading goes quiet. Two jobs need the same water. The interesting question is what a system should do next.</p></div>
+      <SelectedWork works={selected} />
+      <a class="text-link" href="/work/">Explore all the questions</a>
     </section>
 
     <section id="physical-ai" class="work-evidence inverse">
       <div class="visitor-split shell">
-        <h2>Decisions depend on the whole system.</h2>
+        <h2>AI has to deal with a changing world.</h2>
         <div>
-          <p>Is the observation still current? Are the resources available? What happens when a command’s outcome is unknown?</p>
-          <p>Our Physical AI practice starts with those concrete questions. Related work on agents and software delivery examines the evidence, authority and recovery those systems also need.</p>
-          <a class="text-link" href="/approach/">How we approach a project</a>
+          <p>A sensor can report that a field is dry. Before a watering system acts, it also needs to know whether that reading is recent and whether the water is available.</p>
+          <p>Systems that use information from the physical world to help people make decisions or operate equipment are part of what we call <strong>Physical AI</strong>. This is our first practice, explored through software experiments and system designs.</p>
+          <a class="text-link" href="/approach/">How we work through a question</a>
         </div>
       </div>
     </section>
 
-    <section class="visitor-split shell" aria-labelledby="people-title">
+    <section class="visitor-split shell" aria-labelledby="collaboration-title">
+      <div><h2 id="collaboration-title">Bring us a problem worth understanding.</h2><p>An awkward process. An idea you want to test. A system whose decisions are hard to trust.</p></div>
+      <div>
+        <p>We’re interested in where AI could help, what needs checking and what a useful first experiment might look like.</p>
+        <ul class="conversation-examples">{conversations.map(topic => <li><p>{topic.question}</p><a class="text-link" href={topic.href}>{topic.label}</a></li>)}</ul>
+        <p>A possible collaboration starts with your situation and an honest look at what we can contribute. These are conversation topics, not fixed service packages.</p>
+        <a class="text-link" href="/contact/">Tell us what you have in mind</a>
+      </div>
+    </section>
+
+    <section class="visitor-split home-people shell" aria-labelledby="people-title">
       <h2 id="people-title">The person behind the work</h2>
       <div>
         <h3><a href="/people/hadi/">Hadi Abou Daya</a></h3>
         <p>{hadiProfile.role}. {hadiProfile.background}</p>
-        <p>At Fidret, he authors the published Lab work on Physical AI, agent workflows and AI-assisted software delivery.</p>
-        <p>Each contribution keeps its question, reasoning, sources and limits available for inspection.</p>
-        <a class="text-link" href="/project/">About Fidret</a>
+        <p>At Fidret, Hadi authors the published Lab work. You can inspect the experiments, their limits and <a href="/work/publishing-system/">the working publishing system behind this site</a> before starting a conversation.</p>
+        <a class="text-link" href="/project/">About Fidret and its purpose</a>
       </div>
     </section>
-
     <ProjectInvitation />
   </main>
 </SiteLayout>

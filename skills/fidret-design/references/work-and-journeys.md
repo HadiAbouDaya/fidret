@@ -38,3 +38,9 @@ Check where relevant work appears and what precedes it, especially on a phone. P
 Review language for coherent themes, actual contributions and appropriate certainty. Test the entire journey with keyboard, enlarged text and fallback as well as pointer use. Keep summaries and share previews synchronized with what the experience actually does.
 
 An agent critique supports a design hypothesis. Real-reader observations test understanding. Record the difference and use the [validation plan](../../../docs/design/visitor-validation.md) before claiming effectiveness.
+
+## Discovery before terminology
+
+For a first-time reader, name a familiar situation before its engineering category. Introduce “old information” before “freshness”, “permission” before “authority”, and “this version” before “candidate artifact”. Keep the precise term and reasoning in the deeper explanation. Question-led titles must remain descriptive, not become teasers that conceal the subject.
+
+Keep one compact, meaningful project visual available on phones. Use actual source data for values and model outcomes. Scope is visible before interaction; disclosure is for optional depth, not the fact that the system is fictional. Contact needs only an early idea or one example, with other context explicitly optional.
