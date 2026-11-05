@@ -59,6 +59,12 @@ test('fenced and inline code containing HTML remains escaped inert text', async 
   assert.match(result.code, /(?:&lt;|&#x3C;)script>/);
   assert.match(result.code, /(?:&lt;|&#x3C;)img onerror=/);
   assert.doesNotMatch(result.code, /<script|<img|style=/);
+  assert.match(result.code, /<pre tabindex="0" role="region" aria-label="Code example">/);
+});
+
+test('Markdown code scroll regions have names from their actual section', async () => {
+  const result = await renderLabMarkdown('## Reproduce the model\n\n```sh\npython3 -m fixture\n```', { status: 'draft' });
+  assert.match(result.code, /<pre tabindex="0" role="region" aria-label="Code example: Reproduce the model">/);
 });
 
 test('direct, autolink and reference destinations use the same safe URL policy', async (t) => {

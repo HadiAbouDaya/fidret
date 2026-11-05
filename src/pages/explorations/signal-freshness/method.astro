@@ -199,7 +199,7 @@ const displayState = (state: string) => state.charAt(0).toUpperCase() + state.sl
         <section class="method-section method-reproduction" aria-labelledby="reproduction-title">
           <h2 id="reproduction-title">Reproduce the experiment</h2>
           <p>The underlying Python 3.12 experiment uses only the standard library. Its fixed replay produces the values shown here. The website stores a checked snapshot, and a parity test compares every row with a fresh run of the Python model.</p>
-          <div class="method-code"><p>From a checkout of the Fidret project:</p><pre><code>python3 -m experiments.sensor_freshness</code></pre></div>
+          <div class="method-code"><p>From a checkout of the Fidret project:</p><pre tabindex="0" role="region" aria-label="Reproduce the signal freshness experiment"><code>python3 -m experiments.sensor_freshness</code></pre></div>
           <p>The experiment’s focused tests cover the exact deadline, source-based expiry, invalid and future inputs, atomic invalid-time rejection, retained ordering and immutable snapshots. They also examine every five-step schedule from six bounded input categories: <code>6⁵ = 7,776</code> schedules. This enumeration is not a proof over all inputs.</p>
           <p class="method-authorship">This is an explanatory record of an agent-prepared software prototype. It does not establish either contributor’s authorship of a Lab article or joint review.</p>
           <div class="method-actions"><a class="button" href="/explorations/signal-freshness/">Return to the walkthrough</a><a class="text-link" href="/project/">About the project</a></div>

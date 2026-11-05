@@ -1,6 +1,4 @@
 /* Fidret Lab: the workbench is expressive; the reading surface stays quiet. */
-.lab-page { display: flex; flex-direction: column; min-height: 100svh; }
-.lab-main { flex: 1; }
 .lab-intro { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: end; gap: clamp(2rem, 7vw, 7rem); padding-block: clamp(2rem, 4vw, 4rem) clamp(2.5rem, 5vw, 4rem); }
 .lab-intro h1 { max-width: 16ch; margin: 0; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.02; letter-spacing: -.065em; font-weight: 500; }
 .lab-intro-copy { padding-bottom: .3rem; }
@@ -92,14 +90,6 @@
 .lab-code figcaption { margin-bottom: .75rem; color: var(--fd-muted); font-size: .8125rem; }
 .lab-piece-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--fd-rule); }
 
-/* The missing-page state is a typographic composition, with clear exits. */
-.nf-main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); padding-block: clamp(3rem, 8vw, 8rem); }
-.nf-coordinate { color: var(--fd-sage); font-size: clamp(8rem, 26vw, 25rem); font-weight: 500; line-height: 1; letter-spacing: -.095em; }
-.nf-copy h1 { max-width: 12ch; margin-bottom: 1.5rem; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1.1; letter-spacing: -.055em; }
-.nf-copy p { max-width: 36ch; margin-bottom: 2rem; color: var(--fd-muted); }
-.nf-links { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
-.nf-links > a { display: inline-flex; align-items: center; min-height: 44px; }
-
 @media (max-width: 900px) {
   .lab-intro { gap: 2rem; }
   .lab-workbench-surface { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
@@ -144,8 +134,6 @@
   .lab-prose pre, .lab-section pre, .lab-code pre { padding: 1rem; }
   .lab-section { padding-top: 2.5rem; }
   .lab-piece-footer { margin-top: 3rem; padding-top: 1.5rem; }
-  .nf-main { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding-block: 3rem 5rem; }
-  .nf-coordinate { font-size: min(36vw, 14rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {

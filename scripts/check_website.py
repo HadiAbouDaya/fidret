@@ -25,6 +25,8 @@ LAB_RUNTIME_ROUTES = {
     "lab/autonomous-farm/scenario-desk/index.html", "lab/autonomous-farm/blueprint/index.html",
     "lab/ai-software-factory/scenarios/index.html", "lab/ai-software-factory/engineering-notes/index.html",
 }
+WORKSPACE_ROUTES = {"lab/autonomous-farm/index.html", "lab/ai-software-factory/index.html"}
+WORKSPACE_FRAGMENT = re.compile(r"(scene-([a-z][a-z0-9-]*))~v1-([0-9]{2,3})")
 PROTECTED_HEADERS = {
     "content-security-policy": "Content-Security-Policy",
     "referrer-policy": "Referrer-Policy",
@@ -145,6 +147,65 @@ def check_security_headers(text: str) -> list[str]:
     return errors
 
 
+def check_download_headers(text: str, downloads: set[str]) -> list[str]:
+    """Require explicit MIME/revalidation rules without combining overrides.
+
+    Cloudflare combines matching rules. Count wildcard/absolute-host rules too,
+    so a second matching definition or removal cannot silently change delivery.
+    """
+    expected = {"content-type": "text/markdown; charset=utf-8",
+                "cache-control": "public, max-age=0, must-revalidate"}
+    definitions = {path: {name: [] for name in expected} for path in downloads}
+    scope = None
+    for line in text.split("\n"):
+        line = line.removesuffix("\r")
+        value = line.strip(" \t")
+        if not value or value.startswith("#"):
+            continue
+        if line[0] not in " \t":
+            scope = value
+            continue
+        name, _, content = value.partition(":")
+        name = name.lower()
+        if value.startswith("!"):
+            name, content = value[1:].strip(" \t").lower(), "removed"
+        if name not in expected or scope is None:
+            continue
+        # A host-qualified rule can also affect a request for this path.
+        pattern = urlsplit(scope).path if scope.startswith("https://") else scope
+        pattern = re.escape(pattern).replace(r"\*", ".*")
+        pattern = re.sub(r":[a-zA-Z][a-zA-Z0-9_]*", "[^/]+", pattern)
+        for path in downloads:
+            if re.fullmatch(pattern, "/" + path):
+                definitions[path][name].append((scope, content.strip(" \t").lower()))
+    errors = []
+    for path, headers in definitions.items():
+        for name, values in headers.items():
+            if values != [("/" + path, expected[name])]:
+                errors.append(f"_headers: /{path} needs exactly one literal {name}: {expected[name]}")
+    return errors
+
+
+def valid_workspace_fragment(fragment: str, target: Path, site: Path, doc: Document) -> bool:
+    """Accept only a real scene's declared v1 model state on workspace routes."""
+    match = WORKSPACE_FRAGMENT.fullmatch(fragment)
+    if not match or target.relative_to(site).as_posix() not in WORKSPACE_ROUTES:
+        return False
+    scenes = [attrs for tag, attrs in doc.tags if tag == "article"
+              and "data-scene" in attrs and attrs.get("id") == match[1]
+              and attrs.get("data-key") == match[2]]
+    if len(scenes) != 1:
+        return False
+    try:
+        table = json.loads(scenes[0].get("data-model") or "")
+    except (ValueError, TypeError):
+        return False
+    return (isinstance(table, dict) and scenes[0].get("data-initial") in table
+            and match[3] in table
+            and all(re.fullmatch(r"[0-9]{2,3}", key) and isinstance(state, dict)
+                    for key, state in table.items()))
+
+
 class Document(HTMLParser):
     def __init__(self, text: str):
         super().__init__()
@@ -207,7 +268,11 @@ def validate(root: Path) -> list[str]:
         return errors + ["Public output directory must not be a symlink"]
     headers = site / "_headers"
     if headers.is_file() and not headers.is_symlink():
-        errors.extend(check_security_headers(headers.read_text(encoding="utf-8")))
+        header_text = headers.read_text(encoding="utf-8")
+        errors.extend(check_security_headers(header_text))
+        errors.extend(check_download_headers(header_text, {
+            path for path in PUBLIC_MARKDOWN_DOWNLOADS if (site / path).is_file()
+        }))
     files = sorted(site.rglob("*"))
     documents = {}
     for path in files:
@@ -311,7 +376,8 @@ def validate(root: Path) -> list[str]:
                     target = target / "index.html"
                 if not target.is_relative_to(site.resolve()) or not target.is_file():
                     errors.append(f"{path.name}: invalid public link: {value}")
-                elif url.fragment and target in documents and unquote(url.fragment) not in documents[target].ids:
+                elif (url.fragment and target in documents and unquote(url.fragment) not in documents[target].ids
+                      and not valid_workspace_fragment(url.fragment, target, site, documents[target])):
                     errors.append(f"{path.name}: missing link anchor: {value}")
     homepage = documents.get(site / "index.html")
     if homepage and not any(tag == "link" and attrs.get("rel") == "canonical"

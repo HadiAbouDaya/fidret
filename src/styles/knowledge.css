@@ -1,5 +1,4 @@
 /* Public company context and contributor reading surfaces. */
-a.byline-name { display: inline-flex; min-height: 44px; align-items: center; }
 .knowledge-hero { padding-block: clamp(2rem, 4vw, 4rem) clamp(3rem, 6vw, 5rem); }
 .knowledge-hero > h1 { max-width: 20ch; margin-bottom: 3rem; font-size: clamp(2.75rem, 5vw, 5rem); }
 .knowledge-hero-copy { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(2rem, 8vw, 8rem); align-items: start; }

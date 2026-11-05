@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
-import remarkLabPolicy from './src/plugins/lab-policy.mjs';
+import remarkLabPolicy, { rehypeCodeRegions } from './src/plugins/lab-policy.mjs';
 import compatibilityStyles from './src/integrations/compatibility-styles.mjs';
 
 export default defineConfig({
@@ -17,6 +17,7 @@ export default defineConfig({
     processor: unified({
       smartypants: false,
       remarkPlugins: [remarkLabPolicy],
+      rehypePlugins: [rehypeCodeRegions],
     }),
   },
 });

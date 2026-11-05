@@ -3,9 +3,12 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import Byline from '../../components/Byline.astro';
 import PublicationDate from '../../components/PublicationDate.astro';
 import { getPublishedPieces } from '../../lib/lab';
-import { authorRegistry, kindLabels } from '../../lib/lab-schema';
+import { kindLabels } from '../../lib/lab-schema';
+
+import '../../styles/lab.css';
 
 const pieces = await getPublishedPieces();
+const contributors = [...new Set(pieces.flatMap(piece => piece.data.authors))];
 ---
 
 <SiteLayout
@@ -94,16 +97,16 @@ const pieces = await getPublishedPieces();
       </div>
     </section>
 
-    <aside class="lab-contributors shell" aria-labelledby="lab-contributors-title">
+    {contributors.length > 0 && <aside class="lab-contributors shell" aria-labelledby="lab-contributors-title">
       <div>
         <h2 id="lab-contributors-title">Contributors</h2>
         <p>A shared space. Each piece credits its actual contributors.</p>
       </div>
       <div class="lab-contributor-links">
         <ul>
-          {Object.keys(authorRegistry).map(id => <li><Byline authors={[id]} /></li>)}
+          {contributors.map(id => <li><Byline authors={[id]} /></li>)}
         </ul>
       </div>
-    </aside>
+    </aside>}
   </main>
 </SiteLayout>

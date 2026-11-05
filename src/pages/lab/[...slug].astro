@@ -11,6 +11,12 @@ import {workForSource} from '../../lib/work';
 import '../../styles/visitor.css';
 import {journeyForSlug} from '../../lib/lab-journeys';
 import '../../styles/article.css';
+import '../../styles/lab.css';
+// Normal CSS imports on this shared route include every component's styles on
+// every article. URL imports retain Vite's CSS processing and fingerprints,
+// while no-inline keeps even a small stylesheet external under the strict CSP.
+import workspaceStyles from '../../styles/workspace.css?url&no-inline';
+import boundaryStyles from '../../styles/agentic-boundary.css?url&no-inline';
 import { getPublishedPieces } from '../../lib/lab';
 import { kindLabels } from '../../lib/lab-schema';
 import { HARNESS_SLUG, GUIDE_PATH } from '../../lib/workflow-brief';
@@ -19,13 +25,14 @@ export const getStaticPaths = (async () => {
   const pieces = await getPublishedPieces();
   return pieces.map((piece) => ({
     params: { slug: piece.data.slug },
-    props: { piece },
+    props: { piece, publishedSlugs: pieces.map(entry => entry.data.slug) },
   }));
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-const { piece } = Astro.props;
+const { piece, publishedSlugs } = Astro.props;
 const journey=journeyForSlug(piece.data.slug);
+const sibling = journey ? publishedSlugs.map(journeyForSlug).find(candidate => candidate && candidate.kind !== journey.kind) : undefined;
 const work=workForSource(piece.data.slug);
 const { Content, headings } = await render(piece);
 const readingGuide = headings.filter((heading) => heading.depth === 2);
@@ -52,8 +59,11 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
   article={{headline:journey?.title ?? piece.data.title,authors:piece.data.authors,published:piece.data.published!,updated:piece.data.updated}}
   variant="lab"
 >
+  <Fragment slot="head">
+    {journey ? <link rel="stylesheet" href={workspaceStyles} /> : hasBoundaryExperience && <link rel="stylesheet" href={boundaryStyles} />}
+  </Fragment>
   <main tabindex="-1" id="main" class="lab-main">
-    {journey ? <LabExperience journey={journey} authors={piece.data.authors} published={piece.data.published!} updated={piece.data.updated} legacyHeadings={headings}/> : <article class="lab-piece shell">
+    {journey ? <LabExperience journey={journey} authors={piece.data.authors} published={piece.data.published!} updated={piece.data.updated} legacyHeadings={headings} sibling={sibling}/> : <article class="lab-piece shell">
       <a class="lab-back" href="/lab/">Fidret Lab</a>
       <header class="lab-piece-heading">
         <p class="lab-kind">{kindLabels[piece.data.kind]}</p>
@@ -94,7 +104,7 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
           {(piece.data.snippets ?? []).map((snippet) => (
             <figure class="lab-code">
               <figcaption>{snippet.title} ({snippet.language})</figcaption>
-              <pre><code>{snippet.code}</code></pre>
+              <pre tabindex="0" role="region" aria-label={snippet.title}><code>{snippet.code}</code></pre>
             </figure>
           ))}
           {resources.length > 0 && <section class="lab-section" id={resourcesId} aria-labelledby={resourcesTitleId}>

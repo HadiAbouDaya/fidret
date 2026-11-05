@@ -49,6 +49,11 @@
 html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
 body { margin: 0; background: var(--fd-bg); color: var(--fd-text); font: 400 1.0625rem/1.7 var(--fd-font-ui); -webkit-font-smoothing: antialiased; }
 ::selection { color: var(--fd-ivory); background: var(--fd-forest); }
+.lab-page { display: flex; flex-direction: column; min-height: 100svh; }
+.lab-main { flex: 1; }
+a.byline-name { display: inline-flex; min-height: 44px; align-items: center; }
+pre[tabindex="0"]:focus-visible { outline: 2px solid var(--fd-copper); outline-offset: 5px; }
+
 a { color: var(--fd-link); text-underline-offset: .28em; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--fd-focus); outline-offset: 5px; }
@@ -122,4 +127,9 @@ button, input, select, textarea { font: inherit; }
   .shell { max-width: none; padding-inline: 0; }
   .inverse { --fd-text: black; --fd-heading: black; --fd-muted: #333; --fd-link: black; background: white; color: black; }
   h1 { font-size: 40pt; }
+  details::details-content { display: block; content-visibility: visible; }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > :not(summary) { display: block; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 }

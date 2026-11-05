@@ -1,22 +1,56 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import WorkArtifact from '../../components/WorkArtifact.astro';
+import WorkEvidence from '../../components/WorkEvidence.astro';
 import ProjectInvitation from '../../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../../lib/lab';
 import { visibleWork } from '../../lib/work';
 import '../../styles/visitor.css';
+
 export async function getStaticPaths() {
-  return visibleWork((await getPublishedPieces()).map(piece => piece.data.slug)).map(work => ({params:{slug:work.slug},props:{work}}));
+  const publishedWorks = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug));
+  return publishedWorks.map(work => ({ params: { slug: work.slug }, props: { work, publishedWorks } }));
 }
-const { work } = Astro.props;
+
+const { work, publishedWorks } = Astro.props;
 ---
 <SiteLayout title={`${work.title} | Fidret work`} description={work.contribution} canonical={`https://fidret.com/work/${work.slug}/`}>
   <main id="main" tabindex="-1">
-    <header class="visitor-hero work-detail-hero shell"><a class="text-link" href="/work/">All work</a><p class="work-kind">{work.kind}</p><h1>{work.title}</h1><p class="visitor-lead">{work.question}</p><div class="visitor-actions"><a class="button" href={work.artifact}>{work.artifactLabel}</a><a class="text-link" href="/contact/">Discuss a related project</a></div></header>
-    <section class="work-overview shell" aria-labelledby="contribution-title"><div><h2 id="contribution-title">What we made</h2><p class="visitor-lead">{work.contribution}</p><h3>What it establishes</h3><p>{work.finding}</p></div><WorkArtifact kind={work.preview}/></section>
-    <section class="work-evidence inverse"><div class="shell visitor-split"><h2>Where this may be useful</h2><div><p>{work.relevance}</p><h3>Scope of the evidence</h3><p>{work.limit}</p><h3>What further validation needs</h3><p>{work.nextEvidence}</p><a class="text-link" href={work.method}>{work.methodLabel}</a></div></div></section>
-    {work.slug === 'publishing-system' && <section class="publishing-proof shell" id="verification" aria-labelledby="verification-title"><div class="visitor-section-heading"><h2 id="verification-title">A working publication workflow</h2><p>This website is the running result. Its release checks exercise the path from source content to public output.</p></div><div class="proof-note"><h3>Checked on 5 November 2026</h3><p>The local release check passed 63 Node tests and 100 Python tests, with no Astro type-check diagnostics. These are software-contract results, not reader or business outcomes.</p><p>One checked example publishes a Lab parent and its companions, then changes the parent to a draft. Its article, work overview and dependent discovery entries disappear on the next build.</p></div><ol class="collaboration-steps"><li><h3>Author once</h3><p>Structured Markdown holds the title, actual byline, dates, question, method, takeaways and limits. Shared templates generate the reading and reference pages.</p></li><li><h3>Check the boundary</h3><p>Build tests create isolated publications, reject incomplete or unsafe content, and withdraw published parents to check that their pages and companions disappear.</p></li><li><h3>Publish the checked output</h3><p>The static build generates public HTML and local assets. The release workflow checks types, behavior, links, metadata and discovery before publication.</p></li><li><h3>Keep the work transferable</h3><p>Documented decisions, task ownership and verification records accompany the implementation. Public explanations keep the question and evidence available to the reader.</p></li></ol><div class="proof-note"><h3>What this proves, and what it does not</h3><p>The implementation runs this site, and its tests check specific publication and interaction contracts. Those checks do not prove that every article is correct, that visitors understand it, or that a commercial project will succeed.</p><p>Reader feedback, field performance and inquiry outcomes remain separate evaluation work.</p></div><a class="text-link" href="/approach/">How we keep work inspectable</a></section>}
-    <section class="visitor-split shell"><h2>Inspect the work</h2><div><p>Follow the artifact or its method, then bring a related question if you want to explore what a bounded project could establish.</p><div class="visitor-actions"><a class="button" href={work.artifact}>{work.artifactLabel}</a><a class="text-link" href="/work/">Compare the other work</a></div></div></section>
-    <ProjectInvitation title="Have a related question?" />
+    <header class="visitor-hero work-detail-hero shell">
+      <a class="text-link" href="/work/">All work</a>
+      <p class="work-kind">{work.kind}</p>
+      <h1>{work.title}</h1>
+      <p class="visitor-lead">{work.question}</p>
+      <div class="visitor-actions">
+        <a class="button" href={work.artifact}>{work.artifactLabel}</a>
+      </div>
+    </header>
+
+    <section class="work-overview shell" aria-labelledby="contribution-title">
+      <div>
+        <h2 id="contribution-title">What we made</h2>
+        <p class="visitor-lead">{work.contribution}</p>
+        <p>{work.relevance}</p>
+      </div>
+      <div>
+        <h3>What it shows</h3>
+        <p>{work.finding}</p>
+      </div>
+    </section>
+
+    <WorkEvidence work={work} publishedWorks={publishedWorks} />
+
+    <section class="work-evidence inverse">
+      <div class="shell visitor-split">
+        <h2>Scope and next steps</h2>
+        <div>
+          <p>{work.limit}</p>
+          <h3>What comes next</h3>
+          <p>{work.nextEvidence}</p>
+          <a class="text-link" href={work.method}>{work.methodLabel}</a>
+        </div>
+      </div>
+    </section>
+
+    <ProjectInvitation title="Have a related question?" description={work.invitation} />
   </main>
 </SiteLayout>

@@ -3,12 +3,12 @@ export type Work = {
   slug: string; title: string; kind: string; question: string; contribution: string;
   finding: string; relevance: string; limit: string; artifact: string; artifactLabel: string;
   method: string; methodLabel: string; sourceSlug?: string; featured?: boolean;
-  nextEvidence: string; preview: string;
+  nextEvidence: string; preview: string; invitation: string;
 };
 
 export const workCatalogue: readonly Work[] = [
   {
-    slug: 'signal-freshness', title: 'When a reading stops being current', kind: 'Software experiment',
+    slug: 'signal-freshness', title: 'When a reading stops being current', kind: 'Synthetic software experiment',
     question: 'Can a reading still be used when packets arrive late or stop arriving?',
     contribution: 'A small freshness guard, replay scenarios and an interactive explanation, compared with a simple last-arrival baseline.',
     finding: 'The checked software rule withholds expired values, preserves timestamp order and requires distinct fresh observations before recovery.',
@@ -17,10 +17,11 @@ export const workCatalogue: readonly Work[] = [
     artifact: '/explorations/signal-freshness/', artifactLabel: 'Inspect the walkthrough',
     method: '/explorations/signal-freshness/method/', methodLabel: 'Read the method and results',
     nextEvidence: 'Representative source clocks, delays and failure conditions, plus an agreed physical response when evidence is unavailable.',
+    invitation: 'Which decision relies on the reading? Describe the delays you see, how long the value can remain useful and what should happen when no current data is available.',
     featured: true, preview: 'signal-freshness',
   },
   {
-    slug: 'autonomous-farm', title: 'From a cloud proposal to a physical action', kind: 'Architecture and interactive model',
+    slug: 'autonomous-farm', title: 'From a cloud proposal to a physical action', kind: 'Architecture and teaching model',
     question: 'What must agree before an automated system can act on a farm?',
     contribution: 'A fictional mixed-farm architecture, an editable decision workspace and a library of operating situations.',
     finding: 'The model makes independent requirements visible: evidence, reserved resources, local checks and responsibilities that continue during an outage.',
@@ -30,9 +31,10 @@ export const workCatalogue: readonly Work[] = [
     method: '/lab/autonomous-farm/blueprint/', methodLabel: 'Inspect the architecture',
     sourceSlug: 'autonomous-farm', featured: true, preview: 'autonomous-farm',
     nextEvidence: 'A specific site and workflow, competent domain review, representative data and an independently validated local operating design.',
+    invitation: 'Describe one workflow, the people and equipment involved, and the water, power or other resources it shares. What must keep working when the plan or connection changes?',
   },
   {
-    slug: 'publishing-system', title: 'The publishing system behind this site', kind: 'Implemented website and workflow',
+    slug: 'publishing-system', title: 'The publishing system behind this site', kind: 'Implemented publishing system',
     question: 'How can technical work stay readable, attributable and consistent as a website grows?',
     contribution: 'A working static publishing system connecting authored content, validated metadata, interactive explanations and a checked release workflow.',
     finding: 'Published content generates its own pages and discovery. Build tests exercise rejection, withdrawal and the boundary between public output and internal records.',
@@ -41,10 +43,11 @@ export const workCatalogue: readonly Work[] = [
     artifact: '/lab/', artifactLabel: 'Explore the published result',
     method: '/work/publishing-system/#verification', methodLabel: 'Inspect the verification',
     nextEvidence: 'Reader feedback, real inquiry outcomes and field performance under the audience’s devices and networks.',
+    invitation: 'Who contributes and reviews the material? Bring an example of the pages, downloads or listings that need to change together when something is published, corrected or withdrawn.',
     featured: true, preview: 'publishing-system',
   },
   {
-    slug: 'ai-software-factory', title: 'Evidence before a software release', kind: 'Architecture and interactive model',
+    slug: 'ai-software-factory', title: 'Evidence before a software release', kind: 'Architecture and teaching model',
     question: 'What makes an AI-built change ready for the next release stage?',
     contribution: 'A proposed delivery architecture and an editable workspace connecting a candidate to evidence, permission and recovery conditions.',
     finding: 'Tests on one artifact do not establish another artifact’s readiness. Current authority and reconciliation of uncertain effects remain separate requirements.',
@@ -54,9 +57,10 @@ export const workCatalogue: readonly Work[] = [
     method: '/lab/ai-software-factory/engineering-notes/', methodLabel: 'Read the engineering notes',
     sourceSlug: 'ai-software-factory', preview: 'ai-software-factory',
     nextEvidence: 'One implemented workflow, exact artifact and outcome records, representative failure tests and accountable operational ownership.',
+    invitation: 'Bring one path from a proposed change to release. How do you establish what was checked, what was approved and what was actually deployed when the candidate changes?',
   },
   {
-    slug: 'agentic-company-harness', title: 'Define one agent workflow', kind: 'Research and practical brief',
+    slug: 'agentic-company-harness', title: 'Define one agent workflow', kind: 'Research and planning brief',
     question: 'What does a company need around an agent before it can rely on the work?',
     contribution: 'A researched technical note and an editable brief organized around purpose, context, authority, evidence and recovery.',
     finding: 'The brief turns a broad automation ambition into explicit questions about a bounded task, its owner, permissions, evidence and uncertain outcomes.',
@@ -66,6 +70,7 @@ export const workCatalogue: readonly Work[] = [
     method: '/lab/agentic-company-harness/', methodLabel: 'Read the technical note',
     sourceSlug: 'agentic-company-harness', preview: 'agentic-company-harness',
     nextEvidence: 'A completed workflow brief, enforceable boundaries and end-to-end evaluation in the intended environment.',
+    invitation: 'Name one task you would delegate, the information it needs and the actions it may take. Where should it stop, ask for review or hand the work back to a person?',
   },
 ];
 
