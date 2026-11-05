@@ -1,9 +1,9 @@
 # Visitor clarity follow-up
 
-- Status: active
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Astra planning/review; 6.1 Sol implementation
-- Branch: hadi/visitor-followup
+- Branch: hadi/visitor-followup-release (release record); implementation: hadi/visitor-followup
 - Updated: 2026-11-05
 - Verification status: passed
 
@@ -52,13 +52,16 @@ The current website is already published and locally/live verified. A follow-up 
 - Chromium and WebKit passed 16 Work-page layout/heading/link checks at 320, 390, 768 and 1440 px with normal and 200% text. All five project links remain present and there is no document overflow. Phone and full desktop compositions were inspected.
 - A matched Chromium comparison of the published and local Work page at 390 px, with fonts loaded and identical stylesheet URLs, moved the first contribution link from 778 to 639 px. The initial phone view now exposes its question as well as its title. This measures content position, not comprehension or conversion.
 - The shared preview first returned stale widths and then an evaluate timeout. Those results were discarded; isolated installed browsers supplied the exact-viewport checks. The original snapshot still establishes the observed repeated copy. No site policy was changed.
+- PR 50's exact head `3827de401293880261a8b3e1a674d7e8b5761847` passed `foundation`, `runtime-bootstrap` and `seo-geo`; reviews, comments and unresolved threads were empty before merge. The host's required checks and administrator enforcement were reverified. PR 50 merged at `dfd03fe4b01f63f82909b2ca465ff6b245b6bffc`.
+- Cloudflare deployment `b85a3de0-6973-4b7c-ad9c-c47898ee04ec` reported success on 2026-11-05 at 20:24:55 UTC. Both [production Work](https://fidret.com/work/) and the [exact deployment](https://b85a3de0.fidret.pages.dev/work/) returned HTTP 200 and a rendered body identical to the tested local build. The production canonical URL, description, five contribution destinations and two stylesheet URLs match; fonts loaded, the redundant copy is absent and no document overflow occurs at 390 px. The live phone composition was inspected and shows the first contribution title and question in the initial view.
+- The release record changes only this task document. The full gate above covers the unchanged website sources; foundation validation and the diff check cover the record. Local preview servers and the owned browser tab were closed. No human-reader, inquiry or search-outcome evidence was collected.
 
 ## Handoff
 
-- Checkpoint: bounded copy change committed, full gate passed and affected rendered layouts verified.
-- Remaining work: publish the verified follow-up, satisfy required host checks, merge and confirm the changed live page.
-- Next action: inspect the exact-head checks and reviews on PR 50, then merge and verify the changed live page.
+- Checkpoint: bounded copy change merged, deployed and verified on production; this record completes the shared release handoff.
+- Remaining work: none within this follow-up's website acceptance criteria.
+- Next action: no additional implementation required by this task. Further changes should address new observed visitor evidence or an explicit request.
 - Blockers: none.
 - Acceptance basis: Hadi's instruction to continue the authorized website improvement work.
-- Publication: planning `f689e40`, implementation `e1749cf` and verification `1870161` pushed on the task branch. [PR 50](https://github.com/HadiAbouDaya/fidret/pull/50) is open; follow-up merge and live verification are pending.
-- Last verified: 2026-11-05, implementation `e1749cf`, full gate, unchanged-output comparison and 16 affected-page browser checks. Follow-up production verification pending.
+- Publication: planning `f689e40`, implementation `e1749cf` and verification `1870161` pushed on the task branch. [PR 50](https://github.com/HadiAbouDaya/fidret/pull/50) merged at `dfd03fe4b01f63f82909b2ca465ff6b245b6bffc`; Cloudflare deployment `b85a3de0-6973-4b7c-ad9c-c47898ee04ec` and the public Work page were verified. This completion record is carried separately on `hadi/visitor-followup-release`; it makes no public-site change.
+- Last verified: 2026-11-05, merged implementation `dfd03fe`, successful Cloudflare deployment, exact rendered-body comparison on both live origins and inspected phone rendering. Prior full gate, unchanged-output comparison and 16 affected-page browser checks remain applicable to the same website sources.
