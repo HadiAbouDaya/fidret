@@ -70,12 +70,29 @@ export default function remarkLabPolicy(options = {}) {
   });
 }
 
+/** Name and focus code scroll regions in generated Markdown, including notes. */
+export function rehypeCodeRegions() {
+  return (tree) => {
+    let heading = '';
+    function visit(node) {
+      if (node.type === 'element' && /^h[2-6]$/.test(node.tagName)) heading = text(node);
+      if (node.type === 'element' && node.tagName === 'pre') {
+        node.properties = { ...node.properties, tabIndex: 0, role: 'region',
+          ariaLabel: heading ? `Code example: ${heading}` : 'Code example' };
+      }
+      for (const child of children(node)) visit(child);
+    }
+    visit(tree);
+  };
+}
+
 /** Also validate unrendered drafts, and make the actual Markdown pipeline testable. */
 export async function renderLabMarkdown(source, frontmatter, { root = repositoryRoot } = {}) {
   const renderer = await createMarkdownProcessor({
     syntaxHighlight: false,
     smartypants: false,
     remarkPlugins: [[remarkLabPolicy, { root }]],
+    rehypePlugins: [rehypeCodeRegions],
   });
   return renderer.render(source, { frontmatter });
 }

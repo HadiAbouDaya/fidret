@@ -96,3 +96,30 @@ class SearchContracts(unittest.TestCase):
 
     def test_inert_data_is_not_accepted_as_main_content_or_orphan_discovery(self):
         self.html=self.html.replace('<p>A developing company and its work.</p>','');self.write();self.assertTrue(validate(self.root))
+
+    def test_only_registered_empty_uncredited_profiles_may_remain_unadvertised(self):
+        url=ORIGIN+'/people/hadi/'
+        graph=json.loads(json.dumps(self.graph))
+        graph['@graph'][2].update({'@id':url+'#webpage','@type':'ProfilePage','url':url,
+                                 'name':'Hadi Abou Daya','description':'Published contributions by Hadi.'})
+        profile=self.html.replace('https://fidret.com/"',url+'"').replace('Fidret | Physical AI','Hadi Abou Daya').replace('Developing a Physical AI practice.','Published contributions by Hadi.')
+        profile=profile.replace('<p>A developing company and its work.</p>', '<div class="person-empty">No published pieces.</div>')
+        path=self.site/'people/hadi/index.html';path.parent.mkdir(parents=True)
+        path.write_text(profile.replace('SCHEMA',json.dumps(graph)))
+        sitemap=self.site/'sitemap.xml';sitemap.write_text(sitemap.read_text().replace('</urlset>',f'<url><loc>{url}</loc></url></urlset>'))
+        self.assertEqual(validate(self.root),[])
+        path.write_text(path.read_text().replace('person-empty','ordinary-section'))
+        self.assertTrue(any('Orphaned' in e for e in validate(self.root)))
+        path.write_text(profile.replace('SCHEMA',json.dumps(graph)))
+        # A registered profile with an Article credit must have a real link,
+        # even if a stale empty-state marker remains on the profile.
+        self.graph['@graph'] += [
+            {'@type':'Person','@id':url+'#person','url':url,'name':'Hadi Abou Daya'},
+            {'@type':'Article','@id':ORIGIN+'/#article','url':ORIGIN+'/',
+             'headline':'Fidret | Physical AI','author':[{'@id':url+'#person'}],
+             'datePublished':'2025-01-01','dateModified':'2025-01-02'}]
+        self.html=self.html.replace('content="website"','content="article"').replace('</head>',
+            '<meta property="article:published_time" content="2025-01-01"><meta property="article:modified_time" content="2025-01-02"></head>').replace('</main>',
+            '<p>By Hadi Abou Daya</p><time datetime="2025-01-01">1 January 2025</time><time datetime="2025-01-02">2 January 2025</time></main>')
+        self.write()
+        self.assertTrue(any('Orphaned' in e for e in validate(self.root)))

@@ -152,10 +152,13 @@ test('factory guided story, complete notes, situation library and download follo
   const slug = 'ai-software-factory';
   const downloadPath = `lab/${slug}/operating-brief.md`;
   writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAuthored heading remains reachable.\n\n### Factory case title stale\nA shared namespace.\n`});
-  writePiece(root, 'published-fixture');
+  writePiece(root, 'published-fixture', {authors: ['hadi']});
+  writePiece(root, 'autonomous-farm', {authors: ['hadi']});
   let result = build(root);
   assert.equal(result.status, 0, result.output);
   const article = readFileSync(join(root, `website/lab/${slug}/index.html`), 'utf8');
+  assert.match(article, /class="experience-other" href="\/lab\/autonomous-farm\/"/);
+  assert.match(readFileSync(join(root, 'website/lab/autonomous-farm/index.html'), 'utf8'), /class="experience-other" href="\/lab\/ai-software-factory\/"/);
   assert.match(article, /data-lab-journey/);
   assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length, 5);
   assert.match(article, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
@@ -184,6 +187,7 @@ test('factory guided story, complete notes, situation library and download follo
   assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
   for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
   assert.ok(!readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/`));
+  assert.doesNotMatch(readFileSync(join(root, 'website/lab/autonomous-farm/index.html'), 'utf8'), /href="\/lab\/ai-software-factory\//);
 });
 
 test('actual Astro build rejects raw HTML through the configured Markdown pipeline', () => {
@@ -211,15 +215,33 @@ test('farm simple/deep routes, control references and brief follow publication a
   rmSync(join(root,'lab/pieces'),{recursive:true});
   mkdirSync(join(root,'lab/pieces'));
   const slug='autonomous-farm';
-  writePiece(root,slug,{authors:['hadi'],publicationDate:'2025-01-03'});
-  writePiece(root,'published-fixture');
+  writePiece(root,'published-fixture',{authors:['hadi']});
+  writePiece(root,'ai-software-factory',{authors:['hadi']});
+  // Only the withdrawn parent credits Elie; registry/profile stay available.
+  writePiece(root,slug,{authors:['hadi','elie'],publicationDate:'2025-01-03'});
   let result=build(root);
   assert.equal(result.status,0,result.output);
   const article=readFileSync(join(root,`website/lab/${slug}/index.html`),'utf8');
   assert.ok(article.includes(`/lab/${slug}/scenario-desk/`));
   assert.ok(article.includes(`/lab/${slug}/blueprint/`));
+  assert.match(article,/class="experience-other" href="\/lab\/ai-software-factory\/"/);
+  assert.match(readFileSync(join(root,'website/lab/index.html'),'utf8'),/href="\/people\/elie\/"/);
   const blueprint=readFileSync(join(root,`website/lab/${slug}/blueprint/index.html`),'utf8');
   const blueprintIds=[...blueprint.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
+  const map = /<svg\b[^>]*aria-labelledby="farm-map-title"[^>]*>[\s\S]*?<\/svg>/.exec(blueprint)?.[0];
+  assert.ok(map, 'The clickable farm plan must be present');
+  assert.match(map, /role="group"/);
+  assert.doesNotMatch(map, /role="img"/);
+  const mapLinks = [...map.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)];
+  assert.equal(mapLinks.length, 6, 'Keep the six useful visual destinations');
+  for (const [, attributes, content] of mapLinks) {
+    assert.doesNotMatch(attributes, /aria-label/, 'Visible SVG text supplies each link name');
+    assert.match(content, /<text\b[^>]*>[^<]+<\/text>/);
+  }
+  for (const [, label] of blueprint.matchAll(/<pre\b[^>]*tabindex="0"[^>]*role="region"[^>]*aria-labelledby="([^"]+)"/g)) {
+    assert.ok(blueprintIds.includes(label), `Code region heading exists: ${label}`);
+  }
+  assert.equal([...blueprint.matchAll(/<pre\b[^>]*tabindex="0"/g)].length, 2);
   for(const route of ['scenario-desk','blueprint']){
     const html=readFileSync(join(root,`website/lab/${slug}/${route}/index.html`),'utf8');
     const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
@@ -250,4 +272,7 @@ test('farm simple/deep routes, control references and brief follow publication a
     assert.ok(!output.includes(`/lab/${slug}/`)&&!output.includes(`/work/${slug}/`),route);
   }
   assert.equal(existsSync(join(root,`website/work/${slug}/index.html`)),false);
+  assert.doesNotMatch(readFileSync(join(root,'website/lab/ai-software-factory/index.html'),'utf8'),/href="\/lab\/autonomous-farm\//);
+  assert.doesNotMatch(readFileSync(join(root,'website/lab/index.html'),'utf8'),/href="\/people\/elie\/"/);
+  assert.equal(existsSync(join(root,'website/people/elie/index.html')),true);
 });

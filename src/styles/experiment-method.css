@@ -67,6 +67,7 @@
 .method-next-work p { font-size: .9375rem; margin: 0; }
 .method-code { background: var(--fd-forest); color: var(--fd-ivory); padding: 1.5rem 2rem; margin-block: 2rem; }
 .method-code > p { font-size: .8125rem; margin-block: 0 .75rem; color: var(--fd-sage); }
+.method-code pre:focus-visible { outline-color: var(--fd-ivory); }
 .method-code pre { max-width: 100%; overflow-x: auto; margin: 0; padding-bottom: .5rem; font-size: .875rem; line-height: 1.7; }
 .method-authorship { color: var(--fd-muted); font-size: .875rem; }
 .method-reproduction { margin-bottom: 0; }
@@ -98,4 +99,18 @@
   .method-scenario > summary { font-size: 1rem; }
   .method-scenario-count { display: block; margin-left: 1rem; margin-top: .375rem; }
   .method-next-work, .method-code { padding: 1.5rem; }
+}
+
+@media print {
+  .method-body, .method-title-grid { display: block; }
+  .method-contents, .method-actions { display: none; }
+  .method-content { max-width: none; }
+  .method-table-scroll { overflow: visible; }
+  .method-table-scroll table { min-width: 0; width: 100%; table-layout: fixed; }
+  .method-table-scroll :is(th, td) { width: auto; white-space: normal; overflow-wrap: anywhere; padding: .5rem .35rem; }
+  .method-replay-table th:first-child, .method-replay-table td:nth-child(n) { width: auto; white-space: normal; }
+  .method-table-scroll tr { break-inside: avoid; }
+  .method-code { background: transparent; color: black; }
+  .method-code > p { color: black; }
+  .method-code pre { overflow: visible; }
 }

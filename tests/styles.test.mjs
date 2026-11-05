@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, renameSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, renameSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { afterEach, test } from 'node:test';
@@ -14,11 +14,16 @@ function fixture() {
   return root;
 }
 
-const routes = ['index.html', 'lab/index.html', '404.html'];
+function routesFor(root) {
+  return readdirSync(join(root, 'website'), {recursive: true}).filter(name => name.endsWith('.html')).sort();
+}
+const usesLabStyles = route => route === 'lab/index.html' || /^lab\/[^/]+\/index\.html$/.test(route)
+  || route === 'lab/ai-software-factory/engineering-notes/index.html';
 function linkedStyles(root) {
-  return routes.map((route) => {
+  return routesFor(root).map((route) => {
     const html = readFileSync(join(root, 'website', route), 'utf8');
-    assert.doesNotMatch(html, /<(?:style|script(?! type="application\/ld\+json"))(?:\s|>)/i);
+    assert.doesNotMatch(html, /<style(?:\s|>)/i);
+    assert.doesNotMatch(html, /<script(?! type="application\/ld\+json")[^>]*>(?!\s*<\/script>)/i);
     assert.doesNotMatch(html, /\sstyle\s*=/i);
     const links = [...html.matchAll(/<link\b[^>]*>/gi)]
       .filter(([tag]) => /\brel="stylesheet"/.test(tag))
@@ -61,6 +66,7 @@ test('real builds use deterministic external fingerprinted CSS on every page and
   const root = fixture();
   let result = buildSite(root);
   assert.equal(result.status, 0, result.output);
+  const routes = routesFor(root);
   const originalLinks = linkedStyles(root);
   assertAliases(root);
 
@@ -80,7 +86,12 @@ test('real builds use deterministic external fingerprinted CSS on every page and
     assert.equal(result.status, 0, result.output);
     const after = linkedStyles(root);
     for (let index = 0; index < routes.length; index++) {
-      assert.notDeepEqual(after[index], before[index], `${name} change must invalidate CSS linked from ${routes[index]}`);
+      const route = routes[index];
+      if (name === 'styles.css' || usesLabStyles(route)) {
+        assert.notDeepEqual(after[index], before[index], `${name} change must invalidate CSS linked from ${route}`);
+      } else {
+        assert.deepEqual(after[index], before[index], `${name} must not invalidate unrelated ${route}`);
+      }
     }
     assertAliases(root);
   }

@@ -18,9 +18,9 @@ const { works } = Astro.props;
         <p>{work.contribution}</p>
         <a class="text-link" href={workPath(work)}>View the contribution and evidence</a>
       </div>
-      <a class="work-visual-link" href={workPath(work)} aria-label={`View the work: ${work.title}`}>
+      <div class="work-visual-link">
         <WorkArtifact kind={work.preview} />
-      </a>
+      </div>
     </article>
   ))}
 </div>

@@ -9,6 +9,7 @@ import {FACTORY_SLUG,stations} from '../../../lib/software-factory';
 import {factoryJourney} from '../../../lib/lab-journeys';
 import runtimeUrl from '../../../scripts/lab-experience.js?url&no-inline';
 import '../../../styles/article.css';
+import '../../../styles/lab.css';
 import '../../../styles/lab-experience.css';
 export const getStaticPaths=(async()=>(await getPublishedPieces()).filter(p=>p.data.slug===FACTORY_SLUG).map(piece=>({params:{slug:piece.data.slug},props:{piece}}))) satisfies GetStaticPaths;
 type Props=InferGetStaticPropsType<typeof getStaticPaths>;

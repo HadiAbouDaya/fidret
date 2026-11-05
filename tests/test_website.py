@@ -1,11 +1,12 @@
 """Verify the publication boundary and invalid public asset references."""
 
 import json
+from html import escape
 import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.check_website import validate
+from scripts.check_website import PUBLIC_MARKDOWN_DOWNLOADS, check_download_headers, validate
 
 
 class WebsiteTests(unittest.TestCase):
@@ -42,6 +43,77 @@ class WebsiteTests(unittest.TestCase):
         path = self.site / "index.html"
         path.write_text(path.read_text().replace("</body>", extra + "</body>"))
 
+    @staticmethod
+    def download_headers():
+        return "".join(f"\n/{path}\n  Content-Type: text/markdown; charset=utf-8\n"
+                       "  Cache-Control: public, max-age=0, must-revalidate\n"
+                       for path in sorted(PUBLIC_MARKDOWN_DOWNLOADS))
+
+    def test_all_curated_downloads_have_explicit_host_mime_and_revalidation(self):
+        actual = (Path(__file__).resolve().parents[1] / "public/_headers").read_text()
+        self.assertEqual(check_download_headers(actual, PUBLIC_MARKDOWN_DOWNLOADS), [])
+        for path in PUBLIC_MARKDOWN_DOWNLOADS:
+            download = self.site / path
+            download.parent.mkdir(parents=True, exist_ok=True)
+            download.write_text("# Editable brief\n")
+        headers = self.headers + self.download_headers()
+        target = self.site / "_headers"
+        target.write_text(headers)
+        self.assertEqual(validate(self.root), [])
+        for path in PUBLIC_MARKDOWN_DOWNLOADS:
+            block = (f"/{path}\n  Content-Type: text/markdown; charset=utf-8\n"
+                     "  Cache-Control: public, max-age=0, must-revalidate\n")
+            for replacement in ("", block.replace('utf-8', 'iso-8859-1'),
+                                block.replace('text/markdown', 'text/plain'),
+                                block.replace('public, max-age=0, must-revalidate', 'public, max-age=3600'),
+                                block.replace(f'/{path}', '/lab/*')):
+                with self.subTest(path=path, replacement=replacement):
+                    target.write_text(headers.replace(block, replacement))
+                    self.assertTrue(any(f"/{path} needs exactly one literal" in e for e in validate(self.root)))
+        for scope in ('/*', '/lab/*', 'https://fidret.com/lab/*'):
+            for directive in ('Content-Type: text/plain', '! Content-Type',
+                              'Cache-Control: public, max-age=3600', '! Cache-Control'):
+                with self.subTest(scope=scope, directive=directive):
+                    target.write_text(headers + f'\n{scope}\n  {directive}\n')
+                    self.assertTrue(any('needs exactly one literal' in e for e in validate(self.root)))
+
+    def test_exact_workspace_links_require_a_real_scene_and_declared_state(self):
+        html = (self.site / "index.html").read_text()
+        routes = ('lab/autonomous-farm/index.html', 'lab/ai-software-factory/index.html')
+        table = escape(json.dumps({'000': {'label': 'Blocked'}, '010': {'label': 'Allowed'}}), quote=True)
+        scene = (f'<article id="scene-water" data-scene data-key="water" data-initial="000" '
+                 f'data-model="{table}"><h2>Water</h2></article>')
+        for relative in routes:
+            page = self.site / relative
+            page.parent.mkdir(parents=True)
+            page.write_text(html.replace('</main>', scene + '</main>'))
+        for relative in routes:
+            route = '/' + relative.removesuffix('index.html')
+            index = self.site / 'index.html'
+            index.write_text(html.replace('</body>', f'<a href="{route}#scene-water~v1-010">Exact conditions</a></body>'))
+            self.assertEqual(validate(self.root), [])
+            for fragment in ('scene-missing~v1-010', 'scene-water~v2-010', 'scene-water~v1-999',
+                             'scene-water~v1-01', 'scene-water~v1-0100', 'scene-water~v1-01x',
+                             'scene-water~v1-__proto__', 'purpose~v1-010', 'missing'):
+                with self.subTest(route=route, fragment=fragment):
+                    index.write_text(html.replace('</body>', f'<a href="{route}#{fragment}">Bad conditions</a></body>'))
+                    self.assertTrue(any('missing link anchor' in e for e in validate(self.root)))
+        # The same attributes elsewhere cannot authorize state fragments.
+        index.write_text(html.replace('</main>', scene + '<a href="#scene-water~v1-010">Wrong route</a></main>'))
+        self.assertTrue(any('missing link anchor' in e for e in validate(self.root)))
+
+    def test_exact_workspace_links_reject_malformed_scene_models(self):
+        html = (self.site / "index.html").read_text()
+        page = self.site / 'lab/autonomous-farm/index.html'
+        page.parent.mkdir(parents=True)
+        self.change_html('<a href="/lab/autonomous-farm/#scene-water~v1-000">Exact conditions</a>')
+        for model in ('{broken', 'null', '[]', '{}', '{"000":null}', '{"000":42}', '{"garbage":{}}'):
+            with self.subTest(model=model):
+                scene = (f'<article id="scene-water" data-scene data-key="water" data-initial="000" '
+                         f'data-model="{escape(model, quote=True)}"><h2>Water</h2></article>')
+                page.write_text(html.replace('</main>', scene + '</main>'))
+                self.assertTrue(any('missing link anchor' in e for e in validate(self.root)))
+
     def test_valid_static_site(self):
         self.assertEqual(validate(self.root), [])
 
@@ -61,6 +133,7 @@ class WebsiteTests(unittest.TestCase):
         path.write_text(original)
 
     def test_curated_markdown_download_does_not_allow_other_repository_markdown(self):
+        (self.site / "_headers").write_text(self.headers + self.download_headers())
         download = self.site / "lab/agentic-company-harness/workflow-brief.md"
         download.parent.mkdir(parents=True)
         download.write_text("# Agent workflow brief\n\nAn authored public planning template.\n")

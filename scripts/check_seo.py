@@ -71,6 +71,7 @@ def page_url(path, site):
 def validate(root: Path) -> list[str]:
     site = root / 'website'
     errors, pages, titles, descriptions = [], {}, [], []
+    empty_profiles, credited_profiles = set(), set()
     if not site.is_dir(): return ['SEO output directory is missing']
     for path in sorted(site.rglob('*.html')):
         relative = path.relative_to(site).as_posix()
@@ -142,8 +143,13 @@ def validate(root: Path) -> list[str]:
                     assert node['datePublished'] in p.times and node['dateModified'] in p.times
                     assert p.meta('article:published_time')==[node['datePublished']]
                     assert p.meta('article:modified_time')==[node['dateModified']]
+                    credited_profiles.update(by_id[a['@id']]['url'] for a in node['author'])
             if p.meta('og:type')==['article']: assert any(n['@type']=='Article' for n in nodes)
             assert '\u2014' not in json.dumps(graph,ensure_ascii=False)
+            if (page['@type']=='ProfilePage' and url in pages_or_profile_urls(root)
+                    and any(tag=='div' and 'person-empty' in (attrs.get('class') or '').split()
+                            for tag,attrs in p.tags)):
+                empty_profiles.add(url)
         except (ValueError,KeyError,AssertionError,TypeError,IndexError): errors.append(label + 'structured data is invalid or inconsistent with visible page/identity/dates')
     for field, values in [('title',titles),('description',descriptions)]:
         errors.extend(f'Duplicate {field}: {v}' for v,n in Counter(values).items() if n>1)
@@ -170,7 +176,9 @@ def validate(root: Path) -> list[str]:
         assert all(link in pages for link in links)
         assert all(url in links for url in pages if re.fullmatch(ORIGIN+r'/lab/[^/]+/',url))
     except (OSError,AssertionError): errors.append('AI discovery directory must point only to canonical published pages and include every published Lab')
-    # Every indexable route must be reachable through real links from Home.
+    # Published work and active profiles must be reachable through real links.
+    # Keep registered empty profile routes stable without advertising authors
+    # who have no published pieces. This exception ends when credit exists.
     seen, queue = set(), [ORIGIN+'/']
     while queue:
         url=queue.pop()
@@ -179,7 +187,8 @@ def validate(root: Path) -> list[str]:
         for tag,a in pages[url].tags:
             href=a.get('href','').split('#')[0]
             if tag=='a' and href.startswith('/') and not href.startswith('//'): queue.append(ORIGIN+href)
-    if set(pages)-seen: errors.append('Orphaned indexable pages: '+', '.join(sorted(set(pages)-seen)))
+    orphans = set(pages)-seen-(empty_profiles-credited_profiles)
+    if orphans: errors.append('Orphaned indexable pages: '+', '.join(sorted(orphans)))
     return errors
 
 
