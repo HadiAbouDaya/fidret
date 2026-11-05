@@ -50,4 +50,4 @@ No second browser engine, screen-reader speech, field-performance dataset, searc
 
 ## Release
 
-Local implementation and verification are complete. PR, exact-head required checks, merge and actual production verification are recorded in the task as they occur. A successful local build alone does not establish a live release.
+Local implementation and verification are complete and published in [PR 45](https://github.com/HadiAbouDaya/fidret/pull/45), with source checkpoint `aa4ebaa`. Exact-head required checks, merge and actual production verification are recorded in the task as they occur. A successful local build alone does not establish a live release.

@@ -59,10 +59,10 @@ The [verification record](../design/2026-11-05-visitor-verification.md) captures
 
 ## Handoff
 
-- Checkpoint: the full local revision, guidance, reader-validation plan and verification record are complete. Shared checks and independent source/skill review passed; rendered issues were fixed and rechecked.
-- Remaining work: publish the PR, confirm exact-head required checks/reviews, merge and verify actual production. Real visitor outcomes remain a separate ongoing measurement.
-- Next action: commit/push the verified revision and create the protected PR, then complete the release when its current checks permit it.
+- Checkpoint: the full revision, guidance, reader-validation plan and verification record are published in [PR 45](https://github.com/HadiAbouDaya/fidret/pull/45). Shared checks and independent source/skill review passed; rendered issues were fixed and rechecked.
+- Remaining work: confirm exact-head required checks/reviews, merge and verify actual production. Real visitor outcomes remain a separate ongoing measurement.
+- Next action: inspect PR 45's current head, required `foundation`, `runtime-bootstrap` and `seo-geo` checks and unresolved reviews; merge when ready, then verify the production release.
 - Blockers: none for implementation. Actual prospect outcomes need future real visitors; no claims will be invented.
 - Acceptance basis: Hadi's explicit implementation request and contact/profile direction in this conversation.
-- Publication: local implementation and documentation only; no implementation commit, push, PR, merge or deployment yet. Review commit `01c208a` is included in the branch.
-- Last verified: 2026-11-05, final local shared check, skill validation, source reviews and shared-Chromium evidence in the verification record. Production has not yet been verified for this revision.
+- Publication: review commit `01c208a` and implementation checkpoint `aa4ebaa` are pushed on `hadi/visitor-experience-2026-11-05` in PR 45. This documentation checkpoint records the protected PR. No merge or deployment of this revision has been claimed.
+- Last verified: 2026-11-05, final local shared check, skill validation, source reviews and shared-Chromium evidence in the verification record. PR 45 was created with source head `aa4ebaa54fe64fadf9d807bbf012ab68389d2418`; current-head CI and production still need verification.
