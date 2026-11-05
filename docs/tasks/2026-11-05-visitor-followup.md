@@ -57,8 +57,8 @@ The current website is already published and locally/live verified. A follow-up 
 
 - Checkpoint: bounded copy change committed, full gate passed and affected rendered layouts verified.
 - Remaining work: publish the verified follow-up, satisfy required host checks, merge and confirm the changed live page.
-- Next action: open the follow-up PR and inspect its exact-head checks and review state.
+- Next action: inspect the exact-head checks and reviews on PR 50, then merge and verify the changed live page.
 - Blockers: none.
 - Acceptance basis: Hadi's instruction to continue the authorized website improvement work.
-- Publication: local task branch includes planning `f689e40` and implementation `e1749cf`; no follow-up merge or live change yet.
+- Publication: planning `f689e40`, implementation `e1749cf` and verification `1870161` pushed on the task branch. [PR 50](https://github.com/HadiAbouDaya/fidret/pull/50) is open; follow-up merge and live verification are pending.
 - Last verified: 2026-11-05, implementation `e1749cf`, full gate, unchanged-output comparison and 16 affected-page browser checks. Follow-up production verification pending.
