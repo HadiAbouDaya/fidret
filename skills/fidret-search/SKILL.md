@@ -9,6 +9,8 @@ Read [AGENTS.md](../../AGENTS.md) and the [search standard](../../docs/collabora
 
 Start with the reader's question and the canonical source. Keep a direct explanation, meaningful headings, actual bylines, maintained edition dates, primary citations and explicit conditions/limits. Preserve the distinction between an exploration, a developing practice and demonstrated work. Do not add invented expertise, reviews, clients, addresses, offers, external identity links or keyword repetitions.
 
+Curated work summaries should explain contribution and relevance before technical depth. Use the shared work catalogue and published-parent filter; withdrawing a Lab parent must remove its dependent overview, cards, sitemap and AI-directory entries. Keep deep links useful on their own, with the correct work-specific preview and a real onward route. Do not turn these summaries into duplicate keyword pages or imply that individual professional experience is Fidret engagement history.
+
 Use `src/layouts/SiteLayout.astro` and `src/lib/seo.ts` for shared metadata. An authored article supplies actual headline/authors/edition dates; the visible page must agree. Companion pages have their own canonical identity. Preserve stable URLs. Update publication/discovery tests when adding or withdrawing routes, including optional `llms.txt`. Never use build time as editorial freshness.
 
 Keep meaningful content and ordinary links in initial HTML. The narrowly approved Lab controller is progressive enhancement; do not hide the only answer behind browser execution. Retain local assets, dimensions, font budgets, accessible controls and the existing craft/em-dash rules.

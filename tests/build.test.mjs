@@ -120,11 +120,15 @@ test('workflow companion, download and entry points follow parent publication an
   }
   assert.ok(guide.includes(downloadPath));
   assert.equal(existsSync(join(root, 'website/lab/published-fixture/workflow-brief')), false);
+  assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), true);
+  assert.ok(readFileSync(join(root,'website/work/index.html'),'utf8').includes(`/work/${slug}/`));
 
   writePiece(root, slug, {status: 'draft', body: '## Question\n'});
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, 'website', guidePath)), false);
+  assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
+  for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
   assert.equal(existsSync(join(root, 'website', downloadPath)), false);
   for (const route of ['approach/index.html', 'sitemap.xml', 'lab/index.html']) {
     assert.ok(!readFileSync(join(root, 'website', route), 'utf8').includes(guidePath), `${route} must withdraw the entry point`);
@@ -177,6 +181,8 @@ test('factory guided story, complete notes, situation library and download follo
   result = build(root);
   assert.equal(result.status, 0, result.output);
   assert.equal(existsSync(join(root, `website/lab/${slug}`)), false);
+  assert.equal(existsSync(join(root, `website/work/${slug}/index.html`)), false);
+  for(const route of ['work/index.html','sitemap.xml','llms.txt']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/work/${slug}/`));
   assert.ok(!readFileSync(join(root, 'website/sitemap.xml'), 'utf8').includes(`/lab/${slug}/`));
 });
 
@@ -233,10 +239,15 @@ test('farm simple/deep routes, control references and brief follow publication a
   const brief=readFileSync(join(root,`website/lab/${slug}/operating-brief.md`),'utf8');
   assert.match(brief,/^# Autonomous mixed farm: operating brief/);
   assert.match(brief,/\[not yet tested\]/);
-  for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml']) assert.ok(readFileSync(join(root,'website',route),'utf8').includes(`/lab/${slug}/`),route);
+  for(const route of ['index.html','work/index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml']) assert.ok(readFileSync(join(root,'website',route),'utf8').includes(route==='index.html'||route==='work/index.html'?`/work/${slug}/`:`/lab/${slug}/`),route);
+  assert.equal(existsSync(join(root,`website/work/${slug}/index.html`)),true);
   writePiece(root,slug,{status:'draft',body:'## Question\n'});
   result=build(root);
   assert.equal(result.status,0,result.output);
   assert.equal(existsSync(join(root,`website/lab/${slug}`)),false);
-  for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml']) assert.ok(!readFileSync(join(root,'website',route),'utf8').includes(`/lab/${slug}/`),route);
+  for(const route of ['index.html','work/index.html','lab/index.html','project/index.html','people/hadi/index.html','sitemap.xml','llms.txt']) {
+    const output=readFileSync(join(root,'website',route),'utf8');
+    assert.ok(!output.includes(`/lab/${slug}/`)&&!output.includes(`/work/${slug}/`),route);
+  }
+  assert.equal(existsSync(join(root,`website/work/${slug}/index.html`)),false);
 });
