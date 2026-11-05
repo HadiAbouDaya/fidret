@@ -1,9 +1,9 @@
 # Hands-on Lab workspaces
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/lab-experience-v2
+- Branch: hadi/lab-workspace-release
 - Updated: 2026-11-05
 - Verification status: passed
 
@@ -56,7 +56,7 @@ Current critique: old first controls were below the desktop fold; answer buttons
 
 The final local `pnpm check` passed on the integrated tree: zero diagnostics in 69 files, 62 Node tests, 100 Python tests, production build and security/SEO/foundation validators. All 69 declared states equal their canonical assessor's decision and reasons. Multi-blocker, local-protection precedence, completed-operation suppression and unconfirmed-observation trace regressions are tested. An earlier pre-integration run failed the obsolete “Start the story” assertion; it was replaced with the new model-response/publication contract, retaining withdrawal and script-security coverage.
 
-Root used the shared Chromium preview, served from an isolated local QA server with the production CSP. At 1440/768/390/320, all 69 states passed output/reason/artifact/URL/focus and overflow checks (552 state checks across eight Lab views). The final 200% text pass at 1440/390/320 covered another 414 state checks, including selected-option text width and reflow. Resize completion was explicitly checked because the preview sometimes reported the preceding viewport during a resize. No second browser engine or screen-reader listening is claimed for this iteration.
+Root used the shared Chromium preview, served from an isolated local QA server with the production CSP. At 1440/768/390/320, all 69 states passed output/reason/artifact/URL/focus and overflow checks (276 state checks across eight Lab views). The final 200% text pass at 1440/390/320 covered another 207 state checks, including selected-option text width and reflow. Resize completion was explicitly checked because the preview sometimes reported the preceding viewport during a resize. No second browser engine or screen-reader listening is claimed for this iteration.
 
 All ten situation-to-notes returns restored noninitial two/three-digit condition tokens and opened the reasoning. Native selection, Home/ArrowDown/Enter, retained input focus, skip-to-main without changing the active state, actual browser Back, malformed/unknown state fallback and reference search/matching/empty/clear behavior passed. Six fallback views covered an absent module, malformed manifest and a deliberate initialization failure after a scene was hidden; each retained five worked examples and hid unusable controls. Simulated before/after-print events preserved Read all and a skip-link view, while selected settings and print styles were reviewed; a physical print/PDF and screen-reader speech were not tested.
 
@@ -66,12 +66,26 @@ The approved runtime is 13,589 raw bytes (3,852 under local gzip), below the unc
 
 Integrated the published SEO branch, preserved visible actual edition dates and shared metadata, then merged the prerequisite PR 40 after exact-head `foundation`, `runtime-bootstrap` and `seo-geo` success and empty review/thread lists. Main merge: `010b74bba5d5c6bc53b5c6ef4c6a0757e00440fe`. The v2 branch includes that main commit. Original narrative dates and exact briefs remain unchanged; interface work is recorded here and in Git, without manufacturing research freshness. Guidance changes live in the shared design/search skills and a portable frontend-craft reference rather than a machine-specific plugin cache.
 
+## Verified production release
+
+PR 42 merged as `fe209c6db07641578454ebaad218c5a6e4869815` after required `foundation`, `runtime-bootstrap` and `seo-geo` checks passed for final head `5dd94d3502caaf220609d28fed15b75537803c3b` in workflow `41937250355`. Comments, reviews and unresolved threads were empty. The stopped watch was cleared instead of restoring an open-PR watcher on a merged PR.
+
+Main workflow `41939248431` passed all three checks. Cloudflare deployment `b692242d-b3d5-410b-a02f-18b51ee3865d` reported success at 00:13:23 UTC on 5 November 2026, tied to `fe209c6`. Its immutable URL is [b692242d.fidret.pages.dev](https://b692242d.fidret.pages.dev).
+
+At 00:16 UTC, direct HTTP verification found all 24 routes and nine linked CSS/JS assets (33 distinct paths) returned 200, had the expected MIME and matched the immutable deployment byte-for-byte. This includes all 20 sitemap HTML pages, both exact briefs, sitemap and AI directory. Canonical/schema identities, production indexing directives, current page/runtime CSP and raw runtime parity with the merged Git source passed.
+
+The initial verifier over-applied indexing expectations to the immutable preview host and exact current CSP equality to unchanged CSS. [Cloudflare documents preview noindex headers](https://developers.cloudflare.com/pages/configuration/preview-deployments/). Those headers remain appropriate on the deployment host; production responses do not suppress indexing. Four unchanged CSS resources retained the earlier, stricter script policy, while other directives stayed identical. The verifier now records that narrow CSS observation, still rejecting weakened CSP, missing page/runtime policy or production noindex. No hosting configuration or public security rule was changed.
+
+Live shared-Chromium checks on fidret.com passed all 69 declared states across 1440/390/320 px (207 state checks, six Lab views). They checked displayed response/reasons/artifacts, exact shared/reference settings, focus retention, reset/read-all, simulated print-view restoration, local font loading and absence of horizontal overflow. Farm `water~v1-010` and factory `evidence~v1-101` each made a real engineering-notes round trip and restored the exact conditions with reasoning open. The current response heading renders ivory on forest. This is live behavior evidence, not a human comprehension study or screen-reader listening.
+
+The earlier recorded local totals were doubled incorrectly. Summing the stored per-view results gives 276 normal and 207 enlarged state checks; both this task and PR 42's description now contain those corrected counts. Model coverage remains all 69 distinct declared combinations. The separate live production pass contains 207 state checks.
+
 ## Handoff
 
-- Checkpoint: the compact workspaces, 69 model states, distinct artifacts, exact condition sharing/returns and revised shared guidance are implemented, locally verified and pushed in PR 42. The branch includes the merged search prerequisite.
-- Remaining work: protected PR checks/review-state verification, merge and actual production verification of the v2 experience.
-- Next action: verify PR 42 final-head required CI and unresolved reviews, merge under standing authorization, then verify the actual production commit/deployment, changed routes/assets, exact briefs and live condition behavior. Recheck external state after a monitoring wake; do not replay an already completed merge.
-- Blockers: none. Shared-preview resize lag was handled by checking actual dimensions; all editing remained isolated.
-- Acceptance basis: Hadi's follow-up and explicit guidance authorization, with standing repository publication/merge authorization. No invented human usability review or comprehension gain.
-- Publication: implementation checkpoints `36ae37c`, `4c72def`, `70e471d`, integrated-main checkpoint `a5069cb` and verification handoff `a12a485` are pushed on `hadi/lab-experience-v2`. PR 42 is open. This documentation-only follow-up records that state. V2 merge and production deployment are still pending, separate from the original PR 38 and search PR 40 releases.
-- Last verified: 2026-11-05, integrated source, full shared check and final shared-Chromium behavior/render coverage above. Production v2, another browser engine, screen-reader listening and real-user comprehension remain unverified.
+- Checkpoint: both hands-on Lab workspaces and shared guidance are merged, deployed and live-verified. The implementation is complete under the recorded authorization.
+- Remaining work: none for the public workspace release. This documentation-only branch publishes the verified release record.
+- Next action: merge the release-record PR for `hadi/lab-workspace-release` after its required checks pass. Future UX changes belong to a new task; do not replay PR 42 or its deployment.
+- Blockers: none. Hosting-verifier assumptions were corrected to distinguish preview policy and unchanged CSS headers from actual production failures.
+- Acceptance basis: Hadi's follow-up and explicit guidance authorization, with standing verified-work publication/merge authorization. No invented human usability approval or comprehension gain.
+- Publication: source checkpoints `36ae37c`, `4c72def`, `70e471d`, integrated base `a5069cb`, handoff `a12a485` and final head `5dd94d3` were pushed in PR 42, merged as `fe209c6`. Cloudflare deployment `b692242d-b3d5-410b-a02f-18b51ee3865d` succeeded and fidret.com matched it. This branch changes only the internal release record.
+- Last verified: 2026-11-05, merged commit `fe209c6`, main workflow `41939248431`, Cloudflare success, 33-path HTTP/source audit and live Chromium coverage above. Another browser engine for v2, screen-reader speech, actual user comprehension, operational simulation and field search/performance metrics remain untested.
