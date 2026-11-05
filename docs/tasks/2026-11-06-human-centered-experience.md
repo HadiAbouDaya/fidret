@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/human-centered-experience
+- Branch: hadi/lab-discovery-refinements
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -67,11 +67,17 @@ Printing revealed excessive fragmentation in the existing workspaces. Scoped pri
 
 GitHub's current main protection was read on 6 November: foundation, runtime-bootstrap and seo-geo required from GitHub Actions, strict up-to-date branches, administrator enforcement, no force pushes and no assumed second approver. This is host-state evidence; the new branch's checks still need to execute.
 
+### Second increment: explanation at the point of interaction
+
+First-increment PR 53 remains unchanged while its required runs execute. Work continues from ee1ae96 on `hadi/lab-discovery-refinements`. This increment addresses three source/render findings from the independent experience review: technical response labels in the Lab, technical comparison labels on the sensor Work page, and the suggested experiment appearing after the result and illustration.
+
+Root owns WorkEvidence.astro, LabExperience.astro, lab-workspaces.ts presentation prompts, workspace.css, related integration tests and this record. A new isolated delegate exclusively owns presentation labels and reason strings in autonomous-farm.ts and software-factory.ts, plus directly affected model tests if needed. It may not change facts, decision codes, conditions, priority, scenario data or model coverage. Root integrates and compares the existing 69 states before publication. No new runtime behavior or dependency is planned.
+
 ## Handoff
 
 - Checkpoint: first discovery/Lab increment implemented, integrated and independently reviewed in source checkpoint 7c617db. Final local deployment gate and print refinements passed. PR 53 is open.
 - Remaining work: publish and verify the first increment, then continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: inspect PR 53 exact-head required checks and unresolved reviews, merge when ready and verify actual live output. Then simplify the Lab response language, finish the sensor comparison explanation and move concise experiment prompts beside their controls. These follow-ups came from a separate expert review, not participant findings.
+- Next action: integrate the second explanation increment while PR 53 runs. On its readiness wake, inspect the exact head and unresolved reviews, merge when ready and verify actual live output. The next increment requires its own combined checks and rendered review.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
 - Publication: source commits 641dc9f, 79f589b, 14e311f and 7c617db pushed to the task branch. [PR 53](https://github.com/HadiAbouDaya/fidret/pull/53) is open for [issue 52](https://github.com/HadiAbouDaya/fidret/issues/52). No merge or new live deployment verified yet.
