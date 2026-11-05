@@ -69,10 +69,10 @@ GitHub's current main protection was read on 6 November: foundation, runtime-boo
 
 ## Handoff
 
-- Checkpoint: first discovery/Lab increment implemented, integrated and independently reviewed. Local verification passed; final print refinements and evidence record ready for publication.
+- Checkpoint: first discovery/Lab increment implemented, integrated and independently reviewed in source checkpoint 7c617db. Final local deployment gate and print refinements passed. PR 53 is open.
 - Remaining work: publish and verify the first increment, then continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: commit the review fixes and verification record, open the PR, inspect exact-head checks and unresolved reviews, merge when ready and verify actual live output.
+- Next action: inspect PR 53 exact-head required checks and unresolved reviews, merge when ready and verify actual live output. Then simplify the Lab response language, finish the sensor comparison explanation and move concise experiment prompts beside their controls. These follow-ups came from a separate expert review, not participant findings.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: local commits 641dc9f, 79f589b and 14e311f; issue 52 created. No implementation push, PR, merge or deployment yet.
-- Last verified: 2026-11-06, integrated/review-fix gates, rendered browser checks and current host protection. See the linked verification record for coverage and limits.
+- Publication: source commits 641dc9f, 79f589b, 14e311f and 7c617db pushed to the task branch. [PR 53](https://github.com/HadiAbouDaya/fidret/pull/53) is open for [issue 52](https://github.com/HadiAbouDaya/fidret/issues/52). No merge or new live deployment verified yet.
+- Last verified: 2026-11-06, final local gate for the source checkpoint (zero diagnostics, 67 Node tests, 104 Python tests), rendered checks, final print review and current host protection. Required GitHub checks are pending for the PR. See the linked verification record for coverage and limits.
