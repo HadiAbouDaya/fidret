@@ -5,7 +5,7 @@
 - Agent or harness: Astra planning/review; 6.1 Sol implementation
 - Branch: hadi/visitor-followup
 - Updated: 2026-11-05
-- Verification status: partial
+- Verification status: passed
 
 ## Purpose
 
@@ -37,6 +37,8 @@ Review the current Home, Work, contribution summaries, Approach, About and Conta
 
 ## Decisions
 
+Keep this follow-up to two copy removals on Work. The existing design rule to remove repeated explanatory statements already covers the change; no new global guidance or component is warranted.
+
 The current website is already published and locally/live verified. A follow-up does not reopen completed defects or establish that further implementation is automatically necessary. No measurement claims about real readers, inquiries, field performance or search results will be inferred from this review.
 
 ## Verification
@@ -45,12 +47,18 @@ The current website is already published and locally/live verified. A follow-up 
 - A visible desktop incognito browser sample of Home reported first contentful/largest contentful paint at 1,372 ms and no observed layout shifts. It requested the main font and two stylesheets. This is one unthrottled browser sample, not field Core Web Vitals or an explanation of visitor behavior; it does not justify a performance rewrite.
 - Independent Astra source review found no missing substantive content, scope or contact route. Root's phone screenshot/geometry provides separate evidence for the bounded subtraction: remove “Each contribution explains what we made, shows a concrete example and keeps its limits beside the evidence.” and “Their scope is part of the work.” Keep “These are Fidret’s own projects and explorations.” No real-user benefit or conversion claim is inferred from shorter presentation.
 
+- Sol commit `e1749cf` removes exactly the two selected sentences in `src/pages/work/index.astro`. The full pinned-toolchain `pnpm check` passed once with 67 Node tests, 104 Python tests and 81 Astro files with no errors, warnings or hints. Root reviewed the exact diff and full log; no new test was added for the text-only edit.
+- Root compared the build with the 62-file published release manifest: only `/work/` changes bytes. CSS, metadata configuration, project summaries, downloadable artifacts, runtime and all other public files remain unchanged.
+- Chromium and WebKit passed 16 Work-page layout/heading/link checks at 320, 390, 768 and 1440 px with normal and 200% text. All five project links remain present and there is no document overflow. Phone and full desktop compositions were inspected.
+- A matched Chromium comparison of the published and local Work page at 390 px, with fonts loaded and identical stylesheet URLs, moved the first contribution link from 778 to 639 px. The initial phone view now exposes its question as well as its title. This measures content position, not comprehension or conversion.
+- The shared preview first returned stale widths and then an evaluate timeout. Those results were discarded; isolated installed browsers supplied the exact-viewport checks. The original snapshot still establishes the observed repeated copy. No site policy was changed.
+
 ## Handoff
 
-- Checkpoint: prior release and current source review complete; rendered Work-page duplication selected for removal.
-- Remaining work: decide the bounded follow-up, implement if justified, verify and publish.
-- Next action: 6.1 Sol removes the two redundant Work-page sentences; root verifies the resulting geometry and public output.
+- Checkpoint: bounded copy change committed, full gate passed and affected rendered layouts verified.
+- Remaining work: publish the verified follow-up, satisfy required host checks, merge and confirm the changed live page.
+- Next action: open the follow-up PR and inspect its exact-head checks and review state.
 - Blockers: none.
 - Acceptance basis: Hadi's instruction to continue the authorized website improvement work.
-- Publication: local task branch and task record only; no follow-up public changes yet.
-- Last verified: 2026-11-05, main `096e004` host checks/deployment and the stated browser observation.
+- Publication: local task branch includes planning `f689e40` and implementation `e1749cf`; no follow-up merge or live change yet.
+- Last verified: 2026-11-05, implementation `e1749cf`, full gate, unchanged-output comparison and 16 affected-page browser checks. Follow-up production verification pending.
