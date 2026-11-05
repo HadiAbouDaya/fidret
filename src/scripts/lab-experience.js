@@ -92,7 +92,7 @@ function enhanceJourney(root) {
   };
   root.addEventListener('change',event => {
     if (root.dataset.enhanced !== 'true' || !(event.target instanceof HTMLSelectElement)) return;
-    if(event.target.matches('[data-scene-select]')) { navigate(`#scene-${event.target.value}`); return; }
+    if(event.target.matches('[data-scene-select]')) { navigate(`#scene-${event.target.value}`,false); root.querySelector('[data-announce]').textContent = event.target.selectedOptions[0].textContent; return; }
     if(!event.target.matches('[data-model-input]')) return;
     const scene = event.target.closest('[data-scene]');
     const key = [...scene.querySelectorAll('[data-model-input]')].map(c => c.value).join('');
@@ -110,7 +110,8 @@ function enhanceJourney(root) {
     if (button.hasAttribute('data-reset-case')) {
       const scene = button.closest('[data-scene]');
       renderWorkspace(scene,tables.get(scene),scene.dataset.initial);
-      history.replaceState(null,'',`#scene-${scene.dataset.key}`);
+      const baseline = `#scene-${scene.dataset.key}`;
+      if (location.hash !== baseline) history.pushState(null,'',baseline);
       root.querySelector('[data-announce]').textContent = 'Starting conditions restored.';
     }
     if (button.hasAttribute('data-reset')) {
