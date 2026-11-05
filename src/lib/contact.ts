@@ -4,5 +4,5 @@ export const projectContact = {
   path: '/contact/',
   destination: 'https://hadi.aboudaya.com/contact/',
   destinationLabel: 'Contact Hadi',
-  note: 'Project inquiries currently go through Hadi’s personal contact page.',
+  note: 'This opens Hadi’s personal contact page, which currently handles Fidret inquiries.',
 } as const;

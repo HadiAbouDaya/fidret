@@ -1,13 +1,13 @@
 ---
-import { walkthroughMoments } from '../lib/signal-walkthrough';
+import { walkthroughMoments, walkthroughSchedule } from '../lib/signal-walkthrough';
 
 const ticks = Array.from({ length: 6 }, (_, i) => i * 2);
 const x = (time: number) => 72 + time * 84;
 ---
 
 <fieldset class="signal-bench" aria-describedby="signal-instructions">
-  <legend>Choose a moment</legend>
-  <p id="signal-instructions">Move through a fixed sequence: a fresh signal, an interruption, a late packet and recovery.</p>
+  <legend>Choose a recorded moment</legend>
+  <p id="signal-instructions">Start at 1 s, then choose 4 s. No new reading arrives: the number stays the same, but can it still be used? These are fixed snapshots, not a live feed.</p>
   <div class="signal-selector">
     {walkthroughMoments.map((moment, index) => (
       <>
@@ -22,7 +22,7 @@ const x = (time: number) => 72 + time * 84;
       <section class:list={['signal-snapshot', `snapshot-${moment.key}`, `state-${moment.expected.state}`]} id={`snapshot-${moment.key}`} aria-labelledby={`title-${moment.key}`}>
         <div class="signal-snapshot-heading">
           <p class="signal-state"><span class="signal-state-dot" aria-hidden="true"></span>{moment.expected.state === 'fresh' ? 'Fresh' : moment.expected.state === 'stale' ? 'Stale' : 'Recovering'}</p>
-          <p class="signal-asof">Snapshot at {moment.now} s</p>
+          <p class="signal-asof">Recorded moment: {moment.now} s</p>
         </div>
         <div class="signal-snapshot-copy">
           <h3 id={`title-${moment.key}`}>{moment.title}</h3>
@@ -52,13 +52,14 @@ const x = (time: number) => 72 + time * 84;
           </svg>
         </div>
         <dl class="signal-readout">
-          <div><dt>Last accepted timestamp</dt><dd>{moment.expected.acceptedSourceTime}<span> s</span></dd></div>
+          <div><dt>Last accepted number</dt><dd>{walkthroughSchedule.find(point => point.reading?.sourceTime === moment.expected.acceptedSourceTime)?.reading?.value}<span> synthetic units</span></dd></div>
+          <div><dt>Observed at</dt><dd>{moment.expected.acceptedSourceTime}<span> s</span></dd></div>
           <div><dt>Age of accepted reading</dt><dd>{moment.expected.acceptedAge}<span> s</span></dd></div>
-          <div><dt>Current value</dt><dd class:list={{ 'signal-withheld': moment.expected.currentValue === null }}>{moment.expected.currentValue === null ? 'Withheld' : moment.expected.currentValue}<span>{moment.expected.currentValue === null ? '' : ' synthetic units'}</span></dd></div>
+          <div><dt>Value available to use</dt><dd class:list={{ 'signal-withheld': moment.expected.currentValue === null }}>{moment.expected.currentValue === null ? 'Withheld' : moment.expected.currentValue}<span>{moment.expected.currentValue === null ? '' : ' synthetic units'}</span></dd></div>
         </dl>
         <div class="signal-decision"><span>{moment.decision}</span><span>Recovery {moment.expected.recoveryCount} / 2</span></div>
       </section>
     ))}
   </div>
-  <p class="signal-bench-caption">The highlighted interval marks the age window after the last accepted timestamp. The timestamp can remain visible while the value is withheld.</p>
+  <p class="signal-bench-caption">“Withheld” means the model offers no value to use at this moment. The last accepted number remains visible as history. The highlighted interval marks its age window, not a guarantee that the reading is correct.</p>
 </fieldset>

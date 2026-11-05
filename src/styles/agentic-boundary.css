@@ -3,7 +3,7 @@
 .authority-bench .authority-scope { margin-block: 1rem 1.5rem; max-width: 64ch; font-size: .9375rem; line-height: 1.7; color: var(--fd-muted); }
 .authority-selector { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
 .authority-choice { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.authority-choice-label { display: flex; min-height: 58px; align-items: center; justify-content: center; padding: 1rem; background: var(--fd-sage); color: var(--fd-forest); border: 1px solid transparent; font-size: .9375rem; font-weight: 500; line-height: 1.4; text-align: center; cursor: pointer; }
+.authority-choice-label { min-width: 0; overflow-wrap: anywhere; display: flex; min-height: 58px; align-items: center; justify-content: center; padding: 1rem; background: var(--fd-sage); color: var(--fd-forest); border: 1px solid transparent; font-size: .9375rem; font-weight: 500; line-height: 1.4; text-align: center; cursor: pointer; }
 .authority-choice-label:hover { border-color: var(--fd-forest); }
 .authority-choice:checked + .authority-choice-label { background: var(--fd-forest); color: var(--fd-ivory); }
 .authority-choice:focus-visible + .authority-choice-label { outline: 3px solid var(--fd-copper); outline-offset: 3px; position: relative; z-index: 1; }
@@ -44,4 +44,9 @@
 @media (forced-colors: active) {
   .authority-choice:checked + .authority-choice-label { outline: 3px solid Highlight; outline-offset: -3px; }
   .authority-result-symbol { border-color: CanvasText; color: CanvasText; }
+}
+
+@media print {
+  .authority-choice, .authority-choice-label { display: none; }
+  .authority-panel { display: block; break-inside: avoid; }
 }

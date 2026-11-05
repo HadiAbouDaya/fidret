@@ -10,7 +10,7 @@ import '../../styles/exploration.css';
 
 <SiteLayout
   title="When is a signal too old? | Fidret"
-  description="Explore a synthetic signal-freshness experiment: source age, exact expiry, delayed observations and two-observation recovery."
+  description="A reading can look normal and still be too old to use. Compare fixed, invented observations, then inspect the signal-freshness software experiment."
   canonical="https://fidret.com/explorations/signal-freshness/"
   variant="lab"
 >
@@ -20,8 +20,8 @@ import '../../styles/exploration.css';
       <div class="exploration-heading-grid">
         <h1>When is a signal too old?</h1>
         <div class="exploration-lead">
-          <p>When does an observation stop being useful? Explore what happens when a signal falls silent, arrives late, and returns.</p>
-          <p class="exploration-scope">A synthetic software walkthrough. Fixed snapshots, invented data, no hardware.</p>
+          <p>A reading can look normal and still be too old to use. Compare the same number before and after it expires, then see what happens when new readings return.</p>
+          <p class="exploration-scope">A software experiment with invented readings and a shared clock. Fixed snapshots, no live feed or connected equipment.</p>
         </div>
       </div>
       <WorkContext work={work}/>
@@ -29,8 +29,8 @@ import '../../styles/exploration.css';
 
     <section class="exploration-bench-section shell" aria-labelledby="bench-title">
       <div class="exploration-bench-intro">
-        <h2 id="bench-title">Inspect the sequence</h2>
-        <p>The model uses one synthetic clock, a three-second age limit and two distinct fresh observations to recover.</p>
+        <h2 id="bench-title">Would you still use this reading?</h2>
+        <p>In this example, a reading expires at three seconds old. Two distinct fresh observations are needed to recover. These are illustrative rules, not equipment requirements.</p>
       </div>
       <SignalWalkthrough />
     </section>
@@ -59,8 +59,8 @@ import '../../styles/exploration.css';
     <section class="exploration-comparison" aria-labelledby="comparison-title">
       <div class="shell exploration-comparison-grid">
         <div>
-          <h2 id="comparison-title">What a last-arrival register misses.</h2>
-          <p>The experiment also contains a deliberately simple comparison: keep the latest packet and offer it indefinitely.</p>
+          <h2 id="comparison-title">What if we kept showing the last number?</h2>
+          <p>The comparison model keeps offering the last packet it received, however old the observation inside it becomes. This is called a last-arrival register.</p>
         </div>
         <div class="exploration-comparison-detail">
           <p>At 4 s, that register still offers <strong>21</strong>, even though its source observation has expired. At 5 s, it replaces that value with <strong>22</strong> from the already-stale packet.</p>

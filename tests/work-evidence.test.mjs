@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import { createSiteFixture, buildSite } from './helpers/site-fixture.mjs';
 import { workCatalogue } from '../src/lib/work.ts';
 import { workspacesFor } from '../src/lib/lab-workspaces.ts';
+import { walkthroughSchedule, walkthroughTimeout } from '../src/lib/signal-walkthrough.ts';
 import { sensorEvidence, sensorEvidenceTotals } from '../src/lib/sensor-evidence.ts';
 import { contracts, GUIDE_PATH } from '../src/lib/workflow-brief.ts';
 import { parseJourneyHash, parseWorkspaceToken } from '../src/scripts/lab-experience.js';
@@ -42,6 +43,29 @@ ${['Question', 'Approach', 'Takeaways', 'Limits', 'Next steps'].map(heading => `
     }
     const result = buildSite(root);
     assert.equal(result.status, 0, result.output);
+    // The discovery previews are readable initial HTML and use the same
+    // recorded/model values as the deeper artifacts, including on Home.
+    for (const route of ['index.html', 'work/index.html']) {
+      const html = readFileSync(join(root, 'website', route), 'utf8');
+      assert.doesNotMatch(html, /<script(?! type="application\/ld\+json")/);
+      const preview = /<figure[^>]*class="[^"]*artifact-signal-freshness[^"]*"[^>]*>([\s\S]*?)<\/figure>/.exec(html);
+      assert.ok(preview, `${route} exposes a sensor preview`);
+      assert.doesNotMatch(preview[0], /aria-hidden="true"/);
+      const fresh = walkthroughSchedule.find(point => point.key === 'fresh');
+      const expired = walkthroughSchedule.find(point => point.key === 'expired');
+      assert.ok(plain(preview[1]).includes(`At ${fresh.now} second ${fresh.expected.currentValue}`));
+      assert.ok(plain(preview[1]).includes(`At ${expired.now} seconds Too old`));
+      assert.ok(plain(preview[1]).includes(`After ${walkthroughTimeout} seconds`));
+      for (const work of workCatalogue.filter(item => html.includes(`artifact-${item.preview}`))) {
+        assert.ok(plain(html).includes(work.scope), `${route} keeps ${work.slug} scope beside its preview`);
+      }
+    }
+    const gallery = readFileSync(join(root, 'website/work/index.html'), 'utf8');
+    const releasePreview = /<figure[^>]*class="[^"]*artifact-ai-software-factory[^"]*"[^>]*>([\s\S]*?)<\/figure>/.exec(gallery)?.[1];
+    assert.ok(releasePreview);
+    const startingRelease = workspacesFor('factory').find(scene => scene.key === 'evidence').states['000'];
+    assert.ok(plain(releasePreview).includes(`Proposed version ${startingRelease.values.candidate}`));
+    assert.ok(plain(releasePreview).includes(`Tests cover version ${startingRelease.values.proof}`));
     const pages = Object.fromEntries(workCatalogue.map(work => {
       const html = readFileSync(join(root, 'website/work', work.slug, 'index.html'), 'utf8');
       assert.ok(plain(html).includes(work.kind));
@@ -97,7 +121,7 @@ ${['Question', 'Approach', 'Takeaways', 'Limits', 'Next steps'].map(heading => `
     const publishing = pages['publishing-system'];
     assert.match(publishing, /id="verification"/);
     assert.ok(publishing.includes(`href="${GUIDE_PATH}"`), 'The published example has real companion links');
-    assert.ok(plain(publishing).includes('Change that parent to draft'));
+    assert.ok(plain(publishing).includes('Return the article to draft'));
     assert.ok(plain(publishing).includes('including generated brief downloads'));
 
     // The publishing example must not keep advertising a withdrawn parent.

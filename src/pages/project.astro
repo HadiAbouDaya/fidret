@@ -4,16 +4,33 @@ import ProjectInvitation from '../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../lib/lab';
 import Byline from '../components/Byline.astro';
 import PublicationDate from '../components/PublicationDate.astro';
+import { hadiProfile } from '../lib/people';
 import '../styles/visitor.css';
-import {hadiProfile} from '../lib/people';
 const pieces = await getPublishedPieces();
 ---
-<SiteLayout title="About Fidret | Purpose, people and work" description="Fidret means Trust earned. Learn about the developing Physical AI practice, Hadi Abou Daya and the work behind the company." canonical="https://fidret.com/project/">
+<SiteLayout title="About Fidret | Purpose, people and work" description="Fidret is an emerging engineering company developing its first practice in Physical AI. Meet Hadi Abou Daya and explore the work behind Trust earned." canonical="https://fidret.com/project/">
   <main tabindex="-1" id="main">
-    <header class="visitor-hero shell"><h1>About Fidret</h1><p class="visitor-lead">Expertise earns trust through useful work and the judgment behind it.</p><p>Fidret is being built around that commitment. Our name is inspired by the Latin fīdere, to trust or rely upon. Its chosen meaning is Trust earned.</p></header>
-    <section class="visitor-split shell"><h2>Physical AI is our first practice.</h2><div><p>We explore systems that use observations of the physical world to support decisions and actions. Timing, changing conditions, integration and the people operating a system are part of the problem.</p><p>The work on agents and software delivery examines supporting foundations: usable context, bounded authority, implementation evidence and recovery.</p><a class="text-link" href="/work/">See how the work connects</a></div></section>
-    <section class="about-person inverse"><div class="visitor-split shell"><h2>Hadi Abou Daya</h2><div><p>{hadiProfile.role}. {hadiProfile.background}</p><p>At Fidret, he authors the published Lab work on Physical AI, agent workflows and AI-assisted software delivery.</p><p>His contributions connect a practical question to explicit reasoning, sources and limitations. The published work is available to inspect before a conversation.</p><div class="visitor-actions"><a class="text-link" href="/people/hadi/">Hadi’s work and role</a><a class="text-link" href="/contact/">Discuss a project</a></div></div></div></section>
-    <section class="visitor-split shell"><h2>Clear responsibility, recoverable work.</h2><div><p>Our project foundation keeps purpose, decisions, task ownership and verification alongside the implementation. This helps someone else understand and continue the work.</p><p>Agents can assist. Named people remain responsible for scope, acceptance and consequences.</p><a class="text-link" href="/approach/">Our working approach</a><p><a class="text-link" href="/charter/">The company charter</a></p></div></section>
+    <header class="visitor-hero shell">
+      <h1>About Fidret</h1>
+      <p class="visitor-lead">An emerging engineering company, built around useful work and the judgment behind it.</p>
+      <p>We build software experiments and explore system designs. Our aim is to earn trust through what people experience when working with us: clear thinking, honest commitments and work they can use.</p>
+    </header>
+    <section class="about-person inverse"><div class="visitor-split shell">
+      <h2>Hadi Abou Daya</h2>
+      <div><p>{hadiProfile.role}. {hadiProfile.background}</p><p>Hadi is building Fidret and authors its published Lab work on Physical AI, agent workflows and AI-assisted software delivery. His professional background is distinct from Fidret’s own projects and explorations.</p><div class="visitor-actions"><a class="text-link" href="/people/hadi/">Hadi’s work and role</a><a class="text-link" href="/contact/">Talk about an idea</a></div></div>
+    </div></section>
+    <section class="visitor-split shell">
+      <h2>Starting with Physical AI.</h2>
+      <div><p>How can a system use information from the world around it to help people make decisions or operate equipment? What should it do when that information is old, incomplete or conflicting?</p><p>Those questions guide our first practice. Related work on agents and software explores how to check results, set clear permissions and recover when something goes wrong.</p><a class="text-link" href="/work/">Explore the questions and what we made</a></div>
+    </section>
+    <section class="visitor-split shell">
+      <h2>Trust earned.</h2>
+      <div><p>That is Fidret’s chosen meaning. The name is inspired by the Latin <i lang="la">fīdere</i>, to trust or rely upon.</p><p>For us, it means understanding a situation before choosing a technology, making commitments clear and showing what a result does and does not establish. Sometimes good judgment means changing direction or stopping.</p><a class="text-link" href="/charter/">Read the company charter</a></div>
+    </section>
+    <section class="visitor-split shell">
+      <h2>Work someone else can understand and continue.</h2>
+      <div><p>We keep decisions, responsibilities and checks alongside the implementation, so another person can understand how it works and what still needs attention.</p><p>AI agents can assist. Named people remain responsible for the work and its consequences.</p><a class="text-link" href="/approach/">Our working approach</a></div>
+    </section>
     {pieces.length > 0 && <section class="about-publications shell" aria-labelledby="publications-title"><div class="visitor-section-heading"><h2 id="publications-title">From the Lab</h2><p>Each published piece names its actual contributors.</p></div><div class="about-publication-list">{pieces.map(piece=><article><h3><a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a></h3><p>{piece.data.summary}</p><p class="work-kind"><PublicationDate value={piece.data.published}/> · By <Byline authors={piece.data.authors}/></p></article>)}</div></section>}
     <ProjectInvitation />
   </main>

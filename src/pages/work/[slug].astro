@@ -20,6 +20,7 @@ const { work, publishedWorks } = Astro.props;
       <p class="work-kind">{work.kind}</p>
       <h1>{work.title}</h1>
       <p class="visitor-lead">{work.question}</p>
+      <p class="work-scope">{work.scope}</p>
       <div class="visitor-actions">
         <a class="button" href={work.artifact}>{work.artifactLabel}</a>
       </div>
@@ -32,6 +33,8 @@ const { work, publishedWorks } = Astro.props;
         <p>{work.relevance}</p>
       </div>
       <div>
+        <h3>What you can explore</h3>
+        <p>{work.explore}</p>
         <h3>What it shows</h3>
         <p>{work.finding}</p>
       </div>

@@ -55,22 +55,22 @@ function factory(key:string,source:string,copy:Omit<WorkspaceCase,'key'|'control
   return {key,...copy,controls:dimensions.map(d=>({label:d.label,options:d.options.map(o=>o.label)})),initial:'0'.repeat(dimensions.length),states:enumerateWorkspace(base,dimensions,factoryState,facts),facts};
 }
 export const farmWorkspaces:WorkspaceCase[]=[
-  farm('water','morning',{title:'Can this watering cycle run?',context:'One irrigation proposal, checked at the local controller.',challenge:'Remove the water reservation. Can better evidence make up for it?',fixed:'The exact plan, identity, current action grant, operating envelope, approved data path and local protection remain valid. No earlier operation is pending.'},[
-    dimension<FarmFacts>('Field evidence',[['Current',{evidence:'current'}],['Disagree',{evidence:'conflicting'}]]),
+  farm('water','morning',{title:'There is water. Is it available for this job?',context:'One watering job shares a supply with animal care and other work. The model checks a reservation for this job; it does not decide how much water each job gets.',challenge:'Set Shared water to Not reserved. Even with current readings and local checks ready, why must this job wait?',fixed:'The exact plan, identity, current action grant, operating envelope, approved data path and local protection remain valid. No earlier operation is pending.'},[
+    dimension<FarmFacts>('Field readings',[['Current',{evidence:'current'}],['Disagree',{evidence:'conflicting'}]]),
     dimension<FarmFacts>('Shared water',[['Reserved',{resourcesReserved:true}],['Not reserved',{resourcesReserved:false}]]),
     dimension<FarmFacts>('Local checks',[['Ready',{localReady:true}],['Missing',{localReady:false}]]),
   ]),
-  farm('probe','dry-probe',{title:'Which observation can the plan rely on?',context:'An extra cycle depends on field observations. Inspection and authority are separate conditions.',challenge:'Restore the evidence, then revoke the grant. Watch which boundary still holds.',fixed:'Resource reservation, identity, exact plan, local readiness, data path and operating envelope remain valid. There is no urgent event or pending earlier effect.'},[
-    dimension<FarmFacts>('Field evidence',[['Disagree',{evidence:'conflicting'}],['Checked',{evidence:'current'}],['Stale',{evidence:'stale'}]]),
-    dimension<FarmFacts>('Action grant',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
+  farm('probe','dry-probe',{title:'Do the readings support another watering cycle?',context:'An extra watering cycle depends on readings that agree. Checking the readings and having permission to act are separate requirements.',challenge:'Set Field readings to Checked, then set Action permission to Revoked. Which requirement still makes the job wait?',fixed:'Resource reservation, identity, exact plan, local readiness, data path and operating envelope remain valid. There is no urgent event or pending earlier effect.'},[
+    dimension<FarmFacts>('Field readings',[['Disagree',{evidence:'conflicting'}],['Checked',{evidence:'current'}],['Stale',{evidence:'stale'}]]),
+    dimension<FarmFacts>('Action permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
   ]),
-  farm('care','heat',{title:'Who responds when care becomes urgent?',context:'A proposal requests one discretionary robot-charging slot. Urgent care has an independent local response.',challenge:'Revoke the cloud grant while the care risk is present. Does local protection disappear?',fixed:'The qualified local care plan and responder remain available. The routine proposal otherwise meets its evidence, resource, identity, local-readiness and operating requirements.'},[
+  farm('care','heat',{title:'Who responds when care becomes urgent?',context:'A proposal requests one discretionary robot-charging slot. Urgent care has an independent local response.',challenge:'Set Cloud permission to Revoked while care is urgent. Does local protection disappear?',fixed:'The qualified local care plan and responder remain available. The routine proposal otherwise meets its evidence, resource, identity, local-readiness and operating requirements.'},[
     dimension<FarmFacts>('Local care event',[['Urgent',{hazard:true}],['None',{hazard:false}]]),
-    dimension<FarmFacts>('Cloud action grant',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
+    dimension<FarmFacts>('Cloud permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
   ]),
-  farm('receipt','lost-dose',{title:'Did the pump already act?',context:'One accepted nutrient operation has a stable reference. A lost message does not establish its physical result.',challenge:'Find a completed result. Notice why the model does not run the pump again.',fixed:'There is no urgent local event. The evidence, reservation, exact plan, local checks, identity and operating envelope for a bounded attempt are otherwise established. A confirmed non-execution still needs the same operation contract.'},[
+  farm('receipt','lost-dose',{title:'It stopped replying. Did the pump already act?',context:'The pump accepted a nutrient command, but its reply is missing. The dose may already have been delivered. Keep the same operation reference while checking what happened.',challenge:'Change Earlier operation from Unknown to Complete, then to Not executed. Compare returning a result with permission for an attempt.',fixed:'There is no urgent local event. The evidence, reservation, exact plan, local checks, identity and operating envelope for a bounded attempt are otherwise established. A confirmed non-execution still needs the same operation contract.'},[
     dimension<FarmFacts>('Earlier operation',[['Unknown',{effect:'unknown'}],['Complete',{effect:'completed'}],['Not executed',{effect:'none'}]]),
-    dimension<FarmFacts>('Action grant',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
+    dimension<FarmFacts>('Action permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
   ]),
   farm('offline','offline',{title:'What can continue without the cloud?',context:'This proposed local routine has its own bounded delegation. Unrelated new cloud work has no such permission.',challenge:'Keep the cloud disconnected. Find the conditions the proposed routine still needs.',fixed:'The action grant is current, with valid identity, plan, evidence, resource reservation and operating envelope. Independent essential-care protection and its human response plan are separate from this proposal.'},[
     dimension<FarmFacts>('Cloud connection',[['Disconnected',{cloud:false}],['Connected',{cloud:true}]]),
@@ -79,12 +79,12 @@ export const farmWorkspaces:WorkspaceCase[]=[
   ]),
 ];
 export const factoryWorkspaces:WorkspaceCase[]=[
-  factory('evidence','stale',{title:'Does the evidence cover these bytes?',context:'Candidate 13 is proposed for the next rollout stage. Its evidence and permission can change independently.',challenge:'Verify candidate 13, then revoke the grant. Green tests alone cannot release it.',fixed:'Build provenance is verified, the routine limited rollout is confirmed, the required observation window is healthy and recovery is prepared. This models the next stage, not the first deployment.'},[
-    dimension<ReleaseFacts>('Evidence covers',[['12',{testedCandidate:'candidate-12',testedArtifact:'artifact-12'}],['13',{testedCandidate:'candidate-13',testedArtifact:'artifact-13'}]]),
+  factory('evidence','stale',{title:'Are the checks right for this version?',context:'Start with software version 13, the release candidate, and tests for version 12. The next rollout stage needs checks for the exact version being released, as well as permission to proceed.',challenge:'Set Tests cover version to 13, then set Release permission to Revoked. Matching tests do not replace permission.',fixed:'Build provenance is verified, the routine limited rollout is confirmed, the required observation window is healthy and recovery is prepared. This models the next stage, not the first deployment.'},[
+    dimension<ReleaseFacts>('Tests cover version',[['12',{testedCandidate:'candidate-12',testedArtifact:'artifact-12'}],['13',{testedCandidate:'candidate-13',testedArtifact:'artifact-13'}]]),
     dimension<ReleaseFacts>('Acceptance checks',[['Passed',{checks:'pass'}],['Failed',{checks:'fail'}]]),
-    dimension<ReleaseFacts>('Execution grant',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
+    dimension<ReleaseFacts>('Release permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
   ]),
-  factory('receipt','timeout',{title:'What does a missing receipt establish?',context:'The release request used one stable operation reference. Model what the provider and observation evidence actually establish.',challenge:'Confirm the deployment. What else is needed before the next rollout stage?',fixed:'Exact-candidate checks, provenance, a current routine grant and recovery readiness are established. A healthy observation window only counts when deployment is also confirmed.'},[
+  factory('receipt','timeout',{title:'No reply. Did the release happen?',context:'The release request has one stable operation reference. A missing reply leaves its outcome unknown. Confirming deployment and checking its effect on customers are separate steps.',challenge:'Confirm the deployment. What else is needed before the next rollout stage?',fixed:'Exact-candidate checks, provenance, a current routine grant and recovery readiness are established. A healthy observation window only counts when deployment is also confirmed.'},[
     dimension<ReleaseFacts>('Provider result',[['Unknown',{externalEffect:'unknown'}],['Confirmed',{externalEffect:'confirmed'}],['Unconfirmed',{externalEffect:'none'}]]),
     dimension<ReleaseFacts>('Customer observation',[['Inconclusive',{observation:'inconclusive'}],['Healthy',{observation:'healthy'}],['Breach',{observation:'breach'}]]),
   ]),
@@ -92,8 +92,8 @@ export const factoryWorkspaces:WorkspaceCase[]=[
     dimension<ReleaseFacts>('Customer observation',[['Inconclusive',{observation:'inconclusive'}],['Healthy',{observation:'healthy'}],['Breach',{observation:'breach'}]]),
     dimension<ReleaseFacts>('Recovery plan',[['Prepared',{recoveryReady:true}],['Missing',{recoveryReady:false}]]),
   ]),
-  factory('authority','healthy',{title:'What does the grant actually cover?',context:'Routine progression can be pre-authorized. A different change class may need its own designated review.',challenge:'Make this an exception. Does a current grant remove the review requirement?',fixed:'Evidence covers the exact artifact, checks and provenance are accepted, deployment is confirmed, the required observations are healthy and recovery is prepared.'},[
-    dimension<ReleaseFacts>('Execution grant',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
+  factory('authority','healthy',{title:'What does this permission cover?',context:'Routine releases can have permission in advance. A change outside that routine may need a separate review.',challenge:'Set Change class to Exception. Does current release permission remove the review requirement?',fixed:'Evidence covers the exact artifact, checks and provenance are accepted, deployment is confirmed, the required observations are healthy and recovery is prepared.'},[
+    dimension<ReleaseFacts>('Release permission',[['Current',{authority:'current'}],['Revoked',{authority:'revoked'}]]),
     dimension<ReleaseFacts>('Change class',[['Routine',{changeClass:'routine'}],['Exception',{changeClass:'exception'}]]),
     dimension<ReleaseFacts>('Exception review',[['Pending',{exceptionReview:false}],['Established',{exceptionReview:true}]]),
   ]),

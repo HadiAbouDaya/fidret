@@ -6,8 +6,8 @@ interface Props {
 }
 
 const {
-  title = 'Bring a project question.',
-  description = 'Describe what happens today, where it breaks down and who needs the result. An example or an early question is enough to begin.',
+  title = 'An early idea is enough.',
+  description = 'Tell us what is happening and what you would like to change. A question or one example is enough to start a conversation.',
 } = Astro.props;
 ---
 <aside class="project-invitation shell" aria-label="Discuss a project">
@@ -15,5 +15,5 @@ const {
     <h2>{title}</h2>
     <p>{description}</p>
   </div>
-  <a class="button" href={projectContact.path}>Discuss a project</a>
+  <a class="button" href={projectContact.path}>Talk about an idea</a>
 </aside>
