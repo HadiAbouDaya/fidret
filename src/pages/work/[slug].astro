@@ -29,6 +29,7 @@ const { work, publishedWorks } = Astro.props;
       <div>
         <h2 id="contribution-title">What we made</h2>
         <p class="visitor-lead">{work.contribution}</p>
+        <p>{work.relevance}</p>
       </div>
       <div>
         <h3>What it shows</h3>
@@ -40,10 +41,8 @@ const { work, publishedWorks } = Astro.props;
 
     <section class="work-evidence inverse">
       <div class="shell visitor-split">
-        <h2>Where this may be useful</h2>
+        <h2>Scope and next steps</h2>
         <div>
-          <p>{work.relevance}</p>
-          <h3>Scope and limits</h3>
           <p>{work.limit}</p>
           <h3>What comes next</h3>
           <p>{work.nextEvidence}</p>

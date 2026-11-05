@@ -88,7 +88,7 @@ const publicationPaths = publication
         {planningQuestions.map(contract => (
           <div>
             <dt><a href={`${work.artifact}#${contract.id}`}>{contract.question}</a></dt>
-            <dd>{contract.prompts[0]}</dd>
+            <dd>{contract.id === 'recovery' ? <><strong>Fictional worked example:</strong> {contract.example}</> : contract.prompts[0]}</dd>
           </div>
         ))}
       </dl>
@@ -112,7 +112,7 @@ const publicationPaths = publication
       <ol class="work-publication-states">
         <li>
           <h3>Mark a complete piece as published</h3>
-          <p>The build validates the narrative, actual authors and edition dates. It generates the article and references, includes the piece in Lab and discovery, and exposes its configured work overview and companions.</p>
+          <p>The build checks required narrative sections, registered bylines and valid edition dates. It generates the article and references, includes the piece in Lab and discovery, and exposes its configured work overview and companions.</p>
         </li>
         <li>
           <h3>Change that parent to draft</h3>

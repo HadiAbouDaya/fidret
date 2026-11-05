@@ -48,6 +48,10 @@ The output gate protects the existing global CSP, referrer, content-type and per
 
 Edit the canonical CSS in `src/styles/`. Astro imports bundle it into external files with content fingerprints under `/_astro/`; `inlineStylesheets: never` retains the strict same-origin CSP without inline CSS. A build integration also emits `/styles.css` and `/lab.css` from the same source bytes for older links. Those aliases are generated output, not separate editable sources. New pages use the fingerprinted links so changing CSS changes the requested asset URL.
 
+Keep shared layout primitives in the core stylesheet and import Lab, knowledge, 404 and other page-family styles where they are used. A family edit should not invalidate unrelated page styles. The stylesheet fixture tests check those boundaries alongside deterministic identities and compatibility aliases.
+
+The three curated Markdown briefs have literal `_headers` rules for UTF-8 Markdown and revalidation. Output checks reject missing or overriding MIME/cache definitions for generated briefs. Endpoint response declarations alone do not establish static-host behavior; verify the deployed response and downloaded bytes, including the factory brief.
+
 After a stylesheet release, inspect the stylesheet URL in actual production HTML, confirm that it returns CSS over HTTPS and review the rendered pages. Check custom-domain headers separately from an exact deployment's `pages.dev` URL. A 2026-10-28 audit observed a four-hour custom-domain TTL on the old mutable CSS URLs despite revalidation headers on the exact deployment; the account-level cause was not established. Fingerprinted URLs address asset identity without changing zone settings. Cloudflare documents [custom-domain cache risks](https://developers.cloudflare.com/pages/configuration/serving-pages/#caching-and-performance) and [headers for fingerprinted assets](https://developers.cloudflare.com/pages/configuration/headers/#configure-custom-browser-cache-behavior).
 
 ## Initial Cloudflare connection

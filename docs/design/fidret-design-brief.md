@@ -1,6 +1,6 @@
 # Fidret design language
 
-Version 4 · 5 November 2026 · **A working field of evidence**
+Version 5 · 5 November 2026 · **A working field of evidence**
 
 This is the canonical visual direction for Fidret. Hadi requested a complete redesign and delegated its creative choices; [decision 0010](../decisions/0010-evidence-design-language.md) records the implementation basis. It replaces the layout and composition defaults of the supplied 24 October brief, preserved in Git history. The [website craft convention](../decisions/0012-website-craft.md) refines its application after Hadi’s 3 November review. The [charter](../foundation/charter.md) remains the authority for company purpose and claims.
 
@@ -15,6 +15,8 @@ The audience is a prospective collaborator or technical reviewer assessing a con
 Each primary page should help its intended visitor understand the subject, assess its relevance, identify what Fidret actually contributed, inspect proportionate evidence and choose a useful next step. Define the reader's question before selecting a composition. A page can be visually restrained and technically correct while still leaving that question unanswered.
 
 Home introduces relevance and leads promptly to selected work. Work curates contributions by usefulness and evidence, while Lab remains the publication collection. A forwarded work link must make sense without a visit to Home. Explain professional background separately from Fidret engagement history. A discussion invitation uses a real, maintained destination; it does not require a new form or backend.
+
+Establish relevance before an extended example. A contribution overview should show a compact case derived from its actual source: an observation and result, a changed assumption and response, or an answered planning decision. Keep the artifact directly accessible. A repeated conceptual preview can help identify work in a collection, but it does not substitute for evidence on the individual page.
 
 Use the [work and journey reference](../../skills/fidret-design/references/work-and-journeys.md) for contribution summaries and whole-journey critique. [Decision 0015](../decisions/0015-visitor-outcomes.md) records this convention. No design check proves that a lead will become a partner.
 
@@ -75,7 +77,7 @@ Use flat surfaces and modest rounding where a control or enclosed experiment nee
 | Lab article | Understand a question, method, result and limits | Restrained reading measure, strong headings, legible figures/code, visible authorship, dates and sources |
 | Signal walkthrough | Inspect why a reading is accepted or stale | Native state selection, explicit time/age/status, a persistent explanation and direct model/source references |
 | Model workspace | Change assumptions and understand the response | Useful initial example, nearby inputs/result, explicit teaching scope, matching reading order and direct project context |
-| 404 | Recover from an unknown address | Familiar identity, clear explanation, working home and Lab links; noindex retained |
+| 404 | Recover from an unknown address | Familiar identity, clear explanation, working home and work links; noindex retained |
 
 A new surface should use the part of this grammar that serves its task. It need not inherit the company's largest headline, hero figure or dark panel.
 
@@ -87,6 +89,7 @@ A new surface should use the part of this grammar that serves its task. It need 
 - Wide technical figures retain readable horizontal access or a full-size link on narrow screens; keep a useful plain-text caption. The first structured article image is its cover.
 - Every technical axis, number and status must have a defined meaning. Do not invent live telemetry, accuracy figures or operating conditions for visual atmosphere.
 - Put essential explanations in normal page text so they remain readable on a phone and available without interpreting a drawing. Hide decorative SVG from assistive technology; give explanatory figures an appropriate accessible name and caption.
+- An image role describes one graphic; it must not conceal nested interactive regions. When a diagram contains links, expose their grouping and names, include their visible labels in those names and retain a straightforward text route. Do not make a decorative preview an extra link when adjacent text already provides the same destination.
 - Do not reuse third-party project imagery as Fidret's work. Record source and license when an external asset is actually introduced.
 
 ## Interaction and motion
@@ -97,6 +100,8 @@ A radio group selects a documented moment in the synthetic signal scenario. Its 
 
 Use real links for navigation and native controls for state. Maintain a visible focus indicator on every surface, with comfortable primary touch targets of at least 44 px. Disclosures should show what will open. Do not depend on hover, motion or color alone.
 
+Selecting a native situation control should retain focus on that control and announce the selected situation. Explicit navigation may focus the destination heading. An explicit reset creates a reversible history step; changing individual conditions updates the current experiment. Test Back and Forward with real interactions. Name scrollable code and figure regions, make them keyboard reachable and verify that scrolling actually works.
+
 For explanations with a model, start with a useful example and let the reader change a small number of explicit assumptions. Keep the resulting action and reasons near the inputs. Repairing one condition must not conceal other blockers, and a priority response must identify checks not evaluated. Give each situation the artifact it needs instead of reusing an attractive but irrelevant graphic. Preserve exact bounded settings through sharing, references, reload and history. The [frontend craft checks](../../skills/fidret-design/references/interactive-explanations.md) record this review process. These are design requirements, not claims of measured learning gains.
 
 Motion may clarify a user's action through a brief state transition, approximately 120–180 ms. Avoid perpetual scanning, parallax, scroll interception and section-by-section entrance effects. Honor reduced-motion preferences. A still composition must remain complete.
@@ -106,6 +111,8 @@ Motion may clarify a user's action through a brief state transition, approximate
 Use specific nouns, plain verbs and sentence case. Do not use em dashes in public output, including document titles, metadata, source labels, accessible text, figures and authored downloads. Use full sentences, commas, colons or parentheses; use ` | ` between a page title and site name. Label missing values explicitly instead of using a dash placeholder. Explain a need, a decision or an observable result. Preserve **Fidret** and **Trust earned.** The name is inspired by the Latin trust root; do not present the coined name as a literal ancient translation.
 
 Keep a visible distinction between company purpose, developing practice, candidate application and demonstrated work. A software exploration has its actual assumptions and limits. A simulation result does not establish a physical-system outcome. Preserve actual authors and dates; an agent-built interface does not establish a human byline or joint review.
+
+Describe automated validation by what it checks. Required narrative sections, registered bylines and valid date sequences do not establish factual correctness, actual authorship or human review. Derive displayed model results and experiment counts from their canonical data, with conditions and denominators stated beside them.
 
 Keep website navigation focused on Fidret’s public pages. Hadi requested removal of outbound GitHub links on 29 October 2026: do not add them to public navigation, project actions, bylines or article templates. Use designed onsite project, charter, contributor, experiment-method and article-source pages for those destinations. Keep contributor names and internal repository provenance intact. Do not invent an email address, inquiry form, client logo, testimonial, service package or outcome metric to complete the layout.
 
@@ -137,6 +144,8 @@ Read the [project design skill](../../skills/fidret-design/SKILL.md) when changi
 Before release, verify narrow mobile, tablet and wide desktop layouts, readable enlarged text, native-control keyboard behavior, visible focus, contrast and all destinations. Look at home, Lab, an article fixture, 404 and the exploration. Check that diagrams explain their concepts and that selected states agree with their model. Run the repository's shared checks and record exactly which visual and functional checks actually ran in the current [task record](../tasks/README.md).
 
 Review the full journey as well as the component. On a phone, check which useful evidence appears first, how much explanation precedes it and whether the reader can reach a legitimate next step. Do not equate no overflow with useful prioritization. Keep DOM reading order aligned with visual order, including results and diagrams.
+
+Review exceptional presentations as real outputs. Print or save the evidence page with its initial disclosures closed: all necessary replay content must appear, wide figures must fit and tables must remain readable. Inspect the generated pages, not only print CSS or a screen preview. Also check forced colors and script failure. Keep page-family styles scoped to their consumers and test both changed and unaffected stylesheet identities.
 
 | Evidence | What to record | What it cannot establish alone |
 | --- | --- | --- |

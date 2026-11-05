@@ -91,7 +91,7 @@ ${['Question', 'Approach', 'Takeaways', 'Limits', 'Next steps'].map(heading => `
     const harness = pages['agentic-company-harness'];
     for (const contract of contracts.filter(item => ['purpose', 'authority', 'recovery'].includes(item.id))) {
       assert.ok(plain(harness).includes(contract.question));
-      assert.ok(plain(harness).includes(contract.prompts[0]));
+      assert.ok(plain(harness).includes(contract.id === 'recovery' ? contract.example : contract.prompts[0]));
       assert.ok(harness.includes(`href="${GUIDE_PATH}#${contract.id}"`));
     }
     const publishing = pages['publishing-system'];

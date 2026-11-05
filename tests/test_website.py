@@ -94,6 +94,7 @@ class WebsiteTests(unittest.TestCase):
             self.assertEqual(validate(self.root), [])
             for fragment in ('scene-missing~v1-010', 'scene-water~v2-010', 'scene-water~v1-999',
                              'scene-water~v1-01', 'scene-water~v1-0100', 'scene-water~v1-01x',
+                             'scene-water%7Ev1-010', 'scene-water~v1-%30%31%30',
                              'scene-water~v1-__proto__', 'purpose~v1-010', 'missing'):
                 with self.subTest(route=route, fragment=fragment):
                     index.write_text(html.replace('</body>', f'<a href="{route}#{fragment}">Bad conditions</a></body>'))

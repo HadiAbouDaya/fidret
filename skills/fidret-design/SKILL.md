@@ -19,4 +19,6 @@ Compose for reading and action. Use descriptive headings and natural wrapping. R
 
 Review the whole journey, then its details: wide desktop, tablet, 390/320 px, enlarged text, keyboard, focus, labels, contrast, destinations and relevant empty/error/selected states. A phone that does not overflow may still hide the useful work behind too much introduction. Add assistive-technology and performance checks appropriate to the change and record exact coverage. Do not claim screen-reader listening, field performance or human comprehension from DOM checks.
 
+For evidence pages, inspect actual printed pages with disclosures initially closed. Verify complete diagrams and replay tables, then restoration of the screen state. Keep interactive SVG semantics, named keyboard scroll regions and visible-label agreement in the review. Scope styles to the page families that use them; preserve shared primitives and deterministic asset identities.
+
 Run the shared checks and inspect the complete diff. Keep intentional guidance changes and implementation aligned. Record actual evidence, limits and publication state in the task; use [visitor validation](../../docs/design/visitor-validation.md) for the real-reader and inquiry feedback loop. Downloadable files need direct status/type/byte verification; handle any browser save dialog without changing the user's settings.

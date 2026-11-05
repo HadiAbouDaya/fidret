@@ -377,7 +377,7 @@ def validate(root: Path) -> list[str]:
                 if not target.is_relative_to(site.resolve()) or not target.is_file():
                     errors.append(f"{path.name}: invalid public link: {value}")
                 elif (url.fragment and target in documents and unquote(url.fragment) not in documents[target].ids
-                      and not valid_workspace_fragment(unquote(url.fragment), target, site, documents[target])):
+                      and not valid_workspace_fragment(url.fragment, target, site, documents[target])):
                     errors.append(f"{path.name}: missing link anchor: {value}")
     homepage = documents.get(site / "index.html")
     if homepage and not any(tag == "link" and attrs.get("rel") == "canonical"
