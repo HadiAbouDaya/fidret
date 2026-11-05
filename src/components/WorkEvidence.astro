@@ -1,0 +1,130 @@
+---
+import type { Work } from '../lib/work';
+import { workPath } from '../lib/work';
+import { workspacesFor } from '../lib/lab-workspaces';
+import { sensorEvidence, sensorEvidenceTotals } from '../lib/sensor-evidence';
+import { contracts, HARNESS_SLUG } from '../lib/workflow-brief';
+
+interface Props {
+  work: Work;
+  publishedWorks: Work[];
+}
+
+const { work, publishedWorks } = Astro.props;
+const modelKind = work.slug === 'autonomous-farm' ? 'farm' : work.slug === 'ai-software-factory' ? 'factory' : null;
+const model = modelKind ? workspacesFor(modelKind).find(item => item.key === (modelKind === 'farm' ? 'water' : 'evidence'))! : null;
+const examples = modelKind === 'farm'
+  ? [{ token: '000', title: 'Water reserved' }, { token: '010', title: 'Water reservation removed' }]
+  : [{ token: '000', title: 'Evidence for the earlier candidate' }, { token: '100', title: 'Evidence for the exact candidate' }, { token: '101', title: 'Matching evidence, revoked permission' }];
+const expiration = sensorEvidence.scenarios.dropped!.snapshots.find(row => row.baseline.source_age === sensorEvidence.timeout)!;
+const planningQuestions = contracts.filter(contract => ['purpose', 'authority', 'recovery'].includes(contract.id));
+const publication = publishedWorks.find(item => item.sourceSlug === HARNESS_SLUG) ?? publishedWorks.find(item => item.sourceSlug);
+const publicationPaths = publication
+  ? [...new Set([`/lab/${publication.sourceSlug}/`, `/lab/${publication.sourceSlug}/sources/`, workPath(publication), publication.artifact, publication.method])]
+  : [];
+---
+<section class="work-example shell" id={work.slug === 'publishing-system' ? 'verification' : 'example'} aria-labelledby="example-title">
+  {work.slug === 'signal-freshness' && (
+    <>
+      <h2 id="example-title">What happens when readings stop?</h2>
+      <p>
+        The replay checks {sensorEvidenceTotals.observations} scheduled observation points in {Object.keys(sensorEvidence.scenarios).length} fixed synthetic scenarios:
+        normal arrivals, dropped packets, delayed packets, out-of-order arrivals and recovery.
+        The last-arrival baseline exposes an age-invalid value at <strong>{sensorEvidenceTotals.baseline_age_invalid} points</strong>.
+        The guard does so at <strong>{sensorEvidenceTotals.guarded_age_invalid} points</strong>.
+      </p>
+      <div class="work-example-context">
+        <h3>One point at the expiry boundary</h3>
+        <p>No new packet arrives in the dropped-packet scenario. Both rules last received the value {expiration.baseline.current_value} at source time {expiration.baseline.source_time}.</p>
+        <dl class="work-example-facts">
+          <div><dt>Checked at</dt><dd>{expiration.guarded.as_of} seconds</dd></div>
+          <div><dt>Source age</dt><dd>{expiration.baseline.source_age} seconds</dd></div>
+          <div><dt>Last-arrival baseline</dt><dd>Still exposes {expiration.baseline.current_value}</dd></div>
+          <div><dt>Freshness guard</dt><dd>{expiration.guarded.current_value === null ? 'No current value' : expiration.guarded.current_value} ({expiration.guarded.state})</dd></div>
+        </dl>
+      </div>
+      <p class="work-example-conditions">
+        Clock: {sensorEvidence.clock}. A usable reading has a source age at least zero and strictly below {sensorEvidence.timeout} seconds.
+        Recovery requires {sensorEvidence.recovery_observations} distinct fresh observations. These are scheduled points in fixed traces, not independent trials or an estimate of field reliability.
+        The timeout is illustrative; no hardware was tested.
+      </p>
+    </>
+  )}
+
+  {model && (
+    <>
+      <h2 id="example-title">{modelKind === 'farm' ? 'Current evidence cannot reserve the water.' : 'The candidate and its permission both matter.'}</h2>
+      <p>{model.context}</p>
+      <p class="work-example-conditions"><strong>Held constant:</strong> {model.fixed}</p>
+      <ol class="work-model-examples">
+        {examples.map(example => {
+          const state = model.states[example.token]!;
+          return (
+            <li id={`example-${model.key}-${example.token}`}>
+              <h3>{example.title}</h3>
+              <dl class="work-example-facts">
+                {model.controls.map((control, index) => (
+                  <div><dt>{control.label}</dt><dd>{control.options[Number(example.token[index])]}</dd></div>
+                ))}
+              </dl>
+              <div class="work-example-response">
+                <p><strong>Model response: {state.label}</strong></p>
+                <ul>{state.reasons.map(reason => <li>{reason}</li>)}</ul>
+                <a class="text-link" href={`${work.artifact}#scene-${model.key}~v1-${example.token}`}>Open these conditions in the workspace</a>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      <p class="work-example-conditions">These responses come from the workspace’s teaching model. They describe the illustrated proposal, not permission to operate equipment or release software.</p>
+    </>
+  )}
+
+  {work.slug === 'agentic-company-harness' && (
+    <>
+      <h2 id="example-title">Questions from the workflow brief</h2>
+      <p>The brief starts with one task. Its worked example investigates a synthetic support ticket and saves a draft for review; sending a reply and deploying a change are outside that trial.</p>
+      <dl class="work-planning-questions">
+        {planningQuestions.map(contract => (
+          <div>
+            <dt><a href={`${work.artifact}#${contract.id}`}>{contract.question}</a></dt>
+            <dd>{contract.prompts[0]}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="work-example-conditions">These are planning questions from the shared brief. Answering them does not implement controls or establish that the workflow is ready to run.</p>
+    </>
+  )}
+
+  {work.slug === 'publishing-system' && (
+    <>
+      <h2 id="example-title">Publish a parent. Withdraw its dependent pages.</h2>
+      <p>A Lab piece’s publication state controls its article, contribution overview and companion pages. Fixture builds exercise both states, including the listings and discovery entries that must change with them.</p>
+      {publication && (
+        <div class="work-example-context">
+          <h3>A current example: {publication.title}</h3>
+          <p>The published parent generates these related pages:</p>
+          <ul class="work-publication-paths">
+            {publicationPaths.map(path => <li><a href={path}>{path}</a></li>)}
+          </ul>
+        </div>
+      )}
+      <ol class="work-publication-states">
+        <li>
+          <h3>Mark a complete piece as published</h3>
+          <p>The build validates the narrative, actual authors and edition dates. It generates the article and references, includes the piece in Lab and discovery, and exposes its configured work overview and companions.</p>
+        </li>
+        <li>
+          <h3>Change that parent to draft</h3>
+          <p>The next build removes the article, references, dependent work overview and companions, including generated brief downloads. Its cards, sitemap and AI-directory entries withdraw with them. The authored source remains in the repository.</p>
+        </li>
+        <li>
+          <h3>Keep internal records outside the output</h3>
+          <p>Task records, agent instructions and the author registry are not copied into the public website. These checks protect the generated output; this repository itself is public.</p>
+        </li>
+      </ol>
+      <p class="work-example-conditions">This is implemented behavior, exercised by isolated publication and withdrawal builds. It does not establish article correctness, reader understanding, inquiry outcomes or field performance.</p>
+      <a class="text-link" href="/approach/">How we keep work inspectable</a>
+    </>
+  )}
+</section>

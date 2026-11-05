@@ -1,9 +1,19 @@
 ---
 import { projectContact } from '../lib/contact';
-interface Props { title?: string; description?: string; }
-const { title = 'Bring a project question.', description = 'Start with the workflow, the outcome that matters and the constraints. We can clarify what would make a useful next step.' } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Bring a project question.',
+  description = 'Describe what happens today, where it breaks down and who needs the result. An example or an early question is enough to begin.',
+} = Astro.props;
 ---
 <aside class="project-invitation shell" aria-label="Discuss a project">
-  <div><h2>{title}</h2><p>{description}</p></div>
+  <div>
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </div>
   <a class="button" href={projectContact.path}>Discuss a project</a>
 </aside>

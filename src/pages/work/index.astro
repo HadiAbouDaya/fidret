@@ -5,13 +5,34 @@ import ProjectInvitation from '../../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../../lib/lab';
 import { visibleWork } from '../../lib/work';
 import '../../styles/visitor.css';
+
 const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug));
 ---
-<SiteLayout title="Our work | Experiments, systems and engineering | Fidret" description="Inspect what Fidret has made: software experiments, interactive architectures and the implemented publishing system behind this site." canonical="https://fidret.com/work/">
+<SiteLayout title="Our work | Experiments, systems and engineering | Fidret" description="Inspect what Fidret has made: synthetic software experiments, architecture teaching models, a planning brief and the implemented publishing system behind this site." canonical="https://fidret.com/work/">
   <main id="main" tabindex="-1">
-    <header class="visitor-hero shell"><h1>Our work</h1><p class="visitor-lead">Explore how decisions hold up when observations, resources or authority change.</p><p>These projects examine late observations, shared resources and software-release decisions. Each explains what we made, where it may be useful and what remains untested.</p></header>
-    <section class="work-collection shell" aria-labelledby="selected-title"><div class="visitor-section-heading"><h2 id="selected-title">Selected contributions</h2><p>These are Fidret’s own projects and explorations. Their scope is part of the work.</p></div><SelectedWork works={works}/></section>
-    <section class="visitor-split shell" aria-labelledby="connected-title"><h2 id="connected-title">How the work connects</h2><div><p>Physical AI is our first practice: systems that use observations of the physical world to support decisions and actions.</p><p>The related work on agents and software delivery examines foundations those systems also need: usable evidence, bounded authority, reliable implementation and recovery.</p><a class="text-link" href="/lab/">Browse the full Lab</a></div></section>
+    <header class="visitor-hero shell">
+      <h1>Our work</h1>
+      <p class="visitor-lead">Explore how decisions hold up when observations, resources or authority change.</p>
+      <p>Each contribution explains what we made, shows a concrete example and keeps its limits beside the evidence.</p>
+    </header>
+
+    <section class="work-collection shell" aria-labelledby="selected-title">
+      <div class="visitor-section-heading">
+        <h2 id="selected-title">Selected contributions</h2>
+        <p>These are Fidret’s own projects and explorations. Their scope is part of the work.</p>
+      </div>
+      <SelectedWork works={works} />
+    </section>
+
+    <section class="visitor-split shell" aria-labelledby="connected-title">
+      <h2 id="connected-title">How the work connects</h2>
+      <div>
+        <p>Physical AI is our first practice: systems that use observations of the physical world to support decisions and actions.</p>
+        <p>The related work on agents and software delivery examines foundations those systems also need: usable evidence, bounded authority, reliable implementation and recovery.</p>
+        <a class="text-link" href="/lab/">Browse the full Lab</a>
+      </div>
+    </section>
+
     <ProjectInvitation />
   </main>
 </SiteLayout>

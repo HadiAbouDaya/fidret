@@ -4,21 +4,87 @@ import ProjectInvitation from '../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../lib/lab';
 import { HARNESS_SLUG, GUIDE_PATH } from '../lib/workflow-brief';
 import '../styles/visitor.css';
+
 const hasWorkflowBrief = (await getPublishedPieces()).some(piece => piece.data.slug === HARNESS_SLUG);
 const steps = [
-  {title:'Understand the situation',text:'Describe the workflow, its users, the current baseline and the constraints. Clarify the outcome that would make the work useful.',output:'A shared problem statement and the conditions that matter.'},
-  {title:'Define one testable question',text:'Agree the scope, accountable owner, available evidence and acceptance conditions. Identify what remains outside the work.',output:'A bounded brief with a clear basis for review.'},
-  {title:'Build and evaluate',text:'Use an experiment, prototype or implementation appropriate to the question. Compare against a baseline and examine representative failure cases.',output:'An inspectable artifact and results with their conditions.'},
-  {title:'Decide what follows',text:'Review what was established and what remains uncertain. Continue, change direction, narrow the scope or stop when the evidence calls for it.',output:'A reasoned next-stage decision.'},
-  {title:'Make the work usable',text:'For the agreed use, define documentation, validation, handover and ownership. Integration, monitoring and maintenance must have responsible people.',output:'The material and responsibilities needed to carry the work forward.'},
+  {
+    title: 'Understand the situation',
+    text: 'Walk through what happens today: who does the work, which information they use and where the process breaks down. Describe the change that would help.',
+    output: 'A problem statement with the current baseline and constraints.',
+  },
+  {
+    title: 'Define one testable question',
+    text: 'Choose one decision or workflow to examine. Agree who owns it, what information and equipment are available, and what result would justify continuing.',
+    output: 'A brief with scope, exclusions and acceptance conditions.',
+  },
+  {
+    title: 'Build and evaluate',
+    text: 'Choose an experiment, prototype or implementation to answer that question. Compare it with the baseline and test the cases where it could fail.',
+    output: 'An artifact to inspect, with inputs, results and limits.',
+  },
+  {
+    title: 'Decide what follows',
+    text: 'Review what the results establish and which questions remain open. Use that review to continue, change the design, narrow the work or stop.',
+    output: 'A recorded decision and the evidence needed for the next stage.',
+  },
+  {
+    title: 'Make the work usable',
+    text: 'Identify what another person needs to run, review or maintain the result. Agree who owns integration, monitoring and recovery before relying on it.',
+    output: 'Documentation, handover material and named responsibilities for the agreed use.',
+  },
 ];
 ---
-<SiteLayout title="Our approach | Start with one useful question | Fidret" description="How a bounded project begins: understand the workflow, agree the evidence, build and evaluate, then decide the next stage with clear responsibilities." canonical="https://fidret.com/approach/">
+<SiteLayout title="Our approach | Start with one useful question | Fidret" description="How a bounded project begins: walk through the current workflow, choose a question, compare an experiment with the baseline and review what should happen next." canonical="https://fidret.com/approach/">
   <main tabindex="-1" id="main">
-    <header class="visitor-hero shell"><h1>Start with one useful question.</h1><p class="visitor-lead">Bring the workflow, the outcome you want to improve and the constraints that matter.</p><p>The first task is to understand what would make a useful result, what can credibly be tested and where responsibility belongs.</p><a class="button" href="/contact/">Discuss a project</a></header>
-    <section class="collaboration-section shell" aria-labelledby="collaboration-title"><div class="visitor-section-heading"><h2 id="collaboration-title">A clearly scoped piece of work</h2><p>This is our working approach. Scope and deliverables depend on the actual question, access and evidence.</p></div><ol class="collaboration-steps">{steps.map(step=><li><h3>{step.title}</h3><p>{step.text}</p><p class="step-output"><strong>Useful output:</strong> {step.output}</p></li>)}</ol></section>
-    <section class="work-evidence inverse"><div class="visitor-split shell"><h2>Match the claim to the evidence.</h2><div><p>An architecture, a software experiment, a supervised pilot and a deployed system establish different things. The conditions and unanswered questions belong beside the result.</p><p>For physical systems, operating limits, qualified oversight and recovery require their own validation. A software check alone does not establish that equipment is ready to act.</p><a class="text-link" href="/work/">Inspect how we present the evidence</a></div></div></section>
-    <section class="visitor-split shell"><h2>Make the reasoning usable.</h2><div><p>The signal experiment pairs a small rule with its baseline, replay and limitations. It is one example of making a result open to inspection.</p><a class="text-link" href="/explorations/signal-freshness/method/">Read the experiment method</a>{hasWorkflowBrief && <><p>For an agent workflow, the editable brief helps define purpose, context, authority, evidence and recovery before widening access.</p><a class="text-link" href={GUIDE_PATH}>Plan one agent workflow</a></>}<p><a class="text-link" href="/charter/">Read our company commitments</a></p></div></section>
-    <ProjectInvitation title="Start with your situation." />
+    <header class="visitor-hero shell">
+      <h1>Start with one useful question.</h1>
+      <p class="visitor-lead">Walk through a task that is difficult today, from the information coming in to the person or equipment acting on it.</p>
+      <p>A delayed reading, a resource conflict or a change that is hard to verify can give the work a starting point. Bring an example and the people who understand what happens.</p>
+      <a class="button" href="/contact/">Discuss a project</a>
+    </header>
+
+    <section class="collaboration-section shell" aria-labelledby="collaboration-title">
+      <div class="visitor-section-heading">
+        <h2 id="collaboration-title">From the current workflow to a tested result</h2>
+        <p>This is our working approach. The question, access and available evidence determine the scope and deliverables.</p>
+      </div>
+      <ol class="collaboration-steps">
+        {steps.map(step => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+            <p class="step-output"><strong>Useful output:</strong> {step.output}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="work-evidence inverse">
+      <div class="visitor-split shell">
+        <h2>Match the claim to the evidence.</h2>
+        <div>
+          <p>An architecture, a software experiment, a supervised pilot and a deployed system establish different things. The conditions and unanswered questions belong beside the result.</p>
+          <p>For physical systems, operating limits, qualified oversight and recovery require their own validation. A software check alone does not establish that equipment is ready to act.</p>
+          <a class="text-link" href="/work/">Inspect how we present the evidence</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="visitor-split shell">
+      <h2>See what a review can inspect.</h2>
+      <div>
+        <p>The signal experiment pairs a small rule with its baseline, replay inputs and limitations. Its method shows exactly which software behavior was checked.</p>
+        <a class="text-link" href="/explorations/signal-freshness/method/">Read the experiment method</a>
+        {hasWorkflowBrief && (
+          <>
+            <p>For an agent task, the editable brief asks which information it may read, which actions it may take and who resolves an uncertain result.</p>
+            <a class="text-link" href={GUIDE_PATH}>Plan one agent workflow</a>
+          </>
+        )}
+        <p><a class="text-link" href="/charter/">Read our company commitments</a></p>
+      </div>
+    </section>
+
+    <ProjectInvitation title="Start with your situation." description="Bring one example of the task, what you want to change and the constraints you already know. The first question can be smaller than the whole system." />
   </main>
 </SiteLayout>

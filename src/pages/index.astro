@@ -5,19 +5,53 @@ import SelectedWork from '../components/SelectedWork.astro';
 import ProjectInvitation from '../components/ProjectInvitation.astro';
 import { getPublishedPieces } from '../lib/lab';
 import { visibleWork } from '../lib/work';
+import { hadiProfile } from '../lib/people';
 import '../styles/visitor.css';
-import {hadiProfile} from '../lib/people';
+
 const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.slug)).filter(work => work.featured);
 ---
 <SiteLayout title="Fidret | Physical AI, experiments and engineering" description="Explore Fidret’s software experiments, system designs and working interfaces. Physical AI is our first practice. Inspect the contribution and evidence behind the work." canonical="https://fidret.com/">
   <main tabindex="-1" id="main">
     <section class="visitor-home-hero shell" aria-labelledby="hero-title">
-      <div><h1 id="hero-title">Physical AI, from observation to action.</h1><p class="visitor-lead">We build software experiments and explore system designs for AI that works with the physical world.</p><div class="visitor-actions"><a class="button" href="/work/">Explore our work</a><a class="text-link" href="/contact/">Discuss a project</a></div></div>
+      <div>
+        <h1 id="hero-title">Physical AI, from observation to action.</h1>
+        <p class="visitor-lead">We build software experiments and explore system designs for AI that works with the physical world.</p>
+        <div class="visitor-actions">
+          <a class="button" href="/work/">Explore our work</a>
+          <a class="text-link" href="/contact/">Discuss a project</a>
+        </div>
+      </div>
       <ObservationField />
     </section>
-    <section class="home-selected work-collection shell" aria-labelledby="work-title"><div class="visitor-section-heading"><h2 id="work-title">Selected work</h2></div><SelectedWork works={works}/><a class="text-link" href="/work/">Explore all the work</a></section>
-    <section id="physical-ai" class="work-evidence inverse"><div class="visitor-split shell"><h2>Decisions depend on the whole system.</h2><div><p>Is the observation still current? Are the resources available? What happens when a command’s outcome is unknown?</p><p>Our Physical AI practice starts with those concrete questions. Related work on agents and software delivery examines the evidence, authority and recovery those systems also need.</p><a class="text-link" href="/approach/">How we approach a project</a></div></div></section>
-    <section class="visitor-split shell" aria-labelledby="people-title"><h2 id="people-title">The person behind the work</h2><div><h3><a href="/people/hadi/">Hadi Abou Daya</a></h3><p>{hadiProfile.role}. {hadiProfile.background}</p><p>At Fidret, he authors the published Lab work on Physical AI, agent workflows and AI-assisted software delivery.</p><p>Each contribution keeps its question, reasoning, sources and limits available for inspection.</p><a class="text-link" href="/project/">About Fidret</a></div></section>
+
+    <section class="home-selected work-collection shell" aria-labelledby="work-title">
+      <div class="visitor-section-heading"><h2 id="work-title">Selected work</h2></div>
+      <SelectedWork works={works} />
+      <a class="text-link" href="/work/">Explore all the work</a>
+    </section>
+
+    <section id="physical-ai" class="work-evidence inverse">
+      <div class="visitor-split shell">
+        <h2>Decisions depend on the whole system.</h2>
+        <div>
+          <p>Is the observation still current? Are the resources available? What happens when a command’s outcome is unknown?</p>
+          <p>Our Physical AI practice starts with those concrete questions. Related work on agents and software delivery examines the evidence, authority and recovery those systems also need.</p>
+          <a class="text-link" href="/approach/">How we approach a project</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="visitor-split shell" aria-labelledby="people-title">
+      <h2 id="people-title">The person behind the work</h2>
+      <div>
+        <h3><a href="/people/hadi/">Hadi Abou Daya</a></h3>
+        <p>{hadiProfile.role}. {hadiProfile.background}</p>
+        <p>At Fidret, he authors the published Lab work on Physical AI, agent workflows and AI-assisted software delivery.</p>
+        <p>Each contribution keeps its question, reasoning, sources and limits available for inspection.</p>
+        <a class="text-link" href="/project/">About Fidret</a>
+      </div>
+    </section>
+
     <ProjectInvitation />
   </main>
 </SiteLayout>
