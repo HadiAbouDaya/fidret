@@ -13,13 +13,12 @@ const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.s
     <header class="visitor-hero shell">
       <h1>Our work</h1>
       <p class="visitor-lead">Explore how decisions hold up when observations, resources or authority change.</p>
-      <p>Each contribution explains what we made, shows a concrete example and keeps its limits beside the evidence.</p>
     </header>
 
     <section class="work-collection shell" aria-labelledby="selected-title">
       <div class="visitor-section-heading">
         <h2 id="selected-title">Selected contributions</h2>
-        <p>These are Fidret’s own projects and explorations. Their scope is part of the work.</p>
+        <p>These are Fidret’s own projects and explorations.</p>
       </div>
       <SelectedWork works={works} />
     </section>
