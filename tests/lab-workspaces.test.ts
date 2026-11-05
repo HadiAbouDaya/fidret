@@ -14,6 +14,13 @@ test('the complete declared workspace space agrees with the canonical policies',
       assert.equal(Object.keys(model.states).length,model.controls.reduce((n,c)=>n*c.options.length,1));
       assert.equal(Object.keys(model.facts).length,Object.keys(model.states).length);
       assert.ok(model.states[model.initial]);
+      const [controlIndex,optionIndex]=model.suggestion;
+      assert.ok(Number.isInteger(controlIndex)&&Number.isInteger(optionIndex));
+      assert.ok(model.controls[controlIndex]?.options[optionIndex], `${kind}/${model.key} suggests an available condition`);
+      const suggested=model.initial.split('');
+      suggested[controlIndex]=String(optionIndex);
+      assert.notEqual(suggested.join(''),model.initial,'A suggested change differs from the starting condition');
+      assert.ok(model.states[suggested.join('')], `${kind}/${model.key} suggests a validated state`);
       for(const [key,state] of Object.entries(model.states)){
         count++;
         const expected=kind==='farm'?assessFarm(model.facts[key] as FarmFacts):assessRelease(model.facts[key] as ReleaseFacts);
