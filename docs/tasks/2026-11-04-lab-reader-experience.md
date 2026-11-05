@@ -1,6 +1,6 @@
 # Guided Lab reading experience
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
 - Branch: hadi/lab-reader-experience
@@ -71,10 +71,10 @@ The module is 12,436 source bytes (approximately 3.2 KB under local gzip), below
 
 ## Handoff
 
-- Checkpoint: implementation b4fcd41 is pushed and [PR 38](https://github.com/HadiAbouDaya/fidret/pull/38) is open. Both guided entries, causal comparisons, searchable scenario/topic layers and bounded enhancement passed local verification. Research, decisions and shared instructions are synchronized.
-- Remaining work: remote CI/review-state check, merge and actual production verification.
-- Next action: verify final-head CI and review state, merge PR 38 under standing authorization, then verify six public surfaces, assets/CSP, briefs and live interactions.
-- Blockers: none. Shared preview screenshots were unreliable; the documented local browser fallback completed verification.
-- Acceptance basis: Hadi's current request and delegated design decisions; standing branch/merge authorization and existing Lab publication scope. No invented human usability review.
-- Publication: implementation b4fcd41 pushed on hadi/lab-reader-experience, PR 38 open. This handoff-only follow-up records remote state. Merge and live publication have not yet been claimed.
-- Last verified: 2026-11-04, current source; full shared check, complete two-engine matrix and final build/keyboard/validators described above. Real-user comprehension, actual farm/production execution and screen-reader listening remain untested.
+- Checkpoint: PR 38 merged at `40532933a3d1049001a49f97f532d08f2cc6c174`; both guided entries and their companions were deployed and verified. The [second workspace iteration](2026-11-05-lab-workspaces.md) records Hadi's subsequent request to go further.
+- Remaining work: none for the first iteration. Further interaction/readability improvements belong to the linked follow-up.
+- Next action: continue the second iteration from its own task checkpoint; do not replay this merge or deployment.
+- Blockers: none. The stopped PR watcher was cleared because the PR had already merged.
+- Acceptance basis: Hadi's delegated implementation request and standing verified-work merge/publication authorization. No human comprehension study is asserted.
+- Publication: implementation `b4fcd41`, final head `b8f8d65`, PR 38 merged as `4053293`. Main workflow `41928911421` passed; Cloudflare deployment `f07ebfd3-b4c8-4fcd-a4ad-2d69e1ae870f` succeeded on 4 November 2026. This is the first iteration's deployment, not the subsequent workspace release.
+- Last verified: 2026-11-05 recovery check. Production matched the exact immutable deployment for 21 routes/assets, with successful status/MIME/CSP and runtime Git-source parity. Live Chromium at 1440/390/320 passed story decisions, comparisons, reference returns, search and both no-JS fallbacks. Real-user comprehension, operational execution and screen-reader listening remain untested.

@@ -13,6 +13,8 @@ Use `src/layouts/SiteLayout.astro` and `src/lib/seo.ts` for shared metadata. An 
 
 Keep meaningful content and ordinary links in initial HTML. The narrowly approved Lab controller is progressive enhancement; do not hide the only answer behind browser execution. Retain local assets, dimensions, font budgets, accessible controls and the existing craft/em-dash rules.
 
+For an interactive explanation, keep its worked starting examples, actual model response, scope and direct engineering references in readable HTML. An inert outcome manifest is application data, not a substitute for explanatory prose. Preserve one canonical page identity while versioned URL fragments carry optional experiment settings. Context/condition query strings must not create new sitemap entries, inconsistent canonicals or invented editorial freshness. Verify the exact setting round trip as well as initial metadata. Refine the interface for the reader; do not flatten a useful model into keyword-heavy prose for a crawler.
+
 Structured data is inert JSON, serialized through the safe helper. It cannot grant an inline executable-script exception or justify relaxing CSP. Keep the validator's malicious-data tests. Match markup to visible, factual content rather than adding schema solely to attract a rich result.
 
 Run `pnpm check`, which includes `scripts/check_seo.py` and its failure tests. Inspect rendered pages when presentation changes. Before merging, confirm the current head's `foundation`, `runtime-bootstrap` and `seo-geo` checks pass, with no unresolved review feedback. Follow the repository's documented merge protection, rather than treating workflow YAML as enforcement.

@@ -155,7 +155,9 @@ test('factory guided story, complete notes, situation library and download follo
   assert.match(article, /data-lab-journey/);
   assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length, 5);
   assert.match(article, /<script type="module" src="\/_astro\/lab-experience\.[A-Za-z0-9_-]+\.js"><\/script>/);
-  assert.match(article, /Start the story/);
+  assert.match(article, /data-model=/);
+  assert.match(article, /Primary model response/);
+  assert.doesNotMatch(article, /Start the story|data-choice=/);
   assert.doesNotMatch(article, /<form(?:\s|>)/i);
   for (const route of ['engineering-notes', 'scenarios']) {
     const html = readFileSync(join(root, `website/lab/${slug}/${route}/index.html`), 'utf8');

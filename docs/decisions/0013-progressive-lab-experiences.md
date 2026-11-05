@@ -16,7 +16,7 @@ Keep Astro static output, Free hosting, local fonts and no application server, f
 
 Allow only the approved external module asset shape, its canonical source bytes and declared HTML routes in the output validator. Add `script-src 'self'` to the existing default-deny global CSP. Continue rejecting inline scripts, event handlers, dynamic HTML, arbitrary JavaScript assets, source maps, forms and remote dependencies. Keep authored Markdown's raw-HTML prohibition. Other pages remain script-free. Actual built-output scope and failure cases must be tested.
 
-The module supports journey navigation, accessible local decision feedback, one-condition comparisons and local text/category filtering. It does not run AI, cloud execution, equipment or a physiological/operational simulation. Existing build-time models supply the teaching outcomes.
+The module supports situation navigation, accessible local decision feedback, categorical condition changes and local text/category filtering. The [second workspace iteration](../tasks/2026-11-05-lab-workspaces.md) evaluates each situation's complete declared finite input space through the canonical models at build time. Escaped inert attributes carry those outcomes; the same bounded module selects them and changes text/status, without duplicating policy in browser code. Versioned, whitelisted URL state preserves exact conditions and contextual reference returns. It does not run AI, cloud execution, equipment or a physiological/operational simulation.
 
 ## Consequences
 

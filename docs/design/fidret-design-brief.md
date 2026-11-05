@@ -83,6 +83,8 @@ A radio group selects a documented moment in the synthetic signal scenario. Its 
 
 Use real links for navigation and native controls for state. Maintain a visible focus indicator on every surface, with comfortable primary touch targets of at least 44 px. Disclosures should show what will open. Do not depend on hover, motion or color alone.
 
+For explanations with a model, start with a useful example and let the reader change a small number of explicit assumptions. Keep the resulting action and reasons near the inputs. Repairing one condition must not conceal other blockers, and a priority response must identify checks not evaluated. Give each situation the artifact it needs instead of reusing an attractive but irrelevant graphic. Preserve exact bounded settings through sharing, references, reload and history. The [frontend craft checks](../../skills/fidret-design/references/interactive-explanations.md) record this review process. These are design requirements, not claims of measured learning gains.
+
 Motion may clarify a user's action through a brief state transition, approximately 120–180 ms. Avoid perpetual scanning, parallax, scroll interception and section-by-section entrance effects. Honor reduced-motion preferences. A still composition must remain complete.
 
 ## Words and evidence
