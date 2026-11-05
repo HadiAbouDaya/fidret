@@ -128,6 +128,8 @@ button, input, select, textarea { font: inherit; }
   .inverse { --fd-text: black; --fd-heading: black; --fd-muted: #333; --fd-link: black; background: white; color: black; }
   h1 { font-size: 40pt; }
   details::details-content { display: block; content-visibility: visible; }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
   details > :not(summary) { display: block; }
   pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
