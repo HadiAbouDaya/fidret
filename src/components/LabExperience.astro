@@ -6,8 +6,7 @@ import WorkspaceArtifact from './WorkspaceArtifact.astro';
 import {workspacesFor} from '../lib/lab-workspaces';
 import {workForSource,workPath} from '../lib/work';
 import runtimeUrl from '../scripts/lab-experience.js?url&no-inline';
-import '../styles/lab-experience.css';
-import '../styles/workspace.css';
+// The Lab route links workspace styles only when it renders this component.
 interface Props {journey:LabJourney;authors:string[];published:string;updated:string;sibling?:LabJourney;legacyHeadings?:{slug:string;text:string}[]}
 const {journey,authors,published,updated,sibling,legacyHeadings=[]}=Astro.props;
 const cases=workspacesFor(journey.kind);

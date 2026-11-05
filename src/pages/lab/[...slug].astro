@@ -12,6 +12,11 @@ import '../../styles/visitor.css';
 import {journeyForSlug} from '../../lib/lab-journeys';
 import '../../styles/article.css';
 import '../../styles/lab.css';
+// Normal CSS imports on this shared route include every component's styles on
+// every article. URL imports retain Vite's CSS processing and fingerprints,
+// while no-inline keeps even a small stylesheet external under the strict CSP.
+import workspaceStyles from '../../styles/workspace.css?url&no-inline';
+import boundaryStyles from '../../styles/agentic-boundary.css?url&no-inline';
 import { getPublishedPieces } from '../../lib/lab';
 import { kindLabels } from '../../lib/lab-schema';
 import { HARNESS_SLUG, GUIDE_PATH } from '../../lib/workflow-brief';
@@ -54,6 +59,9 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
   article={{headline:journey?.title ?? piece.data.title,authors:piece.data.authors,published:piece.data.published!,updated:piece.data.updated}}
   variant="lab"
 >
+  <Fragment slot="head">
+    {journey ? <link rel="stylesheet" href={workspaceStyles} /> : hasBoundaryExperience && <link rel="stylesheet" href={boundaryStyles} />}
+  </Fragment>
   <main tabindex="-1" id="main" class="lab-main">
     {journey ? <LabExperience journey={journey} authors={piece.data.authors} published={piece.data.published!} updated={piece.data.updated} legacyHeadings={headings} sibling={sibling}/> : <article class="lab-piece shell">
       <a class="lab-back" href="/lab/">Fidret Lab</a>
