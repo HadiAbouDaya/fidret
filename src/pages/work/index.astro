@@ -9,10 +9,9 @@ const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.s
 ---
 <SiteLayout title="Our work | Questions, experiments and working software | Fidret" description="Explore the questions behind Fidret’s sensor experiment, fictional farm, AI-assisted software design, agent planning brief and working publishing system." canonical="https://fidret.com/work/">
   <main id="main" tabindex="-1">
-    <header class="visitor-hero shell">
+    <header class="visitor-hero work-gallery-hero shell">
       <h1>Questions worth exploring.</h1>
-      <p class="visitor-lead">What happens when information is old, resources are shared, or software changes after its tests pass?</p>
-      <p>These are Fidret’s own projects and explorations. Each shows what we made, why it matters and what it does not yet establish.</p>
+      <p class="visitor-lead">Fidret’s own experiments, designs and working software. Each project explains what we made, why it matters and its limits.</p>
     </header>
     <section class="work-collection shell" aria-label="Our work"><SelectedWork works={works} headingLevel={2} /></section>
     <section class="visitor-split shell" aria-labelledby="connected-title">

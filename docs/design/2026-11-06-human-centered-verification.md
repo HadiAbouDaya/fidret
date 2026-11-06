@@ -70,3 +70,28 @@ The Firefox work began with 64 broader layout checks at 390 and 1440 px. Their o
 No dependency, executable route, model policy, published URL or editorial attribution changed. These checks establish rendering and implementation consistency; they do not establish that a first-time reader understands the revised explanations.
 
 A separate read-only source review found no blocking issues in the second increment. It checked unchanged model conditions and priority, the ten valid suggested conditions, visible sensor limitations, progressive-enhancement structure and the narrowly scoped wordmark correction. It did not rerun browser checks or substitute for real-reader testing.
+
+### Second increment: merge evidence
+
+[PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) merged as `c2784fa7cfd50542562b77e817e23cbca923c7a2` on 6 November at 00:13:04 UTC. Its exact head `cdc0e6fecae96821d577ffdee04793d880b2b910` passed all three required GitHub checks. No unresolved review threads or other review feedback remained. An early live check still served the first increment; a merge is not being treated as proof of deployment.
+
+At approximately 00:18 UTC, live verification established the second release on 15 canonical routes: the previous 11 main/Work pages, both workspaces and both scenario collections. Navigation status was 200 on all, and titles, canonicals and stylesheet URLs matched the preserved second build. Rendered body hashes matched on the 11 static pages. The four enhanced pages matched hashes of their complete model/prompt data or scenario text; runtime-added DOM attributes were not misrepresented as static-body agreement. Every page loaded Manrope and applied the no-wrap wordmark rule. Two live exact-condition links, farm `scene-water~v1-010` and factory `scene-evidence~v1-100`, produced the expected selected inputs, label/reasons and share fragment. No Cloudflare dashboard deployment ID, new header check or search-performance result is claimed.
+
+## Third increment: reaching a project and a conversation sooner
+
+The Work index now uses one concise introduction instead of repeating the questions shown in the gallery. Scoped spacing removes the accumulated hero/collection gap. The introduction still identifies the entries as Fidret's own experiments, designs and working software; individual contribution and scope text is unchanged. Five project invitations now ask for one recognizable situation rather than several technical requirements. Home's agent-topic label describes its overview destination, and the Lab index explains the freshness rule in familiar words.
+
+The full deployment gate passed with zero Astro diagnostics, 67 Node tests and 104 Python tests. No new test or dependency was added for these reversible copy/spacing changes. `git diff --check` passed.
+
+| Width in CSS pixels | Previous first project heading | Revised first project heading |
+| --- | --- | --- |
+| 320 | 708 px from page top | 497 px |
+| 390 | 634 px | 422 px |
+| 768 | 506 px | 352 px |
+| 1440 | 605 px | 427 px |
+
+These are local Chromium geometry measurements with loaded fonts, rounded to whole pixels. Firefox agreed within one pixel. They show the reduced introduction height, not a measured change in reading time or comprehension.
+
+Rendered checks covered Home, Work and Lab at 320, 390, 768 and 1440 px, plus the five Work details at 320 px, each with default and doubled root text in Chromium and Firefox: 68 layouts without document overflow or off-edge controls. Six axe scans on the three index pages at 390 and 1440 px reported no violations. Both browsers completed a keyboard path through the skip link, a Work entry and its Contact invitation. The revised desktop/phone gallery and its five-page printed output were visually inspected; all five project illustrations and scope statements remain present.
+
+The shared preview timed out twice on the local snapshot step, reporting `Preview automation snapshot timed out after 15000ms`. The installed local browser provided the rendered fallback. A temporary review-harness failure caused by using axe without an explicit browser context was corrected before the passing run; it did not require a product change. Real-reader and assistive-technology limitations stated above still apply.
