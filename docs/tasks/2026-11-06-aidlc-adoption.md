@@ -1,11 +1,11 @@
 # Default AI-DLC website workflow
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
 - Branch: hadi/aidlc-default-workflow
 - Updated: 2026-11-06
-- Verification status: partial
+- Verification status: passed
 - AI-DLC: 1
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/68
 
@@ -46,16 +46,16 @@ First finish outstanding PRs, then integrate a pinned upstream workflow into sha
 - Profile: infra
 - Depth: Standard
 - Rationale: Brownfield delivery-workflow integration. Add intent, practices and functional-design analysis to the infra starting profile; omit unrelated UI/application/environment stages explicitly.
-- Current phase: operation
+- Current phase: complete
 - Gate basis: Hadi's explicit adoption/merge request plus existing standing authority for reversible implementation and checked PR merge. Decision 0016 records the adaptation, not a new human approval.
-- Operation status: Implementation 94f921a is pushed in PR 69; required exact-head GitHub checks must pass before merge. No manual deployment or live-site verification is part of this internal change.
+- Operation status: Implementation and adoption verification are complete under standing authorization. PR 69 source head ff5dfb8 passed all required checks with no review feedback. This documentation closeout must also pass exact-head checks before merge; PR history is authoritative for final merge publication. No manual deployment or live-site verification is claimed.
 
 | Stages | Disposition | Evidence or reason |
 | --- | --- | --- |
 | workspace-scaffold, workspace-detection, state-init, intent-capture, feasibility, scope-definition, reverse-engineering, practices-discovery, requirements-analysis, delivery-planning, functional-design | complete | Startup/PR audit, pinned-source research, local adaptation design and A1–A7 scope recorded in this task and decision 0016. |
 | code-generation | complete | Shared policy, upstream references and lifecycle checks implemented; independent review findings fixed. |
 | build-and-test | complete | Shared gate passed: zero diagnostics, 67 Node tests, 122 Python tests; all 63 public files byte-identical. Skill validation and fresh-context trial passed. |
-| ci-pipeline, deployment-pipeline, feedback-optimization | planned | Current-head GitHub review/checks and checked publication handoff remain. |
+| ci-pipeline, deployment-pipeline, feedback-optimization | complete | Both push/PR runs passed all required checks on ff5dfb8; reviews, comments and unresolved threads are empty. Completion and operation handoff recorded. Final documentation head stays subject to protected checks before merge. |
 | approval-handoff, contract-design, domain-design, environment-provisioning, incident-response, infrastructure-design, market-research, nfr-design, nfr-requirements, observability-setup, performance-validation, refined-mockups, rough-mockups, team-formation, units-generation, user-stories | skipped | Internal workflow change: no new visitor feature, market study, UI, application architecture/contract, infrastructure, incident or production measurement is requested. Existing owner and single integration unit suffice. |
 | deployment-execution | skipped | No manual deployment authorized or needed; existing main-triggered Pages path stays unchanged and live deployment is not claimed. |
 
@@ -69,7 +69,7 @@ First finish outstanding PRs, then integrate a pinned upstream workflow into sha
 | A4 | Task template, workflow and scripts/check_aidlc.py | 18 lifecycle/integrity/routing tests passed, including incomplete and uncovered criteria. | pass |
 | A5 | Decision 0016 and explicit local translations | Independent review and full shared gate passed; all 63 public files byte-identical. | pass |
 | A6 | Independent discovery trial and Python failure tests | Independent fresh-context trial, foundation check and all 18 Python fixtures passed. | pass |
-| A7 | Shared gate and protected GitHub PR path | Local/remote verification and publication pending. | pending |
+| A7 | Shared gate and protected GitHub PR path | Full local gate passed; foundation, runtime-bootstrap and seo-geo passed on ff5dfb8 in both push/PR runs. No review feedback. Final documentation head must pass the same protected gate before merge. | pass |
 
 ## Decisions
 
@@ -89,12 +89,18 @@ The exact pnpm 11.28.9 launcher was obtained under ignored .local/toolchain and 
 
 Implementation 94f921a is committed and pushed through [PR 69](https://github.com/HadiAbouDaya/fidret/pull/69), linked to [Issue 68](https://github.com/HadiAbouDaya/fidret/issues/68). Final local shared verification passed and all public output remained byte-identical. Exact-head GitHub checks/reviews are now the remaining gate. This publication checkpoint is a documentation-only revision; its foundation validation passes. Merge, completion and live deployment are not yet claimed.
 
+### Verified adoption and documentation closeout
+
+On 6 November 2026, live GitHub inspection confirmed exact head `ff5dfb888739e63910fc2b5b17a3c007725893fc` passed `foundation`, `runtime-bootstrap` and `seo-geo` in both [push](https://github.com/HadiAbouDaya/fidret/actions/runs/42226012247) and [pull-request](https://github.com/HadiAbouDaya/fidret/actions/runs/42226023776) runs. GitHub reports CLEAN merge state; reviews, comments and unresolved review threads are empty. This completes the implementation/verification acceptance basis under Hadi's request and standing authority.
+
+This final documentation revision records completion without changing the checked implementation or public output. Foundation validation and all 55 focused AI-DLC/foundation tests pass locally. Its exact-head required GitHub checks remain mandatory before merge. The PR merge commit/time and closed Issue 68 are the final publication receipts; this record does not invent them in advance. No further source or feature work remains, and no manual deployment or production verification is claimed.
+
 ## Handoff
 
-- Checkpoint: implementation, independent review, fresh-context discovery and local shared verification passed. Published in PR 69; exact-head GitHub checks remain before completion and merge.
-- Remaining work: verify current-head required checks/review state, record completion and merge.
-- Next action: inspect PR 69 current-head required GitHub checks and unresolved feedback; finalize the completion record and merge when verified.
-- Blockers: none; exact local pnpm/Node now available through ignored task tooling.
-- Acceptance basis: Hadi's explicit request and existing standing publication authorization.
-- Publication: local implementation committed as 94f921a, pushed to hadi/aidlc-default-workflow and opened as PR 69. The PR identifies its final documentation head. No merge, manual deployment or live verification yet.
-- Last verified: 2026-11-06, local shared gate, 18 lifecycle tests, skill validation, independent discovery/source reviews, 63-file output comparison and diff inspection passed; PR 69 required checks are running and must be verified on the current head.
+- Checkpoint: AI-DLC default methodology integration, independent review, fresh-context discovery, local shared gate and remote source-head checks passed. Implementation accepted as complete under standing authorization; documentation closeout awaits its final protected merge gate.
+- Remaining work: no implementation criteria remain. Publication: verify the documentation closeout head's required checks and unchanged review state, then merge PR 69.
+- Next action: when final exact-head checks pass, merge PR 69 without another source or completion-record edit. Confirm merge/Issue 68 closure from GitHub and report the actual merge commit.
+- Blockers: none; required final-head CI execution is the publication gate.
+- Acceptance basis: Hadi's explicit automatic-adoption request and standing authorization for verified implementation and protected PR merge. This is not Elie's review or a fabricated fresh human gate.
+- Publication: implementation 94f921a and checkpoint ff5dfb8 pushed to hadi/aidlc-default-workflow in PR 69. Final documentation head is identified by the PR. Merge receipt belongs to PR history; no merge, manual deployment or live verification claimed here in advance.
+- Last verified: 2026-11-06, full local gate passed (zero diagnostics, 67 Node tests, 122 Python tests); focused 55-test and foundation checks passed for this closeout; all 63 public files unchanged. Exact ff5dfb8 passed all required GitHub checks with empty feedback. Final documentation-head CI remains to be inspected before merge.
