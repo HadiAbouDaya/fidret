@@ -42,7 +42,7 @@ jobs:
           test "$(node --version)" = 'v22.22.0'
   foundation:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     env:
       COREPACK_HOME: ${{ github.workspace }}/.local/corepack
     steps:
@@ -66,6 +66,7 @@ jobs:
       - name: Validate, test and build static public output
         run: sh scripts/check_deployment.sh
       - name: Install the pinned Chromium headless shell
+        timeout-minutes: 7
         env:
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.local/playwright
         run: pnpm exec playwright install --with-deps --only-shell chromium
