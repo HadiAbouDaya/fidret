@@ -264,6 +264,11 @@ test('farm simple/deep routes, control references and brief follow publication a
   assert.doesNotMatch(map, /role="img"/);
   const mapLinks = [...map.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)];
   assert.equal(mapLinks.length, 6, 'Keep the six useful visual destinations');
+  const mapNavigation = /<nav\b[^>]*class="farm-map-links"[^>]*>([\s\S]*?)<\/nav>/.exec(blueprint)?.[1];
+  assert.ok(mapNavigation, 'The plan has an ordinary HTML navigation path');
+  const visualDestinations = mapLinks.map(([,attributes])=>/href="([^"]+)"/.exec(attributes)?.[1]);
+  const keyboardDestinations = [...mapNavigation.matchAll(/href="([^"]+)"/g)].map(match=>match[1]);
+  assert.deepEqual(keyboardDestinations, visualDestinations, 'Every visual destination has an equivalent ordered keyboard link');
   for (const [, attributes, content] of mapLinks) {
     assert.doesNotMatch(attributes, /aria-label/, 'Visible SVG text supplies each link name');
     assert.match(content, /<text\b[^>]*>[^<]+<\/text>/);

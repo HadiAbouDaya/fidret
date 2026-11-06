@@ -24,6 +24,10 @@ Inspect actual assistive-technology output where available. A changed result, re
 
 Review composite diagrams through their accessible structure as well as their appearance. An atomic image must not contain hidden interactive descendants. Link names include their visible text; named scroll regions have working keyboard access. Check meaningful selected/changed states in forced colors.
 
+Inspect SVG-link focus inside narrow scroll regions in more than one browser. If the diagram has equivalent ordinary text links, a single visible sequential path through those links can avoid invisible intermediate SVG stops while retaining pointer interaction and accessible names. Keep every visual destination represented and verify Tab, Shift+Tab and keyboard panning; removing a Tab stop must not remove access to its function.
+
+Check ordinary source links after long expanded disclosures too. Confirm that native focus scrolling brings the link text into view, with space for its outline, rather than relying only on the active-element state.
+
 Print a page with its initial disclosures closed and inspect the result. All evidence cases, table columns and diagram boundaries must remain available. Restore the reader's previous disclosure and situation state after printing. A print-media screen capture alone does not verify pagination or PDF completeness.
 
 Describe what verification establishes. Layout checks, policy tests and source-based agent reviews do not prove comprehension, completion, real-world safety or human approval. Useful research informs a design hypothesis; actual user studies would test it.
