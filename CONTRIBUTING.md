@@ -13,12 +13,13 @@ As of 2026-10-24, GitHub confirms the repository is public. Hadi reported sendin
 ## Task and branch workflow
 
 1. Read the [charter](docs/foundation/charter.md), [agent instructions](AGENTS.md), and [current tasks](docs/tasks/README.md).
-2. Create an issue from the work template when using GitHub. For substantive work, copy [the task template](docs/tasks/TEMPLATE.md) to `docs/tasks/YYYY-MM-DD-short-name.md`. Link the issue and task to each other. Before remote access is available, the repository task is sufficient.
-3. Give the task a human owner, scope, acceptance criteria, and branch. Note affected areas and overlapping work. One task owns a file at a time unless the contributors coordinate otherwise.
-4. Work on a branch such as `hadi/task-name` or `elie/task-name`. Keep changes focused enough for the other person to review.
-5. Update the task as work progresses. Put lasting choices in a [decision record](docs/decisions/README.md).
-6. Run checks, inspect the diff, and leave a handoff. Publish useful checkpoints and open a PR using its template. Ask the other contributor to review once both have access.
-7. Resolve feedback and merge once acceptance criteria and required checks pass, within the authorization below. Preserve the task's verification and decision links.
+2. Website work automatically follows the [AI-DLC workflow](docs/collaboration/aidlc.md) and [skill](skills/fidret-aidlc/SKILL.md), including reviews and maintenance. Record proportional stages/depth and acceptance traceability without an invocation.
+3. Create an issue from the work template when using GitHub. For substantive work, copy [the task template](docs/tasks/TEMPLATE.md) to `docs/tasks/YYYY-MM-DD-short-name.md`. Link the issue and task to each other. Before remote access is available, the repository task is sufficient.
+4. Give the task a human owner, scope, acceptance criteria, and branch. Note affected areas and overlapping work. One task owns a file at a time unless the contributors coordinate otherwise.
+5. Work on a branch such as `hadi/task-name` or `elie/task-name`. Keep changes focused enough for the other person to review.
+6. Update the task as work progresses. Put lasting choices in a [decision record](docs/decisions/README.md).
+7. Run checks, inspect the diff, and leave a handoff. Publish useful checkpoints and open a PR using its template. Ask the other contributor to review once both have access.
+8. Resolve feedback and merge once acceptance criteria and required checks pass, within the authorization below. Preserve the task's verification and decision links.
 
 Small spelling or broken-link fixes can use the PR description as their task record. They still need a clear purpose and verification.
 

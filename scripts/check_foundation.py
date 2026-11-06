@@ -9,6 +9,12 @@ from datetime import date
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+# Supports both direct script execution and import by the unittest suite.
+try:
+    from .check_aidlc import VENDOR, check_aidlc
+except ImportError:
+    from check_aidlc import VENDOR, check_aidlc
+
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = (
@@ -17,7 +23,8 @@ REQUIRED = (
     "docs/foundation/roadmap.md", "docs/decisions/README.md",
     "docs/architecture/README.md", "docs/collaboration/agent-workflow.md",
     "docs/decisions/TEMPLATE.md", "docs/tasks/README.md",
-    "docs/tasks/TEMPLATE.md", ".github/pull_request_template.md",
+    "docs/tasks/TEMPLATE.md", "docs/collaboration/aidlc.md",
+    "skills/fidret-aidlc/SKILL.md", ".github/pull_request_template.md",
     ".github/ISSUE_TEMPLATE/work-item.md",
     ".github/workflows/foundation-checks.yml",
 )
@@ -277,8 +284,12 @@ def main() -> int:
               if not (ROOT / name).is_file()]
     errors.extend(check_adapters(ROOT))
     documents = [p for p in files if p.suffix in {".md", ".mdc"}]
+    errors.extend(check_aidlc(ROOT, documents))
     for path in documents:
-        errors.extend(check_links(ROOT, path))
+        # Byte-exact upstream references contain native engine/template links.
+        # Their complete inventory is hash-checked above; local docs keep link checks.
+        if not path.is_relative_to(ROOT / VENDOR):
+            errors.extend(check_links(ROOT, path))
     tasks = [p for p in documents if p.parent == ROOT / "docs/tasks" and p.name != "README.md"]
     for path in tasks:
         errors.extend(check_task(ROOT, path))

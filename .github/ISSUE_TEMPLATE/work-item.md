@@ -24,6 +24,10 @@ Record applicable authorization, parallel agents' owned files/worktrees and the 
 
 What observable conditions establish success?
 
+## AI-DLC
+
+Link the task lifecycle and traceability: selected profile/depth, executed/skipped stages, authority and acceptance IDs mapped to implementation and verification. Website work follows this automatically.
+
 ## Verification
 
 How will the result be checked? What evidence is needed?

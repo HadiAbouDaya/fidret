@@ -20,6 +20,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `src/lib/contact.ts`, `src/pages/contact.astro`, `ProjectInvitation.astro` | Current project-inquiry destination and transparent handoff | Change the shared destination only from an authorized real contact route; no fictional mailbox or implied form submission |
 | `src/lib/people.ts`, `src/styles/visitor.css` | Approved professional context and visitor-journey presentation | Keep individual background distinct from Fidret delivery history; verify full responsive journeys |
 | `scripts/generate_social_previews.py`, `public/social/` | Source-generated work-specific 1200 by 630 PNG sharing diagrams | Manually render with Python/Pillow and licensed Manrope, inspect the images and keep canonical preview resolution tested |
+| `skills/fidret-aidlc/`, `docs/collaboration/aidlc.md`, `vendor/aidlc/`, `scripts/check_aidlc.py` | Default adaptive AI-DLC methodology, pinned upstream references and lifecycle/integrity validation | Automatically route website tasks from AGENTS; keep one task cursor and traceability table, preserve local authority, update pins through reviewed work |
 | `AGENTS.md` | Canonical shared agent policy | Update it once; keep harness adapters as pointers |
 | `src/lib/seo.ts`, `src/layouts/SiteLayout.astro`, `src/pages/llms.txt.ts`, `scripts/check_seo.py` | Shared canonical/social/schema identity, print source/contact handoffs, published-only optional AI directory and search regression contracts | Follow [search quality](../collaboration/search-quality.md); retain safe inert-data serialization and the independent executable-script boundary |
 | `docs/foundation/` | Company purpose, practice scope, evidence needed to progress | Preserve established direction; record meaningful choices in decisions |
@@ -62,6 +63,7 @@ Every substantive task starts with `AGENTS.md`, the charter, contribution workfl
 | Company or practice direction | [Roadmap](../foundation/roadmap.md), [physical AI brief](../foundation/physical-ai.md), relevant decision records |
 | Physical experiments | Physical AI brief, [engagement brief](../templates/engagement-brief.md), task-specific operating authorization and evaluation evidence |
 | Local practice prototypes | [Experiment index](../../experiments/README.md), the prototype's README/task and [sensor timing research](../foundation/sensor-freshness-research.md); no equipment action is authorized by a software check |
+| Website lifecycle, review or maintenance | [AI-DLC skill](../../skills/fidret-aidlc/SKILL.md), [local adaptation](../collaboration/aidlc.md), selected pinned upstream profile/stages, current task lifecycle and traceability |
 | Shared instructions, tooling or handoffs | [Agent workflow](../collaboration/agent-workflow.md), [context decision](../decisions/0002-shared-agent-context.md), [readiness convention](../decisions/0006-agent-readiness.md), validators and tests |
 
 ## Accepted stack and future choices

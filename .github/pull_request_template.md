@@ -2,6 +2,10 @@
 
 Explain the outcome and connection to Fidret's purpose. Link the issue and repository task record; for a trivial correction, capture the task here.
 
+## AI-DLC
+
+Link the task's profile/depth, stage dispositions, gate authority and acceptance traceability. For a trivial correction, record those compactly here. Identify skipped stages with reasons, verification evidence and operation/publication status. Apply the default workflow without requiring a command.
+
 ## Ownership and changes
 
 Name the human owner and assisting harness. Describe the meaningful changes and any coordination with other work.

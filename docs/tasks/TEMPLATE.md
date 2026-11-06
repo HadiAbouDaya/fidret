@@ -6,6 +6,7 @@
 - Branch: Unassigned
 - Updated: YYYY-MM-DD
 - Verification status: not-run
+- AI-DLC: 1
 
 ## Purpose
 
@@ -28,7 +29,32 @@ List the meaningful implementation steps. For a small task, one clear step is su
 
 ## Acceptance criteria
 
-State observable conditions that establish the task is complete.
+Use stable IDs, one criterion per bullet. State observable conditions that establish the task is complete.
+
+- A1: Replace with the first testable acceptance criterion.
+
+## AI-DLC
+
+- Profile: feature
+- Depth: Standard
+- Rationale: Replace with why this profile/depth fits the request and which local adaptations apply.
+- Current phase: initialization
+- Gate basis: Record the actual request/standing authority or missing material decision. Never claim a fresh approval without one.
+- Operation status: Record planned publication, authorization boundary and what remains unobserved.
+
+| Stages | Disposition | Evidence or reason |
+| --- | --- | --- |
+| state-init, workspace-detection, workspace-scaffold | planned | Select applicable initialization stages and record evidence or specific skip reasons. |
+| approval-handoff, feasibility, intent-capture, market-research, rough-mockups, scope-definition, team-formation | planned | Select applicable ideation stages and record evidence or specific skip reasons. |
+| contract-design, delivery-planning, domain-design, practices-discovery, refined-mockups, requirements-analysis, reverse-engineering, units-generation, user-stories | planned | Select applicable inception stages and record evidence or specific skip reasons. |
+| build-and-test, ci-pipeline, code-generation, functional-design, infrastructure-design, nfr-design, nfr-requirements | planned | Select applicable construction stages and record evidence or specific skip reasons. |
+| deployment-execution, deployment-pipeline, environment-provisioning, feedback-optimization, incident-response, observability-setup, performance-validation | planned | Select applicable operation stages and record evidence or specific skip reasons. |
+
+## Traceability
+
+| Criterion | Implementation | Verification | Result |
+| --- | --- | --- | --- |
+| A1 | Name the owning unit, file or artifact. | Name the intended check, then replace with actual dated evidence. | pending |
 
 ## Decisions
 
