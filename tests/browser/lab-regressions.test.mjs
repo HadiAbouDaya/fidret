@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {after, before, test} from 'node:test';
-import {assertFocusVisible, holdModule, isModule, layoutReady, ready, sceneSnapshot, startBrowser, startSite, withPage} from './helpers.mjs';
+import {assertFocusVisible, holdModule, inViewport, isModule, layoutReady, ready, sceneSnapshot, startBrowser, startSite, withPage} from './helpers.mjs';
 
 let site, browser;
 before(async () => {
@@ -263,6 +263,70 @@ for (const {path, library} of finders) {
         }), true, 'filtered engineering topic remains reachable at its anchor');
       }
       assert.equal(new URL(page.url()).hash, hash, 'the requested deep link is retained');
+    });
+  });
+}
+
+
+// These were actual href destinations before the guided workspace migration.
+// Keep a useful native onward link, even when the module is absent or late.
+for (const path of workspaces) {
+  const destinations = [
+    ['piece-resources', `${path}sources/#references-title`],
+    ['resources-title', `${path}sources/#references-title`],
+    ...(path.includes('software-factory') ? [
+      ['factory-journey', `${path}engineering-notes/#lifecycle`],
+      ['factory-handoffs', `${path}engineering-notes/#lifecycle`],
+      ['factory-release', `${path}scenarios/`],
+    ] : []),
+  ];
+  for (const mode of ['enhanced', 'no JavaScript', 'delayed module']) {
+    test(`${path} former article links remain useful with ${mode}`, options, async () => {
+      await withPage(browser, site, {viewport: phone, javaScriptEnabled: mode !== 'no JavaScript'}, async page => {
+        for (const [id, destination] of destinations) {
+          const held = mode === 'delayed module' ? await holdModule(page, site.origin) : null;
+          try {
+            await page.goto(`${site.origin}${path}#${id}`, {waitUntil: held ? 'commit' : 'load'});
+            await layoutReady(page);
+            const target = page.locator(`#${id}`);
+            assert.equal(await target.count(), 1, 'the old destination exists in initial HTML');
+            // The browser applies an initial :target after deferred modules
+            // finish, so release before expecting its native fragment scroll.
+            held?.release();
+            if (mode !== 'no JavaScript') await ready(page);
+            await target.waitFor({state: 'visible'});
+            await inViewport(page.locator(`#${id}:focus`));
+            // Native fragment navigation should make this the next tab stop.
+            await page.keyboard.press('Tab');
+            const link = target.locator('a');
+            assert.equal(await link.getAttribute('href'), destination);
+            await assertFocusVisible(link, 'old fragment leads to a visible keyboard-operable onward link');
+            await link.press('Enter');
+            await page.waitForURL(site.origin + destination);
+            await layoutReady(page);
+            const fragment = new URL(page.url()).hash;
+            if (fragment) await inViewport(page.locator(fragment));
+            else await page.locator('.reference-situation').first().waitFor({state: 'visible'});
+          } finally { await held?.close(); }
+        }
+      });
+    });
+  }
+}
+
+for (const javaScriptEnabled of [true, false]) {
+  test(`former farm scenario selector is a native collection anchor with JavaScript ${javaScriptEnabled}`, options, async () => {
+    await withPage(browser, site, {viewport: phone, javaScriptEnabled}, async page => {
+      await page.goto(`${site.origin}/lab/autonomous-farm/scenario-desk/#scenario-selector`);
+      if (javaScriptEnabled) await ready(page, '[data-topic-finder]');
+      else await layoutReady(page);
+      // Native fragment focus can finish after load while smooth scrolling.
+      await inViewport(page.locator('#scenario-selector:focus'));
+      await page.keyboard.press('Tab');
+      const first = page.locator('#scenario-selector .reference-situation').first();
+      await assertFocusVisible(first.locator('summary'), 'old selector link reaches the first situation by keyboard');
+      await first.locator('summary').press('Enter');
+      assert.equal(await first.getAttribute('open'), '', 'native situation remains openable');
     });
   });
 }
