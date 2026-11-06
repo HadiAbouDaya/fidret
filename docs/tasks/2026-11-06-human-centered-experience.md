@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/human-centered-experience
+- Branch: hadi/lab-discovery-refinements
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -67,12 +67,26 @@ Printing revealed excessive fragmentation in the existing workspaces. Scoped pri
 
 GitHub's current main protection was read on 6 November: foundation, runtime-bootstrap and seo-geo required from GitHub Actions, strict up-to-date branches, administrator enforcement, no force pushes and no assumed second approver. This is host-state evidence; the new branch's checks still need to execute.
 
+### Second increment: explanation at the point of interaction
+
+The second branch began from ee1ae96 while first-increment PR 53 completed its required runs. This increment addresses three source/render findings from the independent experience review: technical response labels in the Lab, technical comparison labels on the sensor Work page, and the suggested experiment appearing after the result and illustration.
+
+Root owns WorkEvidence.astro, LabExperience.astro, lab-workspaces.ts presentation prompts, workspace.css, related integration tests and this record. A new isolated delegate exclusively owns presentation labels and reason strings in autonomous-farm.ts and software-factory.ts, plus directly affected model tests if needed. It may not change facts, decision codes, conditions, priority, scenario data or model coverage. Root integrates and compares the existing 69 states before publication. No new runtime behavior or dependency is planned.
+
+The second increment now includes d509966 (source-derived suggested conditions and the plain sensor comparison) and b59824b (integrated delegate response strings, originally 33710ab). The combined deployment gate passed before the subsequently discovered wordmark fix. A before/after comparison of all 69 states confirms identical facts, decision codes, priority traces, values, reason counts, controls and URL keys; only labels and explanation text differ.
+
+Firefox 159 verification broadened the browser evidence: 64 default/enlarged layouts and native keyboard, no-JavaScript and print-media disclosure checks passed their automated assertions. Visual inspection nevertheless found that Firefox wrapped the last letter of both wordmarks, which document-overflow assertions missed. A scoped no-wrap rule keeps this short brand unit intact at 320, 390 and 1440 px with default, doubled and restored text. Root additionally owns styles.css for this correction. The source-built correction passed subsequent checks. The final gate passed with zero diagnostics, 67 Node tests and 104 Python tests. Separate Chromium and Firefox matrices each covered 56 affected-route layouts; 14 Chromium axe scans found no violations. All 69 browser state results matched the manifest, and the three affected print documents were visually inspected. See the linked verification record for coverage and limits. These are rendering findings, not human comprehension evidence.
+
+### First release verified
+
+[PR 53](https://github.com/HadiAbouDaya/fidret/pull/53) merged as 87f8e6344f800c0596f6d0372365588c2df47b9f after the exact ee1ae96 head passed all three required GitHub checks and no unresolved review feedback remained. The live shared browser then verified HTTP 200 and exact body/title/canonical/stylesheet agreement with the preserved verified build on all 11 main and Work-detail routes. The live 390 px Work render was inspected. No Cloudflare dashboard deployment ID was available because the dashboard required sign-in. The task records observed live output separately from that unverified dashboard state.
+
 ## Handoff
 
-- Checkpoint: first discovery/Lab increment implemented, integrated and independently reviewed in source checkpoint 7c617db. Final local deployment gate and print refinements passed. PR 53 is open.
-- Remaining work: publish and verify the first increment, then continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: inspect PR 53 exact-head required checks and unresolved reviews, merge when ready and verify actual live output. Then simplify the Lab response language, finish the sensor comparison explanation and move concise experiment prompts beside their controls. These follow-ups came from a separate expert review, not participant findings.
+- Checkpoint: first discovery/Lab increment merged and its live main/Work output verified. Second Lab explanation increment integrated in d509966 and b59824b; final local gate, cross-browser, state and print checks passed, including the wordmark correction. Independent source review found no blockers. PR 54 is open.
+- Remaining work: publish and verify the second increment, then continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
+- Next action: inspect PR 54's exact-head required checks and unresolved reviews, merge when ready and verify actual live output. Continue the active session with the next justified improvement.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: source commits 641dc9f, 79f589b, 14e311f and 7c617db pushed to the task branch. [PR 53](https://github.com/HadiAbouDaya/fidret/pull/53) is open for [issue 52](https://github.com/HadiAbouDaya/fidret/issues/52). No merge or new live deployment verified yet.
-- Last verified: 2026-11-06, final local gate for the source checkpoint (zero diagnostics, 67 Node tests, 104 Python tests), rendered checks, final print review and current host protection. Required GitHub checks are pending for the PR. See the linked verification record for coverage and limits.
+- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second branch `hadi/lab-discovery-refinements` is pushed with [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54), including a normal merge from current main. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session. No second-increment merge or live publication is claimed.
+- Last verified: 2026-11-06, final second-increment local gate (zero diagnostics, 67 Node tests, 104 Python tests), 69 exact states, both browser matrices, printed documents and independent source review. First-release exact-head required GitHub checks and live output were separately verified. Second-branch required GitHub checks are pending. See the linked verification record for coverage and limits.

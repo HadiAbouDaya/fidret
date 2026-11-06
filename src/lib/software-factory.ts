@@ -95,18 +95,18 @@ export type ReleaseDecision = 'advance' | 'hold' | 'reconcile' | 'contain';
 /** Deliberately small teaching model, not a security boundary or production policy. */
 export function assessRelease(facts: ReleaseFacts): {decision: ReleaseDecision; reasons: string[]} {
   // Contain observed harm and investigate unknown effects even if other gates also fail.
-  if (facts.observation === 'breach') return {decision: 'contain', reasons: ['An operating limit has been breached. Stop promotion and use the reviewed incident plan.']};
-  if (facts.externalEffect === 'unknown') return {decision: 'reconcile', reasons: ['The external action has an unknown outcome. Establish what happened before any retry.']};
+  if (facts.observation === 'breach') return {decision: 'contain', reasons: ['An operating limit has been breached. Stop further rollout and follow the reviewed incident plan.']};
+  if (facts.externalEffect === 'unknown') return {decision: 'reconcile', reasons: ['The external action may already have happened. Check the same operation ID with the provider to establish the outcome before any retry.']};
   const reasons: string[] = [];
-  if (!facts.candidate || !facts.artifact || facts.candidate !== facts.testedCandidate || facts.artifact !== facts.testedArtifact) reasons.push('The evidence does not cover this exact source and artifact.');
+  if (!facts.candidate || !facts.artifact || facts.candidate !== facts.testedCandidate || facts.artifact !== facts.testedArtifact) reasons.push('The evidence does not cover both this exact source revision and this exact built artifact. Verify the version you intend to release.');
   if (facts.checks !== 'pass') reasons.push('Required acceptance checks have not passed.');
-  if (facts.provenance !== 'verified') reasons.push('The artifact origin has not been verified against the expected build.');
-  if (facts.authority !== 'current') reasons.push('The execution grant is not current.');
-  if (facts.changeClass === 'exception' && !facts.exceptionReview) reasons.push('This change needs its designated human exception review.');
-  if (facts.externalEffect !== 'confirmed') reasons.push('Deployment has not been confirmed.');
-  if (facts.observation !== 'healthy') reasons.push('The observation window is inconclusive. Missing evidence is not a healthy result.');
-  if (!facts.recoveryReady) reasons.push('The recovery plan has not been established for this change.');
-  return reasons.length ? {decision: 'hold', reasons} : {decision: 'advance', reasons: ['This exact candidate meets the illustrated policy for the next rollout stage.']};
+  if (facts.provenance !== 'verified') reasons.push('The built artifact has not been verified as coming from the expected build.');
+  if (facts.authority !== 'current') reasons.push('Permission to carry out this release has expired or been revoked.');
+  if (facts.changeClass === 'exception' && !facts.exceptionReview) reasons.push('The designated person must review this exceptional change before it can proceed.');
+  if (facts.externalEffect !== 'confirmed') reasons.push('There is no confirmation that deployment completed.');
+  if (facts.observation !== 'healthy') reasons.push('Customer outcomes have not been shown to be healthy during the required observation window. Missing evidence cannot establish a healthy result.');
+  if (!facts.recoveryReady) reasons.push('A recovery plan for this exact change is not yet established.');
+  return reasons.length ? {decision: 'hold', reasons} : {decision: 'advance', reasons: ['The example policy permits the next rollout step for this exact source revision and built artifact, within the current grant.']};
 }
 
 export const referenceFacts: ReleaseFacts = {
@@ -123,7 +123,7 @@ export const releaseCases: readonly {key: string; label: string; title: string; 
   {key: 'incident', label: 'A regression', title: 'The candidate breaches an operating limit.', evidence: ['An obsolete queued reminder is dispatched after the reschedule won the agreed ordering boundary.', 'The incident policy treats this outcome as a stop condition.', 'One message may already be outside the system.'], facts: {...referenceFacts, observation: 'breach'}, lesson: 'Contain the impact, stop promotion and follow the incident plan. A reviewed rollback may stop future damage, but cannot unsend a message or automatically reverse incompatible data changes.'},
 ];
 
-export const decisionLabels: Record<ReleaseDecision, string> = {advance: 'Advance within policy', hold: 'Hold this candidate', reconcile: 'Reconcile the outcome', contain: 'Contain and recover'};
+export const decisionLabels: Record<ReleaseDecision, string> = {advance: 'Continue to the next permitted step', hold: 'Wait before the next rollout step', reconcile: 'Find out whether it already happened', contain: 'Limit harm and follow the incident plan'};
 
 export const briefSections = [
   {title: 'Outcome and responsibility', prompts: ['Name the affected user, useful outcome, current baseline and accountable outcome owner.', 'Record the engineering, verification, release, service and factory owners. Who can stop or reject work?', 'Define acceptance examples, non-goals and the promise for effects already in flight.']},

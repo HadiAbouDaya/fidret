@@ -23,8 +23,8 @@ export type FarmFacts = {
 };
 export type FarmDecision = 'run' | 'hold' | 'review' | 'reconcile' | 'protect' | 'recorded';
 export const farmDecisionLabels: Record<FarmDecision, string> = {
-  run: 'Run the bounded action', hold: 'Hold and investigate', review: 'Ask the responsible person',
-  reconcile: 'Reconcile the physical effect', protect: 'Protect and respond', recorded: 'Keep the recorded result',
+  run: 'Proceed with this one action', hold: 'Wait and investigate', review: 'Ask the responsible person',
+  reconcile: 'Find out whether it already happened', protect: 'Protect and call for help', recorded: 'Do not repeat this action',
 };
 export const normalFarmFacts: FarmFacts = {
   hazard: false, effect: 'none', evidence: 'current', identity: true, authority: 'current',
@@ -33,22 +33,22 @@ export const normalFarmFacts: FarmFacts = {
 };
 /** Priority labels for a teaching exercise. A real incident may require concurrent responses. */
 export function assessFarm(facts: FarmFacts): {decision: FarmDecision; reasons: string[]} {
-  if (facts.hazard) return {decision: 'protect', reasons: ['Apply the validated local protective response and call the responsible operator. Preserve essential care. Reconcile any uncertain effects in parallel.']};
-  if (facts.effect === 'unknown') return {decision: 'reconcile', reasons: ['The action may already have happened. Keep its possible resource effect reserved and establish physical state before another attempt.']};
-  if (facts.effect === 'completed') return {decision: 'recorded', reasons: ['This exact operation already completed. Suppress repeat actuation. Returning its durable result still requires authorized access to this farm and operation.']};
+  if (facts.hazard) return {decision: 'protect', reasons: ['Follow the validated local protective response and call the responsible operator. Keep essential care running independently, and check any uncertain physical effects in parallel.']};
+  if (facts.effect === 'unknown') return {decision: 'reconcile', reasons: ['The action may already have happened. Keep the resources it may have used reserved, and confirm the physical state before trying again.']};
+  if (facts.effect === 'completed') return {decision: 'recorded', reasons: ['This exact operation has already completed. Do not run the equipment again for this operation. Returning its durably stored result still requires authorized access to this farm and operation.']};
   const reasons: string[] = [];
-  if (facts.evidence !== 'current') reasons.push('Observations are stale or disagree. Re-establish evidence for this action.');
-  if (!facts.identity) reasons.push('Device or caller identity has not been accepted.');
-  if (facts.authority !== 'current') reasons.push('The execution authority is expired or revoked.');
-  if (!facts.planMatches) reasons.push('The approval or state version does not match this exact plan.');
-  if (!facts.envelope) reasons.push('The action lies outside the approved operating envelope.');
-  if (!facts.localReady) reasons.push('Required local interlocks, continuity and response capability are not ready.');
+  if (facts.evidence !== 'current') reasons.push('The observations are too old or disagree. Obtain current, consistent evidence for this action.');
+  if (!facts.identity) reasons.push('The device or caller has not passed the required identity check.');
+  if (facts.authority !== 'current') reasons.push('Permission to carry out this action has expired or been revoked.');
+  if (!facts.planMatches) reasons.push('The approval or recorded state version does not match this exact plan.');
+  if (!facts.envelope) reasons.push('This action is outside the approved operating limits.');
+  if (!facts.localReady) reasons.push('The required local equipment safeguards, continuity arrangements or ability to respond are not ready.');
   if (!facts.dataAllowed) reasons.push('The proposed data destination is not approved for this information.');
-  if (!facts.resourcesReserved) reasons.push('Shared resources or cumulative effect budgets are not reserved.');
-  if (!facts.cloud && !facts.offlineGrant) reasons.push('No valid local delegation covers this action during disconnection.');
+  if (!facts.resourcesReserved) reasons.push('Shared resources or allowances for cumulative effects across actions have not been reserved.');
+  if (!facts.cloud && !facts.offlineGrant) reasons.push('The cloud is disconnected, and no valid local permission covers this action.');
   if (reasons.length) return {decision: 'hold', reasons};
   if (facts.specialistRequired && !facts.approvalBound) return {decision: 'review', reasons: ['The designated farmer or qualified specialist must decide on this exact proposal. Silence does not authorize execution.']};
-  return {decision: 'run', reasons: ['This action meets the illustrated policy for its recorded target, parameters and time window. The local controller rechecks conditions at execution.']};
+  return {decision: 'run', reasons: ['In this model, this one action can proceed with its exact recorded target, settings and time window. The local controller must check conditions again before acting.']};
 }
 
 export const farmDomains = [

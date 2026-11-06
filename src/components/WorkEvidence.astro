@@ -29,13 +29,13 @@ const publicationPaths = publication
       <h2 id="example-title">What happens when readings stop?</h2>
       <p>The last received value still looks ordinary. But no new reading has arrived. Compare keeping that value with checking whether it is still current.</p>
       <div class="work-example-context">
-        <h3>One point at the expiry boundary</h3>
-        <p>No new packet arrives in the dropped-packet scenario. Both rules last received the value {expiration.baseline.current_value} at source time {expiration.baseline.source_time}.</p>
+        <h3>The reading is {expiration.baseline.source_age} seconds old.</h3>
+        <p>The last reading was {expiration.baseline.current_value}, recorded at {expiration.baseline.source_time} second. Now it is {expiration.guarded.as_of} seconds, and no new reading has arrived. The two software rules give different answers.</p>
         <dl class="work-example-facts">
-          <div><dt>Checked at</dt><dd>{expiration.guarded.as_of} seconds</dd></div>
-          <div><dt>Source age</dt><dd>{expiration.baseline.source_age} seconds</dd></div>
-          <div><dt>Last-arrival baseline</dt><dd>Still exposes {expiration.baseline.current_value}</dd></div>
-          <div><dt>Freshness guard</dt><dd>{expiration.guarded.current_value === null ? 'No current value' : expiration.guarded.current_value} ({expiration.guarded.state})</dd></div>
+          <div><dt>Time now</dt><dd>{expiration.guarded.as_of} seconds</dd></div>
+          <div><dt>Age of the reading</dt><dd>{expiration.baseline.source_age} seconds</dd></div>
+          <div><dt>Keep showing the last number</dt><dd>Still shows {expiration.baseline.current_value}</dd></div>
+          <div><dt>Check whether it is still current</dt><dd>{expiration.guarded.current_value === null ? 'No current value' : expiration.guarded.current_value} ({expiration.guarded.state})</dd></div>
         </dl>
       </div>
       <details class="visitor-disclosure"><summary>What did the full software test check?</summary>
@@ -45,12 +45,13 @@ const publicationPaths = publication
         The last-arrival baseline exposes an age-invalid value at <strong>{sensorEvidenceTotals.baseline_age_invalid} points</strong>.
         The guard does so at <strong>{sensorEvidenceTotals.guarded_age_invalid} points</strong>.
       </p>
-      </details>
       <p class="work-example-conditions">
         Clock: {sensorEvidence.clock}. A usable reading has a source age at least zero and strictly below {sensorEvidence.timeout} seconds.
         Recovery requires {sensorEvidence.recovery_observations} distinct fresh observations. These are scheduled points in fixed traces, not independent trials or an estimate of field reliability.
         The timeout is illustrative; no hardware was tested.
       </p>
+      </details>
+      <p class="work-example-conditions">These are invented readings on one example clock. The {sensorEvidence.timeout}-second limit illustrates the rule; it is not a recommendation for real equipment. No hardware was tested.</p>
     </>
   )}
 
