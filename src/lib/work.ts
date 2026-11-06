@@ -69,7 +69,7 @@ export const workCatalogue: readonly Work[] = [
     invitation: 'Are you unsure what was checked before a software change went live? Tell us about one step you would like to understand better.',
   },
   {
-    scope: 'Research and planning tool. Completing the brief does not implement controls.', overviewLabel: 'Explore the agent planning brief',
+    scope: 'Research and planning tool. Completing the brief does not set up permissions or enforce rules.', overviewLabel: 'Explore the agent planning brief',
     explore: 'Follow a fictional support-ticket example, then use the prompts to describe your own task.',
     slug: 'agentic-company-harness', title: 'Which parts of a task should an AI agent handle?', kind: 'Research and planning brief',
     question: 'Being allowed to draft a reply should not automatically mean being allowed to send it.',

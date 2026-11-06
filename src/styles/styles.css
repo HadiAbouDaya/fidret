@@ -46,7 +46,7 @@
   --fd-space-24: 6rem;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+html { scroll-padding-top: 2rem; }
 body { margin: 0; background: var(--fd-bg); color: var(--fd-text); font: 400 1.0625rem/1.7 var(--fd-font-ui); -webkit-font-smoothing: antialiased; }
 ::selection { color: var(--fd-ivory); background: var(--fd-forest); }
 .lab-page { display: flex; flex-direction: column; min-height: 100svh; }
