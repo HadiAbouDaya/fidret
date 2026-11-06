@@ -236,7 +236,7 @@ for (const {path, library} of finders) {
       if (library) {
         const group = await item.getAttribute('data-group');
         const other = finder.locator(`[data-filter]:not([data-filter="all"]):not([data-filter="${group}"])`).first();
-        if (await other.count()) await other.click();
+        if (await other.count()) await activate(other);
       }
       await input.fill('zzzz-no-such-fidret-example');
       assert.equal(await item.isVisible(), false, 'the deep-link index entry is currently filtered out');
@@ -250,6 +250,7 @@ for (const {path, library} of finders) {
         assert.equal(await input.inputValue(), '', 'situation deep link clears the conflicting search');
         assert.equal(await finder.locator('[data-filter="all"]').getAttribute('aria-pressed'), 'true', 'situation deep link resets category');
         assert.equal(await finder.locator('[data-find-item]:visible').count(), count, 'situation deep link restores the collection');
+        await assertFocusVisible(target.locator('summary'), 'the requested situation receives visible keyboard focus');
       } else {
         // Engineering notes filter only the index, never the actual prose.
         assert.equal(await input.inputValue(), 'zzzz-no-such-fidret-example', 'same-document navigation retains the active index filter');
