@@ -48,8 +48,9 @@ Allow 15–20 minutes on the participant's usual device. Explain that the websit
 3. Allow exploration. Ask: “Which project interested you, and why?” Observe first choice, rereading, hesitation and requests for help.
 4. Ask: “What has Fidret actually built?” Follow with what the selected example does and does not establish. Look for mistaken beliefs that the fictional farm is deployed or the software factory is operating autonomously.
 5. Ask: “Where would you go to discuss an idea?” Stop before sending. Ask what preparation they think is necessary and where the contact link leads.
-6. Open a forwarded individual Work page. Ask for its meaning, actual artifact, useful deeper explanation and next step without returning Home.
-7. Finally ask whether the site felt clear, welcoming and interesting, and what specifically caused that feeling. Keep any rating beside its explanation and observed behavior.
+6. Open a forwarded individual Work page. Ask for its meaning, actual artifact, useful deeper explanation and next step without returning Home. This tests direct-entry comprehension after Home, not a fresh first impression of the company.
+7. After unguided exploration, ensure each participant has read the farm overview before applying the farm distinction gate below. If they have not encountered it, open the overview without explaining it and ask: “What has been made here, and where, if anywhere, is it being used?” Record prompted route exposure separately from spontaneous discovery. Preserve the unprompted answer and any help needed; do not explain that the farm is fictional before recording their interpretation.
+8. Finally ask whether the site felt clear, welcoming and interesting, and what specifically caused that feeling. Keep any rating beside its explanation and observed behavior.
 
 Use a fresh group for the revised edition's ten-second test where practical. Returning participants can check a correction, but cannot supply a first-visit result. Record accessibility participation and assisted tasks accurately; these sessions do not replace comprehensive assistive-technology review.
 

@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/fragment-reading-continuity
+- Branch: hadi/visitor-validation-handoff
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -220,3 +220,9 @@ The final c60f317e source passed the shared gate (zero diagnostics, 67 Node test
 ### Thirteenth publication checkpoint
 
 Source 9a19e32 and integration merge 614aecc are pushed through PR 65. The local full gate, 62 browser regressions, frozen-source independent review, final model/fallback matrix and paper comparison passed before publication. Required GitHub checks and unresolved-review state must be inspected on the final PR head; merge and live release are not yet claimed. The source-based session audit finds the original numbered requirements and A–F proposal deliverables covered, with real participant outcomes still explicitly unmeasured. Continue until the authorized 07:16:59 UTC session endpoint.
+
+### Visitor validation handoff
+
+Root prepares a four-page blank local PDF kit from the canonical visitor protocol: facilitator guide, two private observation sheets and a five-person review sheet. This is an actionable handoff artifact, not completed research or a new public download. A read-only protocol review found one practical gap: the all-five farm classification gate requires everyone to read the farm overview, while free exploration might never expose a participant to it. The protocol now adds neutral overview exposure after unguided discovery when needed and records that exposure separately. It also labels a forwarded-link task after Home as direct-entry comprehension, not a fresh first impression. Root owns the protocol clarification, local kit and task/verification records; no recruitment, outreach, model policy or public-page change is included.
+
+PR 65 remains separate. Its exact 46a12ba push foundation run was cancelled during Ubuntu font-package downloads after the full deployment gate passed; its separate PR checks passed. Root inspected the terminal log and requested one rerun of the cancelled job, retaining the existing timeout and all checks. Publication requires the resulting exact-head checks and unresolved-review inspection.
