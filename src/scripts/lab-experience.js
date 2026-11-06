@@ -130,9 +130,14 @@ function enhanceJourney(root) {
   };
   // Binding actual controls avoids presenting ordinary headings as clickable.
   root.querySelectorAll('a[href^="#scene-"],a[href="#read-all"],a[href="#story-complete"],[data-reset-case],[data-reset]').forEach(control => control.addEventListener('click',handleJourneyClick));
+  let locationFrame = 0;
   const syncLocation = () => {
-    if (printing || root.dataset.enhanced !== 'true') return;
-    if (!location.hash || location.hash === '#read-all' || location.hash === '#story-complete' || keys.some(key => location.hash === `#scene-${key}` || location.hash.startsWith(`#scene-${key}~`))) render(location.hash,Boolean(location.hash));
+    cancelAnimationFrame(locationFrame);
+    // Restore scene/focus after the browser restores the history entry's scroll.
+    locationFrame = requestAnimationFrame(() => {
+      if (printing || root.dataset.enhanced !== 'true') return;
+      if (!location.hash || location.hash === '#read-all' || location.hash === '#story-complete' || keys.some(key => location.hash === `#scene-${key}` || location.hash.startsWith(`#scene-${key}~`))) render(location.hash,Boolean(location.hash));
+    });
   };
   window.addEventListener('hashchange',syncLocation);
   window.addEventListener('popstate',syncLocation);
@@ -174,13 +179,24 @@ function enhanceFinder(root) {
     root.querySelectorAll('[data-find-group]').forEach(section => { section.hidden = ![...section.querySelectorAll('[data-find-item]')].some(item => !item.hidden); });
     if (empty) empty.hidden = count !== 0;
   };
-  const followHash = () => {
+  const followHash = (move = false) => {
     let key;
     try { key = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     const item = items.find(item => item.id === key);
     if (!item) return;
     input.value = ''; group = 'all'; apply();
-    if (item instanceof HTMLDetailsElement) item.open = true;
+    if (item instanceof HTMLDetailsElement) {
+      item.open = true;
+      if (move) {
+        const hash = location.hash;
+        // Native restoration can overwrite scrolling during the hash event.
+        requestAnimationFrame(() => {
+          if (location.hash !== hash) return;
+          item.querySelector('summary')?.focus({preventScroll:true});
+          item.scrollIntoView({behavior:'instant',block:'start'});
+        });
+      }
+    }
   };
   input.addEventListener('input', apply);
   const handleFinderClick = event => {
@@ -190,7 +206,7 @@ function enhanceFinder(root) {
     if (event.target.closest('[data-clear]')) { input.value = ''; group = 'all'; apply(); input.focus(); }
   };
   root.querySelectorAll('[data-filter],[data-clear]').forEach(control => control.addEventListener('click',handleFinderClick));
-  window.addEventListener('hashchange', () => { if (root.dataset.enhanced === 'true') followHash(); });
+  window.addEventListener('hashchange', () => { if (root.dataset.enhanced === 'true') followHash(true); });
   const printedDetails = new Map();
   window.addEventListener('beforeprint', () => { items.forEach(item => { if (item instanceof HTMLDetailsElement) { printedDetails.set(item, item.open); item.open = true; } }); });
   window.addEventListener('afterprint', () => { printedDetails.forEach((open, item) => { item.open = open; }); printedDetails.clear(); });
