@@ -8,13 +8,17 @@ This is source, browser and automated verification of the implementation increme
 
 The changes make company identity explicit, lead Work with recognizable questions, show short evidence limits, expose source-derived previews on phones and reduce preparation for a conversation. The existing Lab controls explain their purpose in plainer language. The model decisions, URL state tokens, authors, edition dates and publication boundaries remain unchanged.
 
-## Repository checks
+## First increment: local verification
+
+The following local checks, package statements and size measurements describe the first implementation increment, before PR 53. Later sections record subsequent changes, including development-only browser tooling and controller corrections. The [task handoff](../tasks/2026-11-06-human-centered-experience.md#handoff) identifies the current checkpoint; historical figures below are not current-state claims.
+
+### Repository checks
 
 The pinned Node 24.22.1 and pnpm 11.28.9 toolchain ran `sh scripts/check_deployment.sh` after integration and again after review fixes. The latter passed with zero Astro errors, warnings or hints across 81 checked files, 67 Node tests and 104 Python tests. The production build generated 28 pages. This includes publication/withdrawal fixtures, model and runtime tests, metadata/discovery contracts, source/output boundaries and the no-em-dash rule. `git diff --check` passed.
 
 Existing fixture builds now also compare the discovery sensor and version previews with canonical values, verify their readable initial HTML and visible scope, and exercise withdrawal of the new Home conversation links. No browser-test package was added to the project or lockfile.
 
-## Rendered and behavioral checks
+### Rendered and behavioral checks
 
 Local production output was served with `pnpm preview`. Shared preview snapshots timed out twice; an isolated installed Brave browser controlled through Playwright provided the fallback. Temporary screenshots, JSON results and print PDFs are ignored local review artifacts, not published assets.
 
@@ -32,15 +36,15 @@ Local production output was served with `pnpm preview`. Shared preview snapshots
 
 Print inspection found excessive white space and orphan fragments from keeping whole workspace scenes together. Scoped print styles allow the explanation to flow, keep each result together and retain the conclusion. At the tested A4 settings, each workspace decreased from 11 to 6 pages without dropping its five situations or detailed assumptions. Visitor print styles also keep short scope sections together.
 
-## Contrast review limits
+### Contrast review limits
 
 Axe could not resolve SVG text backgrounds, labels over a drawing, or several symbols. Source and rendered inspection established the relevant fills and backgrounds: ivory on forest is approximately 10.61:1, sage on forest 9.00:1, and the dark secondary diagram text on the sage field 6.57:1. The farm label backing is lighter still. Symbols have accompanying words; they do not carry the only explanation. These observations address the flagged cases, not a blanket accessibility certification.
 
-## Independent source review
+### Independent source review
 
 A separate read-only agent reviewed the first integrated commits. It found no blocking model, evidence-boundary or publication-lifecycle regression. Three small findings were fixed: two static Lab headings described starting inputs after those inputs changed; the agent legend did not match its three actions; and the Contact note had bypassed its shared source. The review also prompted preview/source fixture coverage. This was an internal review, not participant feedback.
 
-## Loading and search boundaries
+### Loading and search boundaries
 
 Home, Work and Contact load no executable JavaScript. The farm and factory keep the existing single 13,754-byte controller; no runtime route or third-party dependency was added. The two retained font files total 49,176 bytes. Local gzip size calculations were approximately 7.1 KB for Home HTML and 4.8 KB for its styles; these are build measurements, not observed production transfer or Core Web Vitals.
 
@@ -293,3 +297,17 @@ Final verification covered all 27 indexed routes in both A4 and Letter: 54 expor
 Visual review was explicit rather than inferred from page counts. Early independent review inspected 198 technical pages; a later 23-page review checked the contrast, whole-summary and brief-credit fixes and found the remaining pagination issues. The final references review inspected all 20 pages of all six sources exports, with no clipping, overlap, split citation or footer finding. All 64 canonical reference labels and edition qualifications appear in both paper sizes, with matching link destinations. Root inspected the final method, farm-library, publishing-Work, Work-gallery and sensor-walkthrough endings. This does not claim that every one of the final 353 pages received a fresh full-size visual inspection. Method replay content and the recorded 33 observations remain intact; extraction differences in earlier candidates came from repeated table headings and column ordering.
 
 The final shared deployment gate passed with zero diagnostics across 83 Astro files, 67 Node tests and 104 Python tests. The combined final browser suite passed all 28 cases in 9.34 seconds. All 28 generated HTML files preserve their content after normalizing asset references and the intentional print-handoff replacement. The controller is byte-identical to the tenth release; no model, public route, source date, metadata identity or dependency changes. Physical printing, PDF accessibility, assistive-technology listening and first-time visitor comprehension remain untested. GitHub publication and live verification are separate next steps.
+
+### Eleventh publication
+
+PR 63 merged as `d9841864736a9f4af2cc71ea354c32fe847839cb` after all three required checks passed on exact head `44ab4291d29529e8ad861b7d7f890ae6ff6f44b7`, with no comments, reviews or review threads. The subsequent shared-browser comparison verified all 27 indexed canonical routes: HTTP 200, title/heading/canonical, stylesheet/controller identity, exact handoff addresses, model/situation hashes and preserved compatibility notices. All 21 non-enhanced page bodies match the preserved verified build. Every handoff is hidden on screen. The live Work page at an actual 390 px viewport was inspected without overflow. A missing route returned the custom 404, noindex and no print handoff. Earlier already-loaded content showed the preceding release until a fresh navigation; it was not counted as the new release.
+
+This confirms live markup and assets corresponding to the local paper exports. It does not establish physical printing, a hosting-dashboard deployment ID or PDF accessibility.
+
+## Twelfth increment: choose the explanation depth
+
+A fresh mission-focused source/render review found the main discovery journey coherent and no P0 blocker in its samples. Approach still described the sensor example through “baseline, replay inputs and limitations” and offered only the technical method. The revised paragraph describes the two compared behaviors in ordinary language, then offers the accessible Work example and the existing method/results route as separate links. The detailed process stages, evidence limits, published-only agent brief and contact invitation remain.
+
+The shared gate passed with zero diagnostics across 83 Astro files, 67 Node tests and 104 Python tests. Chromium 157, Firefox 159 and WebKit 27.2 passed 24 layouts at 320/390/768/1440 px with default/doubled text, six keyboard destination checks and three no-JavaScript checks of the available actions. One Chromium axe scan found no violations. Phone and desktop handoff compositions were visually inspected. Actual A4 and Letter exports both remain four pages, with both actions and the complete canonical/contact handoff on the final page; those endings were inspected. Only `approach/index.html` changes in the public output.
+
+The requirement audit also clarified historical scope in this record, the task's visitor-runtime dependency constraint, and the architecture map's known late-reading exception. These corrections preserve earlier evidence rather than replacing historical measurements with current ones. No new feature, model result or human feedback is claimed.
