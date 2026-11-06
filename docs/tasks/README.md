@@ -4,6 +4,7 @@ Task records make work transferable between people and harnesses. Create a recor
 
 | Task | Human owner | State |
 | --- | --- | --- |
+| [Public AI-DLC adoption explanation](2026-11-06-public-aidlc.md) | Hadi Abou Daya | See task record |
 | [Default AI-DLC website workflow](2026-11-06-aidlc-adoption.md) | Hadi Abou Daya | See task record |
 | [Human-centered discovery implementation](2026-11-06-human-centered-experience.md) | Hadi Abou Daya | See task record |
 | [Human-centered website review](2026-11-05-human-centered-review.md) | Hadi Abou Daya | See task record |
