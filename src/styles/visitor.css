@@ -157,6 +157,7 @@
 @media print {
  .visitor-hero { padding-block: 1rem 2rem; }
  .selected-work { gap: 1rem; padding-block: 1rem; }
+ .work-collection { padding-bottom: 0; }
  .work-artifact, .home-selected .work-artifact { min-height: 0; }
  .visitor-hero h1 { font-size: 28pt; }
  .visitor-split { display: block; padding-block: 1.5rem; break-inside: avoid; }
@@ -170,4 +171,6 @@
  .work-example { padding-block: 1.5rem; }
  .work-example h2, .work-overview h2 { break-after: avoid; }
  .work-evidence .visitor-split { padding-block: 1.5rem; }
+ .work-evidence { margin-bottom: 0; }
+ .work-evidence .visitor-split, .work-gallery-hero ~ .visitor-split { padding-bottom: 0; }
 }

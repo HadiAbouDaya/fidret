@@ -103,6 +103,7 @@
 
 @media print {
   .method-body, .method-title-grid { display: block; }
+  .method-body { padding-bottom: 0; }
   .method-contents, .method-actions { display: none; }
   .method-content { max-width: none; }
   .method-table-scroll { overflow: visible; }
