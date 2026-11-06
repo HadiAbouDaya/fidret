@@ -6,6 +6,12 @@ Fidret means **Trust earned**. Read the [charter](docs/foundation/charter.md) be
 
 These instructions apply to every agent and contributor in this repository. Follow higher-priority harness instructions and the current user's explicit request. If a request changes the company direction, make the change visible in the charter and decision record rather than silently drifting from the purpose.
 
+## Default AI-DLC lifecycle
+
+Website work MUST automatically follow the Fidret AI-DLC lifecycle without an explicit invocation.
+
+For every website task, automatically read and use the [Fidret AI-DLC skill](skills/fidret-aidlc/SKILL.md) and its [operating workflow](docs/collaboration/aidlc.md). Do this for content, design, code, reviews, fixes, maintenance and delivery tooling without requiring an explicit invocation or reminder. Choose proportional profile/depth, record stage dispositions and acceptance traceability, and follow the lifecycle through verification and handoff. This repository adaptation uses pinned upstream guidance and existing task/decision records. Existing authorization remains valid; do not fabricate fresh human approvals or native runtime events.
+
 ## Session entry and recovery
 
 - Follow the [agent startup and recovery workflow](docs/collaboration/agent-workflow.md) for a new session, task continuation or context reset. Inspect the relevant task checkpoint and actual Git/worktree state before resuming an old instruction.

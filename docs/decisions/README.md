@@ -4,6 +4,7 @@ Record durable choices here so both contributors and their agents can understand
 
 | Record | Status | Subject |
 | --- | --- | --- |
+| [0016](0016-default-aidlc.md) | active | Automatic AI-DLC methodology with pinned guidance and task traceability |
 | [0015](0015-visitor-outcomes.md) | active | Visitor outcomes, curated work evidence and an actual contact journey |
 | [0014](0014-search-quality.md) | active | Search metadata, shared SEO/GEO skill and required PR checks |
 | [0013](0013-progressive-lab-experiences.md) | active | Bounded progressive enhancement for guided Lab experiences |

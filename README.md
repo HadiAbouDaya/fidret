@@ -32,7 +32,9 @@ Physical AI is our first practice. The company purpose guides how we choose work
 
 Start your harness at the repository root. Codex uses `AGENTS.md`; bridges for other supported harnesses point to that same file. If a harness does not discover an entry point automatically, explicitly ask it to read `AGENTS.md`.
 
-Use this opening prompt:
+Website work automatically follows the pinned [AI-DLC lifecycle](docs/collaboration/aidlc.md), using the [shared skill](skills/fidret-aidlc/SKILL.md), existing authority and repository task records. No AI-DLC command or reminder is required. This is a documented methodology adaptation; native engine/hooks are not installed.
+
+An optional opening prompt is:
 
 ```text
 Read AGENTS.md and follow the agent startup runbook. Continue task <path>,
