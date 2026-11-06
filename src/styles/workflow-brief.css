@@ -73,9 +73,7 @@
   .workflow-decisions > div { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
   .workflow-colophon { flex-direction: column; gap: 1rem; }
 }
-.workflow-print-source { display: none; }
 @media print {
-  .workflow-print-source { display: block; overflow-wrap: anywhere; font-size: 9pt; }
   @page { size: A4; margin: 16mm; }
   .workflow-page { color: #000; font: 10pt/1.45 Arial, sans-serif; }
   body:has(.workflow-page) { background: #fff; }
@@ -111,6 +109,5 @@
   .workflow-limit { padding: .75rem; margin-block: 1rem; }
   .workflow-colophon { display: block; padding-block: 1rem 0; }
   .workflow-colophon > p { max-width: none; }
-  .workflow-colophon .workflow-print-source { margin-top: .5rem; }
   .workflow-page a { color: #000; }
 }

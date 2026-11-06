@@ -156,6 +156,8 @@
 
 @media print {
  .visitor-hero { padding-block: 1rem 2rem; }
+ .selected-work { gap: 1rem; padding-block: 1rem; }
+ .work-artifact, .home-selected .work-artifact { min-height: 0; }
  .visitor-hero h1 { font-size: 28pt; }
  .visitor-split { display: block; padding-block: 1.5rem; break-inside: avoid; }
  .visitor-split h2 { font-size: 22pt; max-width: none; }
