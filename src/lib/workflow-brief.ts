@@ -9,6 +9,7 @@ type WorkflowContract = {
   prompts: readonly string[];
   example: string;
   evidence: string;
+  discovery?: { question: string; summary: string };
 };
 
 // Original planning synthesis from the accompanying article, not a control standard.
@@ -16,6 +17,10 @@ type WorkflowContract = {
 export const contracts: readonly WorkflowContract[] = [
   {
     id: 'purpose',
+    discovery: {
+      question: 'What would a useful result look like?',
+      summary: 'Start with one task. Name who is responsible and how they would judge the result.',
+    },
     title: 'Purpose',
     question: 'What result is worth delegating?',
     prompts: [
@@ -40,6 +45,10 @@ export const contracts: readonly WorkflowContract[] = [
   },
   {
     id: 'authority',
+    discovery: {
+      question: 'What is the agent allowed to do?',
+      summary: 'For example, an agent may prepare a draft reply while sending it remains outside its permissions.',
+    },
     title: 'Authority',
     question: 'Which consequences may the workflow cause?',
     prompts: [
@@ -65,6 +74,10 @@ export const contracts: readonly WorkflowContract[] = [
   },
   {
     id: 'recovery',
+    discovery: {
+      question: 'What if it stops halfway through?',
+      summary: 'If saving a draft stops replying, check whether it was saved before trying again. If the result is still unclear, stop and ask the support lead to take over. Stopping does not undo a draft already saved.',
+    },
     title: 'Recovery',
     question: 'What happens after a timeout, interruption or mistake?',
     prompts: [

@@ -17,7 +17,7 @@ const examples = modelKind === 'farm'
   ? [{ token: '000', title: 'Water reserved' }, { token: '010', title: 'Water reservation removed' }]
   : [{ token: '000', title: 'The tests cover an earlier version' }, { token: '100', title: 'The tests cover this version' }, { token: '101', title: 'Matching tests, but permission withdrawn' }];
 const expiration = sensorEvidence.scenarios.dropped!.snapshots.find(row => row.baseline.source_age === sensorEvidence.timeout)!;
-const planningQuestions = contracts.filter(contract => ['purpose', 'authority', 'recovery'].includes(contract.id));
+const planningQuestions = contracts.filter(contract => contract.discovery);
 const publication = publishedWorks.find(item => item.sourceSlug === HARNESS_SLUG) ?? publishedWorks.find(item => item.sourceSlug);
 const publicationPaths = publication
   ? [...new Set([`/lab/${publication.sourceSlug}/`, `/lab/${publication.sourceSlug}/sources/`, workPath(publication), publication.artifact, publication.method])]
@@ -87,16 +87,16 @@ const publicationPaths = publication
   {work.slug === 'agentic-company-harness' && (
     <>
       <h2 id="example-title">Questions from the workflow brief</h2>
-      <p>The brief starts with one task. Its worked example investigates a synthetic support ticket and saves a draft for review; sending a reply and deploying a change are outside that trial.</p>
+      <p>The brief starts with one task. Its worked example investigates a fictional support request and saves a draft for someone to review. Sending the reply or changing a live system is outside the example.</p>
       <dl class="work-planning-questions">
         {planningQuestions.map(contract => (
           <div>
-            <dt><a href={`${work.artifact}#${contract.id}`}>{contract.question}</a></dt>
-            <dd>{contract.id === 'recovery' ? <><strong>Fictional worked example:</strong> {contract.example}</> : contract.prompts[0]}</dd>
+            <dt><a href={`${work.artifact}#${contract.id}`}>{contract.discovery!.question}</a></dt>
+            <dd>{contract.discovery!.summary}</dd>
           </div>
         ))}
       </dl>
-      <p class="work-example-conditions">These are planning questions from the shared brief. Answering them does not implement controls or establish that the workflow is ready to run.</p>
+      <p class="work-example-conditions">These are planning questions from the shared brief. Answering them does not set up permissions, enforce rules or establish that the workflow is ready to run.</p>
     </>
   )}
 
