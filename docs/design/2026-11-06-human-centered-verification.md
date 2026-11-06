@@ -180,3 +180,36 @@ Under the same constrained Chromium setup, the corrected farm's three initial la
 ## Sixth publication
 
 PR 58 merged as `4b575e56f5bcbeaa206331d9f59a48d259672027` at 01:44:15 UTC on 6 November after foundation, runtime-bootstrap and seo-geo passed on exact head `7fa766c8173caaadddfc72ff7212d15b1a28afcd`, with no comments, reviews or review threads. The subsequent shared-browser comparison verified HTTP 200, metadata/styles/script identity on 18 routes, exact initial-body agreement on 12 static routes including the workflow brief, unchanged workspace model/prompt and scenario data, and the new completion label on both workspaces. As before, enhanced bodies differ from initial HTML because of controller state. This verifies observed live output; hosting-dashboard identity, actual search performance and human comprehension remain unverified.
+
+
+## Eighth increment: repeatable browser regression work
+
+The npm registry and official release records were inspected on 6 November. Playwright 1.65.0 was published at 18:28 UTC on 5 November, so it does not satisfy the repository's 24-hour settling window during this session. The selected 1.64.1 was published on 14 October; its [official patch notes](https://github.com/microsoft/playwright/releases/tag/v1.64.1) address routing and Electron regressions. The package requires Node 20 or newer and adds only its matching `playwright-core` package to the resolved graph. The lockfile integrity matches the registry metadata.
+
+After the addition completed, `pnpm install --frozen-lockfile` passed with the existing policy intact. The dated `pnpm audit --json` response reported zero advisories in all severity categories; this is the service's response for the resolved dependency graph, not a future security guarantee. An earlier frozen check accidentally ran before the add operation finished and was not used as evidence for the new dependency. The final manifest/lockfile were inspected after the add completed, then frozen installation was repeated.
+
+Browser source and CI integration are in progress. The intended check stays separate from the production gate and public runtime. Its first actual local and CI outcomes must be recorded before this increment is considered verified.
+
+
+### Seventh publication and loading experiment
+
+PR 59 merged as `4c932c02bdd675882f712eed094c7308b40f540d` at 02:01:54 UTC after all three required checks passed on exact head `5884599f8b5f4e5b77cdbbd924abeb43d8214ac9`, with no comments, reviews or review threads. The shared browser then verified both affected live workspaces at an actual 390 px viewport: HTTP 200; title, canonical, stylesheet/controller identity and model/prompt hashes matching the preserved seventh build; metadata displayed as the new grid with zero link margins; no document overflow. This checks the changed routes, supplementing the preceding 18-route release comparison. No hosting-dashboard deployment ID is claimed.
+
+A separate local response prototype tested an earlier module request. It served the preserved seventh output with identical gzip/policy handling, adding only a `modulepreload` link in the candidate response. Five alternating-order baseline/candidate pairs per workspace used the same 390 × 844 viewport, 150 ms latency, 200 KiB/s download, 93 KiB/s upload and four-times CPU throttling. Each navigation received a fresh browser context with HTTP cache disabled; the observation window continued 1.2 seconds after load. This local sample is not field performance.
+
+| Workspace and response | Median enhancement time | Median LCP | Median initial shift sum |
+| --- | --- | --- | --- |
+| Farm baseline | 748 ms | 688 ms | 0.0950 |
+| Farm with preload | 756 ms | 692 ms | 0.0950 |
+| Factory baseline | 735 ms | 676 ms | 0.1081 |
+| Factory with preload | 744 ms | 676 ms | 0.1081 |
+
+All 20 navigations requested the controller once and avoided overflow. The experiment showed no useful improvement, so no preload source change was adopted. Small timing differences are not generalized beyond these conditions. The meaningful metadata correction remains separate from the documented native-to-enhanced composition transition.
+
+### Eighth integration and failure checks
+
+The isolated delegate committed `c7dec35`, integrated by root as `aef147c`. The suite contains 20 cases across both workspaces and all four finder pages. It starts a fresh loopback server, serves built response policy, restricts requests to that origin and cleans up held module routes, contexts, browser and server. It uses observable waits, real browser history and existing outcome tables, without duplicating model policy or taking production actions.
+
+Root's integrated `pnpm test:browser` passed all 20 cases in a 6.75-second browser phase with Chromium headless shell 156.0.8078.4 and Playwright 1.64.1. Separate temporary fixture mutations then restored the old CSS-hidden-focus predicate and removed empty-hash handling. Each caused the two corresponding workspace tests to fail, as intended. The delegate independently disabled late-reading preservation and observed all four delayed-module cases fail. Temporary fixtures were removed; tracked product source was not changed for these probes.
+
+Independent source reviews found no CI/package objection and one low-priority helper portability issue: a CRLF `_headers` file failed its global-policy marker lookup. Root reproduced that failure in a copied fixture, accepted either line ending in the helper, and verified that the corrected server returned the built CSP and HTML successfully. The corrected browser rerun passed all 20 cases in 6.75 seconds. The final shared gate passed with zero diagnostics, 67 existing Node tests and 104 Python tests. All 63 built public files are byte-identical to the preserved seventh build, confirming that this increment adds no visitor payload. Actual cold CI duration and exact-head required checks remain pending before merge. The driver package can be installed during ordinary development-dependency setup; production builds do not install or execute browser binaries.

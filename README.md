@@ -58,7 +58,7 @@ pnpm install --frozen-lockfile
 pnpm check
 ```
 
-The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
+Use the clone command for a fresh checkout. The [initial setup record](docs/collaboration/setup.md) retains historical recovery and verification details.
 
 If the `pnpm` launcher already exists, skip `corepack enable`. For a Corepack shim, keep the `COREPACK_HOME` export in each new shell and run `corepack install` after changing the package-manager pin. This places Corepack's separate manager cache under ignored `.local/`, alongside pnpm's project-local stores/caches, and avoids requiring writable home-directory caches. A standalone pnpm installation can use the normal frozen install directly. First setup needs the registry and official Node archives; unavailable network access is a failed setup, not permission to relax checks.
 
@@ -67,6 +67,16 @@ After installation, `pnpm exec node --version` reports the project runtime; bare
 The Astro command wrapper runs filesystem preflight and disables build-tool telemetry before loading the CLI, so development/type/build/preview commands do not require writable home-directory preferences. It does not add visitor analytics or browser JavaScript.
 
 Use `pnpm dev` for development, or `pnpm build` followed by `pnpm preview` to inspect the static production output at `http://127.0.0.1:8765/`. Edit Astro sources, CSS in `src/styles/`, Markdown and `public/` assets. `website/` is generated and ignored; never edit or commit it. Astro emits external fingerprinted CSS; the old `/styles.css` and `/lab.css` URLs are generated compatibility aliases. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
+
+The local Lab browser regression command uses the development-only Playwright pin. Install its Chromium headless shell once, then run the built-page checks:
+
+```sh
+export PLAYWRIGHT_BROWSERS_PATH="$PWD/.local/playwright"
+pnpm exec playwright install --only-shell chromium
+pnpm test:browser
+```
+
+`pnpm test:browser` builds current output, serves it on a temporary loopback port and checks delayed enhancement, reading/focus, history, exact-condition links, completion and finder recovery. It uses no production page or credentials. The existing `foundation` CI job also runs these checks after its shared gate. Cloudflare's build command remains browser-free. On a Linux machine missing browser libraries, use Playwright's documented dependency installation for that machine; the ephemeral CI runner installs them explicitly. Normal dependency setup can install the development driver package; browser binaries are installed explicitly for local review or CI and remain ignored tooling, not published assets. These checks supplement manual visual, assistive-technology and real-reader review.
 
 ## Current state
 

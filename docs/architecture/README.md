@@ -8,7 +8,7 @@ Fidret has a public company website and a shared technical Lab built with Astro 
 
 Astro generates plain HTML/CSS/assets in ignored `website/`. Most pages require no browser JavaScript. Six declared farm/factory Lab surfaces progressively enhance complete HTML with one approved same-origin native module under [decision 0013](../decisions/0013-progressive-lab-experiences.md). No application server, database or authentication service is introduced. There is no React/MDX integration or server adapter; add one only for an actual requirement under a separate task.
 
-Cloudflare Pages Free is configured to build from GitHub `main`, run `sh scripts/check_deployment.sh`, and publish only `website/`. GitHub Actions runs the repository checks on pushes and pull requests. The [deployment guide](../collaboration/website-deployment.md) owns the settings and recovery steps; the [website task](../tasks/2026-10-24-static-website.md) and subsequent tasks own dated deployment evidence. CI configuration does not establish that branch protection is enabled.
+Cloudflare Pages Free is configured to build from GitHub `main`, run `sh scripts/check_deployment.sh`, and publish only `website/`. GitHub Actions runs the repository checks on pushes and pull requests. Its required `foundation` job additionally runs focused Chromium browser regressions after the shared gate. This development-only check has a separate command and temporary loopback server; the production build does not install or run browsers. The [deployment guide](../collaboration/website-deployment.md) owns the settings and recovery steps; the [website task](../tasks/2026-10-24-static-website.md) and subsequent tasks own dated deployment evidence. CI configuration does not establish that branch protection is enabled.
 
 ## Sources and outputs
 
@@ -45,6 +45,7 @@ The Node launcher can be 22.22 or newer; `devEngines.runtime` in `package.json` 
 | `website/` | Disposable generated site, including Lab pages and sitemap | Rebuild with `pnpm build`; never hand-edit or commit |
 | `astro.config.mjs`, `tsconfig.json`, `package.json`, `pnpm-lock.yaml`, runtime pin files | Static build, strict types and reproducible toolchain | Update coherently; install from the frozen lockfile and verify compatibility |
 | `scripts/check_foundation.py`, `scripts/check_website.py`, `tests/` | Executable repository contracts, public em-dash policy and regression checks | Update checks with the behavior they protect; retain meaningful failure cases |
+| `tests/browser/`, `package.json`'s `test:browser` command | Repeatable built-page regressions for Lab reading, focus, history, exact conditions and fallback | Build first, use the pinned development-only browser driver and isolated loopback server; keep production builds browser-free and retain manual/assistive/human checks |
 | `scripts/check_build_boundary.mjs`, `scripts/check_deployment.sh` | Safe output preflight and common validation/test/build entry point | Run from the repository root using the pinned toolchain |
 | `.github/workflows/`, `wrangler.json`, `public/_headers` | CI, publish directory and public response configuration | Follow the deployment guide and task's authorization |
 

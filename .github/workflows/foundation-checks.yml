@@ -65,6 +65,14 @@ jobs:
           pnpm install --frozen-lockfile
       - name: Validate, test and build static public output
         run: sh scripts/check_deployment.sh
+      - name: Install the pinned Chromium headless shell
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.local/playwright
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+      - name: Verify Lab browser regressions
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.local/playwright
+        run: pnpm test:browser
   seo-geo:
     name: seo-geo
     needs: [foundation]
