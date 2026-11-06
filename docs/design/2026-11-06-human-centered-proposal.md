@@ -1,6 +1,6 @@
 # A welcoming way to earn trust
 
-Human-centered website audit and redesign proposal. 6 November 2026, Europe/Paris. Source baseline: `cde7631`. Human owner: Hadi Abou Daya. **Direction approved by Hadi on 6 November 2026. Implementation and validation are tracked separately.** [Task and verification](../tasks/2026-11-05-human-centered-review.md).
+Human-centered website audit and redesign proposal. 6 November 2026, Europe/Paris. Source baseline: `cde7631`. Human owner: Hadi Abou Daya. **Direction approved by Hadi on 6 November 2026. Implementation and validation are tracked separately.** [Audit task](../tasks/2026-11-05-human-centered-review.md). [Implementation task](../tasks/2026-11-06-human-centered-experience.md). [Dated verification](2026-11-06-human-centered-verification.md).
 
 ## A. Executive diagnosis and mission alignment
 

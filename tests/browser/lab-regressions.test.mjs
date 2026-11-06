@@ -16,6 +16,120 @@ const workspaces = ['/lab/autonomous-farm/', '/lab/ai-software-factory/'];
 const phone = {width: 390, height: 844};
 const options = {timeout: 60_000};
 
+const delayedInitialLinks = [
+  {path: workspaces[0], hash: '#scene-water', items: '[data-scene]', index: 3},
+  {path: workspaces[1], hash: '#scene-evidence', items: '[data-scene]', index: 3},
+  {path: '/lab/autonomous-farm/scenario-desk/', hash: '#case-leak', items: '[data-find-item]', index: 4},
+  {path: '/lab/ai-software-factory/scenarios/', hash: '#case-stale', items: '[data-find-item]', index: 4},
+];
+
+for (const {path, hash, items, index} of delayedInitialLinks) {
+  for (const viewport of [{width: 1280, height: 900}, phone]) {
+    for (const reading of ['keyboard summary', 'pointer text']) {
+      test(`${path} old initial fragment does not take over ${reading} reading at ${viewport.width}px`, options, async () => {
+        await withPage(browser, site, {viewport}, async page => {
+          const held = await holdModule(page, site.origin);
+          try {
+            await page.goto(site.origin + path + hash, {waitUntil: 'commit'});
+            await layoutReady(page);
+            assert.equal(await page.locator(hash).count(), 1, 'the published initial fragment still has one target');
+            const summary = page.locator(items).nth(index).locator('summary').first();
+            const details = summary.locator('..');
+            let anchor = summary;
+            if (reading === 'keyboard summary') {
+              await activate(summary);
+              await assertFocusVisible(summary, 'reader reaches a later native explanation by keyboard');
+            } else {
+              await summary.click();
+              anchor = details.locator('p').first();
+              await anchor.click();
+            }
+            const top = await anchor.evaluate(element => element.getBoundingClientRect().top);
+            held.release();
+            await page.waitForLoadState('load');
+            // Observe native fragment completion without setting focus,
+            // scrolling the page or inserting a fixed delay.
+            await page.waitForFunction(({items, index, reading, top}) => {
+              const summary = document.querySelectorAll(items)[index]?.querySelector('summary');
+              const anchor = reading === 'keyboard summary' ? summary : summary.closest('details').querySelector('p');
+              return (reading !== 'keyboard summary' || summary === document.activeElement) && Math.abs(anchor.getBoundingClientRect().top - top) <= 2;
+            }, {items, index, reading, top});
+            await inViewport(anchor);
+            if (reading === 'keyboard summary') await assertFocusVisible(summary, 'the same summary retains visible keyboard focus');
+            assert.equal(await details.evaluate(element => element.open), true, 'the explanation stays open');
+            assert.equal(new URL(page.url()).hash, hash, 'preserving reading does not rewrite the shared URL');
+            assert.equal(await page.locator(hash).count(), 1, 'the initial target remains available');
+          } finally { await held.close(); }
+        });
+      });
+    }
+  }
+}
+
+for (const {path, items, index} of delayedInitialLinks) {
+  for (const viewport of [{width: 1280, height: 900}, phone]) {
+    for (const navigation of ['header click', 'scroll only']) {
+      test(`${path} late enhancement respects a ${navigation} return to the header at ${viewport.width}px`, options, async () => {
+        await withPage(browser, site, {viewport}, async page => {
+          const held = await holdModule(page, site.origin);
+          try {
+            await page.goto(site.origin + path, {waitUntil: 'commit'});
+            await layoutReady(page);
+            const summary = page.locator(items).nth(index).locator('summary').first();
+            await activate(summary);
+            await page.mouse.move(viewport.width / 2, 100);
+            await page.mouse.wheel(0, -100000);
+            await page.waitForFunction(() => scrollY === 0);
+            if (navigation === 'header click') await page.locator('header.site-header').click({position: {x: 4, y: 4}});
+            else assert.equal(await summary.evaluate(element => document.activeElement === element && element.getBoundingClientRect().top > innerHeight), true, 'old keyboard focus remains below the viewport after scrolling away');
+            const before = await page.evaluate(() => scrollY);
+            assert.equal(before, 0, 'the reader deliberately returned to the header');
+            held.release();
+            await page.waitForLoadState('load');
+            await ready(page, items === '[data-scene]' ? '[data-lab-journey]' : '[data-topic-finder]');
+            assert.equal(await page.evaluate(() => scrollY), before, 'an old offscreen explanation does not pull the reader back');
+            assert.equal(await summary.evaluate(element => element.closest('details').open), true, 'the earlier explanation remains open');
+          } finally { await held.close(); }
+        });
+      });
+    }
+  }
+}
+
+for (const {path, hash, index} of delayedInitialLinks.filter(link => link.items === '[data-scene]')) {
+  test(`${path} late enhancement preserves near-top text inside an open explanation`, options, async () => {
+    await withPage(browser, site, {viewport: phone}, async page => {
+      const held = await holdModule(page, site.origin);
+      try {
+        await page.goto(site.origin + path + hash, {waitUntil: 'commit'});
+        await layoutReady(page);
+        const details = page.locator('[data-scene]').nth(index).locator('details').first();
+        const summary = details.locator('summary');
+        await activate(summary);
+        const passage = details.locator('p').last();
+        const delta = await passage.evaluate(element => element.getBoundingClientRect().top - 140);
+        await page.mouse.move(phone.width / 2, 100);
+        await page.mouse.wheel(0, delta);
+        await page.waitForFunction(index => {
+          const details = document.querySelectorAll('[data-scene]')[index].querySelector('details');
+          const top = [...details.querySelectorAll('p')].at(-1).getBoundingClientRect().top;
+          return top >= 120 && top <= 160 && details.getBoundingClientRect().bottom < innerHeight / 2;
+        }, index);
+        assert.equal(await summary.evaluate(element => document.activeElement === element && element.getBoundingClientRect().bottom < 0), true, 'summary focus remains offscreen while the reader scrolls through its explanation');
+        const top = await passage.evaluate(element => element.getBoundingClientRect().top);
+        held.release();
+        await page.waitForLoadState('load');
+        await page.waitForFunction(({index, top}) => {
+          const details = document.querySelectorAll('[data-scene]')[index].querySelector('details');
+          return Math.abs([...details.querySelectorAll('p')].at(-1).getBoundingClientRect().top - top) <= 2;
+        }, {index, top});
+        await inViewport(passage);
+        assert.equal(await details.evaluate(element => element.open), true, 'the text remains in its open explanation');
+      } finally { await held.close(); }
+    });
+  });
+}
+
 async function activate(link) {
   await link.focus();
   await link.press('Enter');

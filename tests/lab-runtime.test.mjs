@@ -28,7 +28,9 @@ test('one fingerprinted source-parity runtime is confined to six Lab surfaces an
   assert.doesNotMatch(source.toString(),/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|localStorage|sessionStorage|indexedDB|eval)\b|\.(?:innerHTML|outerHTML)\s*=/);
   for(const route of ['index.html','lab/index.html','project/index.html','people/hadi/index.html','404.html','lab/agentic-company-harness/index.html']) assert.doesNotMatch(readFileSync(join(root,'website',route),'utf8'),/<script(?! type="application\/ld\+json")\b/);
   assert.deepEqual(readdirSync(join(root,'website/_astro')).filter(f=>f.endsWith('.js')).sort(),[scripts[0].split('/').pop()]);
-  writeFileSync(join(root,'src/scripts/lab-experience.js'),source+'\n// Deliberate fixture-only runtime revision.\n');
+  const revised=source.toString().replace('/**','/*!');
+  assert.notEqual(revised,source.toString(),'fixture changes a comment byte without exceeding the source budget');
+  writeFileSync(join(root,'src/scripts/lab-experience.js'),revised);
   result=buildSite(root);assert.equal(result.status,0,result.output);
   const next=/src="([^\"]+\.js)"/.exec(readFileSync(join(root,'website',routes[0]),'utf8'))[1];
   assert.notEqual(next,scripts[0]);
