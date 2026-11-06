@@ -46,9 +46,9 @@ First finish outstanding PRs, then integrate a pinned upstream workflow into sha
 - Profile: infra
 - Depth: Standard
 - Rationale: Brownfield delivery-workflow integration. Add intent, practices and functional-design analysis to the infra starting profile; omit unrelated UI/application/environment stages explicitly.
-- Current phase: construction
+- Current phase: operation
 - Gate basis: Hadi's explicit adoption/merge request plus existing standing authority for reversible implementation and checked PR merge. Decision 0016 records the adaptation, not a new human approval.
-- Operation status: Publish checked adoption PR and merge; no manual deployment or live-site verification is part of this internal change.
+- Operation status: Implementation 94f921a is pushed in PR 69; required exact-head GitHub checks must pass before merge. No manual deployment or live-site verification is part of this internal change.
 
 | Stages | Disposition | Evidence or reason |
 | --- | --- | --- |
@@ -85,12 +85,16 @@ Pinned v2.11.3 guidance and local translations are integrated through AGENTS, th
 
 The exact pnpm 11.28.9 launcher was obtained under ignored .local/toolchain and used with the already installed Node 24.22.1; no global settings changed. The baseline full gate passed with zero diagnostics, 67 Node tests and 104 Python tests. New 18 AI-DLC tests pass, including hash/inventory drift, removed default routing with links retained, duplicate lifecycle metadata, omitted/duplicate stages, uncovered criteria and false done states. Independent read-only review prompted the directive, metadata and retained-reference checks. The independent fresh-context trial received ordinary typo, interactive-Lab and read-only audit requests without inherited chat. It found mandatory AI-DLC routing automatically, selected express/feature/adapted review paths, located the task/template/authority and identified the existing bounded interactive-runtime constraint. Its foundation check passed. This establishes one fresh agent's discovery, not actual loading in every installed harness. The trial prompted clarification that strict no-write reviews report build checks as not run because those regenerate output. The old handoff was refreshed. The combined gate passed with zero diagnostics, 67 Node tests and 122 Python tests, including all 18 AI-DLC cases. All 63 generated public files are byte-identical to the baseline; no new visual/browser claim is needed for unchanged output. Skill format validation passed. The final gate rerun passed after documentation clarifications. The staged diff check reports only the upstream license's preserved trailing blank line; authored files pass the ordinary whitespace check, and that one byte-exact source passes with blank-at-EOF checking disabled. No extra local browser matrix or live deployment verification was performed; CI retains its existing browser regression job.
 
+### Publication checkpoint
+
+Implementation 94f921a is committed and pushed through [PR 69](https://github.com/HadiAbouDaya/fidret/pull/69), linked to [Issue 68](https://github.com/HadiAbouDaya/fidret/issues/68). Final local shared verification passed and all public output remained byte-identical. Exact-head GitHub checks/reviews are now the remaining gate. This publication checkpoint is a documentation-only revision; its foundation validation passes. Merge, completion and live deployment are not yet claimed.
+
 ## Handoff
 
-- Checkpoint: implementation, independent review, fresh-context discovery and local shared verification passed. Ready for protected PR publication and exact-head GitHub checks.
-- Remaining work: publish PR, verify current-head required checks/review state, record completion and merge.
-- Next action: publish the checked integration PR and continue after current-head required GitHub checks.
+- Checkpoint: implementation, independent review, fresh-context discovery and local shared verification passed. Published in PR 69; exact-head GitHub checks remain before completion and merge.
+- Remaining work: verify current-head required checks/review state, record completion and merge.
+- Next action: inspect PR 69 current-head required GitHub checks and unresolved feedback; finalize the completion record and merge when verified.
 - Blockers: none; exact local pnpm/Node now available through ignored task tooling.
 - Acceptance basis: Hadi's explicit request and existing standing publication authorization.
-- Publication: new local task branch only; no commits, push, adoption PR, merge or deployment yet.
-- Last verified: 2026-11-06, local shared gate, 18 lifecycle tests, skill validation, independent discovery/source reviews, 63-file output comparison and diff inspection passed; remote adoption checks not yet run.
+- Publication: local implementation committed as 94f921a, pushed to hadi/aidlc-default-workflow and opened as PR 69. The PR identifies its final documentation head. No merge, manual deployment or live verification yet.
+- Last verified: 2026-11-06, local shared gate, 18 lifecycle tests, skill validation, independent discovery/source reviews, 63-file output comparison and diff inspection passed; PR 69 required checks are running and must be verified on the current head.
