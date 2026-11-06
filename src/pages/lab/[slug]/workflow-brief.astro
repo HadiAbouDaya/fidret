@@ -73,6 +73,12 @@ const {piece} = Astro.props;
           <p class="workflow-limit">This resource does not grant permissions, establish implemented controls or assess security or compliance. Work affecting equipment needs its own operating authorization and validation.</p>
           <div class="hero-actions"><a class="button" href={DOWNLOAD_PATH} download="fidret-agent-workflow-brief.md">Take the brief into your team</a><a class="text-link" href={`/lab/${piece.data.slug}/sources/`}>Inspect the article’s sources</a></div>
         </section>
+
+        <section class="workflow-conversation" aria-labelledby="conversation-title">
+          <h2 id="conversation-title">Have a task in mind?</h2>
+          <p>You do not need to complete this brief before talking with us. One example of a task you would like an agent to help with is enough to start.</p>
+          <a class="text-link" href="/contact/">Talk about an idea</a>
+        </section>
       </div>
     </div>
 

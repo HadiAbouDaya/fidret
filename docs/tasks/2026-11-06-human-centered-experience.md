@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/assistive-reading-review
+- Branch: hadi/discovery-continuity
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -115,12 +115,20 @@ The private Orca/Firefox comparison reproduced dropped result/reset announcement
 
 The fifth correction passed the full shared gate, an independent source review and targeted three-engine navigation/filter/fallback checks. The final native-input Orca comparison inspected 18 expected announcements across six Lab routes: all appeared with the correction, versus none in the compared baseline. Both workspace headings lost the false “clickable” announcement. Generated text output is recorded separately from listening and human usability feedback. The detailed verification retains setup/backend limitations and excludes unreliable early harness trials.
 
+### Sixth increment: continuity through discovery
+
+PR 57 merged as 3a57348acab5a3f287e41bb0e6e75504a0540e0d at 01:24 UTC after foundation, runtime-bootstrap and seo-geo passed on exact head 46cc284b8733cf60c65c84ab26ce05c9e2953140. No comments, reviews or review threads remained. The subsequent live check verified expected metadata/styles/controller identity on 17 routes, exact static bodies on 11 discovery routes, unchanged model/scenario data and explicit polite atomic announcement regions on all six enhanced routes.
+
+A fresh read-only journey review identified two concrete handoff gaps: the agent planning brief ends with team preparation but lacks a local low-pressure conversation invitation; the final workspace action says “Explore the full design” while opening a next-step hub. Root owns the brief's final invitation, its narrowly scoped print/screen spacing, LabExperience.astro's final action label and this task. Preserve the resource, claims, download, routes and existing completion/history behavior. Verify rendered phone/desktop placement and keyboard flow.
+
+A separate local constrained-browser check found larger initial layout shifts on the farm workspace than on the three sampled discovery pages. Root is investigating the cause before proposing a correction. This is a cold-cache browser experiment with explicit network/CPU emulation, not field Core Web Vitals or actual mobile-network evidence. No performance source change is justified by the measurement alone.
+
 ## Handoff
 
-- Checkpoint: four increments merged and verified live. Fifth assistive-reading correction passed the full gate, source review, three-engine browser checks and bounded native-input Orca comparison; committed in 22c358d and published through PR 57.
-- Remaining work: publish/merge the fifth correction and verify it live; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: inspect PR 57's exact-head required runs/reviews, merge and verify live output. Continue useful work within the eight-hour session. Listening and human reader testing remain unperformed.
+- Checkpoint: five increments merged and verified live. Sixth journey handoff refinement passed the full gate and targeted render/keyboard/fallback/print checks. Initial-loading investigation is separate and underway.
+- Remaining work: publish and merge the sixth increment; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
+- Next action: publish the sixth increment, verify its exact-head checks/reviews and merge; correct the isolated mobile metadata layout issue next. Continue useful work within the eight-hour session. Listening and human reader testing remain unperformed.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa and verified live on 15 routes. Third increment merged through [PR 55](https://github.com/HadiAbouDaya/fidret/pull/55) as 8bb8984 and verified live on 15 routes. Fourth correction merged through [PR 56](https://github.com/HadiAbouDaya/fidret/pull/56) as 141fad6 and its live output is verified on 15 routes. Fifth source correction 22c358d is pushed on `hadi/assistive-reading-review` with [PR 57](https://github.com/HadiAbouDaya/fidret/pull/57). Its required GitHub checks are pending; no fifth merge or live publication yet. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
-- Last verified: 2026-11-06, fifth-increment shared gate (zero diagnostics, 67 Node tests, 104 Python tests), three-engine navigation/filter/fallback/layout checks, six axe scans, visual inspection and 18 expected Orca announcements across six routes. Fourth-increment exact-head required GitHub checks, review state and live output passed separately. See the linked verification record for coverage and limits.
+- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa and verified live on 15 routes. Third increment merged through [PR 55](https://github.com/HadiAbouDaya/fidret/pull/55) as 8bb8984 and verified live on 15 routes. Fourth correction merged through [PR 56](https://github.com/HadiAbouDaya/fidret/pull/56) as 141fad6 and its live output is verified on 15 routes. Fifth source correction 22c358d is pushed on `hadi/assistive-reading-review` with [PR 57](https://github.com/HadiAbouDaya/fidret/pull/57). PR 57 merged as 3a57348 after required checks; fifth live publication is verified on 17 routes. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
+- Last verified: 2026-11-06, sixth-increment shared gate (zero diagnostics, 67 Node tests, 104 Python tests), 16 brief layouts, 12 keyboard completion/Back journeys, six fallback paths, one axe scan and visual/print inspection. Fifth-increment exact-head required GitHub checks, review state and 17-route live output passed separately. See the linked verification record for coverage and limits.
