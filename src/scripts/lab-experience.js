@@ -107,7 +107,7 @@ function enhanceJourney(root) {
     history.replaceState(null,'',`#scene-${scene.dataset.key}~v1-${key}`);
     root.querySelector('[data-announce]').textContent = `${state.label}. ${state.reasons.join(' ')}`;
   });
-  root.addEventListener('click',event => {
+  const handleJourneyClick = event => {
     if (root.dataset.enhanced !== 'true' || !(event.target instanceof Element)) return;
     const target = event.target;
     const link = target.closest('a[href^="#scene-"],a[href="#read-all"],a[href="#story-complete"]');
@@ -127,7 +127,9 @@ function enhanceJourney(root) {
       history.pushState(null,'',target); render(target.hash,true);
       root.querySelector('[data-announce]').textContent = 'All starting conditions restored.';
     }
-  });
+  };
+  // Binding actual controls avoids presenting ordinary headings as clickable.
+  root.querySelectorAll('a[href^="#scene-"],a[href="#read-all"],a[href="#story-complete"],[data-reset-case],[data-reset]').forEach(control => control.addEventListener('click',handleJourneyClick));
   const syncLocation = () => {
     if (printing || root.dataset.enhanced !== 'true') return;
     if (!location.hash || location.hash === '#read-all' || location.hash === '#story-complete' || keys.some(key => location.hash === `#scene-${key}` || location.hash.startsWith(`#scene-${key}~`))) render(location.hash,Boolean(location.hash));
@@ -181,12 +183,13 @@ function enhanceFinder(root) {
     if (item instanceof HTMLDetailsElement) item.open = true;
   };
   input.addEventListener('input', apply);
-  root.addEventListener('click', event => {
+  const handleFinderClick = event => {
     if (!(event.target instanceof Element)) return;
     const filter = event.target.closest('[data-filter]');
     if (filter) { group = filter.dataset.filter; apply(); }
     if (event.target.closest('[data-clear]')) { input.value = ''; group = 'all'; apply(); input.focus(); }
-  });
+  };
+  root.querySelectorAll('[data-filter],[data-clear]').forEach(control => control.addEventListener('click',handleFinderClick));
   window.addEventListener('hashchange', () => { if (root.dataset.enhanced === 'true') followHash(); });
   const printedDetails = new Map();
   window.addEventListener('beforeprint', () => { items.forEach(item => { if (item instanceof HTMLDetailsElement) { printedDetails.set(item, item.open); item.open = true; } }); });
