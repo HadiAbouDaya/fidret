@@ -16,7 +16,10 @@
 .visitor-section-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 3rem; margin-bottom: 2rem; }
 .visitor-section-heading h2 { font-size: clamp(2rem, 3.2vw, 3rem); margin-bottom: 0; }
 .visitor-section-heading p { margin-bottom: .25rem; max-width: 45ch; }
+.work-gallery-hero { padding-bottom: 2rem; }
+.work-gallery-hero > p { margin-bottom: 0; }
 .work-collection { padding-block: 2rem 4rem; }
+.work-gallery-hero + .work-collection { padding-top: 0; }
 .selected-work-list { display: grid; gap: 2.75rem; }
 .selected-work { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; padding-block: 2rem; border-top: 1px solid var(--fd-rule); }
 .selected-work :is(h2, h3) { max-width: 27ch; font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.17; }

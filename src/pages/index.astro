@@ -11,7 +11,7 @@ const works = visibleWork((await getPublishedPieces()).map(piece => piece.data.s
 const selected = works.filter(work => ['signal-freshness', 'autonomous-farm'].includes(work.slug));
 const conversations = [
   { slug: 'signal-freshness', question: 'Information arrives late or is hard to trust.', label: 'Start with the sensor experiment' },
-  { slug: 'agentic-company-harness', question: 'You have a task you would like an AI agent to help with.', label: 'Explore the workflow brief' },
+  { slug: 'agentic-company-harness', question: 'You have a task you would like an AI agent to help with.', label: 'See how we approach agent tasks' },
   { slug: 'ai-software-factory', question: 'AI helps build your software. You need to know what was checked.', label: 'Explore the release example' },
 ].flatMap(topic => { const work = works.find(work => work.slug === topic.slug); return work ? [{...topic, href: workPath(work)}] : []; });
 ---

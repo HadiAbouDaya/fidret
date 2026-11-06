@@ -20,7 +20,7 @@ export const workCatalogue: readonly Work[] = [
     artifact: '/explorations/signal-freshness/', artifactLabel: 'Try the sensor walkthrough',
     method: '/explorations/signal-freshness/method/', methodLabel: 'Read the method and results',
     nextEvidence: 'Representative source clocks, delays and failure conditions, plus an agreed physical response when evidence is unavailable.',
-    invitation: 'Which decision relies on the reading? Describe the delays you see, how long the value can remain useful and what should happen when no current data is available.',
+    invitation: 'Do you rely on information that sometimes arrives late? Tell us about one situation you would like to understand.',
     featured: true, preview: 'signal-freshness',
   },
   {
@@ -36,7 +36,7 @@ export const workCatalogue: readonly Work[] = [
     method: '/lab/autonomous-farm/blueprint/', methodLabel: 'Inspect the architecture',
     sourceSlug: 'autonomous-farm', featured: true, preview: 'autonomous-farm',
     nextEvidence: 'A specific site and workflow, competent domain review, representative data and an independently validated local operating design.',
-    invitation: 'Describe one workflow, the people and equipment involved, and the water, power or other resources it shares. What must keep working when the plan or connection changes?',
+    invitation: 'Do several jobs need the same equipment or resources? Tell us where they get in each other’s way. One example is enough.',
   },
   {
     scope: 'Working software for Fidret’s own website, not a client case study.', overviewLabel: 'See how this site is built',
@@ -50,7 +50,7 @@ export const workCatalogue: readonly Work[] = [
     artifact: '/lab/', artifactLabel: 'Explore the published result',
     method: '/work/publishing-system/#verification', methodLabel: 'Inspect the verification',
     nextEvidence: 'Reader feedback, real inquiry outcomes and field performance under the audience’s devices and networks.',
-    invitation: 'Who contributes and reviews the material? Bring an example of the pages, downloads or listings that need to change together when something is published, corrected or withdrawn.',
+    invitation: 'Is it hard to keep your pages and downloads in step? Tell us about something you update in more than one place.',
     featured: true, preview: 'publishing-system',
   },
   {
@@ -66,7 +66,7 @@ export const workCatalogue: readonly Work[] = [
     method: '/lab/ai-software-factory/engineering-notes/', methodLabel: 'Read the engineering notes',
     sourceSlug: 'ai-software-factory', preview: 'ai-software-factory',
     nextEvidence: 'One implemented workflow, exact artifact and outcome records, representative failure tests and accountable operational ownership.',
-    invitation: 'Bring one path from a proposed change to release. How do you establish what was checked, what was approved and what was actually deployed when the candidate changes?',
+    invitation: 'Are you unsure what was checked before a software change went live? Tell us about one step you would like to understand better.',
   },
   {
     scope: 'Research and planning tool. Completing the brief does not implement controls.', overviewLabel: 'Explore the agent planning brief',
@@ -81,7 +81,7 @@ export const workCatalogue: readonly Work[] = [
     method: '/lab/agentic-company-harness/', methodLabel: 'Read the technical note',
     sourceSlug: 'agentic-company-harness', preview: 'agentic-company-harness',
     nextEvidence: 'A completed workflow brief, enforceable boundaries and end-to-end evaluation in the intended environment.',
-    invitation: 'Name one task you would delegate, the information it needs and the actions it may take. Where should it stop, ask for review or hand the work back to a person?',
+    invitation: 'Have a task you would like an AI agent to help with? Tell us what takes time or gets in the way. You do not need a finished workflow.',
   },
 ];
 

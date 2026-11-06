@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/lab-discovery-refinements
+- Branch: hadi/discovery-flow
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -81,12 +81,22 @@ Firefox 159 verification broadened the browser evidence: 64 default/enlarged lay
 
 [PR 53](https://github.com/HadiAbouDaya/fidret/pull/53) merged as 87f8e6344f800c0596f6d0372365588c2df47b9f after the exact ee1ae96 head passed all three required GitHub checks and no unresolved review feedback remained. The live shared browser then verified HTTP 200 and exact body/title/canonical/stylesheet agreement with the preserved verified build on all 11 main and Work-detail routes. The live 390 px Work render was inspected. No Cloudflare dashboard deployment ID was available because the dashboard required sign-in. The task records observed live output separately from that unverified dashboard state.
 
+### Third increment: reaching the work sooner
+
+Work continues from PR 54's cdc0e6f checkpoint on `hadi/discovery-flow` while required checks run. The live 390 px Work render showed the first project heading approximately 640 px from the top, after two introduction paragraphs and accumulated hero/collection spacing. The first paragraph repeats the questions immediately presented in the gallery. Root owns the Work introduction, scoped visitor styles and this record; a separate agent performs read-only journey review. The aim is a shorter path to a concrete project, retaining readable spacing, the collection's own-work scope and each project's limitations. This is an expert observation, not measured reader comprehension. Verify actual before/after composition, narrow/enlarged layouts, navigation, print and the shared gate before publishing a separate increment.
+
+The read-only review identified three related copy refinements. Root also owns the five Work invitation strings, Home's agent-topic link label and the Lab index's signal feature sentence. Work invitations ask for one recognizable situation instead of a multi-part technical brief; Home's label accurately describes its overview destination; the Lab entry explains the freshness rule before naming it technically. No contact destination, evidence claim, deeper methodology or publication dependency changes.
+
+The third increment passed the full gate with zero diagnostics, 67 Node tests and 104 Python tests. The 390 px gallery's first project heading moved from 634 to 422 CSS pixels from the page top. Across both Chromium and Firefox, 68 default/enlarged layouts passed; six axe scans found no violations; keyboard discovery-to-contact paths and the printed gallery were checked. These establish implementation and rendering, not improved human comprehension. The verification record retains exact coverage and limitations.
+
+Meanwhile PR 54 merged as c2784fa7cfd50542562b77e817e23cbca923c7a2 after all three required checks passed on exact head cdc0e6fecae96821d577ffdee04793d880b2b910 with no unresolved reviews. Early live checks still served the first release, so second-increment publication remains unverified.
+
 ## Handoff
 
-- Checkpoint: first discovery/Lab increment merged and its live main/Work output verified. Second Lab explanation increment integrated in d509966 and b59824b; final local gate, cross-browser, state and print checks passed, including the wordmark correction. Independent source review found no blockers. PR 54 is open.
-- Remaining work: publish and verify the second increment, then continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: inspect PR 54's exact-head required checks and unresolved reviews, merge when ready and verify actual live output. Continue the active session with the next justified improvement.
+- Checkpoint: first increment merged and verified live; second increment merged through PR 54 with its exact-head checks passed. Third discovery-flow increment is locally implemented and verified.
+- Remaining work: verify the second live release; publish and verify the third increment; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
+- Next action: publish the third increment through its own PR, inspect required checks and reviews, and complete live-release verification against preserved build output.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second branch `hadi/lab-discovery-refinements` is pushed with [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54), including a normal merge from current main. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session. No second-increment merge or live publication is claimed.
-- Last verified: 2026-11-06, final second-increment local gate (zero diagnostics, 67 Node tests, 104 Python tests), 69 exact states, both browser matrices, printed documents and independent source review. First-release exact-head required GitHub checks and live output were separately verified. Second-branch required GitHub checks are pending. See the linked verification record for coverage and limits.
+- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa; its live output is not yet verified. Third branch `hadi/discovery-flow` is local. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
+- Last verified: 2026-11-06, third-increment local gate (zero diagnostics, 67 Node tests, 104 Python tests), 68 layouts, six axe scans, keyboard paths and printed gallery. Second-increment exact-head required GitHub checks and review state passed separately. See the linked verification record for coverage and limits.
