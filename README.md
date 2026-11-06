@@ -68,6 +68,17 @@ The Astro command wrapper runs filesystem preflight and disables build-tool tele
 
 Use `pnpm dev` for development, or `pnpm build` followed by `pnpm preview` to inspect the static production output at `http://127.0.0.1:8765/`. Edit Astro sources, CSS in `src/styles/`, Markdown and `public/` assets. `website/` is generated and ignored; never edit or commit it. Astro emits external fingerprinted CSS; the old `/styles.css` and `/lab.css` URLs are generated compatibility aliases. Cloudflare Pages runs the shared checks before publishing; see the deployment guide.
 
+The local Lab browser regression command uses the development-only Playwright pin. Install its Chromium headless shell once, then run the built-page checks:
+
+```sh
+export PLAYWRIGHT_BROWSERS_PATH="$PWD/.local/playwright"
+pnpm exec playwright install --only-shell chromium
+pnpm test:browser
+```
+
+`pnpm test:browser` builds current output, serves it on a temporary loopback port and checks delayed enhancement, reading/focus, history, exact-condition links, completion and finder recovery. It uses no production page or credentials. The existing `foundation` CI job also runs these checks after its shared gate. Cloudflare's build command remains browser-free. On a Linux machine missing browser libraries, use Playwright's documented dependency installation for that machine; the ephemeral CI runner installs them explicitly. Browser binaries are ignored local tooling, not published assets. These checks supplement manual visual, assistive-technology and real-reader review.
+
+
 ## Current state
 
 This is the initial company and collaboration foundation. The working conventions are ready for review with Elie when he joins. Market selection, offers, pricing, product/practice stacks and evidence of physical AI delivery remain open. The [initial foundation task](docs/tasks/2026-10-24-foundation.md) records historical implementation evidence; the [task register](docs/tasks/README.md) locates subsequent work.

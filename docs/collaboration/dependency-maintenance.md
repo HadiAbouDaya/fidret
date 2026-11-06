@@ -26,6 +26,10 @@ Keep these inputs synchronized in one task:
 
 Dependabot is not relied upon to synchronize `devEngines.runtime`, both Node version files and the engine policy. A package-manager proposal may also require reconciling its exact engine pin. If an update fails compatibility or lockfile generation, preserve the failure in its task and fix the coherent source change; do not disable runtime assertions, strict engines or frozen installation to make it pass.
 
+## Browser test tooling
+
+Playwright is an exact development-only dependency for the separate `pnpm test:browser` command. A package update also changes its expected browser revision. Install the matching Chromium headless shell under ignored `.local/playwright`, rerun the focused browser cases and inspect the required CI job. Preserve the minimum release age and read-only CI permissions. Browser installation/execution belongs after the shared gate in CI, never in Cloudflare's `scripts/check_deployment.sh`. Do not infer visual, assistive-technology or human comprehension results from this regression suite.
+
 ## Advisory checks
 
 For a dated maintenance review, `pnpm audit --json` includes build tools and application dependencies. Assess the affected path, advisory conditions, development/build versus visitor exposure and the proposed fix. Do not run automatic audit fixes. Advisory-service availability is not a dependency of every static deployment; a failed network lookup is an unverified audit, not a clean result. No audit service or account settings are enabled by this document.

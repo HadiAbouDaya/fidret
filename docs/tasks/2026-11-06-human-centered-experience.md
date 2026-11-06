@@ -133,7 +133,7 @@ Root continues from PR 59's `5884599` checkpoint on `hadi/lab-browser-regression
 
 Root owns package/lockfile, CI, README, system map, maintenance/operating guidance and task/verification records. One isolated implementation delegate will exclusively own `tests/browser/` and its helper. Root integrates and independently verifies the tests, including a temporary known-bad controller to establish that important regressions are detected. Keep tests event-driven, local-only and bounded, release held requests in cleanup, preserve read-only CI permissions and inspect cold-run duration before changing its timeout. Do not claim browser tests replace visual, assistive-technology or real-visitor review.
 
-The npm registry dated Playwright 1.65.0 to 5 November 18:28 UTC, inside the settling window. Select 1.64.1, published 14 October, whose official patch notes fix routing and Electron regressions. Its Node requirement is compatible with the pinned project runtime. Verify the registry integrity, frozen installation and advisory response; no settling-policy exclusion is authorized or needed.
+The npm registry dated Playwright 1.65.0 to 5 November 18:28 UTC, inside the settling window. Select 1.64.1, published 14 October, whose official patch notes fix routing and Electron regressions. Its Node requirement is compatible with the pinned project runtime. Registry integrity agreed with the lockfile; frozen installation passed after the add completed; the dated advisory response reported zero advisories. No settling-policy exclusion was used. The development tooling checkpoint is ca05a36.
 
 ## Handoff
 

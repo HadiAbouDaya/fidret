@@ -180,3 +180,12 @@ Under the same constrained Chromium setup, the corrected farm's three initial la
 ## Sixth publication
 
 PR 58 merged as `4b575e56f5bcbeaa206331d9f59a48d259672027` at 01:44:15 UTC on 6 November after foundation, runtime-bootstrap and seo-geo passed on exact head `7fa766c8173caaadddfc72ff7212d15b1a28afcd`, with no comments, reviews or review threads. The subsequent shared-browser comparison verified HTTP 200, metadata/styles/script identity on 18 routes, exact initial-body agreement on 12 static routes including the workflow brief, unchanged workspace model/prompt and scenario data, and the new completion label on both workspaces. As before, enhanced bodies differ from initial HTML because of controller state. This verifies observed live output; hosting-dashboard identity, actual search performance and human comprehension remain unverified.
+
+
+## Eighth increment: repeatable browser regression work
+
+The npm registry and official release records were inspected on 6 November. Playwright 1.65.0 was published at 18:28 UTC on 5 November, so it does not satisfy the repository's 24-hour settling window during this session. The selected 1.64.1 was published on 14 October; its [official patch notes](https://github.com/microsoft/playwright/releases/tag/v1.64.1) address routing and Electron regressions. The package requires Node 20 or newer and adds only its matching `playwright-core` package to the resolved graph. The lockfile integrity matches the registry metadata.
+
+After the addition completed, `pnpm install --frozen-lockfile` passed with the existing policy intact. The dated `pnpm audit --json` response reported zero advisories in all severity categories; this is the service's response for the resolved dependency graph, not a future security guarantee. An earlier frozen check accidentally ran before the add operation finished and was not used as evidence for the new dependency. The final manifest/lockfile were inspected after the add completed, then frozen installation was repeated.
+
+Browser source and CI integration are in progress. The intended check stays separate from the production gate and public runtime. Its first actual local and CI outcomes must be recorded before this increment is considered verified.
