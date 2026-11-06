@@ -14,6 +14,7 @@ Name the reader's question and the artifact that answers it: the exact candidate
 - Make reset reversible and predictable. Preserve exact bounded state in a shareable link and during a reference round trip. Validate enum values, versions and preset membership; ignore malformed state safely.
 - Keep native selection focus on the control. Reserve heading focus for explicit navigation, and verify that a reset can be undone with Back and restored with Forward. Check real browser events rather than inferring behavior from source strings.
 - Put reasoning, fixed assumptions, accountable people and source depth in direct, ordinary disclosures/links. Retain complete worked examples when scripts are disabled or fail.
+- Delay enhancement while opening a later static example, then check the handover. Preserve the reader's open explanation, focus and visible passage. Check Back to the original URL, including focus hidden by CSS. A fallback shared link must say when it shows starting conditions instead of the requested changes.
 
 ## Critique the behavior and the render
 

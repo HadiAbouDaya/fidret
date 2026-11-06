@@ -32,6 +32,8 @@
 /* Enlarging text must not enlarge the phone's empty gutters. */
 @media(max-width:700px){.lab-experience.shell{padding-inline:16px}.workspace-inputs,.workspace-result{padding:16px}.workspace-situation-select{flex-wrap:wrap}.workspace-situation-select>span{flex:1 1 6rem}.workspace-situation-select select{flex:1 1 9rem;max-width:100%}.factory-object{display:flex;flex-wrap:wrap;gap:.4rem 1rem;padding:12px}.factory-object>span:first-child{flex:1 1 5rem}.factory-object>strong{flex:1 1 7rem}.factory-object>p{flex:1 1 100%}.factory-artifact{padding:16px}}
 .workspace-result h3{color:inherit}
+/* Keep the native reading navigation when a visitor is reading all situations. */
+@media(max-width:700px){.lab-experience[data-enhanced=true][data-reading=all] .journey-progress{display:block}.lab-experience[data-enhanced=true][data-reading=all] .workspace-situation-select{display:none}}
 
 @media (forced-colors: active) { [data-artifact-node][data-deciding=true] { outline: 3px solid Highlight; font-weight: 700; } }
 
