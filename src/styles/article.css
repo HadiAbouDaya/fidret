@@ -46,8 +46,14 @@
   .sources-edition > p { max-width: 48ch; }
 }
 @media print {
-  .sources-edition { position: static; }
-  .lab-experience-jump, .lab-cover-hint { display: none; }
+  .sources-page { padding-bottom: 0; }
+  .sources-grid { display: block; padding-top: 1rem; }
+  .sources-edition { position: static; margin-bottom: 1.5rem; }
+  .sources-edition dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 2rem; }
+  .sources-edition dl > div { margin-bottom: 0; }
+  .sources-references li { padding-block: .75rem; break-inside: avoid; }
+  .sources-references li > a { min-height: 0; padding-block: .25rem; }
+  .lab-experience-jump, .lab-cover-hint, .sources-return { display: none; }
   .lab-cover-scroll { overflow: visible; }
   .lab-cover--architecture img { min-width: 0; width: 100%; height: auto; }
 }

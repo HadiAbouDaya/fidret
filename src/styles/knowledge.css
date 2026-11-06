@@ -22,7 +22,7 @@
 .charter-page .knowledge-hero > h1 { max-width: none; }
 .charter-purpose { padding-block: clamp(3.5rem, 7vw, 7rem); }
 .charter-purpose h2 { margin-bottom: 0; }
-.charter-purpose .knowledge-prose > p:not(.knowledge-lead) { color: var(--fd-sage); }
+.charter-purpose .knowledge-prose > p:not(.knowledge-lead) { color: var(--fd-muted); }
 .charter-purpose em { font-family: var(--fd-font-editorial); font-style: italic; }
 .charter-commitments { padding-block: clamp(3rem, 6vw, 5rem); }
 .charter-commitment-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem clamp(2rem, 8vw, 8rem); }

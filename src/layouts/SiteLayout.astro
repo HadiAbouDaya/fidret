@@ -1,7 +1,8 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import {searchGraph,serializeGraph,socialPreview,type ArticleMetadata} from '../lib/seo';
+import {absolute,searchGraph,serializeGraph,socialPreview,type ArticleMetadata} from '../lib/seo';
+import {projectContact} from '../lib/contact';
 import '../styles/styles.css';
 
 interface Props {
@@ -19,6 +20,8 @@ const {
   variant = 'home', noindex = false, article,
 } = Astro.props;
 const preview = canonical ? socialPreview(canonical) : undefined;
+const contactPage = absolute(projectContact.path);
+const printContact = canonical === contactPage ? projectContact.destination : contactPage;
 ---
 
 <!doctype html>
@@ -62,6 +65,12 @@ const preview = canonical ? socialPreview(canonical) : undefined;
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHeader variant={variant} />
     <slot />
+    {canonical && !noindex && (
+      <footer class="print-handoff shell" aria-label="Page source and contact">
+        <p>Read this page online: <a href={canonical}>{canonical}</a></p>
+        <p>{canonical === contactPage ? 'Contact Hadi' : 'Talk about an idea'}: <a href={printContact}>{printContact}</a></p>
+      </footer>
+    )}
     {variant !== 'minimal' && <SiteFooter />}
   </body>
 </html>

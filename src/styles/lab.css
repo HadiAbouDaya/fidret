@@ -15,7 +15,7 @@
 .lab-timing-diagram { display: block; width: 100%; height: auto; overflow: visible; }
 .lab-timing-axis { fill: none; stroke: var(--fd-sage); stroke-width: 1; opacity: .5; }
 .lab-timing-guide { stroke-dasharray: 3 9; opacity: .5; }
-.lab-timing-label { fill: var(--fd-ivory); font: 400 20px var(--fd-font-ui); }
+.lab-timing-label { fill: var(--fd-text); font: 400 20px var(--fd-font-ui); }
 .lab-timing-path { stroke: var(--fd-sage); stroke-width: 2; fill: var(--fd-forest); }
 .lab-timing-delay { stroke: #e4ac91; stroke-width: 2; fill: var(--fd-forest); }
 .lab-timing-delay path { stroke-dasharray: 5 6; }
@@ -89,6 +89,11 @@
 .lab-code { margin: 2rem 0; }
 .lab-code figcaption { margin-bottom: .75rem; color: var(--fd-muted); font-size: .8125rem; }
 .lab-piece-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--fd-rule); }
+
+@media print {
+  .lab-timing-axis, .lab-timing-path { stroke: var(--fd-forest); opacity: 1; }
+  .lab-timing-delay { stroke: var(--fd-copper); }
+}
 
 @media (max-width: 900px) {
   .lab-intro { gap: 2rem; }

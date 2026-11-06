@@ -117,6 +117,7 @@
 }
 
 @media print {
+  .exploration-notes { padding-bottom: 1rem; }
   .signal-choice, .signal-choice-label { display: none; }
   .signal-snapshot { display: block; break-inside: avoid; background: white; color: black; border: 1px solid #66766a; margin-bottom: 1.5rem; }
   .signal-snapshot-copy h3, .signal-snapshot-copy > p, .signal-asof, .signal-readout dt, .signal-decision { color: black; }
