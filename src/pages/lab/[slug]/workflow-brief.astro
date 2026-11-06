@@ -78,10 +78,11 @@ const {piece} = Astro.props;
           <h2 id="conversation-title">Have a task in mind?</h2>
           <p>You do not need to complete this brief before talking with us. One example of a task you would like an agent to help with is enough to start.</p>
           <a class="text-link" href="/contact/">Talk about an idea</a>
+          <p class="workflow-print-source">Start a conversation: https://fidret.com/contact/</p>
         </section>
       </div>
     </div>
 
-    <footer class="workflow-colophon shell"><p>A practical companion to <a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a>, by <Byline authors={piece.data.authors} />. The article keeps the research, its dates and its limits.</p><a class="text-link" href="#main">Back to the brief</a></footer>
+    <footer class="workflow-colophon shell"><p>A practical companion to <a href={`/lab/${piece.data.slug}/`}>{piece.data.title}</a>, by <Byline authors={piece.data.authors} />. The article keeps the research, its dates and its limits.</p><p class="workflow-print-source">Read or download the current brief: https://fidret.com{GUIDE_PATH}</p><a class="text-link" href="#main">Back to the brief</a></footer>
   </main>
 </SiteLayout>

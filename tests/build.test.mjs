@@ -173,7 +173,7 @@ test('factory guided story, complete notes, situation library and download follo
   mkdirSync(join(root, 'lab/pieces'));
   const slug = 'ai-software-factory';
   const downloadPath = `lab/${slug}/operating-brief.md`;
-  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', body: `${narrative}\n### Factory journey\nAuthored heading remains reachable.\n\n### Factory case title stale\nA shared namespace.\n`});
+  writePiece(root, slug, {authors: ['hadi'], publicationDate: '2025-01-03', resources: [{label: 'Reference fixture', url: 'https://example.com/reference'}], body: `${narrative}\n### Factory journey\nAuthored heading remains reachable.\n\n### Piece resources\nAuthored resource heading.\n\n### Resources title\nAuthored title heading.\n\n### Factory case title stale\nA shared namespace.\n`});
   writePiece(root, 'published-fixture', {authors: ['hadi']});
   writePiece(root, 'autonomous-farm', {authors: ['hadi']});
   let result = build(root);
@@ -197,6 +197,14 @@ test('factory guided story, complete notes, situation library and download follo
   const notes = readFileSync(join(root, `website/lab/${slug}/engineering-notes/index.html`), 'utf8');
   assert.match(notes, /Authored heading remains reachable/);
   assert.match(notes, /id="factory-journey"/);
+  assert.match(article, /id="factory-journey"><a href="\/lab\/ai-software-factory\/engineering-notes\/#factory-journey"/);
+  for (const [id, destination] of [
+    ['factory-journey-2', 'engineering-notes/#lifecycle'],
+    ['factory-handoffs', 'engineering-notes/#lifecycle'],
+    ['factory-release', 'scenarios/'],
+    ['piece-resources-2', 'sources/#references-title'],
+    ['resources-title-2', 'sources/#references-title'],
+  ]) assert.ok(article.includes(`id="${id}"><a href="/lab/${slug}/${destination}"`), `Former UI link ${id} has a destination without replacing authored headings`);
   assert.match(readFileSync(join(root, 'website', downloadPath), 'utf8'), /^# AI software factory: operating brief/);
   assert.doesNotMatch(readFileSync(join(root, 'website/lab/published-fixture/index.html'), 'utf8'), /data-lab-journey|<script(?! type="application\/ld\+json")(?:\s|>)/);
   const ids = [...article.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]);
@@ -240,7 +248,7 @@ test('farm simple/deep routes, control references and brief follow publication a
   writePiece(root,'published-fixture',{authors:['hadi']});
   writePiece(root,'ai-software-factory',{authors:['hadi']});
   // Only the withdrawn parent credits Elie; registry/profile stay available.
-  writePiece(root,slug,{authors:['hadi','elie'],publicationDate:'2025-01-03'});
+  writePiece(root,slug,{authors:['hadi','elie'],publicationDate:'2025-01-03',resources:[{label:'Reference fixture',url:'https://example.com/reference'}]});
   let result=build(root);
   assert.equal(result.status,0,result.output);
   const article=readFileSync(join(root,`website/lab/${slug}/index.html`),'utf8');
@@ -278,6 +286,8 @@ test('farm simple/deep routes, control references and brief follow publication a
   }
   const desk=readFileSync(join(root,`website/lab/${slug}/scenario-desk/index.html`),'utf8');
   assert.equal([...desk.matchAll(/class="reference-situation"/g)].length,28);
+  assert.match(desk, /class="reference-situations" id="scenario-selector"/);
+  for (const id of ['piece-resources', 'resources-title']) assert.ok(article.includes(`id="${id}"><a href="/lab/${slug}/sources/#references-title"`));
   assert.match(desk,/data-topic-finder/);
   assert.equal([...article.matchAll(/data-scene(?:\s|>)/g)].length,5);
   const brief=readFileSync(join(root,`website/lab/${slug}/operating-brief.md`),'utf8');

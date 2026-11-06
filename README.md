@@ -76,7 +76,7 @@ pnpm exec playwright install --only-shell chromium
 pnpm test:browser
 ```
 
-`pnpm test:browser` builds current output, serves it on a temporary loopback port and checks delayed enhancement, reading/focus, history, exact-condition links, completion and finder recovery. It uses no production page or credentials. The existing `foundation` CI job also runs these checks after its shared gate. Cloudflare's build command remains browser-free. On a Linux machine missing browser libraries, use Playwright's documented dependency installation for that machine; the ephemeral CI runner installs them explicitly. Normal dependency setup can install the development driver package; browser binaries are installed explicitly for local review or CI and remain ignored tooling, not published assets. These checks supplement manual visual, assistive-technology and real-reader review.
+`pnpm test:browser` builds current output, serves it on a temporary loopback port and checks delayed enhancement, reading/focus, history, exact-condition links, earlier shared section links, completion and finder recovery. It uses no production page or credentials. The existing `foundation` CI job also runs these checks after its shared gate. Cloudflare's build command remains browser-free. On a Linux machine missing browser libraries, use Playwright's documented dependency installation for that machine; the ephemeral CI runner installs them explicitly. Normal dependency setup can install the development driver package; browser binaries are installed explicitly for local review or CI and remain ignored tooling, not published assets. These checks supplement manual visual, assistive-technology and real-reader review.
 
 ## Current state
 

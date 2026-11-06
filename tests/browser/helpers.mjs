@@ -3,6 +3,7 @@ import {createServer} from 'node:http';
 import {readFile, realpath, stat} from 'node:fs/promises';
 import {extname, isAbsolute, relative, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {setTimeout as delay} from 'node:timers/promises';
 
 const repository = fileURLToPath(new URL('../../', import.meta.url));
 // Playwright reads this during import. CI/users may explicitly choose another cache.
@@ -116,28 +117,36 @@ export async function ready(page, selector = '[data-lab-journey]') {
   await layoutReady(page);
 }
 
+async function untilObservable(read, message) {
+  // Page timers/animation-frame callbacks do not advance with JavaScript
+  // disabled. Poll from Node without changing the page's execution setting.
+  const deadline = Date.now() + timeout;
+  while (Date.now() < deadline) {
+    if (await read()) return;
+    await delay(50);
+  }
+  assert.fail(message);
+}
+
 export async function layoutReady(page) {
   // DOMContentLoaded/fonts.ready can wait on a held module. Wait for the actual
   // HTML, linked sheets and Manrope FontFace used by this page instead.
-  await page.waitForFunction(() => document.querySelector('footer.site-footer') &&
+  await untilObservable(() => page.evaluate(() => Boolean(document.querySelector('footer.site-footer') &&
     [...document.querySelectorAll('link[rel="stylesheet"]')].length > 0 &&
     [...document.querySelectorAll('link[rel="stylesheet"]')].every(link => link.sheet) &&
-    [...document.fonts].some(face => face.family.replace(/["']/g, '') === 'Manrope' && face.status === 'loaded'));
+    [...document.fonts].some(face => face.family.replace(/["']/g, '') === 'Manrope' && face.status === 'loaded'))), 'HTML, stylesheets and Manrope did not become ready');
+}
+
+export async function inViewport(locator) {
+  await untilObservable(() => locator.evaluate(element => {
+    const box = element.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 && box.bottom > 0 && box.top < innerHeight && box.right > 0 && box.left < innerWidth;
+  }), `Target never entered the viewport: ${locator}`);
 }
 
 export async function assertFocusVisible(locator, message) {
   assert.equal(await locator.evaluate(element => document.activeElement === element), true, `${message}: focus target`);
-  // Native keyboard/fragment navigation can scroll smoothly. Await the target
-  // entering the viewport, without disabling motion or sleeping a fixed time.
-  const handle = await locator.elementHandle();
-  try {
-    await locator.page().waitForFunction(element => {
-      const box = element.getBoundingClientRect();
-      return box.bottom > 0 && box.top < innerHeight && box.right > 0 && box.left < innerWidth;
-    }, handle);
-  } catch (error) {
-    assert.fail(`${message}: focus never entered the viewport (${error.message})`);
-  } finally { await handle.dispose(); }
+  await inViewport(locator);
   const state = await locator.evaluate(element => {
     const box = element.getBoundingClientRect(), style = getComputedStyle(element);
     return {

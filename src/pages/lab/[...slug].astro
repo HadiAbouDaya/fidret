@@ -63,7 +63,7 @@ const hasBoundaryExperience = piece.data.slug === HARNESS_SLUG;
     {journey ? <link rel="stylesheet" href={workspaceStyles} /> : hasBoundaryExperience && <link rel="stylesheet" href={boundaryStyles} />}
   </Fragment>
   <main tabindex="-1" id="main" class="lab-main">
-    {journey ? <LabExperience journey={journey} authors={piece.data.authors} published={piece.data.published!} updated={piece.data.updated} legacyHeadings={headings} sibling={sibling}/> : <article class="lab-piece shell">
+    {journey ? <LabExperience journey={journey} authors={piece.data.authors} published={piece.data.published!} updated={piece.data.updated} legacyHeadings={headings} legacyResources={resources.length?{id:resourcesId,titleId:resourcesTitleId}:undefined} sibling={sibling}/> : <article class="lab-piece shell">
       <a class="lab-back" href="/lab/">Fidret Lab</a>
       <header class="lab-piece-heading">
         <p class="lab-kind">{kindLabels[piece.data.kind]}</p>
