@@ -47,7 +47,7 @@
 .workflow-check:has(input:checked) { border-top-color: var(--fd-forest); }
 .workflow-check:has(input:checked) strong { text-decoration: underline; text-underline-offset: .25em; }
 .workflow-local-note { font-size: .8125rem; color: var(--fd-muted); }
-.workflow-decision { padding-block: 1rem 4rem; }
+.workflow-decision, .workflow-conversation { padding-block: 1rem 4rem; }
 .workflow-decisions { margin: 2rem 0; }
 .workflow-decisions > div { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.5fr); gap: 1.5rem; padding-block: 1.25rem; border-top: 1px solid var(--fd-rule); }
 .workflow-decisions dt { color: var(--fd-forest); font-size: 1rem; font-weight: 500; }
@@ -103,6 +103,7 @@
   .workflow-check strong { font-size: 10pt; }
   .workflow-check > span > span { margin-top: .25rem; font-size: 9pt; }
   .workflow-decision { padding: 1rem 0; break-before: page; }
+  .workflow-conversation { padding: 1rem 0; break-inside: avoid; }
   .workflow-decisions > div { padding-block: .625rem; break-inside: avoid; }
   .workflow-decisions dt, .workflow-decisions dd { font-size: 10pt; }
   .workflow-limit { padding: .75rem; margin-block: 1rem; }
