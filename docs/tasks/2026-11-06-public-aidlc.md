@@ -1,11 +1,11 @@
 # Explain AI-DLC adoption on the website
 
-- Status: review
+- Status: done
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
 - Branch: hadi/public-aidlc-approach
 - Updated: 2026-11-06
-- Verification status: partial
+- Verification status: passed
 - AI-DLC: 1
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/70
 
@@ -44,15 +44,15 @@ Add an anchored section on Approach and a contextual link from the existing publ
 - Profile: express
 - Depth: Minimal
 - Rationale: A bounded content addition using existing section composition. Add intent/scope/practices/planning analysis for truthful placement, with a read-only review. No new Lab publication or application feature is required.
-- Current phase: operation
+- Current phase: complete
 - Gate basis: Hadi explicitly requested the public explanation and delegated placement; existing authority covers checked implementation/publication. No fresh approval is invented.
-- Operation status: Implementation ed78328 is pushed in PR 71. Required exact-head checks must pass before merge; observe the main-triggered Pages output separately. No manual deployment or new service.
+- Operation status: Source and public-content verification are complete under standing authority. PR 71 head 1ca096b passed all required checks with empty feedback. This documentation closeout must pass the same protected exact-head gate before merge. PR history owns the final merge receipt; observe main-triggered Pages separately. No manual deployment or new service.
 
 | Stages | Disposition | Evidence or reason |
 | --- | --- | --- |
 | delivery-planning, intent-capture, practices-discovery, requirements-analysis, reverse-engineering, scope-definition, state-init, workspace-detection, workspace-scaffold | complete | Requested section, existing page contracts, implemented adoption and canonical sources inspected; criteria and placement recorded. |
 | code-generation, build-and-test | complete | Anchored section, Work link and map implemented. Shared gate, browser/print review and independent claims review passed. |
-| deployment-pipeline, feedback-optimization | planned | Exact-head required GitHub checks and protected publication remain. |
+| deployment-pipeline, feedback-optimization | complete | Source head 1ca096b passed required push/PR checks with empty feedback. Publication and observation handoff are recorded; the final documentation head remains protected before merge. |
 | approval-handoff, ci-pipeline, contract-design, deployment-execution, domain-design, environment-provisioning, feasibility, functional-design, incident-response, infrastructure-design, market-research, nfr-design, nfr-requirements, observability-setup, performance-validation, refined-mockups, rough-mockups, team-formation, units-generation, user-stories | skipped | Bounded public explanation of an existing method: no new product, experiment, UI system, application logic, infrastructure or manual deployment. Existing section styles and named owner suffice. |
 
 ## Traceability
@@ -63,7 +63,7 @@ Add an anchored section on Approach and a contextual link from the existing publ
 | A2 | U1: scoped adoption explanation | Independent read-only source review found no corrections; copy matches decision 0016 and actual adaptation. | pass |
 | A3 | U1: publishing-system cross-link and source attribution | Native link round trip passed; primary attribution checked; shared SEO/GEO gate passed. Canonical routes remain unchanged. | pass |
 | A4 | U1: existing static section styles | Chromium: 8 width/text layouts, native keyboard round trip, no-JS reading and 0 axe violations. Printed section visually inspected intact on page 4 of a five-page A4 export. | pass |
-| A5 | Shared gate and protected PR publication | Local/full and exact-head GitHub checks planned. | pending |
+| A5 | Shared gate and protected PR publication | Full local gate and independent review passed; foundation, runtime-bootstrap and seo-geo passed on 1ca096b in both push/PR runs with no unresolved feedback. Final documentation head must clear the same gate before merge. | pass |
 
 ## Decisions
 
@@ -85,12 +85,18 @@ Independent source/claims review found no concrete changes needed. Shared gate p
 
 Implementation `ed78328` is committed and pushed through [PR 71](https://github.com/HadiAbouDaya/fidret/pull/71), linked to [Issue 70](https://github.com/HadiAbouDaya/fidret/issues/70). The source and public output match the local/rendered verification above. This documentation checkpoint records the actual remote action; it passes foundation validation. Exact-head required GitHub checks and unresolved review state remain before merge. No live release is claimed.
 
+### Verified public explanation and closeout
+
+Live GitHub inspection on 6 November 2026 confirmed exact head `1ca096b6e8aa46046dedfc5b698d7ff29d0e4bc7` passed `foundation`, `runtime-bootstrap` and `seo-geo` in both [push](https://github.com/HadiAbouDaya/fidret/actions/runs/42238973495) and [pull-request](https://github.com/HadiAbouDaya/fidret/actions/runs/42238989069) runs. GitHub reports CLEAN merge state; reviews, comments and unresolved threads are empty. This establishes completion of the implementation/verification scope under Hadi's request and standing authority.
+
+This final documentation revision changes no public output. Foundation validation and all 55 focused foundation/AI-DLC tests pass locally. Its current-head required GitHub checks still need to pass before merge. PR 71's merge commit/time and Issue 70's closure provide the final publication receipts; they are not invented in advance here. The protected workflow is the next action, with no further source or completion-record edit planned. Actual production observation remains separate from these implementation checks.
+
 ## Handoff
 
-- Checkpoint: content, contextual link, metadata and map implemented. Independent review, responsive/keyboard/fallback/print inspection and full local gate passed.
-- Remaining work: publish PR, verify required exact-head checks/reviews, finalize completion record and merge; observe production separately.
-- Next action: inspect PR 71 current-head required GitHub checks and unresolved feedback, record completion and merge when cleared.
-- Blockers: none.
-- Acceptance basis: explicit user request, delegated placement and standing publication authority.
-- Publication: implementation committed as ed78328, pushed to hadi/public-aidlc-approach and opened as PR 71. The PR identifies its current documentation head. No merge or new live release verified yet.
-- Last verified: 2026-11-06, clean main 3239b2e before branch; current source/adoption context inspected. Baseline and combined gates, focused rendered checks and source review passed. PR 71 exact-head checks and live release not yet verified.
+- Checkpoint: public explanation, contextual Work link and metadata are complete, independently reviewed and verified locally and on GitHub source head 1ca096b. Implementation accepted under standing authority; final documentation closeout awaits protected publication.
+- Remaining work: no implementation criteria remain. Verify final documentation-head checks and unchanged review state, merge PR 71, then observe the actual public release separately.
+- Next action: merge PR 71 when final-head checks pass, without another source/closeout edit. Confirm the merge and Issue 70 closure; check Approach and publishing-system live output and report observed release state.
+- Blockers: none; final-head CI execution is the remaining publication gate.
+- Acceptance basis: Hadi's explicit request and delegated placement, plus standing authorization for verified implementation and protected PR merge. No human usability approval or measured benefit is claimed.
+- Publication: implementation ed78328 and checkpoint 1ca096b pushed to hadi/public-aidlc-approach in PR 71. The PR identifies its final documentation head. Merge receipt belongs to PR history. No merge or live release claimed in advance.
+- Last verified: 2026-11-06, local shared gate (zero diagnostics, 67 Node tests, 122 Python tests), eight Chromium layout/text checks, native keyboard/fallback, axe, print and independent source review passed. Exact 1ca096b passed all required remote checks with empty feedback. Closeout foundation/55-test checks passed; its exact-head CI and live output remain to inspect.
