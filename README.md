@@ -58,7 +58,7 @@ pnpm install --frozen-lockfile
 pnpm check
 ```
 
-The clone command is for a fresh machine after these changes are published. This session's checkout is already at `/home/oem/Hadi/Work/Fidret/fidret`; see the [initial setup record](docs/collaboration/setup.md) for its recovery and verification details.
+Use the clone command for a fresh checkout. The [initial setup record](docs/collaboration/setup.md) retains historical recovery and verification details.
 
 If the `pnpm` launcher already exists, skip `corepack enable`. For a Corepack shim, keep the `COREPACK_HOME` export in each new shell and run `corepack install` after changing the package-manager pin. This places Corepack's separate manager cache under ignored `.local/`, alongside pnpm's project-local stores/caches, and avoids requiring writable home-directory caches. A standalone pnpm installation can use the normal frozen install directly. First setup needs the registry and official Node archives; unavailable network access is a failed setup, not permission to relax checks.
 
@@ -76,8 +76,7 @@ pnpm exec playwright install --only-shell chromium
 pnpm test:browser
 ```
 
-`pnpm test:browser` builds current output, serves it on a temporary loopback port and checks delayed enhancement, reading/focus, history, exact-condition links, completion and finder recovery. It uses no production page or credentials. The existing `foundation` CI job also runs these checks after its shared gate. Cloudflare's build command remains browser-free. On a Linux machine missing browser libraries, use Playwright's documented dependency installation for that machine; the ephemeral CI runner installs them explicitly. Browser binaries are ignored local tooling, not published assets. These checks supplement manual visual, assistive-technology and real-reader review.
-
+`pnpm test:browser` builds current output, serves it on a temporary loopback port and checks delayed enhancement, reading/focus, history, exact-condition links, completion and finder recovery. It uses no production page or credentials. The existing `foundation` CI job also runs these checks after its shared gate. Cloudflare's build command remains browser-free. On a Linux machine missing browser libraries, use Playwright's documented dependency installation for that machine; the ephemeral CI runner installs them explicitly. Normal dependency setup can install the development driver package; browser binaries are installed explicitly for local review or CI and remain ignored tooling, not published assets. These checks supplement manual visual, assistive-technology and real-reader review.
 
 ## Current state
 

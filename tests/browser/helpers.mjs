@@ -28,7 +28,7 @@ export async function startSite() {
   await stat(resolve(root, 'index.html')); // Fail clearly if the build is missing.
   // Reuse the built site's global CSP/security policy, not a permissive test policy.
   const headersFile = await readFile(resolve(root, '_headers'), 'utf8');
-  const globalBlock = headersFile.split(/\r?\n\s*\r?\n/).find(block => block.startsWith('/*\n'));
+  const globalBlock = headersFile.split(/\r?\n\s*\r?\n/).find(block => /^\/\*\r?\n/.test(block));
   assert.ok(globalBlock, 'built _headers contains the global response policy');
   const policy = Object.fromEntries(globalBlock.split('\n').slice(1).filter(line => line.trim()).map(line => {
     const colon = line.indexOf(':');
