@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/lab-loading-continuity
+- Branch: hadi/assistive-reading-review
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -105,12 +105,22 @@ A subsequent read-all/fallback axe scan exposed duplicate result-region names th
 
 PR 55 merged as 8bb8984d3d1fdf6b7089a2534ae5e8267808ebd1 after required checks passed on exact head ff2227e8f93ad9164da3aff522a25e9f001b61b8 with no unresolved reviews. Its live output subsequently matched the preserved third build on the same 15-route comparison used for PR 54. All three completed increments are now merged and verified live.
 
+### Fifth increment: assistive reading review
+
+PR 56 merged as 141fad61868f6d0f17eb0dc213471e30f533cc98 at 00:58 UTC after the exact aa9aff75c83f09a4bbcb6dd5e2ee625a9c055cae head passed foundation, runtime-bootstrap and seo-geo with no review threads. The subsequent 01:06 UTC comparison verified its live output on 15 routes and empty-fragment Back behavior in both workspaces.
+
+Root now owns an isolated Linux assistive-technology check and this task/verification record on `hadi/assistive-reading-review`. Review tooling uses a private display, D-Bus accessibility session, temporary browser profile, task-specific XDG directories and explicitly isolated silent speech output. It does not install project dependencies or change the user's desktop settings. A read-only agent researches the installed speech configuration. Inspect actual Orca-generated utterances for discovery, native details, Lab controls, result changes and history/focus. Record log inspection separately from actual listening and participant feedback. Change public source only for a reproduced finding, keeping the existing design/search/runtime boundaries. No screen-reader result is established by setup feasibility.
+
+The private Orca/Firefox comparison reproduced dropped result/reset announcements and misleading “clickable” situation headings. An explicit polite atomic region delivered the same messages in the tested changed-condition/reset cases. Binding click handlers to their actual links/buttons removed the false heading action. Topic/situation count changes also reached Orca with explicit polite regions. Root additionally owns LabExperience.astro, ScenarioLibrary.astro, the two engineering-note templates and lab-experience.js for this bounded correction. Preserve content, models, history, visible layout and runtime limits; verify all six enhanced routes, keyboard/fallback behavior and the full gate. This is generated-utterance evidence, not listening or human usability feedback.
+
+The fifth correction passed the full shared gate, an independent source review and targeted three-engine navigation/filter/fallback checks. The final native-input Orca comparison inspected 18 expected announcements across six Lab routes: all appeared with the correction, versus none in the compared baseline. Both workspace headings lost the false “clickable” announcement. Generated text output is recorded separately from listening and human usability feedback. The detailed verification retains setup/backend limitations and excludes unreliable early harness trials.
+
 ## Handoff
 
-- Checkpoint: first three increments merged and verified live. Fourth loading-continuity correction passed the final shared gate, targeted browser verification across three engines, four read-all/fallback axe scans and visual review. PR 56 is open.
-- Remaining work: publish/merge the fourth correction and verify it live; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: inspect PR 56's exact-head required checks and reviews, then merge and verify its live release. An isolated Linux screen-reader check is a feasible next verification step; no such check or listening has occurred yet.
+- Checkpoint: four increments merged and verified live. Fifth assistive-reading correction passed the full gate, source review, three-engine browser checks and bounded native-input Orca comparison; committed in 22c358d and published through PR 57.
+- Remaining work: publish/merge the fifth correction and verify it live; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
+- Next action: inspect PR 57's exact-head required runs/reviews, merge and verify live output. Continue useful work within the eight-hour session. Listening and human reader testing remain unperformed.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa and verified live on 15 routes. Third increment merged through [PR 55](https://github.com/HadiAbouDaya/fidret/pull/55) as 8bb8984 and verified live on 15 routes. Fourth branch `hadi/lab-loading-continuity` is pushed with [PR 56](https://github.com/HadiAbouDaya/fidret/pull/56), including source correction 118e6d2 and a normal merge from main. No fourth merge/live publication yet. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
-- Last verified: 2026-11-06, fourth-increment final shared gate (zero diagnostics, 67 Node tests, 104 Python tests), three-engine loading/focus/fallback/state/reference/print checks and additional WebKit layout coverage. Third-increment exact-head required GitHub checks, review state and live output passed separately. See the linked verification record for coverage and limits.
+- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa and verified live on 15 routes. Third increment merged through [PR 55](https://github.com/HadiAbouDaya/fidret/pull/55) as 8bb8984 and verified live on 15 routes. Fourth correction merged through [PR 56](https://github.com/HadiAbouDaya/fidret/pull/56) as 141fad6 and its live output is verified on 15 routes. Fifth source correction 22c358d is pushed on `hadi/assistive-reading-review` with [PR 57](https://github.com/HadiAbouDaya/fidret/pull/57). Its required GitHub checks are pending; no fifth merge or live publication yet. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
+- Last verified: 2026-11-06, fifth-increment shared gate (zero diagnostics, 67 Node tests, 104 Python tests), three-engine navigation/filter/fallback/layout checks, six axe scans, visual inspection and 18 expected Orca announcements across six routes. Fourth-increment exact-head required GitHub checks, review state and live output passed separately. See the linked verification record for coverage and limits.

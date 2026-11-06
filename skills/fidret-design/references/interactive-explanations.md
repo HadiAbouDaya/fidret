@@ -20,6 +20,8 @@ Name the reader's question and the artifact that answers it: the exact candidate
 
 Inspect the same task with keyboard, phone, enlarged text and direct links. Check the changed artifact, result, status announcement and focus together. Native controls are a sound default for categorical facts; dragging and continuous motion need a specific purpose and equivalent access. Do not fabricate physical dynamics or confidence metrics to make a teaching model appear more realistic.
 
+Inspect actual assistive-technology output where available. A changed result, reset or filtered count needs a polite announcement without moving selection focus. Attach click handlers to their actual controls so ordinary headings and prose are not presented as clickable. A passing DOM or axe check does not establish that a screen reader delivered an announcement.
+
 Review composite diagrams through their accessible structure as well as their appearance. An atomic image must not contain hidden interactive descendants. Link names include their visible text; named scroll regions have working keyboard access. Check meaningful selected/changed states in forced colors.
 
 Print a page with its initial disclosures closed and inspect the result. All evidence cases, table columns and diagram boundaries must remain available. Restore the reader's previous disclosure and situation state after printing. A print-media screen capture alone does not verify pagination or PDF completeness.
