@@ -432,6 +432,34 @@ for (const path of workspaces) {
 }
 
 for (const javaScriptEnabled of [true, false]) {
+  test(`farm plan has a visible native keyboard path with JavaScript ${javaScriptEnabled}`, options, async () => {
+    await withPage(browser, site, {viewport: {width: 320, height: 844}, javaScriptEnabled}, async page => {
+      await page.goto(`${site.origin}/lab/autonomous-farm/blueprint/`);
+      if (javaScriptEnabled) await ready(page, '[data-topic-finder]');
+      else await layoutReady(page);
+      const region = page.locator('.farm-map-scroll');
+      const links = page.locator('.farm-map-links a');
+      assert.equal(await links.count(), 6);
+      // Start at the named diagram scroll region, then use native sequential
+      // navigation without scrolling or focusing the expected destinations.
+      await region.focus();
+      for (let index = 0; index < 6; index++) {
+        await page.keyboard.press('Tab');
+        await assertFocusVisible(links.nth(index), 'each diagram destination has visible HTML-link focus');
+      }
+      for (let index = 4; index >= 0; index--) {
+        await page.keyboard.press('Shift+Tab');
+        await assertFocusVisible(links.nth(index), 'reverse navigation follows the same visible links');
+      }
+      await page.keyboard.press('Shift+Tab');
+      await assertFocusVisible(region, 'reverse navigation returns to the keyboard-scrollable plan');
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Enter');
+      await page.waitForURL(`${site.origin}/lab/autonomous-farm/blueprint/#water`);
+      await inViewport(page.locator('#water'));
+    });
+  });
+
   test(`former farm scenario selector is a native collection anchor with JavaScript ${javaScriptEnabled}`, options, async () => {
     await withPage(browser, site, {viewport: phone, javaScriptEnabled}, async page => {
       await page.goto(`${site.origin}/lab/autonomous-farm/scenario-desk/#scenario-selector`);
