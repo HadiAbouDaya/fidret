@@ -46,7 +46,7 @@ Add an anchored section on Approach and a contextual link from the existing publ
 - Rationale: A bounded content addition using existing section composition. Add intent/scope/practices/planning analysis for truthful placement, with a read-only review. No new Lab publication or application feature is required.
 - Current phase: operation
 - Gate basis: Hadi explicitly requested the public explanation and delegated placement; existing authority covers checked implementation/publication. No fresh approval is invented.
-- Operation status: Publish through the existing protected PR and main-triggered Pages path. No manual deployment or new service.
+- Operation status: Implementation ed78328 is pushed in PR 71. Required exact-head checks must pass before merge; observe the main-triggered Pages output separately. No manual deployment or new service.
 
 | Stages | Disposition | Evidence or reason |
 | --- | --- | --- |
@@ -81,12 +81,16 @@ A read-only print inspection generated a five-page A4 export with disclosures in
 
 Independent source/claims review found no concrete changes needed. Shared gate passed; git diff --check passed. Comparison to the preserved pre-adoption public-output hashes finds exactly two changed HTML files (Approach and publishing-system Work), no added/removed paths, and identical other 61 files including styles/assets. Canonical IDs, article authors/dates, sitemap/AI discovery and runtime are unchanged. Approach description now accurately includes AI-DLC. No new tests mirror the reversible copy; existing release contracts plus concrete rendered checks cover the affected behavior.
 
+### Publication checkpoint
+
+Implementation `ed78328` is committed and pushed through [PR 71](https://github.com/HadiAbouDaya/fidret/pull/71), linked to [Issue 70](https://github.com/HadiAbouDaya/fidret/issues/70). The source and public output match the local/rendered verification above. This documentation checkpoint records the actual remote action; it passes foundation validation. Exact-head required GitHub checks and unresolved review state remain before merge. No live release is claimed.
+
 ## Handoff
 
 - Checkpoint: content, contextual link, metadata and map implemented. Independent review, responsive/keyboard/fallback/print inspection and full local gate passed.
 - Remaining work: publish PR, verify required exact-head checks/reviews, finalize completion record and merge; observe production separately.
-- Next action: publish the verified change and inspect required GitHub checks on its current head.
+- Next action: inspect PR 71 current-head required GitHub checks and unresolved feedback, record completion and merge when cleared.
 - Blockers: none.
 - Acceptance basis: explicit user request, delegated placement and standing publication authority.
-- Publication: local task branch only; no source commit, PR, merge or new live release yet.
-- Last verified: 2026-11-06, clean main 3239b2e before branch; current source/adoption context inspected. Baseline and combined gates, focused rendered checks and source review passed. Remote publication checks and live release not yet verified.
+- Publication: implementation committed as ed78328, pushed to hadi/public-aidlc-approach and opened as PR 71. The PR identifies its current documentation head. No merge or new live release verified yet.
+- Last verified: 2026-11-06, clean main 3239b2e before branch; current source/adoption context inspected. Baseline and combined gates, focused rendered checks and source review passed. PR 71 exact-head checks and live release not yet verified.
