@@ -50,6 +50,11 @@ function renderWorkspace(scene, table, key) {
 function enhanceJourney(root) {
   const scenes = [...root.querySelectorAll('[data-scene]')];
   const keys = scenes.map(scene => scene.dataset.key);
+  // A late module must not replace a situation someone has started reading.
+  const readerFocus = root.contains(document.activeElement) && document.activeElement.closest('[data-scene],.journey-progress,#story-complete');
+  const keepReading = Boolean(readerFocus || root.querySelector('[data-scene] details[open]') || (!location.hash && scenes[0].getBoundingClientRect().top < 0));
+  const readingAnchor = keepReading ? (readerFocus ? document.activeElement : document.elementFromPoint(innerWidth/2,innerHeight/2)?.closest('p,h2,h3,summary,li,figure,.workspace-stage')) : null;
+  const readingTop = root.contains(readingAnchor) ? readingAnchor.getBoundingClientRect().top : null;
   const tables = new Map(scenes.map(scene => {
     const table = JSON.parse(scene.dataset.model);
     const controls = [...scene.querySelectorAll('[data-model-input]')];
@@ -61,14 +66,16 @@ function enhanceJourney(root) {
   }));
   const navigation = [...root.querySelectorAll('.journey-progress a')];
   let printing = false;
-  const render = (hash, focus = false) => {
-    const complete = hash === '#story-complete';
-    root.querySelector('#story-complete').hidden = !complete && hash !== '#read-all';
+  const render = (hash, focus = false, keepAll = false) => {
+    const previousFocus = root.contains(document.activeElement) ? document.activeElement : null;
+    const complete = hash === '#story-complete' && !keepAll;
     const state = parseJourneyHash(hash,keys);
-    root.dataset.reading = complete ? 'complete' : state.all ? 'all' : 'scene';
-    scenes.forEach(scene => { scene.hidden = complete || (!state.all && scene.dataset.key !== state.key); });
+    const all = state.all || keepAll;
+    root.querySelector('#story-complete').hidden = !complete && !all;
+    root.dataset.reading = complete ? 'complete' : all ? 'all' : 'scene';
+    scenes.forEach(scene => { scene.hidden = complete || (!all && scene.dataset.key !== state.key); });
     navigation.forEach(link => {
-      if (!state.all && !complete && link.hash === `#scene-${state.key}`) link.setAttribute('aria-current','step');
+      if (!all && !complete && link.hash === `#scene-${state.key}`) link.setAttribute('aria-current','step');
       else link.removeAttribute('aria-current');
     });
     const picker=root.querySelector('[data-scene-select]');
@@ -79,8 +86,8 @@ function enhanceJourney(root) {
       const key = token && Object.hasOwn(tables.get(scene),token) ? token : scene.dataset.initial;
       renderWorkspace(scene,tables.get(scene),key);
     }
-    if (focus) {
-      const target = complete ? root.querySelector('#story-complete') : state.all ? root.querySelector('#read-all') : scene.querySelector('h2');
+    if (focus || (previousFocus && !previousFocus.getClientRects().length)) {
+      const target = complete ? root.querySelector('#story-complete') : all ? root.querySelector('#read-all') : scene.querySelector('h2');
       target.tabIndex = -1;
       target.focus({preventScroll:true});
       (target.closest('[data-scene]') || target).scrollIntoView({block:'start',behavior:'instant'});
@@ -131,14 +138,15 @@ function enhanceJourney(root) {
   window.addEventListener('beforeprint',() => { printing=true; scenes.forEach(scene => { printedScenes.set(scene,scene.hidden); scene.hidden=false; scene.querySelectorAll('details').forEach(d => { printed.set(d,d.open); d.open=true; }); }); });
   window.addEventListener('afterprint',() => { printed.forEach((open,d) => { d.open=open; }); printed.clear(); printedScenes.forEach((hidden,scene) => {scene.hidden=hidden;}); printedScenes.clear(); printing=false; });
   scenes.forEach(scene => renderWorkspace(scene,tables.get(scene),scene.dataset.initial));
-  render(location.hash);
+  render(location.hash,false,keepReading);
   root.querySelectorAll('[data-only-enhanced]').forEach(control => { control.hidden=false; });
-  root.querySelectorAll('[data-static-answer]').forEach(answer => { answer.hidden=true; });
+  root.querySelectorAll('[data-static-answer],[data-static-context]').forEach(answer => { answer.hidden=true; });
   root.dataset.enhanced='true';
-  if (location.hash.startsWith('#scene-')) render(location.hash,true);
+  if (!keepReading && location.hash.startsWith('#scene-')) render(location.hash,true);
   const explanation = new URLSearchParams(location.search).get('explain');
   const active = scenes.find(scene => !scene.hidden && scene.dataset.key===explanation);
   if (active) active.querySelector('details').open=true;
+  if (readingTop !== null) window.scrollBy({top:readingAnchor.getBoundingClientRect().top-readingTop,behavior:'instant'});
 }
 
 function enhanceFinder(root) {
@@ -207,7 +215,7 @@ if (typeof document !== 'undefined') {
         try { renderWorkspace(scene,JSON.parse(scene.dataset.model),scene.dataset.initial); } catch {}
         scene.hidden=false;
       });
-      root.querySelectorAll('[data-static-answer]').forEach(node => { node.hidden=false; });
+      root.querySelectorAll('[data-static-answer],[data-static-context]').forEach(node => { node.hidden=false; });
       root.querySelectorAll('[data-only-enhanced]').forEach(node => { node.hidden=true; });
       root.querySelector('#story-complete').hidden=false;
       delete root.dataset.reading; delete root.dataset.enhanced;

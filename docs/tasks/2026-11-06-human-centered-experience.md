@@ -3,7 +3,7 @@
 - Status: active
 - Human owner: Hadi Abou Daya
 - Agent or harness: Codex in T3 Code
-- Branch: hadi/discovery-flow
+- Branch: hadi/lab-loading-continuity
 - Updated: 2026-11-06
 - Verification status: partial
 - Issue: https://github.com/HadiAbouDaya/fidret/issues/52
@@ -93,12 +93,24 @@ Meanwhile PR 54 merged as c2784fa7cfd50542562b77e817e23cbca923c7a2 after all thr
 
 The subsequent 00:18 UTC live check verified the second release on 15 canonical routes. Metadata/styles matched preserved output on all routes; bodies matched on 11 static pages; model/prompt data and scenario text matched on the four enhanced pages. Both live exact-condition examples retained expected responses and share state. The third increment is published in PR 55 and awaits its own required checks.
 
+### Fourth increment: preserve reading when enhancement arrives
+
+Work continues from ff2227e on `hadi/lab-loading-continuity`. A delayed-module browser reproduction confirmed that opening the second farm explanation before the controller arrives causes initialization to hide that scene, move focus from its summary to the document body and change the scroll position. The starting HTML is useful, but enhancement must not erase a visitor's progress. A read-only source review also identified empty-fragment Back navigation and the lack of a clear starting-example statement in shared-link fallback as targeted checks.
+
+Root owns the bounded controller, LabExperience.astro, directly related workspace CSS/tests, architecture/craft guidance if affected, and this task. The fix must preserve an active reader's focus/open explanation and context, keep ordinary first-entry and exact-condition links working, and make fallback conditions explicit. No model policy, route, dependency, network/storage behavior or runtime budget expansion is authorized by this correction. Verify the delayed handover in available browser engines, empty-hash Back/Forward, exact sharing, disabled/failed modules, print restoration and the full gate. A separate WebKit installation is isolated review tooling, not a project dependency.
+
+The correction now preserves active reading, repairs both attribute-hidden and CSS-hidden focus, and explains starting-condition fallback. Chromium, Firefox 159 and WebKit 27.2 passed 48 delayed-handover cases, 12 normal/delayed exact-link cases, 18 fallback cases, history/focus checks on both workspaces, all 207 model-state comparisons and six reference/reset round trips. Both printed workspaces were inspected with screen state restored. Additional WebKit coverage passed 64 layouts plus native/no-JavaScript checks. An independent source review prompted the reproduced CSS-hidden focus correction; its separate native-anchor concern was not reproduced in the three bounded browser checks. The final shared gate passed with zero diagnostics, 67 Node tests and 104 Python tests. The controller stays within its existing 16 KB source limit and six-route boundary.
+
+A subsequent read-all/fallback axe scan exposed duplicate result-region names that single-situation scans had missed. The result's accessible name now includes its situation heading as well as its response. This best-practice finding is separate from screen-reader listening. All four affected scans then passed, the phone states were inspected, and the final shared gate passed again for this semantic correction.
+
+PR 55 merged as 8bb8984d3d1fdf6b7089a2534ae5e8267808ebd1 after required checks passed on exact head ff2227e8f93ad9164da3aff522a25e9f001b61b8 with no unresolved reviews. Its live output subsequently matched the preserved third build on the same 15-route comparison used for PR 54. All three completed increments are now merged and verified live.
+
 ## Handoff
 
-- Checkpoint: first and second increments merged and verified live. Third discovery-flow increment passed local checks and is open in PR 55.
-- Remaining work: merge and verify the third increment; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
-- Next action: inspect PR 55's exact-head required checks and reviews, merge when ready, and complete live-release verification against preserved build output.
+- Checkpoint: first three increments merged and verified live. Fourth loading-continuity correction passed the final shared gate, targeted browser verification across three engines, four read-all/fallback axe scans and visual review.
+- Remaining work: publish/merge the fourth correction and verify it live; continue useful mission-aligned improvements within the authorized eight-hour session. Human reader testing remains pending, with its protocol prepared.
+- Next action: publish the loading-continuity correction through its own PR, inspect exact-head required checks and reviews, then merge and verify its live release.
 - Blockers: none for implementation. Human participant recruitment and screen-reader listening cannot be represented by agent review.
 - Acceptance basis: Hadi's explicit approval and standing publication authorization.
-- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa and verified live on 15 routes. Third branch `hadi/discovery-flow` is pushed with [PR 55](https://github.com/HadiAbouDaya/fidret/pull/55); no third merge or live publication yet. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
-- Last verified: 2026-11-06, third-increment local gate (zero diagnostics, 67 Node tests, 104 Python tests), 68 layouts, six axe scans, keyboard paths and printed gallery. Second-increment exact-head required GitHub checks, review state and live output passed separately. PR 55 required checks are pending. See the linked verification record for coverage and limits.
+- Publication: first increment merged through PR 53 as 87f8e63 and verified live on 11 routes. Second increment merged through [PR 54](https://github.com/HadiAbouDaya/fidret/pull/54) as c2784fa and verified live on 15 routes. Third increment merged through [PR 55](https://github.com/HadiAbouDaya/fidret/pull/55) as 8bb8984 and verified live on 15 routes. Fourth branch `hadi/lab-loading-continuity` is local. [Issue 52](https://github.com/HadiAbouDaya/fidret/issues/52) remains active for the session.
+- Last verified: 2026-11-06, fourth-increment final shared gate (zero diagnostics, 67 Node tests, 104 Python tests), three-engine loading/focus/fallback/state/reference/print checks and additional WebKit layout coverage. Third-increment exact-head required GitHub checks, review state and live output passed separately. See the linked verification record for coverage and limits.
