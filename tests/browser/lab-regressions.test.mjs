@@ -250,6 +250,8 @@ for (const {path, library} of finders) {
         assert.equal(await input.inputValue(), '', 'situation deep link clears the conflicting search');
         assert.equal(await finder.locator('[data-filter="all"]').getAttribute('aria-pressed'), 'true', 'situation deep link resets category');
         assert.equal(await finder.locator('[data-find-item]:visible').count(), count, 'situation deep link restores the collection');
+        // Opening happens before deferred focus repairs native scroll restoration.
+        await page.waitForFunction(id => document.activeElement === document.getElementById(id)?.querySelector('summary'), hash.slice(1));
         await assertFocusVisible(target.locator('summary'), 'the requested situation receives visible keyboard focus');
       } else {
         // Engineering notes filter only the index, never the actual prose.
