@@ -27,8 +27,8 @@
     "test:browser": "pnpm build && node --test --test-concurrency=1 tests/browser/*.test.mjs"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "7.3.5",
-    "astro": "7.4.4"
+    "@astrojs/markdown-remark": "7.3.6",
+    "astro": "7.4.7"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
